@@ -5,7 +5,7 @@ import java.util.List;
 
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 
-public class Magazine_DaoImpl implements CommonDao<Magazine_Vo>{
+public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 
 	@Override
 	public List<Magazine_Vo> selectAll() throws SQLException {

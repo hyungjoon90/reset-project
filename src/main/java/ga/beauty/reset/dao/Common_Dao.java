@@ -4,9 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-import ga.beauty.reset.dao.CommonDao;
+import ga.beauty.reset.dao.Common_Dao;
 
-public interface CommonDao<C> {
+public interface Common_Dao<C> {
 
 	List<C> selectAll() throws SQLException;
 	void insertOne(C bean) throws SQLException;

@@ -68,9 +68,30 @@
     <!-- main contents -->
     <div class="page_container">
         <hr>
-            <div>
-                <h1>내용</h1>
+            <!-- 내용 입력 -->
+            <!-- list-page 입니다. -->
+            <c:forEach items="${alist }" var="bean">
+            <div class="list-group">
+            	<div class="row">
+				  <div class="col-sm-6 col-md-4">
+				    <div class="thumbnail">
+				      <img src="${bean.img}" alt="main_img">
+				      <div class="caption">
+				        <h3>${bean.title}</h3>
+				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
+				      </div>
+				    </div>
+				  </div>
+				</div>
             </div>
+            <!-- detail-page 입니다. -->
+            <div class="detail-page">
+            
+            </div>
+			</c:forEach>
+            
+            
+			<!-- 내용 끝 -->
         <hr>
     </div>
     <!-- //main contents -->

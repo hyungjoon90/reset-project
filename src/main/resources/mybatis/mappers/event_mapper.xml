@@ -3,16 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="event">
-  	<select id="selectAll" resultType="EventVo">
-  		SELECT IMG,TITLE,CON,TAGS,NALJA,POP,VIEW FROM EVENT ORDER BY EVE_NO;
+ 	<select id="selectAll" resultType="Event_Vo">
+  		SELECT * FROM EVENT ORDER BY EVE_NO
   	</select>
-  	<select id="insertOne" parameterType="EventVo">
-  		INSERT INTO `mydb`.`event` (`img`, `title`, `con`, `tags`) VALUES (#{img},#{title},#{con},#{tags})
+  	<select id="insertOne" parameterType="Event_Vo">
+  		INSERT INTO EVENT (IMG, TITLE, CON, TAGS) VALUES (#{img},#{title},#{con},#{tags})
   	</select>
-  	<select id="updateOne" parameterType="EventVo">
-  		update event set img=#{img},title=#{title},con=#{con},tags=#{tags} where eve_no=#{eve_no}
+  	<select id="updateOne" parameterType="Event_Vo">
+  		UPDATE EVENT SET IMG=#{IMG},TITLE=#{TITLE},CON=#{CON},TAGS=#{TAGS} WHERE EVE_NO=#{EVE_NO}
   	</select>
-  	<select id="deleteOne" parameterType="int">
-  		delete from event where eve_no=#{eve_no}
+  	<select id="deleteOne" parameterType="Event_Vo">
+  		DELETE FROM EVENT WHERE EVE_NO=#{EVE_NO}
   	</select>
   </mapper>

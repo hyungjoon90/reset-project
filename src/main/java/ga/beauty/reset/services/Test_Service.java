@@ -1,6 +1,6 @@
 package ga.beauty.reset.services;
 
-public interface LoginService {
+public interface Test_Service {
 
 	public void login();
 	public void logout();

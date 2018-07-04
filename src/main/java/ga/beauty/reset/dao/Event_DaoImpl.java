@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import ga.beauty.reset.dao.entity.Event_Vo;
 
 @Repository
-public class Event_DaoImpl implements CommonDao<Event_Vo>{
+public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 	@Autowired
 	SqlSession sqlSession;
 	
@@ -18,12 +18,6 @@ public class Event_DaoImpl implements CommonDao<Event_Vo>{
 	public List<Event_Vo> selectAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("event.selectAll");
-	}
-
-	@Override
-	public Event_Vo selectOne(Event_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("event.selectOne");
 	}
 
 	@Override
@@ -42,6 +36,12 @@ public class Event_DaoImpl implements CommonDao<Event_Vo>{
 	public int deleteOne(Event_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("event.deleteOne", bean);
+	}
+
+	@Override
+	public Event_Vo selectOne(Event_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

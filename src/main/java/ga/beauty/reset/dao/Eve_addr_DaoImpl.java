@@ -5,7 +5,7 @@ import java.util.List;
 
 import ga.beauty.reset.dao.entity.Eve_addr_Vo;
 
-public class Eve_addr_DaoImpl implements CommonDao<Eve_addr_Vo>{
+public class Eve_addr_DaoImpl implements Common_Dao<Eve_addr_Vo>{
 
 	@Override
 	public List<Eve_addr_Vo> selectAll() throws SQLException {
