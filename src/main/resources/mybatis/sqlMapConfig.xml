@@ -4,6 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
-	<typeAlias type="ga.beauty.reset.dao.entity.TestVo" alias="TestVo" />  
+	<typeAlias type="ga.beauty.reset.dao.entity.Test_Vo" alias="TestVo" />  
+  </typeAliases>
+  <typeAliases>
+	<typeAlias type="ga.beauty.reset.dao.entity.Event_Vo" alias="EventVo" />  
+  </typeAliases>
+  <typeAliases>
+	<typeAlias type="ga.beauty.reset.dao.entity.Eve_addr_Vo" alias="Eve_addrVo" />  
+  </typeAliases>
+  <typeAliases>
+	<typeAlias type="ga.beauty.reset.dao.entity.Magazine_Vo" alias="MagazineVo" />  
   </typeAliases>
 </configuration>

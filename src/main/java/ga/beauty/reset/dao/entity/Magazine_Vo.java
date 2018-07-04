@@ -2,38 +2,43 @@ package ga.beauty.reset.dao.entity;
 
 import java.sql.Date;
 
-public class EventVo {
-	private int eve_no;
-	String img;
-	String title;
-	String con;
-	String tags;
-	Date nalja;
-	int pop;
-	int view;
+public class Magazine_Vo {
+	private int mag_no;
+	private String img;
+	private String title;
+	private String con;
+	private int cate;
+	private String tags;
+	private String writer;
+	private Date nalja;
+	private int pop;
+	private int view;
 	
-	public EventVo() {
+	public Magazine_Vo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EventVo(int eve_no, String img, String title, String con, String tags, Date nalja, int pop, int view) {
+	public Magazine_Vo(int mag_no, String img, String title, String con, int cate, String tags, String writer,
+			Date nalja, int pop, int view) {
 		super();
-		this.eve_no = eve_no;
+		this.mag_no = mag_no;
 		this.img = img;
 		this.title = title;
 		this.con = con;
+		this.cate = cate;
 		this.tags = tags;
+		this.writer = writer;
 		this.nalja = nalja;
 		this.pop = pop;
 		this.view = view;
 	}
 
-	public int getEve_no() {
-		return eve_no;
+	public int getMag_no() {
+		return mag_no;
 	}
 
-	public void setEve_no(int eve_no) {
-		this.eve_no = eve_no;
+	public void setMag_no(int mag_no) {
+		this.mag_no = mag_no;
 	}
 
 	public String getImg() {
@@ -60,12 +65,28 @@ public class EventVo {
 		this.con = con;
 	}
 
+	public int getCate() {
+		return cate;
+	}
+
+	public void setCate(int cate) {
+		this.cate = cate;
+	}
+
 	public String getTags() {
 		return tags;
 	}
 
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public Date getNalja() {
@@ -94,21 +115,24 @@ public class EventVo {
 
 	@Override
 	public String toString() {
-		return "EventVo [eve_no=" + eve_no + ", img=" + img + ", title=" + title + ", con=" + con + ", tags=" + tags
-				+ ", nalja=" + nalja + ", pop=" + pop + ", view=" + view + "]";
+		return "MagazineVo [mag_no=" + mag_no + ", img=" + img + ", title=" + title + ", con=" + con + ", cate=" + cate
+				+ ", tags=" + tags + ", writer=" + writer + ", nalja=" + nalja + ", pop=" + pop + ", view=" + view
+				+ "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + cate;
 		result = prime * result + ((con == null) ? 0 : con.hashCode());
-		result = prime * result + eve_no;
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
+		result = prime * result + mag_no;
 		result = prime * result + pop;
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + view;
+		result = prime * result + ((writer == null) ? 0 : writer.hashCode());
 		return result;
 	}
 
@@ -120,18 +144,20 @@ public class EventVo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EventVo other = (EventVo) obj;
+		Magazine_Vo other = (Magazine_Vo) obj;
+		if (cate != other.cate)
+			return false;
 		if (con == null) {
 			if (other.con != null)
 				return false;
 		} else if (!con.equals(other.con))
 			return false;
-		if (eve_no != other.eve_no)
-			return false;
 		if (img == null) {
 			if (other.img != null)
 				return false;
 		} else if (!img.equals(other.img))
+			return false;
+		if (mag_no != other.mag_no)
 			return false;
 		if (pop != other.pop)
 			return false;
@@ -147,10 +173,13 @@ public class EventVo {
 			return false;
 		if (view != other.view)
 			return false;
+		if (writer == null) {
+			if (other.writer != null)
+				return false;
+		} else if (!writer.equals(other.writer))
+			return false;
 		return true;
 	}
-	
-	
 	
 	
 }

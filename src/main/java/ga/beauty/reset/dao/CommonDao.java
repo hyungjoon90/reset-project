@@ -6,12 +6,12 @@ import java.util.List;
 
 import ga.beauty.reset.dao.CommonDao;
 
-public interface CommonDao {
+public interface CommonDao<C> {
 
-	<C> List<C> selectAll() throws SQLException;
-	<C> void insertOne(C bean) throws SQLException;
-	<C> C selectOne(C bean) throws SQLException;
-	<C> int updateOne(C bean) throws SQLException;
-	<C> int deleteOne(C bean) throws SQLException;
+	List<C> selectAll() throws SQLException;
+	void insertOne(C bean) throws SQLException;
+	C selectOne(C bean) throws SQLException;
+	int updateOne(C bean) throws SQLException;
+	int deleteOne(C bean) throws SQLException;
 	
 }
