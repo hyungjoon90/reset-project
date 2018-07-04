@@ -13,7 +13,7 @@
 </head>
   <body>
   <%
-    String clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
+/*     String clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
     String clientSecret = "13p5vTz404";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
     String state = request.getParameter("state");
@@ -51,7 +51,8 @@
       }
     } catch (Exception e) {
       System.out.println(e);
-    }
+    } */
   %>
+  빈페이지
   </body>
 </html>

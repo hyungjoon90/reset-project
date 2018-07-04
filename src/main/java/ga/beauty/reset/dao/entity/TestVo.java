@@ -2,18 +2,18 @@ package ga.beauty.reset.dao.entity;
 
 import java.sql.Date;
 
-public class Test_Vo {
+public class TestVo {
 
 	private int sabun;
 	private String name;
 	private Date nalja;
 	private int pay;
 	
-	public Test_Vo() {
+	public TestVo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Test_Vo(int sabun, String name, Date nalja, int pay) {
+	public TestVo(int sabun, String name, Date nalja, int pay) {
 		super();
 		this.sabun = sabun;
 		this.name = name;
@@ -55,7 +55,7 @@ public class Test_Vo {
 
 	@Override
 	public String toString() {
-		return "Test_Vo [sabun=" + sabun + ", name=" + name + ", nalja=" + nalja + ", pay=" + pay + "]";
+		return "TestVo [sabun=" + sabun + ", name=" + name + ", nalja=" + nalja + ", pay=" + pay + "]";
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class Test_Vo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Test_Vo other = (Test_Vo) obj;
+		TestVo other = (TestVo) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

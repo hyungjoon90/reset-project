@@ -4,6 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
-	<typeAlias type="ga.beauty.reset.dao.entity.Test_Vo" alias="Test_Vo" />  
+	<typeAlias type="ga.beauty.reset.dao.entity.TestVo" alias="TestVo" />  
   </typeAliases>
 </configuration>
