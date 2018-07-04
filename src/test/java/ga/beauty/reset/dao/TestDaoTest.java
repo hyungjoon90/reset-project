@@ -46,7 +46,7 @@ public class TestDaoTest {
 
 	@Test
 	public void testSelectAll() throws SQLException {
-		List<TestVo> list = sqlSession.getMapper(TestDao.class).selectAll();
+		List<TestVo> list = sqlSession.getMapper(CommonDao.class).selectAll();
 		assertNotNull(list);
 		assertTrue(list.size()>0);
 		System.out.println(list.toString());
