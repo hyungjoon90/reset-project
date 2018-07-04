@@ -11,6 +11,37 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
 	<title>Home</title>
+<style type="text/css">
+    /* 컨텐츠 contatiner */
+	.page_container{
+		width: 100%;
+        border: 0.5px solid rgb(217, 222, 232);
+        /*background-color: gray;*/
+	}
+    div{
+        display: inline-block;
+        float: left;
+    }
+    .numbox{
+        width: 5%;
+        margin: 69px;
+    }
+    .numbox>div{
+        
+    }
+    .contentsbox{
+        width: 100%;
+    }   
+    .imgbox{
+        width: 18%;
+    }
+    p{
+        display: inline-block;
+    }
+    .conbox{
+        width: 20%;
+    }
+</style>
 </head>
 <body>
 	<!--header-->
@@ -37,13 +68,11 @@
                     <ul class="nav">
                       <li class="current"><a href="/reset/">홈</a></li>
                       <li class="top-menu"><a href="/reset/">랭킹</a>
-                      	<div class="space">
 						  <ul class="sub-menu">
 						      <li><a href="./ranking?id=1">스킨</a></li>
 							  <li><a href="./ranking?id=2">로션</a></li>
 							  <li><a href="./ranking?id=3">에센스</a></li>
 						  </ul>
-					    </div>
 					  </li>
                       <li><a href="#">화플</a></li>
                       <li><a href="#">이벤트</a>
@@ -58,13 +87,26 @@
      
     <!-- main contents -->
     <div class="page_container">
-        <hr>
-            <div>
-                <h1>내용</h1>
-            </div>
-        <hr>
-
-       
+    	<c:forEach items="${alist }" var="bean">
+	    <a href="#">
+		<div class="contentsbox">
+			<div class="numbox box">
+			     <div>
+			         <label>${bean.item }</label>
+			     </div>
+			</div>
+			<div class="imgbox box">
+			     <img src="${bean.img }">
+			</div>
+			<div class="conbox box">
+                <p>${bean.brand }<br>
+			    ${bean.name }<br>
+			    ${bean.vol }&nbsp;${bean.price }원
+			    </p>
+			</div>
+		</div>
+        </a>
+       </c:forEach>
     </div>
     <!-- //main contents -->
 

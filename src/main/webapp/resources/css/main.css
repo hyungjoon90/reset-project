@@ -46,7 +46,6 @@
     .sub-menu{
         width: 113px;
         zoom: 1;
-        margin-top: 22px;
         display: none;
         position: absolute;
         list-style: none;
@@ -56,6 +55,15 @@
     }
     .top-menu:hover .sub-menu{
         display: block;
+    }
+    .top-menu:hover .space{
+        position: absolute;
+        padding-top: 22px;
+    }
+    .space{
+        height: 22px;
+        position: absolute;
+        width: 58px;
     }
     .nav>li{
         margin: 0px 10px;
@@ -80,6 +88,8 @@
     /* main contents */
     .page_container{
         height: 100%;
+        width: 80%;
+        margin: 0px auto;
     }
     /* //main contents  */
 
