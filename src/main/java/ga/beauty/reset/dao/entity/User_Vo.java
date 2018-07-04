@@ -100,4 +100,6 @@ public class User_Vo {
 		return true;
 	}
 	
+	
+	
 }
