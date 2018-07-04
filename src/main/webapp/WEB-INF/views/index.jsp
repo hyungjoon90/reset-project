@@ -18,7 +18,7 @@
     	<div class="wrap">
             <nav class="main_menu container">
                 <div class="menu_img">
-                    <img src="img/header_logo.png">
+                    <img src="imgs/header_logo.png">
                 </div>
                 <div class="menu_login">
                     <form class="form-inline">
@@ -83,7 +83,7 @@
             <div class="container">
                 <div class="row">
                     <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="img/footer_logo.png" alt="" /></a></div>
+                        <div class="foot_logo"><a href="index.html"><img src="imgs/footer_logo.png" alt="" /></a></div>
                         <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
                     </div>
                     <div class="footer_R">
