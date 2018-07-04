@@ -36,7 +36,6 @@ public class Login_Naver implements Login_Service{
 	ObjectMapper mapper = new ObjectMapper();
 
 	private HttpSession userSession;
-
 	
 	//
 	public Login_Naver() throws UnsupportedEncodingException {
@@ -64,7 +63,6 @@ public class Login_Naver implements Login_Service{
 		con.setRequestMethod("GET");
 		int responseCode = con.getResponseCode();
 		BufferedReader br;
-		System.out.print("responseCode="+responseCode);
 		if(responseCode==200) { // 정상 호출
 			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		} else {  // 에러 발생
@@ -75,7 +73,9 @@ public class Login_Naver implements Login_Service{
 		while ((inputLine = br.readLine()) != null) {
 			res.append(inputLine);
 		}
+		
 		br.close();
+		
 		if(responseCode==200) {
 			// reset - 서비스로직
 			logger.debug(res.toString());
@@ -95,7 +95,10 @@ public class Login_Naver implements Login_Service{
 		// 로그인일 경우 리다이렉트, 회원가입일땐 model에 이메일, 
 		String resultJson= getInfofromNaverProfile();
 		JsonNode tokenJson = mapper.readTree(resultJson);
+		String email= tokenJson.get("email").toString();
+		String gender= tokenJson.get("gender").toString();
 		
+		logger.debug("email/gender:"+email+"/"+gender);
 		
 		return "";
 	}
@@ -108,7 +111,6 @@ public class Login_Naver implements Login_Service{
 		//	    - F: 여성 
 		//	    - M: 남성 
 		//	    - U: 확인불가
-
 		String token = access_token; // 네이버 로그인 접근 토큰;
 		String header = "Bearer " + token; // Bearer 다음에 공백 추가
 		String apiURL = "https://openapi.naver.com/v1/nid/me";
@@ -129,7 +131,8 @@ public class Login_Naver implements Login_Service{
 			response.append(inputLine);
 		}
 		br.close();
-		return response.toString();
+		JsonNode tokenJson = mapper.readTree(response.toString());
+		return tokenJson.get("response").toString();
 
 	}
 

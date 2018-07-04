@@ -3,7 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <typeAliases>
-	<typeAlias type="ga.beauty.reset.dao.entity.TestVo" alias="TestVo" />  
-  </typeAliases>
+<typeAliases>
+	<typeAlias type="ga.beauty.reset.dao.entity.User_Vo" alias="User_Vo"/>
+</typeAliases>
+
+
 </configuration>
