@@ -17,9 +17,9 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import ga.beauty.reset.dao.entity.TestVo;
+import ga.beauty.reset.dao.entity.Test_Vo;
 
-public class TestDaoTest {
+public class Test_DaoTest {
 
 	
 	
@@ -46,7 +46,7 @@ public class TestDaoTest {
 
 	@Test
 	public void testSelectAll() throws SQLException {
-		List<TestVo> list = sqlSession.getMapper(CommonDao.class).selectAll();
+		List<Test_Vo> list = sqlSession.getMapper(Common_Dao.class).selectAll();
 		assertNotNull(list);
 		assertTrue(list.size()>0);
 		System.out.println(list.toString());

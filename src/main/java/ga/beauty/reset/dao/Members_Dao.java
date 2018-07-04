@@ -1,5 +1,5 @@
 package ga.beauty.reset.dao;
 
-public class CompanysDao {
+public class Members_Dao {
 
 }
