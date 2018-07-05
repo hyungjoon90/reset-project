@@ -6,6 +6,4 @@
 <typeAliases>
 	<typeAlias type="ga.beauty.reset.dao.entity.User_Vo" alias="User_Vo"/>
 </typeAliases>
-
-
 </configuration>

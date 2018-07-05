@@ -3,14 +3,15 @@ package ga.beauty.reset.services;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 
 public interface Login_Service {
 
-	// public void logout();
+	public Model logout(Model model, HttpServletRequest req, HttpServletResponse resp);
 	// public void getProfile();
 	// public void getEmail();
-	public String login(Model model, HttpServletRequest req) throws Exception;
+	public Model login(Model model, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 	
 }

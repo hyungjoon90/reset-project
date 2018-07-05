@@ -9,9 +9,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -21,13 +23,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ga.beauty.reset.controller.Login_Controller;
 import ga.beauty.reset.services.Login_Service;
 
-@Service("session")
+@Service
+@Scope("session")
 public class Login_Naver implements Login_Service{
 
 	private static final Logger logger = Logger.getLogger(Login_Controller.class);
 
-	private String clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
-	private String clientSecret = "13p5vTz404";//애플리케이션 클라이언트 시크릿값";
+	private final String clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
+	private final String clientSecret = "13p5vTz404";//애플리케이션 클라이언트 시크릿값";
 	private String redirectURI;
 
 	private String access_token = "";
@@ -39,12 +42,18 @@ public class Login_Naver implements Login_Service{
 	
 	//
 	public Login_Naver() throws UnsupportedEncodingException {
-		redirectURI =  URLEncoder.encode("http://localhost:8080/reset/login/naver/", "UTF-8");
+		redirectURI =  URLEncoder.encode("http://localhost:8080/reset/login/naver", "UTF-8");
 	}
 
 	@Override
-	public String login(Model model, HttpServletRequest req) throws IOException {
-
+	public Model logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	@Override
+	public Model login(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		//https://developers.naver.com/docs/login/api/ 참조 -- jsp부분
 		String code = req.getParameter("code");
 		String state = req.getParameter("state");
@@ -80,30 +89,30 @@ public class Login_Naver implements Login_Service{
 			// reset - 서비스로직
 			logger.debug(res.toString());
 			JsonNode tokenJson = mapper.readTree(res.toString());
-			access_token= tokenJson.get("access_token").toString();
-			refresh_token= tokenJson.get("refresh_token").toString();
+			access_token= tokenJson.get("access_token").asText();
+			refresh_token= tokenJson.get("refresh_token").asText();
 			this.checkout();
 		}
 
 		//	    
-		return "";
+		return model;
 
 	}
 
 	private String checkout() throws IOException {
 		// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
 		// 로그인일 경우 리다이렉트, 회원가입일땐 model에 이메일, 
-		String resultJson= getInfofromNaverProfile();
+		String resultJson= getInfofromProfile();
 		JsonNode tokenJson = mapper.readTree(resultJson);
-		String email= tokenJson.get("email").toString();
-		String gender= tokenJson.get("gender").toString();
+		String email= tokenJson.get("email").asText();
+		String gender= tokenJson.get("gender").asText();
 		
 		logger.debug("email/gender:"+email+"/"+gender);
 		
 		return "";
 	}
 
-	private String getInfofromNaverProfile() throws IOException {
+	private String getInfofromProfile() throws IOException {
 		//	    response/email	String	Y	
 		//	    사용자 메일 주소   기본적으로 네이버 내정보에 등록되어 있는 '기본 이메일'
 		//	    즉 네이버ID@naver.com 값이나, 사용자가 다른 외부메일로 변경했을 경우는 변경된 이메일 주소로 됩니다.
@@ -135,6 +144,8 @@ public class Login_Naver implements Login_Service{
 		return tokenJson.get("response").toString();
 
 	}
+
+
 
 
 }
