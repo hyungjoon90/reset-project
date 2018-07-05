@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+<script src="../js/jquery-1.12.4.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="//cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
 	<title>Home</title>
 </head>
 <body>
@@ -69,23 +70,36 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
-            <!-- list-page 입니다. -->
-			<a href="./event/add" class="btn btn-primary">글쓰기</a>
-            <c:forEach items="${alist }" var="bean">
-            <div class="list-group">
-            	<div class="row">
-				  <div class="col-sm-6 col-md-4">
-				    <div class="thumbnail">
-				      <a href="event/${bean.eve_no}"><img src="${bean.img}" alt="main_img"></a>
-				      <div class="caption">
-				        <a href="event/${bean.eve_no}"><h3>${bean.title}</h3></a>
-				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-            </div>
-			</c:forEach>
+            <!-- add-page 입니다. -->
+            <form action="./" method="post">
+            	<div>
+	            	<label for="img">대표이미지</label>
+	            	<input type="file" name="img" id="img">
+            	</div>
+            	<div>
+	            	<label for="title">제목</label>
+	            	<input type="text" name="title" id="title">
+            	</div>
+            	<div>
+	            	<label for="con">내용</label>
+	            	<textarea name="con"></textarea>
+					<script>
+						 CKEDITOR.replace( 'con', {
+						 width:'100%',
+						 height:'400px',
+						 filebrowserUploadUrl : '/resources/event_upload'
+						});	
+					</script>
+            	</div>
+            	<div>
+	            	<label for="tags">해시태그</label>
+	            	<input type="text" name="tags" id="tags">
+            	</div>
+            	<div>
+            		<button type="submit">완료</button>
+            		<button type="reset">취소</button>
+            	</div>
+            </form>
 			<!-- 내용 끝 -->
         <hr>
     </div>

@@ -6,13 +6,16 @@
  	<select id="selectAll" resultType="Event_Vo">
   		SELECT * FROM EVENT ORDER BY EVE_NO
   	</select>
-  	<select id="insertOne" parameterType="Event_Vo">
+  	<select id="selectOne" resultType="Event_Vo">
+  		SELECT * FROM EVENT Where EVE_NO=#{eve_no}
+  	</select>
+  	<insert id="insertOne" parameterType="Event_Vo">
   		INSERT INTO EVENT (IMG, TITLE, CON, TAGS) VALUES (#{img},#{title},#{con},#{tags})
-  	</select>
-  	<select id="updateOne" parameterType="Event_Vo">
-  		UPDATE EVENT SET IMG=#{IMG},TITLE=#{TITLE},CON=#{CON},TAGS=#{TAGS} WHERE EVE_NO=#{EVE_NO}
-  	</select>
-  	<select id="deleteOne" parameterType="Event_Vo">
-  		DELETE FROM EVENT WHERE EVE_NO=#{EVE_NO}
-  	</select>
+  	</insert>
+  	<update id="updateOne" parameterType="Event_Vo">
+  		UPDATE EVENT SET IMG=#{img},TITLE=#{title},CON=#{con},TAGS=#{tags} WHERE EVE_NO=#{eve_no}
+  	</update>
+  	<delete id="deleteOne" parameterType="Event_Vo">
+  		DELETE FROM EVENT WHERE EVE_NO=#{eve_no}
+  	</delete>
   </mapper>

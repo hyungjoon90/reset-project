@@ -18,6 +18,10 @@ public class Event_Service {
 		model.addAttribute("alist",commonDao.selectAll());
 	}
 	
+	public void detailPage(Model model,Event_Vo bean) throws SQLException{
+		model.addAttribute("detail",commonDao.selectOne(bean));
+	}
+	
 	public void addPage(Event_Vo bean) throws SQLException{
 		commonDao.insertOne(bean);
 	}

@@ -21,6 +21,12 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 	}
 
 	@Override
+	public Event_Vo selectOne(Event_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("event.selectOne", bean);
+	}
+	
+	@Override
 	public void insertOne(Event_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
 		sqlSession.insert("event.insertOne", bean);
@@ -38,11 +44,6 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 		return sqlSession.delete("event.deleteOne", bean);
 	}
 
-	@Override
-	public Event_Vo selectOne(Event_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }

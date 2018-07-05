@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+<script src="../js/jquery-1.12.4.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
 	<title>Home</title>
 </head>
 <body>
@@ -69,23 +69,68 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
-            <!-- list-page 입니다. -->
-			<a href="./event/add" class="btn btn-primary">글쓰기</a>
-            <c:forEach items="${alist }" var="bean">
-            <div class="list-group">
-            	<div class="row">
-				  <div class="col-sm-6 col-md-4">
-				    <div class="thumbnail">
-				      <a href="event/${bean.eve_no}"><img src="${bean.img}" alt="main_img"></a>
-				      <div class="caption">
-				        <a href="event/${bean.eve_no}"><h3>${bean.title}</h3></a>
-				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-            </div>
-			</c:forEach>
+            <!-- detail-page 입니다. -->
+            <form method="post">
+            	<input type="hidden" name="_method" value="put"/>
+            <div>${detail.img }</div>
+            <div>${detail.title }</div>
+            <div>${detail.nalja }</div>
+            <div>${detail.con }</div>
+            <div>${detail.tags }</div>
+            <div>${detail.pop }</div>
+            <div>${detail.view }</div>
+            
+            <!-- 참가신청 버튼 -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+			  <h4>응모신청</h4>
+			</button>
+			
+			<button type="reset" class="btn btn-primary">목록</button>
+			<button type="submit" class="btn btn-warning">수정</button>
+			</form>
+			<form method="post">
+				<input type="hidden" name="_method" value="delete">
+				<button type="submit" class="btn btn-danger">삭제</button>
+			</form>
+			<!-- 응모 신청 Modal -->
+			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div class="modal-dialog modal-lg" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">이벤트 응모</h4>
+			      </div>
+			      <div class="modal-body">
+			      	<div>
+				        <label for="name">이름</label>
+				        <input type="text" name="name" id="name">
+			        </div>
+			        <div>
+				        <label for="email">E-mail</label>
+				        <input type="email" name="email" id="email">
+			        </div>
+			        <div>
+				        <label for="phone">핸드폰 번호</label>
+				        <input type="tel" name="phone" id="phone">
+			        </div>
+			        <div>
+				        <label for="postcode">우편번호</label>
+				        <input type="text" name="postcode" id="postcode">
+			        </div>
+			        <div>
+				        <label for="address">주소</label>
+				        <input type="text"  name="" id="">
+				        <input type="text"  name="" id="">
+				        <button type="button" class="btn btn-default">주소입력</button>
+			        </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-primary">응모 신청</button>
+			        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 			<!-- 내용 끝 -->
         <hr>
     </div>
