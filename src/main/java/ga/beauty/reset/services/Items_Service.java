@@ -18,7 +18,13 @@ public class Items_Service {
 	Items_Dao<Items_Vo> Items_Dao;
 	
 	public void listPage(Model model,int type) throws SQLException {
-		log.debug(model+"/"+type);
+		log.debug("param: "+type);
 		model.addAttribute("alist", Items_Dao.rankAll(type));
+		model.addAttribute("cate", type);
+	}
+	
+	public void detailPage(Model model,int item) throws SQLException{
+		log.debug("param: "+item);
+		model.addAttribute("bean", Items_Dao.selectOne(item));
 	}
 }

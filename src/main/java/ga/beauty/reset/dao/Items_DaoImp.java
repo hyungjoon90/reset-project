@@ -17,18 +17,17 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@Override
 	public List<Items_Vo> rankAll(int cate) throws SQLException {
 		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
-		log.debug(cate);
+		log.debug("DaoImp-rankAll-param: "+cate);
 		return sqlSession.selectList("items.rankAll",cate);
 	}
-
-	@Override
-	public List<Items_Vo> selectAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	public List<Items_Vo> rankAdd(int cate) throws SQLException {
+		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
+		log.debug("DaoImp-rankAdd-param: "+cate);
+		return sqlSession.selectList("items.rankAdd",cate);
+	} 
 
 	@Override
 	public void insertOne(Items_Vo bean) throws SQLException {
@@ -37,9 +36,9 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	}
 
 	@Override
-	public Items_Vo selectOne(Items_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public Items_Vo selectOne(int item) throws SQLException {
+		log.debug("DaoImp-selectOne-param: "+item);
+		return sqlSession.selectOne("items.selectOne", item);
 	}
 
 	@Override
@@ -53,6 +52,13 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public Items_Vo selectOne(Items_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 }

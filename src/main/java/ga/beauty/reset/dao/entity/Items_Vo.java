@@ -2,6 +2,7 @@ package ga.beauty.reset.dao.entity;
 
 public class Items_Vo {
 	private int item;
+	private String name;
 	private String img;
 	private String brand;
 	private String vol;
@@ -17,11 +18,12 @@ public class Items_Vo {
 	public Items_Vo() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Items_Vo(int item, String img, String brand, String vol, int price, double tot, int oil, int dry, int sen,
-			int comp, int cate, String tags) {
+
+	public Items_Vo(int item, String name, String img, String brand, String vol, int price, double tot, int oil,
+			int dry, int sen, int comp, int cate, String tags) {
 		super();
 		this.item = item;
+		this.name = name;
 		this.img = img;
 		this.brand = brand;
 		this.vol = vol;
@@ -34,85 +36,14 @@ public class Items_Vo {
 		this.cate = cate;
 		this.tags = tags;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "ItemVo [item=" + item + ", img=" + img + ", brand=" + brand + ", vol=" + vol + ", price=" + price
-				+ ", tot=" + tot + ", oil=" + oil + ", dry=" + dry + ", sen=" + sen + ", comp=" + comp + ", cate="
-				+ cate + ", tags=" + tags + "]";
+		return "Items_Vo [item=" + item + ", name=" + name + ", img=" + img + ", brand=" + brand + ", vol=" + vol
+				+ ", price=" + price + ", tot=" + tot + ", oil=" + oil + ", dry=" + dry + ", sen=" + sen + ", comp="
+				+ comp + ", cate=" + cate + ", tags=" + tags + "]";
 	}
-	public int getItem() {
-		return item;
-	}
-	public void setItem(int item) {
-		this.item = item;
-	}
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
-	public String getBrand() {
-		return brand;
-	}
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-	public String getVol() {
-		return vol;
-	}
-	public void setVol(String vol) {
-		this.vol = vol;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	public double getTot() {
-		return tot;
-	}
-	public void setTot(double tot) {
-		this.tot = tot;
-	}
-	public int getOil() {
-		return oil;
-	}
-	public void setOil(int oil) {
-		this.oil = oil;
-	}
-	public int getDry() {
-		return dry;
-	}
-	public void setDry(int dry) {
-		this.dry = dry;
-	}
-	public int getSen() {
-		return sen;
-	}
-	public void setSen(int sen) {
-		this.sen = sen;
-	}
-	public int getComp() {
-		return comp;
-	}
-	public void setComp(int comp) {
-		this.comp = comp;
-	}
-	public int getCate() {
-		return cate;
-	}
-	public void setCate(int cate) {
-		this.cate = cate;
-	}
-	public String getTags() {
-		return tags;
-	}
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,6 +54,7 @@ public class Items_Vo {
 		result = prime * result + dry;
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
 		result = prime * result + item;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + oil;
 		result = prime * result + price;
 		result = prime * result + sen;
@@ -133,6 +65,7 @@ public class Items_Vo {
 		result = prime * result + ((vol == null) ? 0 : vol.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -160,6 +93,11 @@ public class Items_Vo {
 			return false;
 		if (item != other.item)
 			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
 		if (oil != other.oil)
 			return false;
 		if (price != other.price)
@@ -180,6 +118,111 @@ public class Items_Vo {
 			return false;
 		return true;
 	}
+
+	public int getItem() {
+		return item;
+	}
+
+	public void setItem(int item) {
+		this.item = item;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getVol() {
+		return vol;
+	}
+
+	public void setVol(String vol) {
+		this.vol = vol;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public double getTot() {
+		return tot;
+	}
+
+	public void setTot(double tot) {
+		this.tot = tot;
+	}
+
+	public int getOil() {
+		return oil;
+	}
+
+	public void setOil(int oil) {
+		this.oil = oil;
+	}
+
+	public int getDry() {
+		return dry;
+	}
+
+	public void setDry(int dry) {
+		this.dry = dry;
+	}
+
+	public int getSen() {
+		return sen;
+	}
+
+	public void setSen(int sen) {
+		this.sen = sen;
+	}
+
+	public int getComp() {
+		return comp;
+	}
+
+	public void setComp(int comp) {
+		this.comp = comp;
+	}
+
+	public int getCate() {
+		return cate;
+	}
+
+	public void setCate(int cate) {
+		this.cate = cate;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	
 	
 	
 }
