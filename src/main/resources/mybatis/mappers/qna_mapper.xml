@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="qna_mapper">
+ 
+ <select id="selectAll" resultType="Qna_Vo">
+ 	SELECT * FROM QNA ORDER BY QNA_NO DESC
+ </select>
+ 
+ <insert id="insertOne" parameterType="Qna_Vo">
+ 	INSERT INTO 'MYDB','QNA' ('con', 'qa_type', 'email', 'answer') VALUES (#{con}, #{qa_type}, #{email}, #{answer})
+ </insert>
+ 
+ <delete id="deleteOne" parameterType="int">
+ 	DELETE FROM QNA WHERE qna_no=#{qna_no}
+ </delete>
+ 
+
+ </mapper>

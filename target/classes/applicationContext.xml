@@ -32,6 +32,23 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-
-
+	<!-- Qna의 메일 전송 / bean for MailSending / Qna-->
+		
+		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	 	<!-- SMTP settings -->
+		<property name="host" value="smtp.gmail.com"></property>
+		<property name="port" value="456"></property>
+		<property name="username" value="resetbeauty@gmail.com"></property>
+		<property name="password" value="bitcamp13"></property>
+	
+		<property name="javaMailProperties">
+		<props>
+			<prop key="mail.transport.protocol">SMTP</prop>		
+			<prop key="mail.smtp.auth">true</prop>
+			<prop key="mail.smtp.starttls.enable">true</prop>
+			<prop key="mail.debug">true</prop>
+		</props>
+		</property>
+	</bean>
+	
 </beans>
