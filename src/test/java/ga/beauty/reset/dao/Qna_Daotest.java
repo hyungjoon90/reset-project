@@ -2,21 +2,32 @@ package ga.beauty.reset.dao;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Controller;
 
 import ga.beauty.reset.dao.entity.Qna_Vo;
 
+
 public class Qna_Daotest {
 
-	private static SqlSession sqlsession;
-
+	Qna_Dao<Qna_Vo> qna_Dao;
+	
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+
 	}
 
 	@AfterClass
@@ -25,21 +36,23 @@ public class Qna_Daotest {
 
 	@Before
 	public void setUp() throws Exception {
-	}
+		Resource resource = new ClassPathResource("applicationContext.xml");
+		XmlBeanFactory factory = new XmlBeanFactory(resource);
+		qna_Dao = (Qna_Dao) factory.getBean("Qna_Dao");	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
 	@Test
-	public void testSelectAll() {
-
+	public void testSelectAll() throws SQLException {
 		
-Qna_Vo question = new Qna_Vo();
-question.setEmail("email : 질문자 email");
-question.setAnswer("answer : 리셋의 답변입니다");
-question.setCon("con : 질문 내용입니다");
-question.setQa_type();		
+		List<Qna_Vo> list = qna_Dao.selectAll();
+		assertNotNull(list);
+		assertTrue(list.size()>0);
+		System.out.println(list.toString());
 	}
+		
+		
 
 }

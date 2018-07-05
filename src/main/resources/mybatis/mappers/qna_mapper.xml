@@ -6,11 +6,11 @@
  <mapper namespace="qna_mapper">
  
  <select id="selectAll" resultType="Qna_Vo">
- 	SELECT * FROM QNA ORDER BY QNA_NO DESC
+ 	SELECT * FROM QNA ORDER BY QA_NO DESC
  </select>
  
  <insert id="insertOne" parameterType="Qna_Vo">
- 	INSERT INTO 'MYDB','QNA' ('con', 'qa_type', 'email', 'answer') VALUES (#{con}, #{qa_type}, #{email}, #{answer})
+ 	INSERT INTO QNA ('con', 'qa_type', 'email', 'answer') VALUES (#{con}, #{qa_type}, #{email}, #{answer})
  </insert>
  
  <delete id="deleteOne" parameterType="int">

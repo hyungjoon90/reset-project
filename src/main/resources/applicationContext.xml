@@ -32,10 +32,10 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-	<!-- Qna의 메일 전송 / bean for MailSending / Qna-->
+	<!--  Qna의 메일 전송 / bean for MailSending / Qna
 		
 		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	 	<!-- SMTP settings -->
+	 	SMTP settings
 		<property name="host" value="smtp.gmail.com"></property>
 		<property name="port" value="456"></property>
 		<property name="username" value="resetbeauty@gmail.com"></property>
@@ -49,6 +49,9 @@
 			<prop key="mail.debug">true</prop>
 		</props>
 		</property>
-	</bean>
+	</bean> -->
 	
+	<bean id="Qna_Dao" class="ga.beauty.reset.dao.Qna_DaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
 </beans>

@@ -2,45 +2,53 @@ package ga.beauty.reset.controller;
 
 import java.sql.SQLException;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import ga.beauty.reset.dao.entity.Qna_Vo;
+import ga.beauty.reset.services.Qna_Service;
 
 @Controller
 public class Qna_Controller {
-	Logger log = Logger.getLogger(getClass());
+	private static final Logger log = Logger.getLogger(Qna_Controller.class);
 	
 	@Autowired
-	private JavaMailSenderImpl mailSender;
-
-	@RequestMapping(value="/qna_mail")
-	public String mailSender(HttpServletRequest request, Model model) throws AddressException,MessagingException{
-		
-		String setfrom ="resetbeauty@gmail.com";
-		String toemail = request.getParameter("toemail");
-		String title = "re : " + request.getParameter("title");
-		String contents = request.getParameter("contents");
-		
-		MimeMessage msg = mailSender.createMimeMessage();
-		MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");
-		
-		messageHelper.setFrom(setfrom);  	
-		messageHelper.setTo(toemail);  
-		messageHelper.setSubject(title);
-		messageHelper.setText(contents);
-		
-		return "redirect:/qnaResult";
+	Qna_Service service;
 	
+	String view="redirect:/qna/";
+
+	
+	@RequestMapping(value="/qna/qnaEmail", method= RequestMethod.GET)
+	public String showForm() {
+		return "qna/qnaEmail";
 		
+	}	
+	
+/*	@RequestMapping(value="/qna/qnaEmail", method = RequestMethod.GET)
+	public String list(Model model) throws SQLException {
+	service.listPage(model);
+	log.debug(getClass());
+	return "qna/qnaEmail";
+
+	}*/
+	
+	@RequestMapping(value="/qna/qnaEmail", method= RequestMethod.POST )
+	public String add(@PathVariable Qna_Vo bean, Model model) throws SQLException {
+		log.debug(getClass());
+		service.addPage(bean);
+		return "qna/qnaResult";
 	}
 
-}
+	@RequestMapping(value="/qna/qnaResult", method= RequestMethod.POST)
+	public String showResult() {
+		return "qna/qnaResult";
+	}
+	
+	
+	
+}//class end
