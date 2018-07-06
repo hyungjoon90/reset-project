@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../js/jquery-1.12.4.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="//cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="../css/main.css" rel="stylesheet">
@@ -83,13 +82,6 @@
             	<div>
 	            	<label for="con">내용</label>
 	            	<textarea name="con"></textarea>
-					<script>
-						 CKEDITOR.replace( 'con', {
-						 width:'100%',
-						 height:'400px',
-						 filebrowserUploadUrl : '/resources/event_upload'
-						});	
-					</script>
             	</div>
             	<div>
 	            	<label for="tags">해시태그</label>

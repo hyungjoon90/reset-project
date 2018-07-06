@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="comment">
   	<select id="list" resultType="Comment_Vo">
-  		SELECT * FROM COMMENT WHERE P_NO=#{eve_no} ORDER BY CO_NO DESC
+  		SELECT * FROM COMMENT WHERE P_NO=#{p_no} ORDER BY CO_NO DESC
   	</select>
   	
   	<insert id="create">
-  		INSERT INTO COMMENT (WRITER,EMAIL,CONTENT,CO_TYPE,P_NO,) VALUES (#{writer},#{email},#{content},#{co_type},#{eve_no})
+  		INSERT INTO COMMENT (WRITER,EMAIL,CONTENT,CO_TYPE,P_NO) VALUES (#{writer},#{email},#{content},#{co_type},#{p_no})
   	</insert>
   	
  	<update id="update">

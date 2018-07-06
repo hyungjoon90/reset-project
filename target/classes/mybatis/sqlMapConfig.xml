@@ -6,7 +6,7 @@
 	<configuration>
 	  <typeAliases>
 		<typeAlias type="ga.beauty.reset.dao.entity.TestVo" alias="TestVo" />
-		<typeAlias type="ga.beauty.reset.dao.entity.Comment_Vo" alias="Comment_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Comment_Vo" alias="Comment_Vo" /> 
 		<typeAlias type="ga.beauty.reset.dao.entity.Event_Vo" alias="Event_Vo" />  
 		<typeAlias type="ga.beauty.reset.dao.entity.Eve_addr_Vo" alias="Eve_addr_Vo" />  
 		<typeAlias type="ga.beauty.reset.dao.entity.Magazine_Vo" alias="Magazine_Vo" />  
