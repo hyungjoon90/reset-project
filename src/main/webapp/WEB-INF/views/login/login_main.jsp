@@ -36,12 +36,19 @@
 	<a href="<%=naver_apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 	<!-- REST API 카카오 -->
 	<a href="<%=kakko_apiURL%>">카카오로그인</a>
-
-
-  <div id="my-signin2"></div>
+	<!-- google sign- -->
+	<div id="my-signin2"></div>
   <script>
     function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    	  var id_token = googleUser.getAuthResponse().id_token;
+    	  console.log(id_token);
+    	  var xhr = new XMLHttpRequest();
+    	  xhr.open('POST', 'http://localhost:8080/reset/login/google');
+    	  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    	  xhr.onload = function() {
+    	    console.log('Signed in as: ' + xhr.responseText);
+    	  };
+    	  xhr.send('idtoken=' + id_token);
     }
     function onFailure(error) {
       console.log(error);
@@ -58,7 +65,6 @@
       });
     }
   </script>
-
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
 

@@ -91,7 +91,9 @@ public class Login_Naver implements Login_Service{
 			JsonNode tokenJson = mapper.readTree(res.toString());
 			access_token= tokenJson.get("access_token").asText();
 			refresh_token= tokenJson.get("refresh_token").asText();
-			this.checkout();
+			// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
+			// 로그인일 경우 리다이렉트, 회원가입일땐 model에 이메일, 
+			this.checkEmail();
 		}
 
 		//	    
@@ -99,9 +101,7 @@ public class Login_Naver implements Login_Service{
 
 	}
 
-	private String checkout() throws IOException {
-		// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
-		// 로그인일 경우 리다이렉트, 회원가입일땐 model에 이메일, 
+	private String checkEmail() throws IOException {
 		String resultJson= getInfofromProfile();
 		JsonNode tokenJson = mapper.readTree(resultJson);
 		String email= tokenJson.get("email").asText();
@@ -113,13 +113,7 @@ public class Login_Naver implements Login_Service{
 	}
 
 	private String getInfofromProfile() throws IOException {
-		//	    response/email	String	Y	
-		//	    사용자 메일 주소   기본적으로 네이버 내정보에 등록되어 있는 '기본 이메일'
-		//	    즉 네이버ID@naver.com 값이나, 사용자가 다른 외부메일로 변경했을 경우는 변경된 이메일 주소로 됩니다.
-		//	    response/gender	String	Y	성별 
-		//	    - F: 여성 
-		//	    - M: 남성 
-		//	    - U: 확인불가
+
 		String token = access_token; // 네이버 로그인 접근 토큰;
 		String header = "Bearer " + token; // Bearer 다음에 공백 추가
 		String apiURL = "https://openapi.naver.com/v1/nid/me";
@@ -145,7 +139,9 @@ public class Login_Naver implements Login_Service{
 
 	}
 
-
+	private void checkLoginOrSignUp() {
+		
+	}
 
 
 }

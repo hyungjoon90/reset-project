@@ -20,7 +20,7 @@ import ga.beauty.reset.services.login.Login_Naver;
 import ga.beauty.reset.services.login.Login_Normal;
 
 @Controller
-@RequestMapping(value= "/login/")
+@RequestMapping(value= "/login")
 public class Login_Controller {
 	
 	private static final Logger logger = Logger.getLogger(Login_Controller.class);
@@ -36,30 +36,30 @@ public class Login_Controller {
 	// 로그인 방식-결과 에따라 signUP으로 이동할지 기존페이지로 rediect 할지 정해야됨.
 	@RequestMapping(value ="/{loginPath}", method = {RequestMethod.GET, RequestMethod.POST})
 	public String selectLoginService(@PathVariable String loginPath, Model model
-			, HttpServletRequest req, HttpServletResponse resp 
-			, @RequestParam(value="code") String code) throws UnsupportedEncodingException {
+			, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
 		if("naver".equals(loginPath)) {
 			login_Service = new Login_Naver();
 		}else if("kakko".equals(loginPath)){
 			// 카카오 연동
-			logger.debug("넘기기전 code : "+code);
 			login_Service = new Login_Kakko();
 		}else if("google".equals(loginPath)) {
 			// 구글연동
 			login_Service = new Login_Google();
 		}else {
+			// 일반로그인
 			login_Service = new Login_Normal();
 		}
 		
 		try {
-			logger.debug("["+req.getContextPath()+"] {"+loginPath+"} 로그인 시도");
+			logger.debug("["+req.getContextPath()+"] {"+loginPath+"} : login-click ");
+			// 로그인 서비스 시작
 			model = login_Service.login(model,req,resp);
 		} catch (UnsupportedEncodingException e) {
-			logger.debug("login_Service 생성도중 에러");
+			logger.debug("["+req.getContextPath()+"] {"+loginPath+"} : login_Service creating err..");
 			e.printStackTrace();
 			// 에러페이지
 		} catch (Exception e) {
-			logger.debug("login_Service.login() 중 에러");
+			logger.debug("["+req.getContextPath()+"] {"+loginPath+"} : login_Service.login() err..");
 			e.printStackTrace();
 			// 에러페이지
 		}// try-catch end
