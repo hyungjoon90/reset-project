@@ -1,6 +1,7 @@
 package ga.beauty.reset.controller;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,12 +27,14 @@ import ga.beauty.reset.services.Items_Service;
 @Controller
 public class Items_Controller {
 	Logger log=Logger.getLogger(getClass());
-	Items_Vo items_Vo=new Items_Vo();
-	Items_DaoImp items_DaoImp=new Items_DaoImp();
+	
 	ObjectMapper mapper = new ObjectMapper();
 	
 	@Autowired
 	Items_Service service;
+	
+	@Autowired
+	Items_DaoImp items_DaoImp;
 	
 	String view="redirect:/ranking/";
 	
@@ -41,11 +45,11 @@ public class Items_Controller {
 		return "ranking/ranking_list";
 	}
 	
-	@RequestMapping(value="/ranking?id={id}&add", method = RequestMethod.GET)
-	public String ranking_list_add(@RequestParam("id") int cate,HttpServletResponse resp) throws SQLException, JsonProcessingException {
+	@RequestMapping(value="/rankingadd", method = RequestMethod.GET)
+	public void ranking_list_add(@RequestParam("id") int cate,HttpServletResponse resp) throws SQLException, IOException {
 		log.debug("list-param: "+cate);
-		return mapper.writeValueAsString(items_DaoImp.rankAdd(cate));
-//		return "ranking/ranking_list";
+		log.debug(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
+		resp.getWriter().print(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
 	}
 	
 	@RequestMapping(value="/item/{item}")

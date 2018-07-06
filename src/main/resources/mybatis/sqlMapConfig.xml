@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
-  	<typeAlias alias="vo" type="ga.beauty.reset.dao.entity.Items_Vo"/>
+  	<typeAlias alias="items_vo" type="ga.beauty.reset.dao.entity.Items_Vo"/>
   </typeAliases>
   
 </configuration>

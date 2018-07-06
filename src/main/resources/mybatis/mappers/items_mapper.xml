@@ -5,13 +5,13 @@
   
   <mapper namespace="items">
 <!--   	<select id="selectAll" resultType="com.bit.myapp05.model.entity.GuestVo"> -->
-  	<select id="rankAll" resultType="vo">
-  		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10;
+  	<select id="rankAll" resultType="items_vo">
+  		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10
   	</select>
-  	<select id="rankAdd" resultType="vo">
-		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10,5;
+  	<select id="rankAdd" resultType="items_vo">
+		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10,5
   	</select>
-  	<select id="selectOne" resultType="vo">
+  	<select id="selectOne" resultType="items_vo">
   		SELECT * FROM ITEMS WHERE ITEM=#{item}
   	</select>
   <!-- 	<insert id="insertOne" parameterType="dto">

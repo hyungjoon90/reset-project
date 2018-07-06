@@ -5,92 +5,40 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+<script src="../js/jquery-1.12.4.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
 	<title>Home</title>
 <style type="text/css">
-    /* 컨텐츠 contatiner */
-	.page_container{
-		width: 80%;
-        border: 0.5px solid rgb(217, 222, 232);
-	}
-    .page_container>a{
-        text-decoration: none;
-        color: black;
+    /* 전체 container */
+    .page_container{
+    	width: 80%;
+        border: 1px solid rgb(217, 222, 232);
     }
-    .page_container>a:hover{
-    	text-decoration: none;
-    	color: black;
+    .contentsBox{
+        width: 100%;
+        height: 500px;
     }
-    .contentsbox{
-        width: 85%;
-        margin: 0px auto;
-        display: flex;
-        border-bottom: 0.5px solid rgb(217, 222, 232);
-    }   
-    .numbox{
-        width: 20%;
-        margin: auto 0px;
-        font-size: 30pt;
-        text-align: center;
-    }
-    .imgbox{
-        width: 30%;
-        text-align: center;
-        height: 160.5px;
-    }
-    .imgbox>img{
-    	width: 160px;
-    	height: 160px;
-    }
-    .conbox{
+    .ImgBox{
         width: 50%;
-        margin: auto 0px;
+        float: left;
     }
-    .conbox>p{
-        margin: 6px 0px;
+    .ImgBox>img{
+    	max-width: 100%;
     }
-    .conbox>p:first-child,.conbox>p:last-child{
-        color: #84868e;
+    .InfoBox{
+        width: 50%;
+        margin: 100px 0px;
+        float: left;
+    }
+    1px solid #e5e5e5;
+    .ImgBox>img{
+        width: 400px;
+        height: 400px;
     }
 </style>
-<script type="text/javascript">
-
-$(function(){
-	var su=0;
-        $(window).scroll(function(){
-       	var maxHeight = $(document).height();
-    	    var currentScroll = $(window).scrollTop() + $(window).height();
-    	    if(maxHeight <= currentScroll + 600) {
-    	    	if(su==0){add()}
-    	    	su=1;
-    	    }
-	})
-})
-
-function add(){
-	var num=11;
-	var cate=${cate};
-	$.ajax({
-	        type: 'GET', // get 방식으로 요청
-			dataType: 'json', // json 타입
-			url: "rankingadd?id="+cate, // 데이터를 불러오는 json-server 주소입니다 .
-	})
-	.done(function(data){
- 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
-  			$('.page_container').append("<a href='./item/"+data.item+"'><div class='contentsbox'><div class='numbox box'><label>"+num+"</label></div><div class='imgbox box'><img src='"+data.img+"'></div><div class='conbox box'><p>"+data.brand+"</p><p>"+data.name+"</p><p>"+data.vol+"&nbsp;"+data.price+"원</p></div></div></a>");
-  			num=num+1;
-		})
-	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 불러오기 실패');
-	})
-}
-    	    	
-</script>
 </head>
 <body>
 	<!--header-->
@@ -98,9 +46,9 @@ function add(){
     	<div class="wrap">
             <nav class="main_menu container">
                 <div class="menu_img">
-               	  <a href="/reset/">
-                    <img src="imgs/header_logo.png">
-                  </a>
+                <a href="/reset/">
+                    <img src="../imgs/header_logo.png">
+                    </a>
                 </div>
                 <div class="menu_login">
                     <form class="form-inline">
@@ -119,9 +67,9 @@ function add(){
                       <li class="top-menu"><a href="/reset/">랭킹</a>
                       	<div class="space">
 						  <ul class="sub-menu">
-						      <li><a href="./ranking?id=1">스킨</a></li>
-							  <li><a href="./ranking?id=2">로션</a></li>
-							  <li><a href="./ranking?id=3">에센스</a></li>
+						      <li><a href="../ranking?id=1">스킨</a></li>
+							  <li><a href="../ranking?id=2">로션</a></li>
+							  <li><a href="../ranking?id=3">에센스</a></li>
 						  </ul>
 						</div>
 					  </li>
@@ -137,26 +85,46 @@ function add(){
     <!--//header-->    
      
     <!-- main contents -->
-    <div class="page_container">
-    	<c:set var="num" value="1" />
-    	<c:forEach items="${alist }" var="bean" end="9">
-	    	<a href="./item/${bean.item }">
-			<div class="contentsbox">
-				<div class="numbox box">
-			         <label>${num}</label><c:set var="num" value="${num+1}"  /> 
-				</div>
-				<div class="imgbox box">
-				     <img src="${bean.img }">
-				</div>
-				<div class="conbox box">
-	                <p>${bean.brand }</p>
-				    <p>${bean.name }</p>
-				    <p>${bean.vol }&nbsp;${bean.price }원</p>
-				</div>
-			</div>
-       		</a>
-       </c:forEach>
-    </div>
+   <div class="page_container">
+        <div class="contentsBox">
+            <div class="ImgBox">
+                <img src="../${bean.img }">
+            </div>
+            <div class="InfoBox">
+                <h4>${bean.name }</h4>
+                <table class="table">
+                    <tr>
+                        <td>용량</td>
+                        <td>${bean.vol }</td>
+                    </tr>
+                    <tr>
+                        <td>판매가격</td>
+                        <td>${bean.price }원</td>
+                    </tr>
+                    <tr>
+                        <td>평점</td>
+                        <td>${bean.tot }</td>
+                    </tr>
+                    <tr>
+                        <td>${bean.brand }</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="avgBox">
+            <p>점수</p>
+            <p>사진</p>
+            <img />
+        </div>
+        <div class="reviewBox">
+            <img />
+            <label>닉네임</label>
+            <label>나이</label>/<label>복합성</label>
+            <label>평점</label>/<label>날짜</label>
+            <p>좋은점</p>
+            <p>나쁜점</p>
+        </div>
+	</div>
     <!-- //main contents -->
 
     <!--footer-->
@@ -165,7 +133,7 @@ function add(){
             <div class="container">
                 <div class="row">
                     <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="imgs/footer_logo.png" alt="" /></a></div>
+                        <div class="foot_logo"><a href="index.html"><img src="../imgs/footer_logo.png" alt="" /></a></div>
                         <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
                     </div>
                     <div class="footer_R">

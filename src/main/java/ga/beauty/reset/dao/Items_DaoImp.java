@@ -26,7 +26,7 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	public List<Items_Vo> rankAdd(int cate) throws SQLException {
 		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
 		log.debug("DaoImp-rankAdd-param: "+cate);
-		return sqlSession.selectList("items.rankAdd",cate);
+		return sqlSession.selectList("items.rankAdd", cate);
 	} 
 
 	@Override
