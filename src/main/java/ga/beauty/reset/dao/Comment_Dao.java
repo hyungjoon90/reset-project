@@ -3,6 +3,8 @@ package ga.beauty.reset.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import ga.beauty.reset.dao.entity.Comment_Vo;
+
 public interface Comment_Dao<C> {
 	public List<C> list(C bean) throws SQLException;
 	
@@ -11,4 +13,8 @@ public interface Comment_Dao<C> {
 	public void update(C bean) throws SQLException;
 	
 	public void delete(C bean) throws SQLException;
+	
+	//public List<Comment_Vo> listPage(Integer p_no,Criteria cri) throws SQLException;
+	
+	//public int count(Integer p_no) throws SQLException;
 }
