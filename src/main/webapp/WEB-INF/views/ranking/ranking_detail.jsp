@@ -94,6 +94,10 @@
                 <h4>${bean.name }</h4>
                 <table class="table">
                     <tr>
+                    	<td>브랜드</td>
+                        <td>${bean.brand }</td>
+                    </tr>
+                    <tr>
                         <td>용량</td>
                         <td>${bean.vol }</td>
                     </tr>
@@ -106,7 +110,12 @@
                         <td>${bean.tot }</td>
                     </tr>
                     <tr>
-                        <td>${bean.brand }</td>
+                        <td>기능성 성분</td>
+                        <td>${bean.comp }</td>
+                    </tr>
+                    <tr>
+                        <td>태그</td>
+                        <td>${bean.tags }</td>
                     </tr>
                 </table>
             </div>

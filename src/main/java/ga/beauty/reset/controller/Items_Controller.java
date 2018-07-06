@@ -27,7 +27,6 @@ import ga.beauty.reset.services.Items_Service;
 @Controller
 public class Items_Controller {
 	Logger log=Logger.getLogger(getClass());
-	
 	ObjectMapper mapper = new ObjectMapper();
 	
 	@Autowired
@@ -49,6 +48,7 @@ public class Items_Controller {
 	public void ranking_list_add(@RequestParam("id") int cate,HttpServletResponse resp) throws SQLException, IOException {
 		log.debug("list-param: "+cate);
 		log.debug(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
+		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
 	}
 	
