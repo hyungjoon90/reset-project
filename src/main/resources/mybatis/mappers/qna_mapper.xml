@@ -10,7 +10,22 @@
  </select>
  
  <insert id="insertOne" parameterType="Qna_Vo">
- 	INSERT INTO QNA ('con', 'qa_type', 'email', 'answer') VALUES (#{con}, #{qa_type}, #{email}, #{answer})
+ 	<!--  INSERT INTO QNA ('qa_type', 'con', 'email') VALUES (#{qa_type}, #{con}, #{email})-->
+ 	
+ 	INSERT INTO QNA (`con`, `qa_type`, `email`) VALUES ( #{con}, #{qa_type}, #{email})
+
+<!--   		INSERT INTO GUEST VALUES (#{sabun},
+  		<choose>
+		    <when test='name==null or name==""'>
+		      '이름없음'
+		    </when>
+		    <otherwise>
+		      #{name}
+		    </otherwise>
+  		</choose>
+  		,SYSDATE,#{pay})
+  	</insert>
+  -->
  </insert>
  
  <delete id="deleteOne" parameterType="int">

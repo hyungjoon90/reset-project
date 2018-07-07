@@ -22,9 +22,11 @@ public class Qna_Controller {
 	
 	String view="redirect:/qna/";
 
+
 	
 	@RequestMapping(value="/qna/qnaEmail", method= RequestMethod.GET)
 	public String showForm() {
+		System.out.println("입력폼");
 		return "qna/qnaEmail";
 		
 	}	
@@ -37,10 +39,11 @@ public class Qna_Controller {
 
 	}*/
 	
-	@RequestMapping(value="/qna/qnaEmail", method= RequestMethod.POST )
-	public String add(@PathVariable Qna_Vo bean, Model model) throws SQLException {
-		log.debug(getClass());
+	@RequestMapping(value="/qna/qna", method= RequestMethod.POST )
+	public String add(Qna_Vo bean, Model model) throws SQLException {
+		System.out.println("전송");
 		service.addPage(bean);
+		System.out.println("전송됨.");
 		return "qna/qnaResult";
 	}
 
@@ -48,7 +51,16 @@ public class Qna_Controller {
 	public String showResult() {
 		return "qna/qnaResult";
 	}
+
+	@RequestMapping(value="/admin")
+	public String adminPage() {
+		System.out.println("어드민페이지");
+		return "admin/qnaList";
+	}
 	
-	
-	
+	@RequestMapping(value="/admin", method = RequestMethod.GET)
+	public String adminQanList(Model model) throws SQLException {
+		service.listPage(model);
+		return view;
+	}	
 }//class end

@@ -9,13 +9,16 @@
 </head>
 <title>문의하기</title>
 
+
+
 <body>
-	<form action="qnaResult" method="post">
+	<form action="qna" method="post">
 		<div>
 			<h3>문의 내용</h3>
+
 			<div>
 				<h3>문의 분류</h3>
-				<select>
+				<select name="qa_type">
 					<option value="1">1. 쇼핑문의</option>
 					<option value="2">2. 이벤트 문의</option>
 					<option value="3">3. 서비스 불편, 오류 제의</option>
@@ -24,13 +27,13 @@
 					<option value="6">6. 제휴문의</option>
 				</select>
 			</div>
-			<div>
-				<label for="con">내용</label> <input class="conq"
+						<div>
+				<label for="con">내용</label> <input class="con"
 					name="con" id="con" size="100" style="width: 100%" />
 			</div>
 			<div>
 				<label for="email">답변 이메일</label> <input type="text"
-					name="email" id="email" placeholder="이메일 ( email@example.com )">
+					name="email" id="email" placeholder="이메일 ( email@example.com )">@
 				<!--<select>
             <option selected="selected">직접입력</option>
             <option value="">naver.com</option>
