@@ -38,7 +38,32 @@
         width: 400px;
         height: 400px;
     }
+    .bar1{
+    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    }
+    .bar2{
+    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    }
+    .bar3{
+    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    }
+    .bar4{
+    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    }
+    .bar5{
+    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    }
+    
 </style>
+<script type="text/javascript">
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    console.log($('tags'));
+	    $.each($('tags'),function(index,item){
+			console.log(index+""+item);
+		});
+	});
+</script>
 </head>
 <body>
 	<!--header-->
@@ -115,15 +140,44 @@
                     </tr>
                     <tr>
                         <td>태그</td>
-                        <td>${bean.tags }</td>
+                        <td>
+                        	<c:forEach var="tag" items="${tags}">
+								<span>${tag }</span>
+							</c:forEach>
+						</td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="avgBox">
+        
             <p>점수</p>
-            <p>사진</p>
-            <img />
+            <div class="progress">
+			  <div class="progress-bar progress-bar bar1" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+			    40%
+			  </div>
+			</div>
+			<div class="progress">
+			  <div class="progress-bar progress-bar bar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+			    20%
+			  </div>
+			</div>
+			<div class="progress">
+			  <div class="progress-bar progress-bar bar3" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+			    60%
+			  </div>
+			</div>
+			<div class="progress">
+			  <div class="progress-bar progress-bar bar4" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+			    80%
+			  </div>
+			</div>
+			<div class="progress">
+			  <div class="progress-bar progress-bar bar5" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+			    80%
+			  </div>
+			</div>
+			
         </div>
         <div class="reviewBox">
             <img />

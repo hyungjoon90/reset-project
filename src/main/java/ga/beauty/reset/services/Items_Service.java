@@ -1,6 +1,8 @@
 package ga.beauty.reset.services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,17 +30,22 @@ public class Items_Service {
 	
 	public void detailPage(Model model,int item) throws SQLException{
 		log.debug("param: "+item);
+		
+//		tag.start
 		Items_Vo temp = Items_Dao.selectOne(item);
 		log.debug(temp.getTags());
 		String tempStr="";
 		tempStr=temp.getTags().toString();
-		String[] array = tempStr.split("$");
-		log.debug("분리후 "+array[0]);
 		
 		StringTokenizer tokens = new StringTokenizer( tempStr, "$" );
-		log.debug(tokens.nextToken());
-		log.debug(tokens.nextToken());
+		List<String> list=new ArrayList<String>();
+		while(tokens.hasMoreTokens()) {
+			list.add(tokens.nextToken());
+		}
+		log.debug(list.size());
+//		tag.end
 		
 		model.addAttribute("bean", Items_Dao.selectOne(item));
+		model.addAttribute("tags", list);
 	}
 }
