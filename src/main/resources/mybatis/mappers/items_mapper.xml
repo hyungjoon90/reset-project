@@ -14,6 +14,12 @@
   	<select id="selectOne" resultType="items_vo">
   		SELECT * FROM ITEMS WHERE ITEM=#{item}
   	</select>
+  	<select id="totAll" resultType="rank_vo">
+  		SELECT * FROM MYDB.RANK WHERE ITEM=#{item}
+  	</select>
+  	<select id="reviewAll" resultType="review_vo">
+  		SELECT REV_NO,ITEM,IMG,NICK,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} ORDER BY REV_NO LIMIT 10;
+  	</select>
   <!-- 	<insert id="insertOne" parameterType="dto">
   		INSERT INTO GUEST VALUES(#{sabun},
   		 <choose>

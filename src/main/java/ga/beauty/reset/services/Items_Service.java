@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 
 import ga.beauty.reset.dao.Items_Dao;
 import ga.beauty.reset.dao.entity.Items_Vo;
+import ga.beauty.reset.dao.entity.Rank_Vo;
 
 @Service
 public class Items_Service {
@@ -31,7 +32,7 @@ public class Items_Service {
 	public void detailPage(Model model,int item) throws SQLException{
 		log.debug("param: "+item);
 		
-//		tag.start
+		//tag.start
 		Items_Vo temp = Items_Dao.selectOne(item);
 		log.debug(temp.getTags());
 		String tempStr="";
@@ -43,9 +44,30 @@ public class Items_Service {
 			list.add(tokens.nextToken());
 		}
 		log.debug(list.size());
-//		tag.end
+		//tag.end
 		
-		model.addAttribute("bean", Items_Dao.selectOne(item));
+		//tot start
+		Rank_Vo rank=Items_Dao.totAll(item);
+		int total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
+		log.debug("total: "+total);
+		int one= rank.getOne()*100/total;
+		int two= rank.getTwo()*100/total;
+		int three= rank.getThree()*100/total;
+		int four= rank.getFour()*100/total;
+		int five= rank.getFive()*100/total;
+		log.debug("avg: "+one+" "+two+" "+three+" "+four+" "+five);
+		//tot end
+		
+		model.addAttribute("item_bean", Items_Dao.selectOne(item));
 		model.addAttribute("tags", list);
+		model.addAttribute("rank", rank);
+		model.addAttribute("total", total);
+		model.addAttribute("one", one);
+		model.addAttribute("two", two);
+		model.addAttribute("three", three);
+		model.addAttribute("four", four);
+		model.addAttribute("five", five);
+		model.addAttribute("review_bean", Items_Dao.reviewAll(item));
 	}
 }
+

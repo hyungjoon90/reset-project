@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ga.beauty.reset.dao.entity.Items_Vo;
+import ga.beauty.reset.dao.entity.Rank_Vo;
+import ga.beauty.reset.dao.entity.Review_Vo;
 
 @Repository
 public class Items_DaoImp implements Items_Dao<Items_Vo> {
@@ -30,15 +32,32 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	} 
 
 	@Override
+	public Items_Vo selectOne(int item) throws SQLException {
+		log.debug("DaoImp-selectOne-param: "+item);
+		return sqlSession.selectOne("items.selectOne", item);
+	}
+	
+	public Rank_Vo totAll(int item) throws SQLException{
+		log.debug("DaoImp-totAll-param: "+item);
+		return sqlSession.selectOne("items.totAll", item);
+	}
+	
+	@Override
+	public Review_Vo reviewAll(int item) throws SQLException {
+		log.debug("DaoImp-reviewAll-param: "+item);
+		return (Review_Vo) sqlSession.selectList("items.reviewAll", item);
+	}
+
+	@Override
 	public void insertOne(Items_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Items_Vo selectOne(int item) throws SQLException {
-		log.debug("DaoImp-selectOne-param: "+item);
-		return sqlSession.selectOne("items.selectOne", item);
+	public Items_Vo selectOne(Items_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -52,13 +71,8 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public Items_Vo selectOne(Items_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+	
 
 	
 }

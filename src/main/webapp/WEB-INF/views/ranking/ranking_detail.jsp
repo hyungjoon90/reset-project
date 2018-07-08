@@ -33,37 +33,37 @@
         margin: 100px 0px;
         float: left;
     }
-    1px solid #e5e5e5;
+    
     .ImgBox>img{
         width: 400px;
         height: 400px;
     }
+    .avgBox{
+    	width: 95%;
+    	margin: 0px auto;
+   		border: 1px solid #e5e5e5;
+    }
+    .avgBox>table>tbody>tr>td:first-child{
+    	width: 10%;
+    	text-align: center;
+    }
     .bar1{
-    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    	background-image: -webkit-linear-gradient(top,#FDEB71 0,#F8D800 100%);
     }
     .bar2{
-    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    	background-image: -webkit-linear-gradient(top,#ABDCFF 0,#0396FF 100%);
     }
     .bar3{
-    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    	background-image: -webkit-linear-gradient(top,#FEB692 0,#EA5455 100%);
     }
     .bar4{
-    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    	background-image: -webkit-linear-gradient(top,#CE9FFC 0,#7367F0 100%);
     }
     .bar5{
-    	background-image: -webkit-linear-gradient(top,#ccc 0,#ccc 100%);
+    	background-image: -webkit-linear-gradient(top,#90F7EC 0,#32CCBC 100%);
     }
     
 </style>
-<script type="text/javascript">
-	$( document ).ready(function() {
-	    console.log( "ready!" );
-	    console.log($('tags'));
-	    $.each($('tags'),function(index,item){
-			console.log(index+""+item);
-		});
-	});
-</script>
 </head>
 <body>
 	<!--header-->
@@ -113,30 +113,30 @@
    <div class="page_container">
         <div class="contentsBox">
             <div class="ImgBox">
-                <img src="../${bean.img }">
+                <img src="../${item_bean.img }">
             </div>
             <div class="InfoBox">
-                <h4>${bean.name }</h4>
+                <h4>${item_bean.name }</h4>
                 <table class="table">
                     <tr>
                     	<td>브랜드</td>
-                        <td>${bean.brand }</td>
+                        <td>${item_bean.brand }</td>
                     </tr>
                     <tr>
                         <td>용량</td>
-                        <td>${bean.vol }</td>
+                        <td>${item_bean.vol }</td>
                     </tr>
                     <tr>
                         <td>판매가격</td>
-                        <td>${bean.price }원</td>
+                        <td>${item_bean.price }원</td>
                     </tr>
                     <tr>
                         <td>평점</td>
-                        <td>${bean.tot }</td>
+                        <td>${item_bean.tot }</td>
                     </tr>
                     <tr>
                         <td>기능성 성분</td>
-                        <td>${bean.comp }</td>
+                        <td>${item_bean.comp }</td>
                     </tr>
                     <tr>
                         <td>태그</td>
@@ -150,43 +150,83 @@
             </div>
         </div>
         <div class="avgBox">
-        
-            <p>점수</p>
-            <div class="progress">
-			  <div class="progress-bar progress-bar bar1" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-			    40%
-			  </div>
-			</div>
-			<div class="progress">
-			  <div class="progress-bar progress-bar bar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-			    20%
-			  </div>
-			</div>
-			<div class="progress">
-			  <div class="progress-bar progress-bar bar3" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-			    60%
-			  </div>
-			</div>
-			<div class="progress">
-			  <div class="progress-bar progress-bar bar4" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-			    80%
-			  </div>
-			</div>
-			<div class="progress">
-			  <div class="progress-bar progress-bar bar5" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-			    80%
-			  </div>
-			</div>
+        	
+            <p>점수 총 <span>${total }</span>명 <span>${item_bean.tot }</span>점</p>
+            <table class="table">
+            	<tr>
+         			<td>
+         				<span>5점</span>
+            		</td>
+         			<td>
+         				<div class="progress">
+							<div class="progress-bar progress-bar bar1" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${five }%">
+						    	${five }%
+							</div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>4점</span>
+            		</td>
+         			<td>
+         				<div class="progress">
+						  <div class="progress-bar progress-bar bar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${four }%">
+						    ${four }%
+						  </div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>3점</span>
+            		</td>
+         			<td>
+         				<div class="progress">
+						  <div class="progress-bar progress-bar bar3" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${three }%">
+						    ${three }%
+						  </div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>2점</span>
+            		</td>
+         			<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar bar4" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${two }%">
+						    	${two }%
+					    	</div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>1점</span>
+            		</td>
+         			<td>
+						<div class="progress">
+						  <div class="progress-bar progress-bar bar5" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${one }%">
+						    ${one }%
+						  </div>
+						</div>
+            		</td>
+            	</tr>
+            </table>
 			
         </div>
+        <c:forEach items="${review_bean }" var="review">
         <div class="reviewBox">
-            <img />
-            <label>닉네임</label>
-            <label>나이</label>/<label>복합성</label>
-            <label>평점</label>/<label>날짜</label>
-            <p>좋은점</p>
-            <p>나쁜점</p>
+            <img src="${review.img }"/>
+            <label>${review.nick }</label>
+            <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>
+            <label>${review.star }</label>/<label>${review.nalja }</label>
+            <p>${review.good }</p>
+            <p>${review.good }</p>
+            <p>${review.tip }</p>
         </div>
+        </c:forEach>
 	</div>
     <!-- //main contents -->
 
