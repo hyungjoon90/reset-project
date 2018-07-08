@@ -15,6 +15,10 @@ public class Comment_Service {
 	@Autowired
 	Comment_Dao<Comment_Vo> commentDao;
 	
+	public int countComment(Comment_Vo bean) throws SQLException{
+		return commentDao.count(bean);
+	}
+	
 	public void addComment(Comment_Vo bean) throws SQLException{
 		commentDao.create(bean);
 	}

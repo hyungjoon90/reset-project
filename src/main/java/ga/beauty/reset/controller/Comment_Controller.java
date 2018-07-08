@@ -19,14 +19,49 @@ import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.services.Comment_Service;
 
 @RestController
-@RequestMapping(value="/comment")
 public class Comment_Controller {
 	Logger log = Logger.getLogger(this.getClass());
 	
 	@Autowired
 	Comment_Service service;
 	
-	@RequestMapping(value="", method=RequestMethod.POST)
+	/*//댓글의 갯수를 확인하는 컨트롤러
+	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.GET)
+	public ResponseEntity<Integer> count(@PathVariable("co_type") String co_type
+			,@PathVariable("p_no") int p_no){
+		ResponseEntity<Integer> entity=null;
+		Comment_Vo bean = new Comment_Vo();
+		bean.setCo_type(co_type);
+		bean.setP_no(p_no);
+		try {
+			entity = new ResponseEntity<>(service.countComment(bean),HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}*/
+	
+	//댓글의 목록을 보여주는 컨트롤러
+	@RequestMapping(value="/{co_type}/{p_no}/comment/all", method=RequestMethod.GET)
+	public ResponseEntity<List<Comment_Vo>> list(@PathVariable("co_type") String co_type
+			,@PathVariable("p_no") int p_no){
+		ResponseEntity<List<Comment_Vo>> entity=null;
+		Comment_Vo bean = new Comment_Vo();
+		bean.setCo_type(co_type);
+		bean.setP_no(p_no);
+		try {
+			entity = new ResponseEntity<>(service.listComment(bean),HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		System.out.println(entity);
+		return entity;
+	}
+	
+	//댓글을 입력하는 컨트롤러
+	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity=null;
 		try {
@@ -39,27 +74,16 @@ public class Comment_Controller {
 		return entity;
 	}
 	
-	@RequestMapping(value="all/{p_no}", method=RequestMethod.GET)
-	public ResponseEntity<List<Comment_Vo>> list(@PathVariable("p_no") int p_no){
-		ResponseEntity<List<Comment_Vo>> entity=null;
-		Comment_Vo bean = new Comment_Vo();
-		bean.setP_no(p_no);
-		try {
-			entity = new ResponseEntity<>(service.listComment(bean),HttpStatus.OK);
-		}catch(Exception e){
-			e.printStackTrace();
-			entity=new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		System.out.println(entity);
-		return entity;
-	}
-	
-	@RequestMapping(value="/{co_no}",method= {RequestMethod.PUT, RequestMethod.PATCH})
-	public ResponseEntity<String> update(@PathVariable("co_no") int co_no,
-			@RequestBody Comment_Vo bean){
-		log.debug("a");
+	//댓글을 수정하는 컨트롤러
+	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}",method= {RequestMethod.PUT, RequestMethod.PATCH})
+	public ResponseEntity<String> update(@PathVariable("co_type") String co_type
+			,@PathVariable("p_no") int p_no
+			,@PathVariable("co_no") int co_no
+			,@RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity = null;
 		try {
+			bean.setCo_type(co_type);
+			bean.setP_no(p_no);
 			bean.setCo_no(co_no);
 			service.modifyComment(bean);
 			
@@ -71,11 +95,16 @@ public class Comment_Controller {
 		return entity;
 	}
 	
-	@RequestMapping(value="/{co_no}",method=RequestMethod.DELETE)
-	public ResponseEntity<String> remove(@PathVariable("co_no") int co_no,@RequestBody Comment_Vo bean){
+	//댓글을 삭제하는 컨트롤러
+	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}",method=RequestMethod.DELETE)
+	public ResponseEntity<String> remove(@PathVariable("co_type") String co_type
+			,@PathVariable("p_no") int p_no
+			,@PathVariable("co_no") int co_no
+			,@RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity =null;
-		log.debug("a");
 		try {
+			bean.setCo_type(co_type);
+			bean.setP_no(p_no);
 			bean.setCo_no(co_no);
 			service.removeComment(bean);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
@@ -85,5 +114,6 @@ public class Comment_Controller {
 		}
 		return entity;
 	}
+	
 	
 }//class-end

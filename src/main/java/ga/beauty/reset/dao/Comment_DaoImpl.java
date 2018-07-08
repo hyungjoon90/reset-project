@@ -16,11 +16,18 @@ public class Comment_DaoImpl implements Comment_Dao<Comment_Vo> {
 	private SqlSession sqlSession;
 	
 	@Override
+	public int count(Comment_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("comment.count", bean);
+	}
+	
+	@Override
 	public List<Comment_Vo> list(Comment_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("comment.list",bean);
 	}
 
+	
 	@Override
 	public void create(Comment_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
@@ -38,5 +45,6 @@ public class Comment_DaoImpl implements Comment_Dao<Comment_Vo> {
 		// TODO Auto-generated method stub
 		sqlSession.delete("comment.delete",bean);
 	}
+
 
 }

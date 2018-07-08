@@ -4,7 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="comment">
   	<select id="list" resultType="Comment_Vo">
-  		SELECT * FROM COMMENT WHERE P_NO=#{p_no} ORDER BY CO_NO DESC
+  		SELECT * FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO=#{p_no} ORDER BY CO_NO DESC
+  	</select>
+  	
+  	<select id="count">
+  		SELECT COUNT(*) FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO=#{p_no}
   	</select>
   	
   	<insert id="create">
@@ -12,10 +16,10 @@
   	</insert>
   	
  	<update id="update">
- 		UPDATE COMMENT SET CONTENT=#{content}, NALJA=NOW() WHERE CO_NO=#{co_no}
+ 		UPDATE COMMENT SET CONTENT=#{content}, NALJA=NOW() WHERE CO_NO=#{co_no} AND CO_TYPE=#{co_type} AND P_NO=#{p_no}
  	</update>
  	
  	<delete id="delete">
- 		DELETE FROM COMMENT WHERE CO_NO=#{co_no}
+ 		DELETE FROM COMMENT WHERE CO_NO=#{co_no} AND CO_TYPE=#{co_type} AND P_NO=#{p_no}
  	</delete>
   </mapper>

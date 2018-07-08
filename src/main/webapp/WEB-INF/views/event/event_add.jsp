@@ -70,7 +70,7 @@
         <hr>
             <!-- 내용 입력 -->
             <!-- add-page 입니다. -->
-            <form action="./" method="post">
+            <form action="/event" method="post">
             	<div>
 	            	<label for="img">대표이미지</label>
 	            	<input type="file" name="img" id="img">
@@ -81,14 +81,14 @@
             	</div>
             	<div>
 	            	<label for="con">내용</label>
-	            	<textarea name="con"></textarea>
+			        <textarea name="con" id="con" style="width: 700px; height: 400px;"></textarea>
             	</div>
             	<div>
 	            	<label for="tags">해시태그</label>
 	            	<input type="text" name="tags" id="tags">
             	</div>
             	<div>
-            		<button type="submit">완료</button>
+            		<input type="button" id="insertBoard" value="등록" />
             		<button type="reset">취소</button>
             	</div>
             </form>
