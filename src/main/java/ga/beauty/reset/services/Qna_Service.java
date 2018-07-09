@@ -2,6 +2,7 @@ package ga.beauty.reset.services;
 
 import java.sql.SQLException;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -20,19 +21,24 @@ public class Qna_Service {
 		
 	}
 	
+	public Qna_Vo selectOnePage(int qa_no) throws SQLException {
+		return Qna_Dao.selectOne(qa_no);
+		
+	}
+	
 	public void addPage(Qna_Vo bean) throws SQLException {
 		Qna_Dao.insertOne(bean);
-	
 	}
-//
-//	
-//	public void deletePage(Qna_Vo bean) throws SQLException {
-//		qna_Dao.deleteOne(bean);
-//	}
-//
-//	
-//	public void updatePage(Qna_Vo bean) throws SQLException {
-//		qna_Dao.updateOne(bean);
-//	}
+	
+
+	
+	public void deletePage(int qa_no) throws SQLException {
+		Qna_Dao.deleteOne(qa_no);
+	}
+
+	
+	public void updatePage(Qna_Vo bean) throws SQLException {
+		Qna_Dao.updateOne(bean);
+	}
 	
 }

@@ -5,16 +5,21 @@
   
   <mapper namespace="notice_mapper">
   
-  <select id="selecAll" resultType="Notice_Vo">
+  <select id="selectAll" resultType="Notice_Vo">
    SELECT * FROM NOTICE ORDER BY no_no DESC;
   </select>
   
+    <select id="selectOne" resultType="Notice_Vo">
+   SELECT * FROM NOTICE ORDER BY no_no=#{no_no}
+  </select>
+  
   <insert id="insertOne" parameterType="Notice_Vo">
-  	insert into notice ('title','content') values (#{title},#{content})
+  	INSERT INTO NOTICE (title, content) VALUES (#{title}, #{content})
   </insert>
   
+  
   <update id="updateOne" parameterType="Notice_Vo">
-  UPDATE GUEST SET title=#{title},content=#{content} WHERE no_no=#{no_no}
+  UPDATE NOTICE SET title=#{title},content=#{content} WHERE no_no=#{no_no}
   </update>
   
   <delete id="deleteOne" parameterType="int">

@@ -12,12 +12,10 @@ import ga.beauty.reset.dao.entity.Qna_Vo;
 
 @Repository
 public class Qna_DaoImpl implements Qna_Dao<Qna_Vo> {
-
+	
+	@Autowired
 	SqlSession sqlSession;
 
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
 	
 	public Qna_DaoImpl() {
 	
@@ -36,18 +34,18 @@ public class Qna_DaoImpl implements Qna_Dao<Qna_Vo> {
 	}
 
 	@Override
-	public Qna_Vo selectOne(Qna_Vo bean) throws SQLException {
-		return null;
+	public Qna_Vo selectOne(int qa_no) throws SQLException {
+		return sqlSession.selectOne("qna_mapper.selectOne", qa_no);
 	}
 
 	@Override
 	public int updateOne(Qna_Vo bean) throws SQLException {
-		return 0;
+		return sqlSession.update("qna_mapper.updateOne", bean);
 	}
 
 	@Override
-	public int deleteOne(Qna_Vo bean) throws SQLException {
-		return 0;
+	public int deleteOne(int qa_no) throws SQLException {
+		return sqlSession.delete("qna_mapper.deleteOne", qa_no);
 	}
 
 	

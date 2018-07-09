@@ -9,24 +9,15 @@
  	SELECT * FROM QNA ORDER BY QA_NO DESC
  </select>
  
+ <select id="selectOne" resultType="Qna_Vo">
+ 	SELECT * FROM QNA WHERE QA_NO=#{qa_no}
+ </select>
+ 
  <insert id="insertOne" parameterType="Qna_Vo">
  	<!--  INSERT INTO QNA ('qa_type', 'con', 'email') VALUES (#{qa_type}, #{con}, #{email})-->
- 	
- 	INSERT INTO QNA (`con`, `qa_type`, `email`) VALUES ( #{con}, #{qa_type}, #{email})
-
-<!--   		INSERT INTO GUEST VALUES (#{sabun},
-  		<choose>
-		    <when test='name==null or name==""'>
-		      '이름없음'
-		    </when>
-		    <otherwise>
-		      #{name}
-		    </otherwise>
-  		</choose>
-  		,SYSDATE,#{pay})
-  	</insert>
-  -->
+ 	INSERT INTO QNA (con, qa_type, email) VALUES (#{con}, #{qa_type}, #{email})
  </insert>
+ 
  
  <delete id="deleteOne" parameterType="int">
  	DELETE FROM QNA WHERE qna_no=#{qna_no}
