@@ -6,37 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import ga.beauty.reset.dao.Comment_Dao;
 import ga.beauty.reset.dao.Common_Dao;
-import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
+import ga.beauty.reset.dao.entity.Magazine_Vo;
 
 @Service
-public class Event_Service {
+public class Magazine_Service {
 	@Autowired
-	Common_Dao<Event_Vo> commonDao;
-	
-	@Autowired
-	Comment_Dao<Comment_Vo> commentDao;
+	Common_Dao<Magazine_Vo> commonDao;
 	
 	public void listPage(Model model) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll());
 	}
 	
-	public void detailPage(Model model,Event_Vo bean,Comment_Vo comment) throws SQLException{
+	public void detailPage(Model model,Magazine_Vo bean) throws SQLException{
 		model.addAttribute("detail",commonDao.selectOne(bean));
-		model.addAttribute("comment",commentDao.list(comment));
 	}
 	
-	public void addPage(Event_Vo bean) throws SQLException{
+	public void addPage(Magazine_Vo bean) throws SQLException{
 		commonDao.insertOne(bean);
 	}
 	
-	public void updatePage(Event_Vo bean) throws SQLException{
+	public void updatePage(Magazine_Vo bean) throws SQLException{
 		commonDao.updateOne(bean);
 	}
 	
-	public void deletePage(Event_Vo bean) throws SQLException{
+	public void deletePage(Magazine_Vo bean) throws SQLException{
 		commonDao.deleteOne(bean);
 	}
 }

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="comment">
   	<select id="list" resultType="Comment_Vo">
-  		SELECT * FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO=#{p_no} ORDER BY CO_NO DESC
+  		SELECT * FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO=#{p_no} ORDER BY CO_NO ASC
   	</select>
   	
   	<select id="count">
