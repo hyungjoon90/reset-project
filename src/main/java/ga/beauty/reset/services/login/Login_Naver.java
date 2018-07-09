@@ -1,18 +1,25 @@
 package ga.beauty.reset.services.login;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -21,13 +28,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ga.beauty.reset.controller.Login_Controller;
+import ga.beauty.reset.dao.User_Dao;
+import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
+import ga.beauty.reset.utils.ErrorEnum;
 
-@Service
-@Scope("session")
+@Service("login_Naver")
 public class Login_Naver implements Login_Service{
 
 	private static final Logger logger = Logger.getLogger(Login_Controller.class);
+
 
 	private final String clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
 	private final String clientSecret = "13p5vTz404";//애플리케이션 클라이언트 시크릿값";
@@ -39,6 +49,10 @@ public class Login_Naver implements Login_Service{
 	ObjectMapper mapper = new ObjectMapper();
 
 	private HttpSession userSession;
+	private HttpServletRequest request;
+	
+	@Autowired
+	User_Dao user_Dao;
 	
 	//
 	public Login_Naver() throws UnsupportedEncodingException {
@@ -53,95 +67,113 @@ public class Login_Naver implements Login_Service{
 	
 	
 	@Override
-	public Model login(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		//https://developers.naver.com/docs/login/api/ 참조 -- jsp부분
+	public Model login(Model model, HttpServletRequest req) throws ClientProtocolException, IOException, URISyntaxException, SQLException {
 		String code = req.getParameter("code");
 		String state = req.getParameter("state");
 		userSession = req.getSession();
-		
-		String apiURL;
-		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-		apiURL += "client_id=" + clientId;
-		apiURL += "&client_secret=" + clientSecret;
-		apiURL += "&redirect_uri=" + redirectURI;
-		apiURL += "&code=" + code;
-		apiURL += "&state=" + state;
+		request = req;
 
-		URL url = new URL(apiURL);
-		HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		con.setRequestMethod("GET");
-		int responseCode = con.getResponseCode();
-		BufferedReader br;
-		if(responseCode==200) { // 정상 호출
-			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		} else {  // 에러 발생
-			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-		}
-		String inputLine;
-		StringBuffer res = new StringBuffer();
-		while ((inputLine = br.readLine()) != null) {
-			res.append(inputLine);
-		}
-		
-		br.close();
-		
-		if(responseCode==200) {
-			// reset - 서비스로직
-			logger.debug(res.toString());
-			JsonNode tokenJson = mapper.readTree(res.toString());
-			access_token= tokenJson.get("access_token").asText();
-			refresh_token= tokenJson.get("refresh_token").asText();
-			// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
-			// 로그인일 경우 리다이렉트, 회원가입일땐 model에 이메일, 
-			this.checkEmail();
+		int resultCode =0;
+		if( (resultCode = getToken(code,state))!=200  ) {
+			request.setAttribute("login_err",ErrorEnum.TOKENERR);
+			return model;
+		} 
+
+		String result= this.checkEmail(); // 정상적이면 이메일
+		if(result.equals(ErrorEnum.EMAILERR)) {
+			request.setAttribute("login_err",ErrorEnum.EMAILERR);
+			return model;
 		}
 
+		User_Vo checkEmailVo = new User_Vo();
+		checkEmailVo.setEmail(result);
+		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
+		if(resultUser.getEmail().equals(result)) {
+			// 로그인 완료
+			userSession.setAttribute("access_token", access_token);
+			userSession.setAttribute("refresh_token", refresh_token);
+			userSession.setAttribute("login_user_type", resultUser.getUser_type());
+			userSession.setAttribute("login_email", resultUser.getEmail());
+			userSession.setAttribute("login_on", true);
+			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));//이전로그
+		}else {
+			userSession.setAttribute("login_on", false);
+			userSession.setAttribute("login_email", checkEmailVo.getEmail());
+			req.setAttribute("login_result", "redirect:/sign/");
+			// 회원가입
+		}
+		userSession.setAttribute("login_route", "naver");
+		
+		// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
 		//	    
 		return model;
 
 	}
 
-	private String checkEmail() throws IOException {
-		String resultJson= getInfofromProfile();
-		JsonNode tokenJson = mapper.readTree(resultJson);
-		String email= tokenJson.get("email").asText();
-		String gender= tokenJson.get("gender").asText();
+	private int getToken(String code, String state) throws ClientProtocolException, IOException, URISyntaxException  {
 		
-		logger.debug("email/gender:"+email+"/"+gender);
+		String apiURL = "https://nid.naver.com/oauth2.0/token";
+		URIBuilder urlbuilder = new URIBuilder(apiURL);
+		urlbuilder.setCharset(Charset.forName("UTF-8"))
+			.setParameter("grant_type", "authorization_code")
+			.setParameter("client_id", clientId)
+			.setParameter("client_secret", clientSecret)
+			.setParameter("redirect_uri", redirectURI)
+			.setParameter("code", code)
+			.setParameter("state",state);
 		
-		return "";
+		final HttpClient client = HttpClientBuilder.create().build();
+		final HttpGet getR = new HttpGet(urlbuilder.build());
+		final HttpResponse response = client.execute(getR); // 연결시작
+		
+		int responseCode=0;
+		responseCode = response.getStatusLine().getStatusCode();
+		String responseString ="";
+		responseString = EntityUtils.toString(response.getEntity());
+
+		logger.debug("Response Code - getToken(naver) : " + responseCode);
+		JsonNode tokenJson = null;
+		if(responseCode==200) {
+			tokenJson = mapper.readTree(responseString);
+			access_token= tokenJson.get("access_token").asText();
+			refresh_token= tokenJson.get("refresh_token").asText();
+		}else {
+			logger.debug("Response Err - getToken(naver) : ("+request.getRemoteHost()+")/"+ responseString);
+		}
+		return responseCode;
+		
 	}
-
-	private String getInfofromProfile() throws IOException {
-
-		String token = access_token; // 네이버 로그인 접근 토큰;
-		String header = "Bearer " + token; // Bearer 다음에 공백 추가
+	
+	
+	private String checkEmail() throws IOException, URISyntaxException {
+		String header = "Bearer " + access_token; // Bearer 다음에 공백 추가
 		String apiURL = "https://openapi.naver.com/v1/nid/me";
-		URL url = new URL(apiURL);
-		HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		con.setRequestMethod("GET");
-		con.setRequestProperty("Authorization", header);
-		int responseCode = con.getResponseCode();
-		BufferedReader br;
-		if(responseCode==200) { // 정상 호출
-			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		} else {  // 에러 발생
-			br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-		}
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-		while ((inputLine = br.readLine()) != null) {
-			response.append(inputLine);
-		}
-		br.close();
-		JsonNode tokenJson = mapper.readTree(response.toString());
-		return tokenJson.get("response").toString();
 
-	}
+		URIBuilder urlbuilder = new URIBuilder(apiURL).setCharset(Charset.forName("UTF-8"));
 
-	private void checkLoginOrSignUp() {
+		final HttpClient client = HttpClientBuilder.create().build();
+		final HttpGet getR = new HttpGet(urlbuilder.build());
+		getR.setHeader("Authorization", "Bearer " + access_token);
+		final HttpResponse response = client.execute(getR); // 연결시작
 		
-	}
+		int responseCode=0;
+		responseCode = response.getStatusLine().getStatusCode();
+		String responseString ="";
+		responseString = EntityUtils.toString(response.getEntity());
+
+		JsonNode tokenJson = null;
+		logger.debug("Response Code - checkEmail(naver) : ("+request.getRemoteHost()+")/"+responseCode); // TODO 지울거
+		if(responseCode==200) {
+			tokenJson = mapper.readTree(responseString.toString());
+			JsonNode resultJson = tokenJson.get("response");
+			return resultJson.get("email").asText();
+		}else {
+			logger.debug("Response Code - checkEmail(naver) : ("+request.getRemoteHost()+")/"+responseCode);
+			logger.debug("Response Err - checkEmail(naver) : ("+request.getRemoteHost()+")/"+responseString);
+			return ErrorEnum.EMAILERR;
+		}
+	}// checkEmail();
+
 
 
 }

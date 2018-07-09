@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="companys">
+	<select id="selectAll" resultType="Members_Vo">
+  		SELECT * FROM companys
+  	</select>
+	<select id="selectOne" resultType="Members_Vo">
+  		SELECT * FROM companys WHERE EMAIL =#{email}
+  	</select>
+	<insert id="insertOne" parameterType="int">
+  		INSERT INTO companys
+		(`email`, `company`, `bisnum`, 
+		`manager`, `postcode`, `address`) 
+		VALUES (#{email}, #{company}, #{bisnum}, 
+		#{manager}, #{postcode}, #{address});
+  	</insert>
+  	<update id="updateOne" parameterType="int">
+  		update companys
+  		<set>
+			<if test="company != null">company=#{company}</if>
+			<if test="bisnum != null">bisnum=#{bisnum}</if>
+			<if test="manager != null">manager=#{manager}</if>
+			<if test="postcode != null">postcode=#{postcode}</if>
+			<if test="address != null">address=#{address}</if>
+		</set>
+		where EMAIL = #{beam.email}
+  	</update>
+</mapper>
+

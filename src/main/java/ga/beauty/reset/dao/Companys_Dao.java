@@ -1,5 +1,6 @@
 package ga.beauty.reset.dao;
 
-public class Companys_Dao {
+import ga.beauty.reset.dao.entity.Companys_Vo;
 
+public interface Companys_Dao extends Common_Dao<Companys_Vo>{
 }

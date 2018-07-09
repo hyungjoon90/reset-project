@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
@@ -19,32 +23,74 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import ga.beauty.reset.dao.User_Dao;
+import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
+import ga.beauty.reset.utils.ErrorEnum;
 
 
-@Service
+@Service("login_Google")
 public class Login_Google implements Login_Service{
 
-	String id_token;
-	private HttpSession session;
+	private static final Logger logger = Logger.getLogger(Login_Google.class);
+
+	
+	String access_token;
+	private HttpSession userSession;
 	private HttpServletRequest request;
-	private Object response;
+	private HttpServletResponse response;
+	
+	@Autowired
+	User_Dao user_Dao;
+	
+	public Login_Google() {
+	}
+	
 	@Override
 	public Model logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}// logout()
 
+	// 이메일 체크할때 토큰 오류 / 이메일 오류 있을수 있음
 	@Override
-	public Model login(Model model, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	public Model login(Model model, HttpServletRequest req) throws Exception {
 		request = req;
-		response = resp;
-		session= req.getSession();
-		id_token = req.getParameter("idtoken");
+		userSession= req.getSession();
+		access_token = req.getParameter("idtoken");
 		
-		String result = getEmail(id_token);
-		return null;
-	}
+		String result = getEmail(access_token);
+		if(result.equals(ErrorEnum.TOKENERR)) {
+			userSession.setAttribute("login_err",ErrorEnum.TOKENERR);
+			userSession.setAttribute("nextUrl", "/errPage");
+			return model;
+		}else if(result.equals(ErrorEnum.EMAILERR)) {
+			userSession.setAttribute("login_err",ErrorEnum.EMAILERR);
+			userSession.setAttribute("nextUrl", "/errPage");
+			return model;
+		}
+		
+		User_Vo checkEmailVo = new User_Vo();
+		checkEmailVo.setEmail(result);
+		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
+		String nextUrl ="";
+		if(resultUser.getEmail().equals(result)) {
+			// 로그인 완료
+			userSession.setAttribute("access_token", access_token);
+			userSession.setAttribute("login_user_type", resultUser.getUser_type());
+			userSession.setAttribute("login_email", resultUser.getEmail());
+			userSession.setAttribute("login_on", true);
+			nextUrl = (String)userSession.getAttribute("old_url");//이전로그
+		}else {
+			userSession.setAttribute("login_on", false);
+			userSession.setAttribute("login_email", checkEmailVo.getEmail());
+			nextUrl = "/sign/";// 
+			// 회원가입
+		}
+		userSession.setAttribute("login_route", "google");
+		userSession.setAttribute("nextUrl", nextUrl);
+		return model;
+	}// login()
 
 	private String getEmail(String id_token) throws GeneralSecurityException, IOException {
 
@@ -59,30 +105,21 @@ public class Login_Google implements Login_Service{
 		String email = "";
 		if (idToken != null) {
 			Payload payload = idToken.getPayload();
-			// Print user identifier
 			String userId = payload.getSubject();
-			System.out.println("User ID: " + userId);
-			// Get profile information from payload
 			email = payload.getEmail();
 			boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-			String name = (String) payload.get("name");
-			String pictureUrl = (String) payload.get("picture");
-			String locale = (String) payload.get("locale");
-			String familyName = (String) payload.get("family_name");
-			String givenName = (String) payload.get("given_name");
-			System.out.println(email);
+			if(emailVerified) {
+				return email;
+			}else {
+				return ErrorEnum.EMAILERR;
+			}
 		} else {
-			System.out.println("Invalid ID token.");
+			return ErrorEnum.TOKENERR;
 		}
-		
-		return email;
 
-	}
-	
-	private void checkLoginOrSignUp() {
-		
-	}
+	}//getEmail()
 
-}
+
+}// Login_Google()
 
 

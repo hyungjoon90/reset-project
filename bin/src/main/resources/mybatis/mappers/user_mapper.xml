@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="sellectOne" resultType="User_Vo">
+  		SELECT * FROM GUEST WHERE EMAIL =#{email}
+		<if test="user_type != null">
+			and user_type =#{user_type}
+		</if>
+  	</select>
+  	
+  	
+	<!-- <insert id="insertOne" parameterType="dto">
+  		INSERT INTO GUEST VALUES (#{sabun},
+  		<choose>
+			<when test='name==null or name==""'>
+				'이름없음'
+			</when>
+			<otherwise>
+	  			#{name}
+			</otherwise>
+  		</choose>
+  		,SYSDATE,#{pay})
+  	</insert> -->
+</mapper>

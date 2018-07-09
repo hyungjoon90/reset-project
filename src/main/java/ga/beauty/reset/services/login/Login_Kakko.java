@@ -19,23 +19,24 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ga.beauty.reset.dao.User_Dao;
+import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
+import ga.beauty.reset.utils.ErrorEnum;
 
 
-@Service
+@Service("login_Kakko")
 public class Login_Kakko implements Login_Service{
 
 	private static final Logger logger = Logger.getLogger(Login_Kakko.class);
-	
-	private String tokenErr = "토큰에러";
-	private String profileErr = "프로필에러";
-	private String emailErr = "이메일에러";
 	
 	private final String clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
 	private String redirectURI ="http://localhost:8080/reset/login/kakko";
@@ -48,6 +49,9 @@ public class Login_Kakko implements Login_Service{
 	private HttpServletResponse response;
 	
 	ObjectMapper mapper = new ObjectMapper();
+
+	@Autowired
+	User_Dao user_Dao;
 	
 	public Login_Kakko() throws UnsupportedEncodingException {
 	}
@@ -60,18 +64,17 @@ public class Login_Kakko implements Login_Service{
 
 
 	@Override
-	public Model login(Model model, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	public Model login(Model model, HttpServletRequest req) throws Exception {
 		// 요청(코드) >>  토큰얻기(코드) >> ( 앱연결(토큰) ) >> 프로필(토큰) 
 
 		request = req;
-		response = resp;
 		userSession = req.getSession();
 		String code = req.getParameter("code");
 
 		int resultCode = 0;
 		
 		if( (resultCode = getToken(code))!=200  ) {
-			model.addAttribute("login_err",tokenErr);
+			model.addAttribute("login_err",ErrorEnum.TOKENERR);
 			return model;
 		} 
 		// 한번만 실행되면 됨
@@ -81,15 +84,35 @@ public class Login_Kakko implements Login_Service{
 		// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
 		// 로그인일 경우 리다이렉트, 회원가입일땐 model에 이메일,
 		
-		String result= this.checkEmail(); // 정상적이면 이메일
-		if(result.equals(profileErr)) {
-			// TODO 프로필에러... 
-		}else if(result.equals(emailErr)) {
-			// TODO 이메일 재확인 처리해야됨
+		String result= this.getInfofromProfile(); // 정상적이면 이메일
+		if(result.equals(ErrorEnum.PROFILEERR)) {
+			req.setAttribute("login_err",ErrorEnum.PROFILEERR);
+			return model;
 		}
-		userSession.setAttribute("login_type", "kakko");
-		userSession.setAttribute("access_token", access_token);
-		userSession.setAttribute("login_type", "kakko");
+		result = this.checkEmail(result);
+		if(result.equals(ErrorEnum.EMAILERR)) {
+			req.setAttribute("login_err",ErrorEnum.EMAILERR);
+			return model;		
+		}
+		User_Vo checkEmailVo = new User_Vo();
+		checkEmailVo.setEmail(result);
+		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
+		if(resultUser.getEmail().equals(result)) {
+			// 로그인 완료
+			userSession.setAttribute("access_token", access_token);
+			userSession.setAttribute("refresh_token", refresh_token);
+			userSession.setAttribute("login_user_type", resultUser.getUser_type());
+			userSession.setAttribute("login_email", resultUser.getEmail());
+			userSession.setAttribute("login_on", true);
+			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));//이전로그
+		}else {
+			userSession.setAttribute("sign_up", true);
+			userSession.setAttribute("login_email", checkEmailVo.getEmail());
+			req.setAttribute("login_result", "redirect:/sign/");
+			// 회원가입
+		}
+		userSession.setAttribute("login_route", "kakko");
+		
 		return model;
 	}
 	
@@ -114,17 +137,14 @@ public class Login_Kakko implements Login_Service{
 		String responseString ="";
 		responseString = EntityUtils.toString(response.getEntity());
 
-		logger.debug("Post parameters - getToken(kakko) : " + postParams);
-		logger.debug("Response Code - getToken(kakko) : " + responseCode);
 		JsonNode tokenJson = null;
+		logger.debug("Response Code - getToken(kakko) : ("+request.getRemoteHost()+")/"+responseCode);
 		if(responseCode==200) {
 			tokenJson = mapper.readTree(responseString);
 			access_token= tokenJson.get("access_token").asText();
 			refresh_token= tokenJson.get("refresh_token").asText();
-			logger.debug("access_token Code : " + access_token);
-			logger.debug("refresh_token Code : " + refresh_token);
 		}else {
-			logger.debug("Response Err - getToken(kakko) :" + responseString);
+			logger.debug("Response Err - getToken(kakko) : ("+request.getRemoteHost()+")/"+responseString);
 		}
 		return responseCode;
 	}
@@ -146,26 +166,19 @@ public class Login_Kakko implements Login_Service{
 		final HttpResponse response = client.execute(post);
 		
 		int responseCode = response.getStatusLine().getStatusCode();
-		JsonNode idJson = mapper.readTree(response.getEntity().getContent());
+		String responseString = EntityUtils.toString(response.getEntity(), "utf-8");
 
-		logger.debug("Response Code -setKakkoId(kakko) : " + responseCode);
 		if(responseCode==200) {
 //			String app_id = idJson.get("id").asText();
 //			logger.debug("app_id : " + app_id);
 //			userSession.setAttribute("app_id", app_id);
-		}else {
-			logger.debug(response.getStatusLine().getReasonPhrase());
-			logger.debug("Response Err -setKakkoId(kakko) : "+idJson.asText());
 		}
+		logger.debug("Response Code -setKakkoId(kakko): ("+request.getRemoteHost()+")/"+responseCode);
+		logger.debug("Response Body -setKakkoId(kakko) : ("+request.getRemoteHost()+")/"+responseString);
 	}
 	
-	private String checkEmail() throws IOException {
-		String resultString= getInfofromProfile();
+	private String checkEmail(String resultString) throws IOException {
 
-		if(resultString.equals(profileErr)) {
-			return resultString;
-		}
-		
 		JsonNode tokenJson = mapper.readTree(resultString);
 		//JsonNode idJson = tokenJson.get("id"); 필요할때 쓰자
 		JsonNode accountJson = tokenJson.get("kakao_account");
@@ -176,7 +189,7 @@ public class Login_Kakko implements Login_Service{
 		if( hasEmail &&  validEmail &&  verifedEmail ) {
 			return email;
 		}else {
-			return emailErr;
+			return ErrorEnum.EMAILERR;
 		}
 	
 	}
@@ -198,15 +211,12 @@ public class Login_Kakko implements Login_Service{
 		HttpResponse response = client.execute(post);
 		int responseCode = response.getStatusLine().getStatusCode();
 		String responseString = EntityUtils.toString(response.getEntity(), "utf-8");
-		logger.debug("Response Code -getInfo(kakko) : "+responseCode);
+		logger.debug("Response Code -getInfo(kakko): ("+request.getRemoteHost()+")/"+responseCode);
 		if(responseCode != 200) {
 			logger.debug("Response Err -getInfo(kakko): ("+request.getRemoteHost()+")/"+responseString);
-			return profileErr;
+			return ErrorEnum.PROFILEERR;
 		}
 		return responseString;
 	}// getInfofromProfile()
 	
-	private void checkLoginOrSignUp() {
-		
-	}
 }
