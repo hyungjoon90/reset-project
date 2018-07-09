@@ -2,7 +2,7 @@ package ga.beauty.reset.dao.entity;
 
 import java.sql.Date;
 
-public class Review_Vo {
+public class Reviews_Vo {
 	private int rev_no;
 	private int item;
 	private String img;
@@ -17,11 +17,11 @@ public class Review_Vo {
 	private int star;
 	private Date nalja;
 	
-	public Review_Vo() {
+	public Reviews_Vo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Review_Vo(int rev_no, int item, String img, String nick, int age, String skin, String gender, String good,
+	public Reviews_Vo(int rev_no, int item, String img, String nick, int age, String skin, String gender, String good,
 			String bad, String tip, int pop, int star, Date nalja) {
 		super();
 		this.rev_no = rev_no;
@@ -73,7 +73,7 @@ public class Review_Vo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Review_Vo other = (Review_Vo) obj;
+		Reviews_Vo other = (Reviews_Vo) obj;
 		if (age != other.age)
 			return false;
 		if (bad == null) {

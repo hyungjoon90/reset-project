@@ -5,8 +5,8 @@
 <configuration>
   <typeAliases>
   	<typeAlias alias="items_vo" type="ga.beauty.reset.dao.entity.Items_Vo"/>
-  	<typeAlias alias="rank_vo" type="ga.beauty.reset.dao.entity.Rank_Vo"/>
-  	<typeAlias alias="review_vo" type="ga.beauty.reset.dao.entity.Review_Vo"/>
+  	<typeAlias alias="ranks_vo" type="ga.beauty.reset.dao.entity.Ranks_Vo"/>
+  	<typeAlias alias="reviews_vo" type="ga.beauty.reset.dao.entity.Reviews_Vo"/>
   </typeAliases>
   
 </configuration>

@@ -7,11 +7,8 @@ import ga.beauty.reset.dao.entity.Items_Vo;
 import ga.beauty.reset.dao.entity.Ranks_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 
-public interface Items_Dao<C> {
-	
-	//ranking 페이지에서만 사용
-	List<C> rankAll(int type) throws SQLException;
-	//ranking 상세페이지
-	C selectOne(int c) throws SQLException;
-	
+public interface Reviews_Dao<C> {
+	Ranks_Vo totAll(int c) throws SQLException;
+	List<C> reviewAll(int c)throws SQLException;
+	List<C> reviewAdd(int c) throws SQLException;
 }

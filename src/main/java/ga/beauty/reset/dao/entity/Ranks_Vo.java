@@ -1,6 +1,6 @@
 package ga.beauty.reset.dao.entity;
 
-public class Rank_Vo {
+public class Ranks_Vo {
 	private int item;
 	private int one;
 	private int two;
@@ -8,11 +8,11 @@ public class Rank_Vo {
 	private int four;
 	private int five;
 	
-	public Rank_Vo() {
+	public Ranks_Vo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Rank_Vo(int item, int one, int two, int three, int four, int five) {
+	public Ranks_Vo(int item, int one, int two, int three, int four, int five) {
 		super();
 		this.item = item;
 		this.one = one;
@@ -49,7 +49,7 @@ public class Rank_Vo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Rank_Vo other = (Rank_Vo) obj;
+		Ranks_Vo other = (Ranks_Vo) obj;
 		if (five != other.five)
 			return false;
 		if (four != other.four)

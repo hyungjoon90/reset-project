@@ -35,8 +35,8 @@
     }
     
     .ImgBox>img{
-        width: 400px;
-        height: 400px;
+		max-height: 400px;
+		margin: 0px auto;
     }
     .avgBox{
     	width: 95%;
@@ -62,8 +62,87 @@
     .bar5{
     	background-image: -webkit-linear-gradient(top,#90F7EC 0,#32CCBC 100%);
     }
-    
+    .reviewBox{
+    	width: 95%;
+    	border: 1px solid #e5e5e5;
+    	margin: 0px auto;
+    }
+    .icon{
+   	    text-align: center;
+   	    margin: 5px 0px;
+    }
+   	.btn-color{
+   		color: white;
+   		background-image: -webkit-gradient(linear,left top,left bottom,from(#F5515F),to(#A1051D));
+   	}
+   	.btn-position{
+   	    text-align: center;
+   	    margin: 5px 0px;
+   	}
+   	.btn-file {
+    position: relative;
+    overflow: hidden;
+	}
+	.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+	}
 </style>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$(".icon").click(function(){
+		add();
+	});
+	
+	$('#review_write').on('shown.bs.modal', function () {
+	})	
+	 
+	
+	
+});
+	
+function add(){
+	var item=${item_bean.item};
+	$.ajax({
+	        type: 'GET', // get 방식으로 요청
+			dataType: 'json', // json 타입
+			url: "reviewadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
+	})
+	.done(function(data){
+ 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
+ 			$('.icon').prev().after(
+					"<div class='reviewBox'>"+
+					"<img src='"+data.img+"'/>"+
+					"<label>"+data.nick+"</label>"+
+					"<label>"+data.age+"</label>/"+
+					"<label>"+data.skin+"</label>/"+
+					"<label>"+data.gender+"</label>"+
+					"<label>"+data.star+"</label>/"+
+					"<label>"+data.nalja+"</label>"+
+					"<p>"+data.good+"</p>"+
+					"<p>"+data.good+"</p>"+
+					"<p>"+data.tip+"</p></div>");
+		})
+	})
+	.fail(function () { // 실패했을때 불러질 함수
+		console.error('데이터 불러오기 실패');
+	})
+}
+
+    	
+</script>
 </head>
 <body>
 	<!--header-->
@@ -113,7 +192,7 @@
    <div class="page_container">
         <div class="contentsBox">
             <div class="ImgBox">
-                <img src="../${item_bean.img }">
+                <img src="../${item_bean.img }" class="img-responsive" alt="Responsive image">
             </div>
             <div class="InfoBox">
                 <h4>${item_bean.name }</h4>
@@ -151,7 +230,7 @@
         </div>
         <div class="avgBox">
         	
-            <p>점수 총 <span>${total }</span>명 <span>${item_bean.tot }</span>점</p>
+            <p>점수 총 <span>${map.total }</span>명 <span>${item_bean.tot }</span>점</p>
             <table class="table">
             	<tr>
          			<td>
@@ -159,8 +238,8 @@
             		</td>
          			<td>
          				<div class="progress">
-							<div class="progress-bar progress-bar bar1" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${five }%">
-						    	${five }%
+							<div class="progress-bar progress-bar bar1" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.five }%">
+						    	${map.five }%
 							</div>
 						</div>
             		</td>
@@ -171,8 +250,8 @@
             		</td>
          			<td>
          				<div class="progress">
-						  <div class="progress-bar progress-bar bar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${four }%">
-						    ${four }%
+						  <div class="progress-bar progress-bar bar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.four }%">
+						    ${map.four }%
 						  </div>
 						</div>
             		</td>
@@ -183,8 +262,8 @@
             		</td>
          			<td>
          				<div class="progress">
-						  <div class="progress-bar progress-bar bar3" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${three }%">
-						    ${three }%
+						  <div class="progress-bar progress-bar bar3" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.three }%">
+						    ${map.three }%
 						  </div>
 						</div>
             		</td>
@@ -195,8 +274,8 @@
             		</td>
          			<td>
 						<div class="progress">
-							<div class="progress-bar progress-bar bar4" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${two }%">
-						    	${two }%
+							<div class="progress-bar progress-bar bar4" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.two }%">
+						    	${map.two }%
 					    	</div>
 						</div>
             		</td>
@@ -207,8 +286,8 @@
             		</td>
          			<td>
 						<div class="progress">
-						  <div class="progress-bar progress-bar bar5" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${one }%">
-						    ${one }%
+						  <div class="progress-bar progress-bar bar5" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.one }%">
+						    ${map.one }%
 						  </div>
 						</div>
             		</td>
@@ -216,19 +295,70 @@
             </table>
 			
         </div>
+        
+        <div class="btn-position">
+	        <!-- Button trigger modal -->
+			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#review_write">
+			  글쓰기
+			</button>
+		</div>
+		
         <c:forEach items="${review_bean }" var="review">
         <div class="reviewBox">
             <img src="${review.img }"/>
             <label>${review.nick }</label>
-            <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>
-            <label>${review.star }</label>/<label>${review.nalja }</label>
+            <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>/
+            <label>${review.star }점</label>/<label>${review.nalja }</label>
             <p>${review.good }</p>
             <p>${review.good }</p>
             <p>${review.tip }</p>
         </div>
         </c:forEach>
+        <div class="icon">
+	        <button type="button" class="btn btn-default btn-lg">
+	        	<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+	        </button>
+        </div>
 	</div>
     <!-- //main contents -->
+    
+    <!-- modal -->
+    	
+		
+		<!-- Modal -->
+		<div class="modal fade" id="review_write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">리뷰</h4>
+		      </div>
+		      <div class="modal-body">
+		      <form method="post">
+			    <input type="hidden" name="item" value="${item_bean.item}"/>
+		      	<label>좋은점</label>
+		        <textarea class="form-control" rows="3" name="good" id="good"></textarea>
+		      	<label>나쁜점</label>
+		        <textarea class="form-control" rows="3" name="bad" id="bad"></textarea>
+		      	<label>꿀팁</label>
+		        <textarea class="form-control" rows="3" name="tip" id="tip"></textarea>
+		        
+		      	<label>이미지 업로드</label>
+				<div class="form-group">
+					<label for="exampleInputFile">파일 업로드</label>
+					<input type="file" id="exampleInputFile">
+				</div>
+				
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="submit" class="btn btn-primary">글쓰기</button>
+		      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+    <!-- //modal -->
 
     <!--footer-->
     <div class="footer">
@@ -261,6 +391,5 @@
         </div>
     </div>
     <!--//footer-->    
-
 </body>
 </html>
