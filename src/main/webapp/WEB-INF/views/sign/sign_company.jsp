@@ -9,7 +9,17 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="../css/main.css" rel="stylesheet">
-	<title>Normol LoginView</title>
+<script src="../js/ser.js"></script>
+<script src="../js/sign.js"></script>
+<title>Normol LoginView</title>
+<script type="text/javascript">
+$(function(){
+    addFormEvent();
+/*     $("form").submit(function(e){
+         e.preventDefault();
+    }); */
+});
+</script>
 </head>
 <body>
 	<!--header-->
@@ -77,16 +87,20 @@
 		</div>
 		<div class="form-group">
 			<label for="password">password</label>		
-			<input type="password" name="password" id="password" class="form-control" placeholder="영소대문자 6자이상"/>
+			<input type="password" name="password" id="password" class="form-control" placeholder="영소대문자,숫자 포함. 10자이상"/>
 		</div>
 		<div class="form-group">
-			<label for="passChk">password확인</label>		
-			<input type="password" id="passChk" class="form-control"/>
+			<label for="pwchk">password확인</label>		
+			<input type="password" id="pwchk" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="phone">연락처</label>		
+			<input type="text" name="phone" id="phone" class="form-control" placeholder="-를 제외한 숫자만 입력"/>
 		</div>
 		<div class="form-group">
 			<label for="gender">성별</label>		
- 			<input type="radio" name="gender" id="gender_1" value="남성" checked/><label for="gender_1">남성</label><br>
- 			<input type="radio" name="gender" id="gender_2" value="여성" checked/><label for="gender_2">여성</label><br>
+ 			<input type="radio" name="gender" id="gender_1"  class="form-control" value="남성" checked/><label for="gender_1">남성</label><br>
+ 			<input type="radio" name="gender" id="gender_2"  class="form-control" value="여성" /><label for="gender_2">여성</label><br>
 		</div>
 		<div class="form-group">
 			<label for="age">age</label>		
@@ -94,9 +108,9 @@
 		</div>
 		<div class="form-group">
 			<label>피부타입</label>		
- 			<input type="radio" name="skin" id="skin_1" value="지성" checked/><label for="skin_1">지성</label><br>
- 			<input type="radio" name="skin" id="skin_2" value="건성" /><label for="skin_2">건성</label><br>
- 			<input type="radio" name="skin" id="skin_3" value="민감성"/><label for="skin_3">민감성</label><br>
+ 			<input type="radio" name="skin" id="skin_1" class="form-control" value="지성" checked/><label for="skin_1">지성</label><br>
+ 			<input type="radio" name="skin" id="skin_2" class="form-control" value="건성" /><label for="skin_2">건성</label><br>
+ 			<input type="radio" name="skin" id="skin_3" class="form-control" value="민감성"/><label for="skin_3">민감성</label><br>
   		</div>
   		<input type="hidden" name="join_route" value="${login_route}" />
 		<input type="hidden" name="user_type"value="일반" />

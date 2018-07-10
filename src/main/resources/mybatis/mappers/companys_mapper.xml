@@ -4,28 +4,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="companys">
 	<select id="selectAll" resultType="Members_Vo">
-  		SELECT * FROM companys
+  		SELECT * FROM COMPANYS
   	</select>
 	<select id="selectOne" resultType="Members_Vo">
-  		SELECT * FROM companys WHERE EMAIL =#{email}
+  		SELECT * FROM COMPANYS WHERE EMAIL =#{email}
   	</select>
-	<insert id="insertOne" parameterType="int">
-  		INSERT INTO companys
-		(`email`, `company`, `bisnum`, 
-		`manager`, `postcode`, `address`) 
+	<insert id="insertone" parameterType="int">
+  		INSERT INTO COMPANYS
+		(`EMAIL`, `COMPANY`, `BISNUM`, 
+		`MANAGER`, `POSTCODE`, `ADDRESS`) 
 		VALUES (#{email}, #{company}, #{bisnum}, 
 		#{manager}, #{postcode}, #{address});
   	</insert>
   	<update id="updateOne" parameterType="int">
-  		update companys
+  		UPDATE COMPANYS
   		<set>
-			<if test="company != null">company=#{company}</if>
-			<if test="bisnum != null">bisnum=#{bisnum}</if>
-			<if test="manager != null">manager=#{manager}</if>
-			<if test="postcode != null">postcode=#{postcode}</if>
-			<if test="address != null">address=#{address}</if>
+			<if test="company != null">COMPANY=#{company}</if>
+			<if test="bisnum != null">BISNUM=#{bisnum}</if>
+			<if test="manager != null">MANAGER=#{manager}</if>
+			<if test="postcode != null">POSTCODE=#{postcode}</if>
+			<if test="address != null">ADDRESS=#{address}</if>
 		</set>
-		where EMAIL = #{beam.email}
+		WHERE EMAIL = #{beam.email}
   	</update>
 </mapper>
 

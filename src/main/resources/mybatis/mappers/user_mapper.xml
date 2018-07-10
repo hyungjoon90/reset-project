@@ -19,4 +19,10 @@
   			<if test="join_route">JOIN_ROUTE=#{join_route}</if>
   		</set>
   	</update>
+  	<select id="checkInfo" resultType="int">
+  		SELECT count(*) FROM USER
+  		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+  		<if test="email != null">EMAIL = #{email}</if>
+		</trim>
+  	</select>
 </mapper>
