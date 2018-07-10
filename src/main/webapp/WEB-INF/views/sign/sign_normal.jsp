@@ -19,12 +19,14 @@ $(function(){
          e.preventDefault();
     	var result = submitCheck();
 		if(result){
-			
 			var pw= $("#password").val();
-			console.log(pw);
 			$("#password").val(SHA256(pw));
 			var data =$('#form').serialize();
 			console.log(data);
+			$.post(".",data,function(result){
+				console.log(result);
+			});
+			
 		}
 	});
 });

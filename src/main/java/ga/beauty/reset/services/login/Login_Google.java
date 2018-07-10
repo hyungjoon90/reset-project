@@ -34,7 +34,6 @@ public class Login_Google implements Login_Service{
 
 	private static final Logger logger = Logger.getLogger(Login_Google.class);
 
-	
 	String access_token;
 	private HttpSession userSession;
 	private HttpServletRequest request;

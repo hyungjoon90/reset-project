@@ -54,10 +54,7 @@ public class Login_Controller {
 	private Login_Service login_Google;
 	@Autowired
 	private Login_Service login_Normal;
-	
-
-	
-	
+		
 	@RequestMapping(value ="/login/", method=RequestMethod.GET)
 	public String showLoginMain(HttpServletRequest req) {
 		req.getSession().setAttribute("old_url", req.getHeader("referer"));

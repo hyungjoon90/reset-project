@@ -23,12 +23,12 @@ public class User_DaoImp implements User_Dao {
 
 	@Override
 	public int insertOne(User_Vo bean) throws SQLException {
-		return sqlSession.selectOne("user.insertOne", bean);
+		return sqlSession.insert("user.insertOne", bean);
 	}
 
 	@Override
 	public int updateOne(User_Vo bean) throws SQLException {
-		return sqlSession.selectOne("user.updateOne", bean);
+		return sqlSession.update("user.updateOne", bean);
 	}
 
 	@Override

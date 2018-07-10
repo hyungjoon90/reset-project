@@ -33,7 +33,7 @@ public class Members_DaoImp implements Members_Dao{
 
 	@Override
 	public int updateOne(Members_Vo bean) throws SQLException {
-		return sqlSession.insert("members.insertOne", bean);
+		return sqlSession.update("members.insertOne", bean);
 	}
 
 	@Override

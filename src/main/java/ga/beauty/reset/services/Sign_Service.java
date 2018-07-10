@@ -31,6 +31,9 @@ public class Sign_Service {
 	public <C> int signUp(User_Vo userBean, C otherBean) throws SQLException {
 		int resultUser=0, resultOther=0;
 		if(otherBean instanceof Members_Vo) {
+			System.out.println(userBean);
+			System.out.println(otherBean);
+			System.out.println(user_Dao);
 			resultUser = user_Dao.insertOne(userBean);
 			resultOther = members_Dao.insertOne((Members_Vo) otherBean);
 		}else if(otherBean instanceof Companys_Vo) {
@@ -46,10 +49,8 @@ public class Sign_Service {
 		if("check_nick".equals(checkCode)) {
 			return members_Dao.checkInfo(compare);
 		}else if("check_mail".equals(checkCode)){
-			// 이메일 중복체크
 			return members_Dao.checkInfo(compare);
 		}
-		
 		return 9999;
 	}
 	

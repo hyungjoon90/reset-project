@@ -22,7 +22,6 @@ import ga.beauty.reset.services.Sign_Service;
 @Controller
 public class Sign_Controller {
 
-	
 	public Sign_Controller() {
 	}
 	
@@ -55,12 +54,13 @@ public class Sign_Controller {
 		int result = 0;
 		try {
 			if(userBean.getUser_type().equals("일반")) {
+				System.out.println("일반들어옴");
 				sign_Service.signUp(userBean, memberBean);
 			}else {
 				sign_Service.signUp(userBean, componyBean);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO 에러처리
 			e.printStackTrace();
 		}
 		

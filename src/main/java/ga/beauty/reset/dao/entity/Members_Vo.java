@@ -15,7 +15,6 @@ public class Members_Vo {
 	private Timestamp nalja;
 	
 	public Members_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Members_Vo(String email, String nick, String gender, int age, String skin, String phone, String cart,

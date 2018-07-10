@@ -109,7 +109,6 @@ public class Login_Kakko implements Login_Service{
 			userSession.setAttribute("sign_up", true);
 			userSession.setAttribute("login_email", checkEmailVo.getEmail());
 			req.setAttribute("login_result", "redirect:/sign/");
-			// 회원가입
 		}
 		userSession.setAttribute("login_route", "kakko");
 		
@@ -156,12 +155,10 @@ public class Login_Kakko implements Login_Service{
 		
 		String apiURL = "https://kapi.kakao.com/v1/user/signup";
 		final String header1 = "Bearer "+access_token; 
-//		final String header2 = "application/x-www-form-urlencoded;charset=utf-8;";
 		
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost post = new HttpPost(apiURL);
 		post.setHeader("Authorization", header1 );
-//		post.setHeader("Content-Type", header2 );
 		
 		final HttpResponse response = client.execute(post);
 		
