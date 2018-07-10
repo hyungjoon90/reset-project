@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../js/jquery-1.12.4.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../ckeditor/ckeditor.js"></script>
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="../css/main.css" rel="stylesheet">
@@ -70,7 +71,7 @@
         <hr>
             <!-- 내용 입력 -->
             <!-- add-page 입니다. -->
-            <form action="/event" method="post">
+            <form action="/reset/event" method="post">
             	<div>
 	            	<label for="img">대표이미지</label>
 	            	<input type="file" name="img" id="img">
@@ -82,13 +83,39 @@
             	<div>
 	            	<label for="con">내용</label>
 			        <textarea name="con" id="con" style="width: 700px; height: 400px;"></textarea>
+			        <!-- ckeditor를 사용하여 서버로 이미지를 올리고 다시 불러오는 설정입니다. -->
+			        <script>
+				    $(function(){
+				         
+				        CKEDITOR.replace( 'con', {//해당 이름으로 된 textarea에 에디터를 적용
+				            width:'100%',
+				            height:'400px',
+				            filebrowserImageUploadUrl: '/reset/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
+				        });
+				         
+				         
+				        CKEDITOR.on('dialogDefinition', function( ev ){
+				            var dialogName = ev.data.name;
+				            var dialogDefinition = ev.data.definition;
+				          
+				            switch (dialogName) {
+				                case 'image': //Image Properties dialog
+				                    //dialogDefinition.removeContents('info');
+				                    dialogDefinition.removeContents('Link');
+				                    dialogDefinition.removeContents('advanced');
+				                    break;
+				            }
+				        });
+				         
+				    });
+				</script>
             	</div>
             	<div>
 	            	<label for="tags">해시태그</label>
 	            	<input type="text" name="tags" id="tags">
             	</div>
             	<div>
-            		<input type="button" id="insertBoard" value="등록" />
+            		<button type="submit">등록</button>
             		<button type="reset">취소</button>
             	</div>
             </form>

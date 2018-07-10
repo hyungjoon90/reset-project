@@ -17,6 +17,8 @@
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/imgs/**" location="/resources/imgs/" />
 	<resources mapping="/editor/**" location="/resources/editor/" />
+	<resources mapping="/ckeditor/**" location="/resources/ckeditor/" />
+	<resources mapping="/upload/**" location="/resources/upload/" />
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -26,6 +28,5 @@
 	
 	<context:component-scan base-package="ga.beauty.reset" />
 	
-	
-	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans:beans>
