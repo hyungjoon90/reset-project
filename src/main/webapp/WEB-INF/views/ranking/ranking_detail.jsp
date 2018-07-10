@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../js/jquery-1.12.4.js"></script>
 <script src="../js/bootstrap.min.js"></script>
@@ -103,17 +104,36 @@
 
 $(document).ready(function(){
 	$(".icon").click(function(){
-		add();
+		reviewListadd();
 	});
 	
 	$('#review_write').on('shown.bs.modal', function () {
 	})	
 	 
 	
+	$("#reivewAdd").on("click",function(){
+		console.log("클");
+		bean = $('form[id=review]').serialize();
+		console.log(bean);
+		    var item=${item_bean.item};
+			$.ajax({
+				type:'post',
+				data : $('form[id=review]').serialize(),
+				url: "/reset/item/"+item
+			}) 
+			done(function(data){
+		 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
+		 			console.log("입력성공");
+				})
+			})
+			.fail(function () { // 실패했을때 불러질 함수
+				console.error('데이터 입력 실패');
+			})
+		})
 	
 });
 	
-function add(){
+function reviewListadd(){
 	var item=${item_bean.item};
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
@@ -125,7 +145,7 @@ function add(){
  			$('.icon').prev().after(
 					"<div class='reviewBox'>"+
 					"<img src='"+data.img+"'/>"+
-					"<label>"+data.nick+"</label>"+
+					"<label>"+data.writer+"</label>"+
 					"<label>"+data.age+"</label>/"+
 					"<label>"+data.skin+"</label>/"+
 					"<label>"+data.gender+"</label>"+
@@ -306,7 +326,7 @@ function add(){
         <c:forEach items="${review_bean }" var="review">
         <div class="reviewBox">
             <img src="${review.img }"/>
-            <label>${review.nick }</label>
+            <label>${review.writer }</label>
             <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>/
             <label>${review.star }점</label>/<label>${review.nalja }</label>
             <p>${review.good }</p>
@@ -334,8 +354,8 @@ function add(){
 		        <h4 class="modal-title" id="myModalLabel">리뷰</h4>
 		      </div>
 		      <div class="modal-body">
-		      <form method="post">
-			    <input type="hidden" name="item" value="${item_bean.item}"/>
+		      <form id="review">
+			    <input type="hidden" name="writer" value="닉넴1"/>
 		      	<label>좋은점</label>
 		        <textarea class="form-control" rows="3" name="good" id="good"></textarea>
 		      	<label>나쁜점</label>
@@ -343,18 +363,29 @@ function add(){
 		      	<label>꿀팁</label>
 		        <textarea class="form-control" rows="3" name="tip" id="tip"></textarea>
 		        
+		       
+				<label class="radio-inline" for="star">1</label>점
+   				<input type="radio" name="star" value="1"/> 
+				<label class="radio-inline" for="star">2</label>점
+				<input type="radio" name="star" value="2"/> 
+				<label class="radio-inline" for="star">3</label>점
+				<input type="radio" name="star" value="3"/>
+				<label class="radio-inline" for="star">4</label>점
+				<input type="radio" name="star" value="4"/>
+				<label class="radio-inline" for="star">5</label>점
+				<input type="radio" name="star" value="5"/>
+		        
 		      	<label>이미지 업로드</label>
 				<div class="form-group">
 					<label for="exampleInputFile">파일 업로드</label>
 					<input type="file" id="exampleInputFile">
 				</div>
-				
+			  </form>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-		        <button type="submit" class="btn btn-primary">글쓰기</button>
+		        <button type="button" id="reivewAdd" class="btn btn-primary">글쓰기</button>
 		      </div>
-		      </form>
 		    </div>
 		  </div>
 		</div>

@@ -37,7 +37,7 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	}
 	
 	@Override
-	public List<Reviews_Vo> reviewAdd(int item) throws SQLException {
+	public List<Reviews_Vo> reviewListAdd(int item) throws SQLException {
 		this.review_num+=5;
 		log.debug("DaoImp-reviewAdd-param: "+item+" "+this.review_num);
 		
@@ -45,7 +45,13 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		map.put("item", item);
 		map.put("review_num", this.review_num);
 
-		return sqlSession.selectList("items.reviewAdd", map);
+		return sqlSession.selectList("items.reviewListAdd", map);
+	}
+
+	@Override
+	public int reviewAdd(Reviews_Vo bean) throws SQLException {
+		log.debug("DaoImp-reviewAdd:"+bean);
+		return sqlSession.insert("items.reviewAdd", bean);
 	} 
 
 }

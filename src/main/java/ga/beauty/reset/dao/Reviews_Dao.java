@@ -10,5 +10,6 @@ import ga.beauty.reset.dao.entity.Reviews_Vo;
 public interface Reviews_Dao<C> {
 	Ranks_Vo totAll(int c) throws SQLException;
 	List<C> reviewAll(int c)throws SQLException;
-	List<C> reviewAdd(int c) throws SQLException;
+	List<C> reviewListAdd(int c) throws SQLException;
+	int reviewAdd(C c) throws SQLException;
 }

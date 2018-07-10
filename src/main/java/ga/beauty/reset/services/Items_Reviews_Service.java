@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,6 +73,10 @@ public class Items_Reviews_Service {
 		model.addAttribute("tags", list);
 		model.addAttribute("map", map);
 		model.addAttribute("review_bean", Reviews_Dao.reviewAll(item));
+	}
+	
+	public void addPage(Model model,Reviews_Vo bean) throws SQLException {
+		model.addAttribute("result", Reviews_Dao.reviewAdd(bean));
 	}
 }
 

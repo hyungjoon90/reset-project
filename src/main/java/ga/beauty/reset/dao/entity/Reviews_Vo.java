@@ -6,7 +6,7 @@ public class Reviews_Vo {
 	private int rev_no;
 	private int item;
 	private String img;
-	private String nick;
+	private String writer;
 	private int age;
 	private String skin;
 	private String gender;
@@ -21,13 +21,13 @@ public class Reviews_Vo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reviews_Vo(int rev_no, int item, String img, String nick, int age, String skin, String gender, String good,
+	public Reviews_Vo(int rev_no, int item, String img, String writer, int age, String skin, String gender, String good,
 			String bad, String tip, int pop, int star, Date nalja) {
 		super();
 		this.rev_no = rev_no;
 		this.item = item;
 		this.img = img;
-		this.nick = nick;
+		this.writer = writer;
 		this.age = age;
 		this.skin = skin;
 		this.gender = gender;
@@ -41,8 +41,8 @@ public class Reviews_Vo {
 
 	@Override
 	public String toString() {
-		return "Review_Vo [rev_no=" + rev_no + ", item=" + item + ", img=" + img + ", nick=" + nick + ", age=" + age
-				+ ", skin=" + skin + ", gender=" + gender + ", good=" + good + ", bad=" + bad + ", tip=" + tip
+		return "Reviews_Vo [rev_no=" + rev_no + ", item=" + item + ", img=" + img + ", writer=" + writer + ", age="
+				+ age + ", skin=" + skin + ", gender=" + gender + ", good=" + good + ", bad=" + bad + ", tip=" + tip
 				+ ", pop=" + pop + ", star=" + star + ", nalja=" + nalja + "]";
 	}
 
@@ -56,12 +56,12 @@ public class Reviews_Vo {
 		result = prime * result + ((good == null) ? 0 : good.hashCode());
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
 		result = prime * result + item;
-		result = prime * result + ((nick == null) ? 0 : nick.hashCode());
 		result = prime * result + pop;
 		result = prime * result + rev_no;
 		result = prime * result + ((skin == null) ? 0 : skin.hashCode());
 		result = prime * result + star;
 		result = prime * result + ((tip == null) ? 0 : tip.hashCode());
+		result = prime * result + ((writer == null) ? 0 : writer.hashCode());
 		return result;
 	}
 
@@ -98,11 +98,6 @@ public class Reviews_Vo {
 			return false;
 		if (item != other.item)
 			return false;
-		if (nick == null) {
-			if (other.nick != null)
-				return false;
-		} else if (!nick.equals(other.nick))
-			return false;
 		if (pop != other.pop)
 			return false;
 		if (rev_no != other.rev_no)
@@ -118,6 +113,11 @@ public class Reviews_Vo {
 			if (other.tip != null)
 				return false;
 		} else if (!tip.equals(other.tip))
+			return false;
+		if (writer == null) {
+			if (other.writer != null)
+				return false;
+		} else if (!writer.equals(other.writer))
 			return false;
 		return true;
 	}
@@ -146,12 +146,12 @@ public class Reviews_Vo {
 		this.img = img;
 	}
 
-	public String getNick() {
-		return nick;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setNick(String nick) {
-		this.nick = nick;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public int getAge() {
@@ -225,6 +225,6 @@ public class Reviews_Vo {
 	public void setNalja(Date nalja) {
 		this.nalja = nalja;
 	}
-	
+
 	
 }

@@ -4,3 +4,6 @@
 .settings/org.eclipse.jdt.core.prefs
 .settings/org.eclipse.core.resources.prefs
 .classpath
+src/main/java/ga/beauty/reset/HomeController.java
+README.md
+.springBeans

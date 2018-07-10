@@ -2,9 +2,9 @@ package ga.beauty.reset.controller;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -18,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ga.beauty.reset.dao.Items_DaoImp;
 import ga.beauty.reset.dao.Reviews_DaoImp;
-import ga.beauty.reset.dao.entity.Items_Vo;
+import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.services.Items_Reviews_Service;
 
 @Controller
@@ -57,24 +56,24 @@ public class Items_Reviews_Controller {
 		resp.getWriter().print(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
 	}
 	
-	@RequestMapping(value="/item/{item}")
+	@RequestMapping(value="/item/{item}",method=RequestMethod.GET)
 	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
 		log.debug("detail-param: "+item);
 		service.detailPage(model,item);
 		return "ranking/ranking_detail";
 	}
 	
-	@RequestMapping(value="/item/reviewadd", method = RequestMethod.GET)
+	@RequestMapping(value="/item/reviewadd", method=RequestMethod.GET)
 	public void reviews_list_add(@RequestParam("item") int item,HttpServletResponse resp) throws SQLException, IOException {
 		log.debug("review-param: "+item);
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(mapper.writeValueAsString(reviews_DaoImp.reviewAdd(item)));
+		resp.getWriter().print(mapper.writeValueAsString(reviews_DaoImp.reviewListAdd(item)));
 	}
 	
-	@RequestMapping(value="/item/{item}",method=RequestMethod.POST)
-	public String review_add(@PathVariable int item,Model model) throws SQLException{
-		log.debug("review_add: "+item);
-		service.detailPage(model,item);
-		return "ranking/ranking_detail";
+	@RequestMapping(value="/item/{item}", method=RequestMethod.POST)
+	public String review_add(@PathVariable int item,Reviews_Vo bean,Model model) throws SQLException{
+		log.debug("review_add: "+bean);
+//		service.addPage(model,bean);
+		return "redirect:/item/{item}";
 	}
 }
