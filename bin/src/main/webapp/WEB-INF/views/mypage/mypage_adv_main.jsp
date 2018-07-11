@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>김형준 깃 테스트</h1>
-	 <img src="../imgs/event_imgs/test1.png">
+
 </body>
 </html>

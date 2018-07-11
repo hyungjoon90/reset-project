@@ -20,15 +20,3 @@ function inputFail($target,$errM,msg){
     $target.css("color", "red");
     $errM.appendTo($target.parent());
 }
-
-function checkEmail(ele) {
-    var $errM = $("<div/>",{"class":"errM"});
-     var $target = $(ele);
-     if (validateEmail($target.val())) {
-         inputSuccess($target);
-		return true;	
-     }else {
-         inputFail($target,$errM,"올바른 이메일을 입력해주세요.")
-         return false;
-     }
-}// fucntion checkPW()

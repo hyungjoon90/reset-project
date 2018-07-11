@@ -14,24 +14,11 @@
 </head>
 <script>
 
-	var forCompanySW = false;
 $(function(){
-	// 이벤트 달기
 	$('#findPw').on("click",function(){
 	    $('#myModal').modal({
 		      show: true
-		    });
-	});
-	$( "#forCompany" ).click(function() {
-		$( "#for_company_info" ).toggle( "fast", function() {
-			$("#bisnumFind").prop("disabled",forCompanySW);
-			forCompanySW = !forCompanySW;
-			if(forCompanySW){
-				$("#forCompany").text("일반회원으로 찾기");
-			}else{
-				$("#forCompany").text("기업회원으로 찾기");
-			}
-		});
+		    })
 	});
 	
 	$("input").each(function(){
@@ -42,10 +29,24 @@ $(function(){
 	    });
 	});
 	
+	
+	
+	function checkEmail(ele) {
+	    var $errM = $("<div/>",{"class":"errM"});
+	     var $target = $(ele);
+	     if (validateEmail($target.val())) {
+	    	 
+			return true;	
+	     }else {
+	         inputFail($target,$errM,"올바른 이메일을 입력해주세요.")
+	         return false;
+	     }
+	}// fucntion checkPW()
+
+	
 	$(".check-email").each(function(){
-		$(this).on('blur',function(e){
-			checkEmail(e.target);
-		});
+		console.log(this);
+		$(this).on('blur',checkEmail(this));
 	});
 	$(".only-num").on('keyup',onlyNumber);
 	$(".only-num").on('keydown',onlyNumber);
@@ -69,6 +70,9 @@ $(document).on({
       }
     }
   }, '.modal');
+  
+  
+  
 </script>
 
 <body>
@@ -138,7 +142,7 @@ $(document).on({
   					<input type="password" class="form-control" id="password" placeholder="비밀번호">
 				</div>
     			<div>
-    				<button type="button" class="btn btn-default" id="goLogin">로그인하기</button>
+    				<button type="button" class="btn btn-default">로그인하기</button>
     				<button type="button" class="btn btn-default" id="findPw">비밀번호 찾기</button>
     			</div>
     		
@@ -156,7 +160,6 @@ $(document).on({
 					<div class="modal-body">
 						비밀번호를 찾을려면 로그인 개인정보를 입력
 						<form id="findForm">
-			    			<button type="button" class="btn btn-default" id="forCompany">기업회원 찾기</button>
 			  				<div class="form-group">
 			  					<label for="emailFind">Email</label>
 			  					<input type="email" class="form-control check-email" id="emailFind" placeholder="email">
@@ -165,12 +168,13 @@ $(document).on({
 			  					<label for="phoneFind">연락처</label>
 			  					<input type="text" class="form-control only-num" id="phoneFind" placeholder="-제외한 숫자만 입력">
 							</div>
-							<div class="form-group" id="for_company_info" style="display:none">
-			  					<label for="bisnumFind">사업자번호</label>
+							<div class="form-group" id="for_company_info">
+			  					<label for="bisnumFind">연락처</label>
 			  					<input type="text" class="form-control only-num" id="bisnumFind" placeholder="-제외한 숫자만 입력" disabled="disabled">
 							</div>	
 			    			<div>
 			    				<button type="button" class="btn btn-default" id="checkInfo">확인하기</button>
+			    				<button type="button" class="btn btn-default" id="forCompany">기업회원 비밀번호</button>
 			    			</div>
 						</form>
 						<div id="result"></div>						
