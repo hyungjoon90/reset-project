@@ -42,6 +42,7 @@ public class Login_Controller {
 
 	// 서비스 분기용
 	private Login_Service login_Service;
+	
 
 	public Login_Controller() {
 	}
@@ -54,10 +55,14 @@ public class Login_Controller {
 	private Login_Service login_Google;
 	@Autowired
 	private Login_Service login_Normal;
-		
+	@Autowired
+	private Sign_Service sign_Service;
+	
+	
 	@RequestMapping(value ="/login/", method=RequestMethod.GET)
-	public String showLoginMain(HttpServletRequest req) {
-		req.getSession().setAttribute("old_url", req.getHeader("referer"));
+	public String showLoginMain(HttpServletRequest req, Model model, HttpSession session) {
+		model.addAttribute("goRoot", "../");
+		if(session.getAttribute("old_url")==null) session.setAttribute("old_url", req.getHeader("referer"));
 		return "login/login_main";
 	}
 	
@@ -85,10 +90,28 @@ public class Login_Controller {
 			// 에러페이지
 		}// try-catch end
 		
-		if(req.getSession().getAttribute("login_route").toString().equals("google")) return "login/login_google";
+		HttpSession session = req.getSession();
+		Object tmp = session.getAttribute("login_route");
+		if(tmp!=null && tmp.toString().equals("google")) return "login/login_google";
 		else if(req.getAttribute("login_err")==null) return (String) req.getAttribute("login_result");
 		else return "errPage";
 	}//selectLoginService()
+	
+	
+	@RequestMapping(value ="/login/find/", method=RequestMethod.POST) // ajax
+	@ResponseBody
+	public Map<String, Object> showFind(HttpServletRequest req, Model model) {
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+
+		String resultString = "";
+		resultString = sign_Service.findPw(req);
+		
+		resultMap.put("result",resultString);
+		
+		
+		return resultMap;
+	}
+	
 	
 	
 }

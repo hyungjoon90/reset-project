@@ -71,22 +71,28 @@ public class Login_Google implements Login_Service{
 		
 		User_Vo checkEmailVo = new User_Vo();
 		checkEmailVo.setEmail(result);
+		userSession.setAttribute("login_email", checkEmailVo.getEmail());
+		userSession.setAttribute("login_route", "google");
 		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
 		String nextUrl ="";
-		if(resultUser.getEmail().equals(result)) {
+		if(resultUser != null) {
+			if(resultUser.getJoin_route().contains("google")) {
 			// 로그인 완료
-			userSession.setAttribute("access_token", access_token);
-			userSession.setAttribute("login_user_type", resultUser.getUser_type());
-			userSession.setAttribute("login_email", resultUser.getEmail());
-			userSession.setAttribute("login_on", true);
-			nextUrl = (String)userSession.getAttribute("old_url");//이전로그
+				userSession.setAttribute("access_token", access_token);
+				userSession.setAttribute("login_user_type", resultUser.getUser_type());
+				userSession.setAttribute("login_email", resultUser.getEmail());
+				userSession.setAttribute("login_on", true);
+				nextUrl = (String)userSession.getAttribute("old_url");//이전로그
+			}else {
+				// TODO Reset 나중에 지워야됨
+				// 연동할건지 물어보기
+				nextUrl = "/reset/login/add";
+			}
 		}else {
-			userSession.setAttribute("login_on", false);
-			userSession.setAttribute("login_email", checkEmailVo.getEmail());
-			nextUrl = "/sign/";// 
+			// TODO Reset 나중에 지워야됨
+			nextUrl = "/reset/sign/";// 
 			// 회원가입
 		}
-		userSession.setAttribute("login_route", "google");
 		userSession.setAttribute("nextUrl", nextUrl);
 		return model;
 	}// login()

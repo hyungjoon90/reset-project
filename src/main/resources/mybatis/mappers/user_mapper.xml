@@ -18,6 +18,7 @@
   			<if test="user_type">USER_TYPE=#{user_type}</if>
   			<if test="join_route">JOIN_ROUTE=#{join_route}</if>
   		</set>
+  		WHERE EMAIL=#{email}
   	</update>
   	<select id="checkInfo" resultType="int">
   		SELECT count(*) FROM USER

@@ -94,24 +94,28 @@ public class Login_Kakko implements Login_Service{
 			req.setAttribute("login_err",ErrorEnum.EMAILERR);
 			return model;		
 		}
+		
 		User_Vo checkEmailVo = new User_Vo();
 		checkEmailVo.setEmail(result);
+		userSession.setAttribute("login_email", checkEmailVo.getEmail());
+		userSession.setAttribute("login_route", "kakko");
 		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
-		if(resultUser.getEmail().equals(result)) {
-			// 로그인 완료
+		if( resultUser != null) {
+			if(resultUser.getUser_type().contains("kakko")) {
+				// 로그인 완료
 			userSession.setAttribute("access_token", access_token);
 			userSession.setAttribute("refresh_token", refresh_token);
 			userSession.setAttribute("login_user_type", resultUser.getUser_type());
-			userSession.setAttribute("login_email", resultUser.getEmail());
 			userSession.setAttribute("login_on", true);
-			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));//이전로그
+			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));
+			}else {
+				// 연동할건지 물어보기
+				req.setAttribute("login_result", "redirect:/login/adds/");
+			}
 		}else {
-			userSession.setAttribute("sign_up", true);
-			userSession.setAttribute("login_email", checkEmailVo.getEmail());
+			// 회원가입
 			req.setAttribute("login_result", "redirect:/sign/");
 		}
-		userSession.setAttribute("login_route", "kakko");
-		
 		return model;
 	}
 	

@@ -15,7 +15,7 @@
 		VALUES (#{email}, #{nick}, #{gender}, #{age}, #{skin}, #{phone}, #{cart}, #{exp});
   	</insert>
   	<update id="updateOne" parameterType="int">
-  		update MEMBERS
+  		UPDATE MEMBERS
   		<set>
 			<if test="nick != null">nick=#{nick}</if>
 			<if test="age != null">age=#{age}</if>
@@ -24,7 +24,7 @@
 			<if test="cart != null">cart=#{cart}</if>
 			<if test="exp != null">exp=#{exp}</if>
 		</set>
-		where EMAIL = #{beam.email}
+		WHERE EMAIL = #{email}
   	</update>
   	<select id="checkInfo" resultType="int">
   		SELECT count(*) FROM MEMBERS

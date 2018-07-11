@@ -17,7 +17,6 @@ public class User_DaoImp implements User_Dao {
 	
 	@Override
 	public User_Vo selectOne(User_Vo bean) throws SQLException {
-		System.out.println((sqlSession.selectOne("user.selectOne", bean)).toString());
 		return sqlSession.selectOne("user.selectOne", bean);
 	}
 

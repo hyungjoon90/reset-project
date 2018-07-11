@@ -87,27 +87,26 @@ public class Login_Naver implements Login_Service{
 
 		User_Vo checkEmailVo = new User_Vo();
 		checkEmailVo.setEmail(result);
+		userSession.setAttribute("login_email", checkEmailVo.getEmail());
+		userSession.setAttribute("login_route", "naver");
 		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
-		if(resultUser.getEmail().equals(result)) {
-			// 로그인 완료
+		if( resultUser != null) {
+			if(resultUser.getUser_type().contains("naver")) {
+				// 로그인 완료
 			userSession.setAttribute("access_token", access_token);
 			userSession.setAttribute("refresh_token", refresh_token);
 			userSession.setAttribute("login_user_type", resultUser.getUser_type());
-			userSession.setAttribute("login_email", resultUser.getEmail());
 			userSession.setAttribute("login_on", true);
-			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));//이전로그
+			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));
+			}else {
+				// 연동할건지 물어보기
+				req.setAttribute("login_result", "redirect:/login/adds/");
+			}
 		}else {
-			userSession.setAttribute("login_on", false);
-			userSession.setAttribute("login_email", checkEmailVo.getEmail());
-			req.setAttribute("login_result", "redirect:/sign/");
 			// 회원가입
+			req.setAttribute("login_result", "redirect:/sign/");
 		}
-		userSession.setAttribute("login_route", "naver");
-		
-		// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
-		//	    
 		return model;
-
 	}
 
 	private int getToken(String code, String state) throws ClientProtocolException, IOException, URISyntaxException  {

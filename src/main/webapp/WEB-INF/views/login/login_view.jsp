@@ -4,13 +4,77 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+<script src="../js/jquery-1.12.4.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/login.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
 	<title>Normol LoginView</title>
 </head>
+<script>
+
+$(function(){
+	$('#findPw').on("click",function(){
+	    $('#myModal').modal({
+		      show: true
+		    })
+	});
+	
+	$("input").each(function(){
+		$(this).on("focus",function(){
+	        $(this).val('');
+	        $(this).css("color","black");
+	        $(this).parent().find(".errM").remove();
+	    });
+	});
+	
+	
+	
+	function checkEmail(ele) {
+	    var $errM = $("<div/>",{"class":"errM"});
+	     var $target = $(ele);
+	     if (validateEmail($target.val())) {
+	    	 
+			return true;	
+	     }else {
+	         inputFail($target,$errM,"올바른 이메일을 입력해주세요.")
+	         return false;
+	     }
+	}// fucntion checkPW()
+
+	
+	$(".check-email").each(function(){
+		console.log(this);
+		$(this).on('blur',checkEmail(this));
+	});
+	$(".only-num").on('keyup',onlyNumber);
+	$(".only-num").on('keydown',onlyNumber);
+})
+
+
+
+$(document).on({
+    'show.bs.modal': function() {
+      var zIndex = 1040 + (10 * $('.modal:visible').length);
+      $(this).css('z-index', zIndex);
+      setTimeout(function() {
+        $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+      }, 0);
+    },
+    'hidden.bs.modal': function() {
+      if ($('.modal:visible').length > 0) {
+        setTimeout(function() {
+          $(document.body).addClass('modal-open');
+        }, 0);
+      }
+    }
+  }, '.modal');
+  
+  
+  
+</script>
+
 <body>
 	<!--header-->
     <div class="header">
@@ -66,14 +130,62 @@
      
     <!-- main contents -->
     <div class="page_container">
-        <hr>
-            <div>
-                <h1>Normol LoginView</h1>
-            </div>
-        <hr>
-
+    
+    	<div>
+    		<form id="login_form" action="post">
+  				<div class="form-group">
+  					<label for="email">Email</label>
+  					<input type="email" class="form-control check-email" id="email" placeholder="email">
+				</div>    		
+  				<div class="form-group">
+  					<label for="password">password</label>
+  					<input type="password" class="form-control" id="password" placeholder="비밀번호">
+				</div>
+    			<div>
+    				<button type="button" class="btn btn-default">로그인하기</button>
+    				<button type="button" class="btn btn-default" id="findPw">비밀번호 찾기</button>
+    			</div>
+    		
+    		</form>
+    	</div>
+		<!-- login Modal -->
+		<div class="modal" id="myModal" aria-hidden="true" style="display: none; z-index: 1050;">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">비밀번호 찾기</h4>
+					</div>
+					<div class="container"></div>
+					<div class="modal-body">
+						비밀번호를 찾을려면 로그인 개인정보를 입력
+						<form id="findForm">
+			  				<div class="form-group">
+			  					<label for="emailFind">Email</label>
+			  					<input type="email" class="form-control check-email" id="emailFind" placeholder="email">
+							</div>    		
+			  				<div class="form-group">
+			  					<label for="phoneFind">연락처</label>
+			  					<input type="text" class="form-control only-num" id="phoneFind" placeholder="-제외한 숫자만 입력">
+							</div>
+							<div class="form-group" id="for_company_info">
+			  					<label for="bisnumFind">연락처</label>
+			  					<input type="text" class="form-control only-num" id="bisnumFind" placeholder="-제외한 숫자만 입력" disabled="disabled">
+							</div>	
+			    			<div>
+			    				<button type="button" class="btn btn-default" id="checkInfo">확인하기</button>
+			    				<button type="button" class="btn btn-default" id="forCompany">기업회원 비밀번호</button>
+			    			</div>
+						</form>
+						<div id="result"></div>						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- login Modal end -->
+		
        
-    </div>
+    </div><!-- </div class="page_container"> -->
     <!-- //main contents -->
 
     <!--footer-->

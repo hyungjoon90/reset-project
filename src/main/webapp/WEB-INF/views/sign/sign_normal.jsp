@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
-<script src="../js/ser.js"></script>
-<script src="../js/sign.js"></script>
+<script src="${goRoot}js/jquery-1.12.4.js"></script>
+<script src="${goRoot}js/bootstrap.min.js"></script>
+<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot}css/main.css" rel="stylesheet">
+<script src="${goRoot}js/ser.js"></script>
+<script src="${goRoot}js/sign.js"></script>
 <title>Normol LoginView</title>
 <script type="text/javascript">
 $(function(){
@@ -19,16 +19,21 @@ $(function(){
          e.preventDefault();
     	var result = submitCheck();
 		if(result){
-			var pw= $("#password").val();
-			$("#password").val(SHA256(pw));
+			if($("#password").legnth>0){
+				var pw= $("#password").val();
+				$("#password").val(SHA256(pw));
+			}
 			var data =$('#form').serialize();
 			console.log(data);
-			$.post(".",data,function(result){
-				console.log(result);
-			});
-			
-		}
-	});
+			$.post(".",data,function(output){
+				if(output.result==1){
+					window.location.href=ouput.url;
+				}else{
+					alert("알수 없는 이유로 회원가입이 실패하였습니다. 잠시후 다시 이용해주세요");
+				}
+			});// end $.post
+		}// end if
+	});// end submit event
 });
 </script>
 </head>
@@ -38,7 +43,7 @@ $(function(){
     	<div class="wrap">
             <nav class="main_menu container">
                 <div class="menu_img">
-                    <img src="../imgs/header_logo.png">
+                    <img src="${goRoot}imgs/header_logo.png">
                 </div>
                 <div class="menu_login">
                     <form class="form-inline">
@@ -47,36 +52,36 @@ $(function(){
                             <input type="text" class="form-control input_box" placeholder="검색">
                         </div>
                         <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <a href="../login/" class="btn send_btn"><span class="main_font">로그인</span></a>
-                        <a href="../sign/" class="btn send_btn"><span class="main_font">회원가입</span></a>
+                        <a href="${goRoot}login/" class="btn send_btn"><span class="main_font">로그인</span></a>
+                        <a href="${goRoot}sign/" class="btn send_btn"><span class="main_font">회원가입</span></a>
                     </form>
                 </div>
                 <div class="menu_bar">
                     <ul class="nav">
                       <li class="current"><a href="index.html">홈</a></li>
-                      <li><a href="../about.html">랭킹</a></li>
+                      <li><a href="${goRoot}about.html">랭킹</a></li>
                       <li class="top-menu"><a href="javascript:{}">화플</a>
                           <ul class="sub-menu">
-                              <li><a href="../scaffolding.html">Scaffolding</a></li>
-                              <li><a href="../typography.html">Typography</a></li>
-                              <li><a href="../shortcodes.html">Shortcodes</a></li>
-                              <li><a href="../tables.html">Tables</a></li>
+                              <li><a href="${goRoot}scaffolding.html">Scaffolding</a></li>
+                              <li><a href="${goRoot}typography.html">Typography</a></li>
+                              <li><a href="${goRoot}shortcodes.html">Shortcodes</a></li>
+                              <li><a href="${goRoot}tables.html">Tables</a></li>
                           </ul>
                       </li>
                       <li class="top-menu"><a href="javascript:{}">이벤트</a>
                            <ul class="sub-menu">
-                              <li><a href="../portfolio_2columns.html">2 Columns</a></li>
-                              <li><a href="../portfolio_3columns.html">3 Columns</a></li>
-                              <li><a href="../portfolio_4columns.html">4 Columns</a></li>
+                              <li><a href="${goRoot}portfolio_2columns.html">2 Columns</a></li>
+                              <li><a href="${goRoot}portfolio_3columns.html">3 Columns</a></li>
+                              <li><a href="${goRoot}portfolio_4columns.html">4 Columns</a></li>
                           </ul>
                       </li>                                  
                       <li class="top-menu"><a href="javascript:{}">리뷰</a>
                            <ul class="sub-menu">
-                              <li><a href="../blog.html">Blog with right sidebar</a></li>
-                              <li><a href="../blog_post.html">Blog post</a></li>
+                              <li><a href="${goRoot}blog.html">Blog with right sidebar</a></li>
+                              <li><a href="${goRoot}blog_post.html">Blog post</a></li>
                           </ul>
                       </li>
-                      <li><a href="../contacts.html">문의</a></li>
+                      <li><a href="${goRoot}contacts.html">문의</a></li>
                     </ul>
                 </div>
              </nav>                
@@ -96,6 +101,7 @@ $(function(){
 			<label for="nick">nick</label>		
 			<input type="text" name="nick" id="nick" class="form-control" value="" placeholder="닉네임 입력"/>
 		</div>
+		<c:if test="${login_route eq 'normal' }">
 		<div class="form-group">
 			<label for="password">password</label>		
 			<input type="password" name="password" id="password" class="form-control" placeholder="영소대문자,숫자 포함. 10자이상"/>
@@ -104,6 +110,7 @@ $(function(){
 			<label for="pwchk">password확인</label>		
 			<input type="password" id="pwchk" class="form-control"/>
 		</div>
+		</c:if>
 		<div class="form-group">
 			<label for="phone">연락처</label>		
 			<input type="text" name="phone" id="phone" class="form-control" placeholder="-를 제외한 숫자만 입력"/>
@@ -167,6 +174,5 @@ $(function(){
         </div>
     </div>
     <!--//footer-->    
-
 </body>
 </html>

@@ -108,7 +108,7 @@ function checkEmail() {
     var $errM = $("<div/>",{"class":"errM"});
      var $target = $("#email");
      if (validateEmail($target.val())) {
-          var $postM = $.post( "check_mail", "email="+$target.val() );
+          var $postM = $.post( "check_mail", "target="+$target.val() );
           $postM.done(function( data ) {
                if(data.result==0){
                   inputSucces($target);
@@ -127,7 +127,7 @@ function checkEmail() {
 function checkNick(){
     var $errM = $("<div/>",{"class":"errM"});
      var $target = $("#nick");
-     var $postM = $.post( "check_nick", "nick="+$target.val() );
+     var $postM = $.post( "check_nick", "target="+$target.val() );
      $postM.done(function( data ) {
           if(data.result==0){
        	   // TODO ok 처리
@@ -193,21 +193,9 @@ function checkPhone(){
 // http://webskills.kr/archives/310
 function onlyNumber(event){
 	event = event || window.event;
-	var keyID = (event.which) ? event.which : event.keyCode;
-	if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
-		return;
-	else
-		return false;
+    $(event.target).val($(event.target).val().replace(/[^0-9]/g,""));
 }
 
-function removeChar(event) {
-	event = event || window.event;
-	var keyID = (event.which) ? event.which : event.keyCode;
-	if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
-		return;
-	else
-		event.target.value = event.target.value.replace(/[^0-9]/g, "");
-}
 
 // http://holybell87.tistory.com/22#.W0RXUtVLiM8
 function isMobile(phoneNum)   { 
@@ -244,8 +232,10 @@ $("#form input").each(function(){
 });
 $("#email").on("blur", checkEmail);
 $("#nick").on("blur",checkNick);
-$("#password").on("blur", checkPW);
-$("#pwchk").on("blur",checkRePW);
+if($("#password").length>0){
+	$("#password").on("blur", checkPW);
+	$("#pwchk").on("blur",checkRePW);
+}
 $("#phone").on("blur",checkPhone);
 $("#phone").on("keydown",onlyNumber);
 $("#phone").on("keyup",onlyNumber);
