@@ -34,6 +34,11 @@ public class Qna_DaoImpl implements Qna_Dao<Qna_Vo> {
 	}
 
 	@Override
+	public void insertTwo(Qna_Vo bean) throws SQLException {
+		sqlSession.insert("qna_mapper.insertTwo", bean);
+	}
+
+	@Override
 	public Qna_Vo selectOne(int qa_no) throws SQLException {
 		return sqlSession.selectOne("qna_mapper.selectOne", qa_no);
 	}
@@ -47,6 +52,8 @@ public class Qna_DaoImpl implements Qna_Dao<Qna_Vo> {
 	public int deleteOne(int qa_no) throws SQLException {
 		return sqlSession.delete("qna_mapper.deleteOne", qa_no);
 	}
+
+
 
 	
 	

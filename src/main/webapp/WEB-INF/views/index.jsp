@@ -56,8 +56,9 @@
                               <li><a href="blog_post.html">Blog post</a></li>
                           </ul>
                       </li>
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
+                      <li><a href="./qna/qnaEmail">문의</a></li>
+                      <li><a href="./admin/qnaList">admin</a></li>
+                      </ul>
                 </div>
              </nav>                
              

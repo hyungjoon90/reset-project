@@ -1,6 +1,9 @@
 package ga.beauty.reset.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +53,22 @@ public class Notice_Controller {
 		return view;
 	}
 	
+//	@RequestMapping(value="/admin/notice/{no_no}", method=RequestMethod.PUT,  produces = "text/html;charset=UTF-8")
+//	public String edit(@PathVariable int no_no
+//			, @ModelAttribute Notice_Vo bean,Model model, HttpServletRequest req) throws SQLException, UnsupportedEncodingException {
+//		req.setCharacterEncoding("utf-8");
+//		System.out.println(bean);
+//		service.updatePage(bean);
+//		model.addAttribute("no_no", no_no);
+//		return view;
+//	}
+	
+	
 	@RequestMapping(value="/admin/notice/{no_no}", method=RequestMethod.PUT)
 	public String edit(@PathVariable int no_no
-			, @ModelAttribute Notice_Vo bean,Model model) throws SQLException {
+			, @ModelAttribute Notice_Vo bean,Model model, HttpServletRequest req) throws SQLException {
+		
+		System.out.println(bean);
 		service.updatePage(bean);
 		model.addAttribute("no_no", no_no);
 		return view;

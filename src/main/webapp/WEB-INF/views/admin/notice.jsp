@@ -116,7 +116,7 @@
 		        <h4 class="modal-title" id="myModalLabel-${bean.no_no }">${bean.no_no }번 공지사항</h4>
 		      </div>
 		      <div class="modal-body">
-		        <form action="notice/${bean.no_no }" method="post" class="detailForm">
+		        <form action="notice/${bean.no_no }" method="post" class="detailForm"  accept-charset="UTF-8">
 		        	<input type="hidden" name="_method" value="put">
 		      		<div class="form-group">
 		      			<label for="no_no">글번호</label>

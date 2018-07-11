@@ -1,6 +1,9 @@
 package ga.beauty.reset.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import ga.beauty.reset.dao.entity.Notice_Vo;
 import ga.beauty.reset.dao.entity.Qna_Vo;
 import ga.beauty.reset.services.Qna_Service;
 
@@ -30,8 +36,9 @@ public class Qna_Controller {
 	String view2 = "redirect:/admin/qnaList";
 
 	@RequestMapping(value = "/qna/qnaEmail", method = RequestMethod.GET)
-	public String show() {
+	public String show(Model model) {
 		System.out.println("입력폼");
+		model.addAttribute("goRoot", "../");
 		return "qna/qnaEmail";
 	}
 
@@ -56,6 +63,8 @@ public class Qna_Controller {
 		return "qna/qnaResult";
 	}
 
+	
+	//admin의 qna
 	@RequestMapping(value = "/admin/qnaList")
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
@@ -65,24 +74,44 @@ public class Qna_Controller {
 
 	@RequestMapping(value = "/admin/qnaDetail/{qa_no}", method=RequestMethod.GET)
 	public String detail(@PathVariable int qa_no, Model model) throws SQLException {
-		System.out.println("qa_no:"+qa_no);
-		model.addAttribute("bean", service.selectOnePage(qa_no));
-		return "admin/qnaDetail";
+	System.out.println("qa_no:"+qa_no);
+	model.addAttribute("bean", service.selectOnePage(qa_no));
+	return "admin/qnaDetail";
+	}
+	
+	@RequestMapping(value = "/admin/qnaDetail/{qa_no}", method=RequestMethod.POST)
+	public String addAdminPage(Qna_Vo bean) throws SQLException {
+		System.out.println("디테일에서 답변 입력, 입력전");
+		service.updatePage(bean);
+		System.out.println("디테일에서 답변 입력, 입력후");
+		return "admin/qnaDetail/{qa_no}";
 	}
 
+//	http://gcomx.blogspot.com/2017/11/jquery-ajax-controller-list.html
+	
+	//TODO
+	@RequestMapping(value="none", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> json(int qa_no, Model model) throws SQLException {
+//		String parameter = String.valueOf(Json.get(0).get("answer")); //parameter는 json의 첫번째 answer의 값을 가져옴
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		result.put("bean", service.selectOnePage(qa_no));
+		return result;
+	}
+	
+	
 	@RequestMapping(value = "/admin/qnaDetail/{qa_no }", method = RequestMethod.PUT)
 	public String edit(@PathVariable int qa_no, @ModelAttribute Qna_Vo bean, Model model) throws SQLException {
 		service.updatePage(bean);
 		model.addAttribute("qa_no", qa_no);
 		return view;
 	}
-	@RequestMapping(value = "/admin/qnaDetail/{bean.qa_no }", method = RequestMethod.DELETE)
+/*	@RequestMapping(value = "/admin/qnaDetail/{bean.qa_no }", method = RequestMethod.DELETE)
 	public String delete(@PathVariable int qa_no) throws SQLException {
 		service.deletePage(qa_no);
 		return view2;
-	}
+	}*/
 
-
-	
 
 }// class end

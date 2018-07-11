@@ -30,8 +30,6 @@ public class Qna_Service {
 		Qna_Dao.insertOne(bean);
 	}
 	
-
-	
 	public void deletePage(int qa_no) throws SQLException {
 		Qna_Dao.deleteOne(qa_no);
 	}
