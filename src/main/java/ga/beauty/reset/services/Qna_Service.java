@@ -35,8 +35,8 @@ public class Qna_Service {
 	}
 
 	
-	public void updatePage(Qna_Vo bean) throws SQLException {
-		Qna_Dao.updateOne(bean);
+	public int updatePage(Qna_Vo bean) throws SQLException {
+		return Qna_Dao.updateOne(bean);
 	}
 	
 }

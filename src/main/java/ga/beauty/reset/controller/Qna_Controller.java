@@ -62,7 +62,7 @@ public class Qna_Controller {
 	public String showResult() {
 		return "qna/qnaResult";
 	}
-
+	
 	
 	//admin의 qna
 	@RequestMapping(value = "/admin/qnaList")
@@ -79,27 +79,35 @@ public class Qna_Controller {
 	return "admin/qnaDetail";
 	}
 	
-	@RequestMapping(value = "/admin/qnaDetail/{qa_no}", method=RequestMethod.POST)
+/*	@RequestMapping(value = "/admin/qnaDetail/{qa_no}", method=RequestMethod.POST)
 	public String addAdminPage(Qna_Vo bean) throws SQLException {
 		System.out.println("디테일에서 답변 입력, 입력전");
 		service.updatePage(bean);
 		System.out.println("디테일에서 답변 입력, 입력후");
 		return "admin/qnaDetail/{qa_no}";
 	}
-
+*/
 //	http://gcomx.blogspot.com/2017/11/jquery-ajax-controller-list.html
 	
 	//TODO
-	@RequestMapping(value="none", method=RequestMethod.POST)
+
+	@RequestMapping(value="/admin/qnaDetail/{qa_no}", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> json(int qa_no, Model model) throws SQLException {
-//		String parameter = String.valueOf(Json.get(0).get("answer")); //parameter는 json의 첫번째 answer의 값을 가져옴
+	public Map<String, Object> json(@PathVariable int qa_no, Model model,Qna_Vo bean) throws SQLException {
+		System.out.println(bean.getAnswer());
+		System.out.println("키값:"+bean.getQa_no());
+		int resultNum = service.updatePage(bean);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		result.put("bean", service.selectOnePage(qa_no));
+		if(resultNum==1) {
+//		String parameter = String.valueOf(Json.get(0).get("answer")); //parameter는 json의 첫번째 answer의 값을 가져옴
+			result.put("result", resultNum);
+			result.put("new_answer",bean.getAnswer());
+		}
+		//result.put("bean", service.selectOnePage(qa_no));
 		return result;
 	}
-	
+
 	
 	@RequestMapping(value = "/admin/qnaDetail/{qa_no }", method = RequestMethod.PUT)
 	public String edit(@PathVariable int qa_no, @ModelAttribute Qna_Vo bean, Model model) throws SQLException {
@@ -107,6 +115,7 @@ public class Qna_Controller {
 		model.addAttribute("qa_no", qa_no);
 		return view;
 	}
+	
 /*	@RequestMapping(value = "/admin/qnaDetail/{bean.qa_no }", method = RequestMethod.DELETE)
 	public String delete(@PathVariable int qa_no) throws SQLException {
 		service.deletePage(qa_no);
