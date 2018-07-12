@@ -69,17 +69,17 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
+            <!-- TODO -->
             <!-- detail-page 입니다. -->
             <form method="post">
-            	<input type="hidden" name="_method" value="put"/>
-		            <div>${detail.eve_no }</div>
-		            <div>${detail.img }</div>
-		            <div>${detail.title }</div>
-		            <div>${detail.nalja }</div>
-		            <div>${detail.con }</div>
-		            <div>${detail.tags }</div>
-		            <div>${detail.pop }</div>
-		            <div>${detail.view }</div>
+	            <div>${detail.eve_no }</div>
+	            <div><img src="..${detail.img }"></div>
+	            <div>${detail.title }</div>
+	            <div>${detail.nalja }</div>
+	            <div>${detail.con }</div>
+	            <div>${detail.tags }</div>
+	            <div>${detail.pop }</div>
+	            <div>${detail.view }</div>
 
 			<button type="reset" class="btn btn-primary">목록</button>
 			<button type="submit" class="btn btn-warning">수정</button>
@@ -112,7 +112,10 @@
 			<!-- 댓글입력 끝 -->
 			<!-- MOD 버튼 클릭시 모달 시작 -->
 			<div id="modDiv" style="display : none;">
-				<div class="modal-title"></div>
+				<div class="modal-title">
+					<input type="hidden" id="commentnum" >
+					댓글 수정
+				</div>
 				<div>
 					<input type="text" id="commenttext">
 				</div>
@@ -185,6 +188,7 @@
 		var co_type="event";
 		
 		<%//TODO url 경로 변경해야함.%>
+		//댓글 리스트 받아오기.
 		function getAllList(){
 			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment/all",function(data){
 				var str="";
@@ -194,9 +198,9 @@
 				str+=
 					"<div class='commentLi'>"
 					+"<div>"+this.writer+"</div>"
-					+"<div id='textCo'>"+this.content+"</div>"
+					+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
 					+"<div>"+this.nalja+"</div>"
-					+"<div><button>MOD</button></div>"
+					+"<div><button class='comBtn'>MOD</button></div>"
 					+"</div>";
 			});
 			
@@ -241,44 +245,22 @@
 	
 		//MOD버튼 클릭시 모달이 나옴.
 		$("#comment").on("click",".commentLi button",function(){
-			var comment =$("#textCo").val();
-			console.log(comment);
-			var content =comment.text();
+			var comment=$(this).parent().parent().find(".textCo");
+			var co_no = comment.attr("data-co_no");
 			
-			$("#commenttext").val(content);
+			var replytext=comment.text();
+			$("#commentnum").val(co_no);
+			$("#commenttext").val(replytext);
 			$("#modDiv").show("slow");
 		});
 		
-		//댓글 삭제 버튼 클릭시
-		$("#commentDelBtn").on("click",function(){
-			var co_no=$(".modal-title").html();
-			var content=$("#commenttext").val();
-			$.ajax({
-				type: 'delete',
-				url: '/comment/'+co_no,
-				headers : {
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "DELETE"
-				},
-				dataType : 'text',
-				success : function(result){
-					console.log("result:"+result);
-					if(result=='success'){
-						alert("삭제되었습니다");
-						$("#modDiv").hide("slow");
-						getAllList();
-					}
-				}
-			});
-		});
-		
+		//댓글 수정 버튼 클릭시
 		$("#commentModBtn").on("click",function(){
-			var co_no=$(".modal-title").html();
+			var co_no=$("#commentnum").val();
 			var content=$("#commenttext").val();
-			
 			$.ajax({
 				type: 'put',
-				url:'/comment/'+co_no,
+				url:'/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "PUT"
@@ -287,13 +269,36 @@
 				dataType:'text',
 				success:function(result){
 					console.log("result:"+result);
-					if(result=='success'){
+					if(result=='SUCCESS'){
 						$("#modDiv").hide("slow");
-						getPageList(content);
+						getAllList();
 					}
 				}
 			});
 		});
+		
+		//댓글 삭제 버튼 클릭시
+		$("#commentDelBtn").on("click",function(){
+			var co_no=$("#commentnum").val();
+			$.ajax({
+				type: 'delete',
+				url: '/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType : 'text',
+				success : function(result){
+					console.log("result:"+result);
+					if(result=='SUCCESS'){
+						alert("삭제되었습니다");
+						$("#modDiv").hide("slow");
+						getAllList();
+					}
+				}
+			});
+		});
+		
 </script>
 </body>
 </html>

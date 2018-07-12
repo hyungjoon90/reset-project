@@ -32,7 +32,7 @@ public class Event_Service {
 		commonDao.insertOne(bean);
 	}
 	
-	public void updatePage(Event_Vo bean) throws SQLException{
+	public void updatePage(Model model,Event_Vo bean) throws SQLException{
 		commonDao.updateOne(bean);
 	}
 	

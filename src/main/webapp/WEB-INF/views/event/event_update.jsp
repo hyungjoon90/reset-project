@@ -114,24 +114,35 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
-            <!-- TODO: 내용입력 -->
-            <!-- add-page 입니다. -->
-            <form action="/reset/event" method="post" enctype="multipart/form-data" id="event_addForm">
-            	<div>
+            <!-- TODO -->
+            <!-- detail-page 입니다. -->
+            <form method="post">
+           		<input type="hidden" name="_method" value="put"/>
+	            <div>
+	            	<label for="eve_no"></label>
+	            	<input type="text" name="eve_no" id="eve_no" value="${detail.eve_no }" >
+	            </div>
+	            <div>
 	            	<label for="img">대표이미지</label>
+	            	<div name="img" id="img"><img src="..${detail.img}"></div>
 	            	<input type="file" name="img" id="img">
             	</div>
             	<div id="preview">
             		<img src="#" id="control_img">
             		<button type="button">대표이미지 삭제</button>
             	</div>
-            	<div>
+	            <%-- <div>
+	            	<label for="img"></label>
+	            	<div name="img" id="img"><img src="..${detail.img}"></div>
+	            	<button type=""></button>
+	            </div> --%>
+	            <div>
 	            	<label for="title">제목</label>
-	            	<input type="text" name="title" id="title">
-            	</div>
-            	<div>
+	            	<input type="text" name="title" id="title" value="${detail.title }" >
+	            </div>
+	            <div>
 	            	<label for="con">내용</label>
-			        <textarea name="con" id="con" style="width: 700px; height: 400px;"></textarea>
+			        <textarea name="con" id="con" >${detail.con }</textarea>
 			        <!-- ckeditor를 사용하여 서버로 이미지를 올리고 다시 불러오는 설정입니다. -->
 			        <script>
 				    $(function(){
@@ -159,39 +170,14 @@
 				    });
 				</script>
             	</div>
-            	<div>
+	            <div>
 	            	<label for="tags">해시태그</label>
-	            	<input type="text" name="tags" id="tags">
+	            	<input type="text" name="tags" id="tags" value="${detail.tags }">
             	</div>
-            	<div>
-            		<button type="submit" id="addBtn">등록</button>
-            		<button type="reset">취소</button>
-            	</div>
-            </form>
-            <script type="text/javascript">
-	       	 $("#addBtn").on('submit',function(event){
-	    		 event.preventDefault();
-	    		 var formData = new FormData($("#event_addForm")[0]);
-	    	
-	    	     $.ajax({
-	    	       type:"post",
-	    	       enctype: 'multipart/form-data',
-	    	       data : formData,
-	    	       url: "/reset/event",
-	    	       contentType: false,
-	    	       processData: false,
-	    	       dataType: "Text"
-	    	    }) 
-	    	    .done(function(data){
-	    	       console.log("전송"); 
-	    	         
-	    	     })
-	    	    .fail(function () { // 실패했을때 불러질 함수
-	    	       console.error('데이터 입력 실패');
-	    	    })  
-	    	 });
-            
-            </script>
+
+			<button type="reset" class="btn btn-primary">목록</button>
+			<button type="submit" class="btn btn-warning">수정</button>
+			</form>
 			<!-- 내용 끝 -->
         <hr>
     </div>
@@ -228,6 +214,5 @@
         </div>
     </div>
     <!--//footer-->    
-
 </body>
 </html>

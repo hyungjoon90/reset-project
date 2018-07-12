@@ -81,6 +81,7 @@ public class Comment_Controller {
 	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.POST)
 	public ResponseEntity<String> register(@PathVariable("co_type") String co_type, @RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity=null;
+		
 		try {
 			String result = convert_Type(co_type);
 			bean.setCo_type(result);
@@ -100,12 +101,12 @@ public class Comment_Controller {
 			,@PathVariable("co_no") int co_no
 			,@RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity = null;
+		String result= convert_Type(co_type);
 		try {
-			bean.setCo_type(co_type);
+			bean.setCo_type(result);
 			bean.setP_no(p_no);
 			bean.setCo_no(co_no);
 			service.modifyComment(bean);
-			
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,14 +116,16 @@ public class Comment_Controller {
 	}
 	
 	//댓글을 삭제하는 컨트롤러
-	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}",method=RequestMethod.DELETE)
+	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}", method=RequestMethod.DELETE)
 	public ResponseEntity<String> remove(@PathVariable("co_type") String co_type
 			,@PathVariable("p_no") int p_no
 			,@PathVariable("co_no") int co_no
-			,@RequestBody Comment_Vo bean){
+			){
 		ResponseEntity<String> entity =null;
+		String result= convert_Type(co_type);
 		try {
-			bean.setCo_type(co_type);
+			Comment_Vo bean = new Comment_Vo();
+			bean.setCo_type(result);
 			bean.setP_no(p_no);
 			bean.setCo_no(co_no);
 			service.removeComment(bean);

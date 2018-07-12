@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.services.Event_Service;
+import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Event_Controller {
@@ -59,13 +60,42 @@ public class Event_Controller {
 		return "event/event_detail";
 	}
 	
+	@RequestMapping(value="/event/{eve_no}", method = RequestMethod.POST)
+	public String updateForm(@PathVariable int eve_no ,Model model) throws SQLException {
+		Event_Vo bean=new Event_Vo();
+		bean.setEve_no(eve_no);
+		
+		Comment_Vo comment=new Comment_Vo();
+		comment.setCo_type("이벤트");
+		comment.setP_no(eve_no);
+		
+		service.detailPage(model, bean, comment);
+		return "event/event_update";
+	}
+	
+	
+	//UPDATE EVENT SET IMG=#{img},TITLE=#{title},CON=#{con},TAGS=#{tags} WHERE EVE_NO=#{eve_no}
+	@RequestMapping(value="/event/{eve_no}", method = RequestMethod.PUT)
+	public String update(Model model,@PathVariable("eve_no") int eve_no , @ModelAttribute Event_Vo bean) throws SQLException {
+		service.updatePage(model, bean);
+		return view;
+	}
+	
 	@RequestMapping("/event/add")
 	public String addForm(Model model) {
 		return "event/event_add";
 	}
 	
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
-	public String add(@ModelAttribute Event_Vo bean) throws SQLException {
+	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
+		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		Event_Vo bean= new Event_Vo();
+		bean.setTitle(req.getParameter("title"));
+		bean.setCon(req.getParameter("con"));
+		bean.setTags(req.getParameter("tags"));
+		// 파일업로드 start
+	    bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+	    // 파일업로드 end
 		service.addPage(bean);
 		return view;
 	}
