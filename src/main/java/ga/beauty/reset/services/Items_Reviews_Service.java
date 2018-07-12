@@ -1,11 +1,14 @@
 package ga.beauty.reset.services;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,10 +112,11 @@ public class Items_Reviews_Service {
 	}
 	
 	// 리뷰 추가
-	public void review_addPage(Model model,Reviews_Vo bean) throws SQLException {
-		model.addAttribute("result", Reviews_Dao.reviewAdd(bean));
+	public int review_addPage(HttpServletResponse resp,Reviews_Vo bean) throws SQLException, IOException {
+		return Reviews_Dao.reviewAdd(bean);
 	}
 
+	// 리뷰 상세페이지
 	public void review_detailPage(Model model, int item, int rev_no) throws SQLException {
 		log.debug("param: "+item+" "+rev_no);
 		//tot start
@@ -163,9 +167,15 @@ public class Items_Reviews_Service {
 		map.put("five", five);
 		//tot end
 		
+		Reviews_Vo bean=Reviews_Dao.reviewOne(item,rev_no);
+		log.debug("확인"+bean.getImg());
+		String temp=bean.getImg();
+		String[] temp2=temp.split("s_");
+		bean.setImg(temp2[0]+temp2[1]);
+		
 		model.addAttribute("item_bean", Items_Dao.selectOne(item));
 		model.addAttribute("map", map);
-		model.addAttribute("review_bean", Reviews_Dao.reviewOne(item,rev_no));
+		model.addAttribute("review_bean", bean);
 	}
 }
 

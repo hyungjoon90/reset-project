@@ -121,41 +121,29 @@ $(document).ready(function(){
 	 
 	
 	$("#reivewAdd").on("click",function(){
-		bean = $('#review').serialize();
-		console.log(bean);
 		    var item=${item_bean.item};
-		    $.ajax({
-				type:'post',
-				data : $('#review').serialize(),
-				url: "/reset/item/"+item
-			}) 
-			.done(function(data){
-				$('#close').click();
-			})
-			.fail(function () { // 실패했을때 불러질 함수
-				console.error('데이터 입력 실패');
-			})   
-			
-			//파일업로드 보류
-            // ajax로 전달할 폼 객체
-            /* var formData = new FormData($("#imgFile"));
+            var formData = new FormData($('#review')[0]);
 		    console.log(formData);
-		    
 		    $.ajax({
 				type:"post",
+				enctype: 'multipart/form-data',
 				data : formData,
-				url: "/reset/item/upload",
+				url: "/reset/item/"+item,
 				contentType: false,
 				processData: false,
-				dataType: "Text"
+				dataType: "text"
 			}) 
 			.done(function(data){
-				console.log("전송"); 
-		        
+				console.log(data);
+				if(data=="1"){
+					window.location.href=item;
+				} else if(data=="0"){
+					alert("글쓰기에 실패하였습니다.");
+				}
 		 	})
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 입력 실패');
-			})   */
+			})    
 		})
 	
 });
@@ -172,7 +160,7 @@ function reviewListadd(){
  			$('.icon').prev().after(
  					"<a href=./"+data.item+"/review/"+data.rev_no+">"+
 					"<div class='reviewBox'>"+
-					"<img src='../"+data.img+"'/>"+
+					"<img src='${goRoot}"+data.img+"'/>"+
 					"<label>"+data.writer+"&nbsp;</label>"+
 					"<label>"+data.age+"</label>/"+
 					"<label>"+data.skin+"</label>/"+
@@ -376,7 +364,7 @@ function cart(){
         <c:forEach items="${review_bean }" var="review">
         <a href="./${item_bean.item }/review/${review.rev_no}">
         <div class="reviewBox">
-            <img src="../${review.img }"/>
+            <img src="${goRoot}${review.img }"/>
             <label>${review.writer }</label>
             <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>/
             <label>${review.star }점</label>/<label>${review.nalja }</label>
@@ -394,9 +382,6 @@ function cart(){
 	</div>
     <!-- //main contents -->
     
-    <!-- modal -->
-    	
-		
 		<!-- Modal -->
 		<div class="modal fade" id="review_write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
@@ -406,7 +391,7 @@ function cart(){
 		        <h4 class="modal-title" id="myModalLabel">리뷰 쓰기</h4>
 		      </div>
 		      <div class="modal-body">
-		      <form id="review">
+		      <form id="review" action="/reset/item/${item_bean.item}" name="review" method="post" enctype="multipart/form-data">
 			    <input type="hidden" name="writer" value="닉넴1"/>
 		      	<label>좋은점</label>
 		        <textarea class="form-control" rows="3" name="good" id="good"></textarea>
@@ -426,17 +411,10 @@ function cart(){
 				<input type="radio" name="star" value="4"/>
 				<label class="radio-inline" for="star">5</label>점
 				<input type="radio" name="star" value="5"/><br>
-			  </form>       
 			   
-			    <form name="imgFile" id="imgFile" method="post" enctype="multipart/form-data">
-					<label for="img">이미지 업로드</label>
-			        <input type="file" name="img" id="img" />
+				<label for="img">이미지 업로드</label>
+		        <input type="file" name="img" id="img" />
 			    </form>
-			    <form method="POST" enctype="multipart/form-data">
-				  File: <input type="file" name="upfile"><br/>
-				  <br/>
-				  <input type="submit" value="업로드">
-				</form>
 			    
 			    <div id="img_preview">
 			        <img src="#" />
@@ -513,6 +491,7 @@ function cart(){
     });
     $('#close').bind('click', function() {
         resetFormElement($('#img')); //전달한 양식 초기화
+        resetFormElement($('#review')); //전달한 양식 초기화
         $('#img').slideDown(); //파일 양식 보여줌
         $('#img_preview').slideUp(); //미리 보기 영역 감춤
     });

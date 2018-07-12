@@ -45,14 +45,13 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("item", item);
 		map.put("review_num", this.review_num);
-
+		log.debug(sqlSession.selectList("items.reviewListAdd", map).equals(null));
 		return sqlSession.selectList("items.reviewListAdd", map);
 	}
 
 	@Override
 	public int reviewAdd(Reviews_Vo bean) throws SQLException {
 		log.debug("DaoImp-reviewAdd:"+bean);
-		bean.setImg("a");
 		return sqlSession.insert("items.reviewAdd", bean);
 	}
 

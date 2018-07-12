@@ -47,6 +47,9 @@
     	border: 1px solid #e5e5e5;
     	margin: 0px auto;
     }
+    .reviewBox img{
+    	width: 100%;
+    }
     .icon{
    	    text-align: center;
    	    margin: 5px 0px;
@@ -78,43 +81,61 @@
 	    cursor: inherit;
 	    display: block;
 	}
+	#img_preview {
+   		/* display:none; */
+	}
+	#img_preview img{
+		width: 100%;
+	}
 </style>
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$(".icon").click(function(){
-		reviewListadd();
-	});
+
+	$('#review_update').on('shown.bs.modal', function () {
+	})	
+	 
+	
+	$("#reivewUpdate").on("click",function(){
+		    var item=${item_bean.item};
+		    var rev_no=${review_bean.rev_no };
+		    var img=$('#img').val();
+		    console.log(img);
+		    var preview_img=$('#img_preview img').first().attr("src");
+		    console.log(preview_img);
+		    if(img==""){
+		    	console.log("null");
+		    	
+		    }else{
+		    	console.log("null아님");
+		    }
+            var formData = new FormData($('#review')[0]);
+		    console.log(formData);
+		    $.ajax({
+				type:"POST",
+				enctype: 'multipart/form-data',
+				data : formData,
+				url: "/reset/item/"+item+"/review/"+rev_no,
+				contentType: false,
+				processData: false,
+				dataType: "text"
+			}) 
+			.done(function(data){
+				console.log(data);
+				if(data=="1"){
+					console.log("성공");
+					/* window.location.href=item; */
+				} else if(data=="0"){
+					alert("글수정에 실패하였습니다.");
+				}
+		 	})
+			.fail(function () { // 실패했을때 불러질 함수
+				console.error('데이터 수정 실패');
+			})     
+		})
 	
 });
 	
-function reviewListadd(){
-	var item=${item_bean.item};
-	$.ajax({
-	        type: 'GET', // get 방식으로 요청
-			dataType: 'json', // json 타입
-			url: "reviewadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
-	})
-	.done(function(data){
- 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
- 			$('.icon').prev().after(
-					"<div class='reviewBox'>"+
-					"<img src='../"+data.img+"'/>"+
-					"<label>"+data.writer+"&nbsp;</label>"+
-					"<label>"+data.age+"</label>/"+
-					"<label>"+data.skin+"</label>/"+
-					"<label>"+data.gender+"</label>"+
-					"<label>"+data.star+"</label>/"+
-					"<label>"+data.nalja+"</label>"+
-					"<p>"+data.good+"</p>"+
-					"<p>"+data.good+"</p>"+
-					"<p>"+data.tip+"</p></div>");
-		})
-	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 불러오기 실패');
-	})
-}
 </script>
 </head>
 <body>
@@ -144,9 +165,9 @@ function reviewListadd(){
                       <li class="top-menu"><a href="/reset/">랭킹</a>
                       	<div class="space">
 						  <ul class="sub-menu">
-						      <li><a href="../ranking?id=1">스킨</a></li>
-							  <li><a href="../ranking?id=2">로션</a></li>
-							  <li><a href="../ranking?id=3">에센스</a></li>
+						      <li><a href="${goRoot}ranking?id=1">스킨</a></li>
+							  <li><a href="${goRoot}ranking?id=2">로션</a></li>
+							  <li><a href="${goRoot}ranking?id=3">에센스</a></li>
 						  </ul>
 						</div>
 					  </li>
@@ -231,6 +252,16 @@ function reviewListadd(){
 			
         </div>
 		
+		<div class="btn-position">
+	        <!-- Button trigger modal -->
+			<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#review_update" >
+			  수정
+			</button>
+			<button type="button" class="btn btn-lg btn-color" >
+			  삭제
+			</button>
+		</div>
+		
        <div class="reviewBox">
             <img src="${goRoot}${review_bean.img }"/>
             <label>${review_bean.writer }</label>
@@ -247,6 +278,57 @@ function reviewListadd(){
         </div>
 	</div>
     <!-- //main contents -->
+    
+    		<!-- Modal -->
+		<div class="modal fade" id="review_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">리뷰 수정</h4>
+		      </div>
+		      <div class="modal-body">
+		      <form id="review" action="/reset/item/${item_bean.item}" name="review" method="post" enctype="multipart/form-data">
+		        <input type="hidden" name="_method" value="put">
+			    <input type="hidden" name="writer" value="${review_bean.writer }"/>
+		      	<label>좋은점</label>
+		        <textarea class="form-control" rows="3" name="good" id="good">${review_bean.good }</textarea>
+		      	<label>나쁜점</label>
+		        <textarea class="form-control" rows="3" name="bad" id="bad">${review_bean.bad }</textarea>
+		      	<label>꿀팁</label>
+		        <textarea class="form-control" rows="3" name="tip" id="tip">${review_bean.tip }</textarea>
+		        
+		       
+				<label class="radio-inline" for="star">1</label>점
+   				<input type="radio" name="star" value="1"/> 
+				<label class="radio-inline" for="star">2</label>점
+				<input type="radio" name="star" value="2"/> 
+				<label class="radio-inline" for="star">3</label>점
+				<input type="radio" name="star" value="3"/>
+				<label class="radio-inline" for="star">4</label>점
+				<input type="radio" name="star" value="4"/>
+				<label class="radio-inline" for="star">5</label>점
+				<input type="radio" name="star" value="5"/><br>
+			   
+				<label for="img">이미지 업로드</label>
+		        <input type="file" name="img" id="img" />
+			    </form>
+			    
+			    <div id="img_preview">
+			        <img src="${goRoot}${review_bean.img }" />
+			        <br />
+			        <a href="${goRoot}${review_bean.img }">Remove</a>
+			    </div>
+			  
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" id="reivewUpdate" class="btn btn-primary">글쓰기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+    <!-- //modal -->
     
     <!--footer-->
     <div class="footer">
@@ -278,7 +360,55 @@ function reviewListadd(){
             </div>
         </div>
     </div>
-    <!--//footer-->   
-    
+    <!--//footer--> 
+      
+    <script type="text/javascript">
+
+    $('#img').on('change', function() {
+        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+        
+        //배열에 추출한 확장자가 존재하는지 체크
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+            resetFormElement($(this)); //폼 초기화
+            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        } else {
+            file = $('#img').prop("files")[0];
+            blobURL = window.URL.createObjectURL(file);
+            $('#img_preview img').attr('src', blobURL);
+            $('#img_preview img').css('width', '400px');
+            $('#img_preview').slideDown(); //업로드한 이미지 미리보기 
+            $(this).slideUp(); //파일 양식 감춤
+        }
+    });
+
+    $('#img_preview a').bind('click', function() {
+        resetFormElement($('#img')); //전달한 양식 초기화
+        $('#img').slideDown(); //파일 양식 보여줌
+        $(this).parent().slideUp(); //미리 보기 영역 감춤
+        return false; //기본 이벤트 막음
+    });
+    $('#close').bind('click', function() {
+        resetFormElement($('#img')); //전달한 양식 초기화
+        resetFormElement($('#review')); //전달한 양식 초기화
+        $('#img').slideDown(); //파일 양식 보여줌
+        /* $('#img_preview').slideUp(); //미리 보기 영역 감춤 */
+    });
+
+    /** 
+    * 폼요소 초기화 
+    */
+    function resetFormElement(e) {
+        e.wrap('<form>').closest('form').get(0).reset(); 
+        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
+        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+        //DOM에서 제공하는 초기화 메서드 reset()을 호출
+        e.unwrap(); //감싼 <form> 태그를 제거
+        $('#img_preview img').attr("src","${goRoot}${review_bean.img }");
+        $('#img_preview img').css('width', '100%');
+        $('#img_preview a').attr("href","${goRoot}${review_bean.img }");
+        
+    }
+        	
+    </script> 
 </body>
 </html>

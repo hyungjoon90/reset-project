@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,10 +23,11 @@ import ga.beauty.reset.dao.Items_DaoImp;
 import ga.beauty.reset.dao.Reviews_DaoImp;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.services.Items_Reviews_Service;
+import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Items_Reviews_Controller {
-	String filePath="imgs/upload_imgs/";
+	String filePath="C:/Users/11/git/reset-project/src/main/webapp/resources/imgs/upload_imgs";
 	Logger log=Logger.getLogger(getClass());
 	ObjectMapper mapper = new ObjectMapper();
 	
@@ -56,7 +56,6 @@ public class Items_Reviews_Controller {
 	@RequestMapping(value="/rankingadd", method = RequestMethod.GET)
 	public void ranking_list_add(@RequestParam("id") int cate,HttpServletResponse resp) throws SQLException, IOException {
 		log.debug("list-param: "+cate);
-		log.debug(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
 	}
@@ -81,22 +80,22 @@ public class Items_Reviews_Controller {
 	}
 	
 	// 리뷰 작성
-	@RequestMapping(value="/item/{item}", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
-	public String review_add(@RequestParam int item,Reviews_Vo bean,Model model,MultipartFile file){
-		log.debug("review_add: "+bean);
-		log.debug("실행");
+	@RequestMapping(value="/item/{item}", method=RequestMethod.POST)
+	public void review_add(@PathVariable("item") int item,Model model,@RequestParam("img") MultipartFile file,HttpServletRequest req,HttpServletResponse resp) throws Exception{
+		log.debug("review_add: "+item);
+		log.debug(file.getOriginalFilename());
 		
-//		log.debug(file.getContentType());
+		Reviews_Vo bean=new Reviews_Vo();
+		bean.setItem(item);
+		bean.setWriter(req.getParameter("writer"));
+		bean.setGood(req.getParameter("good"));
+		bean.setBad(req.getParameter("bad"));
+		bean.setTip(req.getParameter("tip"));
+		bean.setStar(Integer.parseInt(req.getParameter("star")));
+		bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
 		
-		// 파일업로드 start
-//		String reFilename=img.getOriginalFilename();
-//		File target=new File(filePath+reFilename);
-//		img.transferTo(target);
-		// 파일업로드 end
-		
-		
-//		service.review_addPage(model,bean);
-		return "redirect:/item/{item}";
+		resp.setCharacterEncoding("utf-8");
+		resp.getWriter().print(service.review_addPage(resp,bean));
 	}
 	
 	// 찜목록에 추가
@@ -116,5 +115,25 @@ public class Items_Reviews_Controller {
 		model.addAttribute("goRoot", goRoot);
 		service.review_detailPage(model,item,rev_no);
 		return "ranking_review/review_detail";
+	}
+	
+	// 리뷰 수정
+	@RequestMapping(value="/item/{item}/review/{rev_no}", method=RequestMethod.POST)
+	public void review_update(@PathVariable("item") int item,@PathVariable("rev_no") int rev_no,@RequestParam("img") MultipartFile file,HttpServletResponse resp,HttpServletRequest req) throws Exception{
+		log.debug("review_add: "+item);
+		log.debug(file.getOriginalFilename());
+		
+		Reviews_Vo bean=new Reviews_Vo();
+		bean.setItem(item);
+		bean.setWriter(req.getParameter("writer"));
+		bean.setGood(req.getParameter("good"));
+		bean.setBad(req.getParameter("bad"));
+		bean.setTip(req.getParameter("tip"));
+		bean.setStar(Integer.parseInt(req.getParameter("star")));
+//		bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		
+		resp.setCharacterEncoding("utf-8");
+//		resp.getWriter().print(service.review_addPage(resp,bean));
+		resp.getWriter().print(1);
 	}
 }
