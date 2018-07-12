@@ -27,6 +27,9 @@
 	
 	<context:component-scan base-package="ga.beauty.reset" />
 	
-	
-	
+	<!-- 파일업로드 필수 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="2048000"></beans:property>
+	</beans:bean>
+
 </beans:beans>

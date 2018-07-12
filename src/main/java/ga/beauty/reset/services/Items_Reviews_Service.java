@@ -1,5 +1,6 @@
 package ga.beauty.reset.services;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +28,15 @@ public class Items_Reviews_Service {
 	@Autowired
 	Reviews_Dao<Reviews_Vo> Reviews_Dao;
 	
-	public void listPage(Model model,int type) throws SQLException {
+	// 카테고리에 따른 랭킹 리스트페이지
+	public void ranking_listPage(Model model,int type) throws SQLException {
 		log.debug("param: "+type);
 		model.addAttribute("alist", Items_Dao.rankAll(type));
 		model.addAttribute("cate", type);
 	}
 	
-	public void detailPage(Model model,int item) throws SQLException{
+	// item 상세 페이지
+	public void ranking_detailPage(Model model,int item) throws SQLException{
 		log.debug("param: "+item);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -53,15 +56,106 @@ public class Items_Reviews_Service {
 		
 		//tot start
 		Ranks_Vo rank=Reviews_Dao.totAll(item);
-		int total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
+		int[] temp123 = new int[5];
+		temp123[0]=rank.getOne();
+		temp123[1]=rank.getTwo();
+		temp123[2]=rank.getThree();
+		temp123[3]=rank.getFour();
+		temp123[4]=rank.getFive();
+		
+		int total = 0;
+		int one = 0;
+		int two=0;
+		int three=0;
+		int four=0;
+		int five=0;
+		boolean result=false;
+		for(int i=0;i<temp123.length;i++) {
+			if(temp123[i]==0) {
+				temp123[i]=0;
+				result=true;
+			}
+		}
+		if(result) {
+			if(one!=0) {one=rank.getOne()*100/total;}
+			if(two!=0) {two= rank.getTwo()*100/total;}
+			if(three!=0) {three= rank.getThree()*100/total;}
+			if(four!=0) {four= rank.getFour()*100/total;}
+			if(five!=0) {five= rank.getFive()*100/total;}
+			total=one+two+three+four+five;
+		} else {
+			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
+			one= rank.getOne()*100/total;
+			two= rank.getTwo()*100/total;
+			three= rank.getThree()*100/total;
+			four= rank.getFour()*100/total;
+			five= rank.getFive()*100/total;
+		}
+		log.debug("avg: "+one+" "+two+" "+three+" "+four+" "+five);
 		log.debug("total: "+total);
 		map.put("total", total);
-		int one= rank.getOne()*100/total;
-		int two= rank.getTwo()*100/total;
-		int three= rank.getThree()*100/total;
-		int four= rank.getFour()*100/total;
-		int five= rank.getFive()*100/total;
+		map.put("one", one);
+		map.put("two", two);
+		map.put("three", three);
+		map.put("four", four);
+		map.put("five", five);
+		//tot end
+		
+		
+		model.addAttribute("item_bean", Items_Dao.selectOne(item));
+		model.addAttribute("tags", list);
+		model.addAttribute("map", map);
+		model.addAttribute("review_bean", Reviews_Dao.reviewAll(item));
+	}
+	
+	// 리뷰 추가
+	public void review_addPage(Model model,Reviews_Vo bean) throws SQLException {
+		model.addAttribute("result", Reviews_Dao.reviewAdd(bean));
+	}
+
+	public void review_detailPage(Model model, int item, int rev_no) throws SQLException {
+		log.debug("param: "+item+" "+rev_no);
+		//tot start
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Ranks_Vo rank=Reviews_Dao.totAll(item);
+		int[] temp123 = new int[5];
+		temp123[0]=rank.getOne();
+		temp123[1]=rank.getTwo();
+		temp123[2]=rank.getThree();
+		temp123[3]=rank.getFour();
+		temp123[4]=rank.getFive();
+		
+		int total = 0;
+		int one = 0;
+		int two=0;
+		int three=0;
+		int four=0;
+		int five=0;
+		boolean result=false;
+		for(int i=0;i<temp123.length;i++) {
+			if(temp123[i]==0) {
+				temp123[i]=0;
+				result=true;
+			}
+		}
+		if(result) {
+			if(one!=0) {one=rank.getOne()*100/total;}
+			if(two!=0) {two= rank.getTwo()*100/total;}
+			if(three!=0) {three= rank.getThree()*100/total;}
+			if(four!=0) {four= rank.getFour()*100/total;}
+			if(five!=0) {five= rank.getFive()*100/total;}
+			total=one+two+three+four+five;
+		} else {
+			total=rank.getOne()+rank.getTwo()+rank.getThree()+rank.getFour()+rank.getFive();
+			one= rank.getOne()*100/total;
+			two= rank.getTwo()*100/total;
+			three= rank.getThree()*100/total;
+			four= rank.getFour()*100/total;
+			five= rank.getFive()*100/total;
+		}
 		log.debug("avg: "+one+" "+two+" "+three+" "+four+" "+five);
+		log.debug("total: "+total);
+		map.put("total", total);
 		map.put("one", one);
 		map.put("two", two);
 		map.put("three", three);
@@ -70,13 +164,8 @@ public class Items_Reviews_Service {
 		//tot end
 		
 		model.addAttribute("item_bean", Items_Dao.selectOne(item));
-		model.addAttribute("tags", list);
 		model.addAttribute("map", map);
-		model.addAttribute("review_bean", Reviews_Dao.reviewAll(item));
-	}
-	
-	public void addPage(Model model,Reviews_Vo bean) throws SQLException {
-		model.addAttribute("result", Reviews_Dao.reviewAdd(bean));
+		model.addAttribute("review_bean", Reviews_Dao.reviewOne(item,rev_no));
 	}
 }
 

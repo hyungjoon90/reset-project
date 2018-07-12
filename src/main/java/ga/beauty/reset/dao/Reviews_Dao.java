@@ -12,4 +12,8 @@ public interface Reviews_Dao<C> {
 	List<C> reviewAll(int c)throws SQLException;
 	List<C> reviewListAdd(int c) throws SQLException;
 	int reviewAdd(C c) throws SQLException;
+	Reviews_Vo reviewOne(int c, int v) throws SQLException;
+	int reviewUpdate(C C) throws SQLException;
+	int reviewDelete(C C) throws SQLException;
+	int cartAdd(int c,String v) throws SQLException;
 }
