@@ -94,7 +94,7 @@ function validatePassword (pw, options) {
  return true;
 }// fucntion validatePassword()
 
-function valitdateRePW() {
+function valitdateRePW(a,b) {
      var pw = $('input[id=password]').val();
      var re = $('input[id=pwchk]').val();
      if(pw==re)return true;
@@ -104,9 +104,9 @@ function valitdateRePW() {
 
 /////////////////////////////////////
 
-function checkEmail() {
+function checkEmail(ele) {
     var $errM = $("<div/>",{"class":"errM"});
-     var $target = $("#email");
+     var $target = $(ele);
      if (validateEmail($target.val())) {
           var $postM = $.post( "check_mail", "target="+$target.val() );
           $postM.done(function( data ) {
@@ -124,9 +124,9 @@ function checkEmail() {
      }
 }// fucntion checkPW()
 
-function checkNick(){
+function checkNick(ele){
     var $errM = $("<div/>",{"class":"errM"});
-     var $target = $("#nick");
+    var $target = $(ele);
      var $postM = $.post( "check_nick", "target="+$target.val() );
      $postM.done(function( data ) {
           if(data.result==0){
@@ -141,9 +141,9 @@ function checkNick(){
 
 }// function checkNick()
 
-function checkPW(){
+function checkPW(ele){
 	var $errM = $("<div/>",{"class":"errM"});
-    var $target = $("#password");
+    var $target = $(ele);
     var passed = validatePassword($target.val(), {
      length:   [10, Infinity],
      lower:    1,
@@ -162,9 +162,9 @@ function checkPW(){
      }
 }// fucntion checkPW()
 
-function checkRePW(){
+function checkRePW(ele){
     var $errM = $("<div/>",{"class":"errM"});
-     var $target = $("#pwchk");
+     var $target = $(ele);
      var passed = valitdateRePW();
      if(passed){
           inputSucces($target);
@@ -175,9 +175,9 @@ function checkRePW(){
      }
 }
 
-function checkPhone(){
+function checkPhone(ele){
     var $errM = $("<div/>",{"class":"errM"});
-    var $target = $("#phone");
+    var $target = $(ele);
     var testMobile = isMobile($target.val());
     var testPhone = isPhone($target.val());
     if(testMobile || testPhone ){
@@ -230,15 +230,16 @@ $("#form input").each(function(){
         $(this).parent().find(".errM").remove();
     });
 });
-$("#email").on("blur", checkEmail);
-$("#nick").on("blur",checkNick);
+
+$("#email").on("blur", function(e){checkEmail(e.target)});
+$("#nick").on("blur", function(e){checkNick(e.target)});
 if($("#password").length>0){
-	$("#password").on("blur", checkPW);
-	$("#pwchk").on("blur",checkRePW);
+	$("#password").on("blur",function(e){ checkPW(e.target)});
+	$("#pwchk").on("blur",function(e){checkRePW(e.target)});
 }
-$("#phone").on("blur",checkPhone);
-$("#phone").on("keydown",onlyNumber);
-$("#phone").on("keyup",onlyNumber);
+$("#phone").on("blur",function(e){checkPhone(e.target)});
+$("#phone").on("keydown",function(e){onlyNumber(e.target)});
+$("#phone").on("keyup",function(e){onlyNumber(e.target)});
 
 }// addFormEvent();
 

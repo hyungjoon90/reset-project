@@ -13,69 +13,26 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="../css/main.css" rel="stylesheet">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="../../js/jquery-1.12.4.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <title>Insert title here</title>
 <script>
-	// 전부 login.js 로 넣을거임
-	// 구글용
-  var googleUser = {};
-  var startGoogleApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '1051220480905-p8890ral8a45q8c1q6201a57oqg75k7f.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        scope: 'profile email'
-      });
-      attachSignin(document.getElementById('google'));
-    });
-  };
-	// 구글용
-  function attachSignin(element) {
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-    	  var id_token = googleUser.getAuthResponse().id_token;
-		  var xhr = new XMLHttpRequest();
-    	  xhr.open('POST', 'http://localhost:8080/reset/login/google/');
-    	  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    	  xhr.send('idtoken=' + id_token);
-    	  xhr.onreadystatechange = function () {
-    		  if(xhr.readyState === 4 && xhr.status === 200) {
-    	        var myJson = JSON.parse(this.responseText);
-    	        window.location.href = myJson.result;
-    		  }
-    		};
- 		}, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        });
-  }
-	// 그외 일반
-  $(function(){
-	startGoogleApp();
-  })
-  </script>
-</head>
-<%
-  	SecureRandom random = new SecureRandom();
-  	String state = new BigInteger(130, random).toString();
-  
-  	String naver_clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
-    String naver_redirectURI = URLEncoder.encode("http://localhost:8080/reset/login/naver/", "UTF-8");
-    String naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-    naver_apiURL += "&client_id=" + naver_clientId;
-    naver_apiURL += "&redirect_uri=" + naver_redirectURI;
-    naver_apiURL += "&state=" + state;
-    session.setAttribute("state", state);
+	$(function(){
+		$("button[bt='on']").on("click",function(){
+			console.log($(this).attr("id"));
+			$.post(".","command="+$(this).attr("id"))
+				.done(function(data){
+					
+				});
+			
+		})
+		
+		
+	});
 
-    String kakao_clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
-	String kakao_redirectURI = "http://localhost:8080/reset/login/kakao/";
-    String kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code";
-    kakao_apiURL += "&client_id=" + kakao_clientId;
-    kakao_apiURL += "&redirect_uri=" + kakao_redirectURI;
-    //kakao_apiURL += "&state=" + state;
-%>
+</script>
+</head>
 <body>
 	<!--header-->
 	<div class="header">
@@ -134,14 +91,14 @@
 
 	<!-- main contents -->
 	<div class="page_container">
-		<!--  네이버 -->
-		<a href="<%=naver_apiURL%>"><img height="50"
-			src="http://static.nid.naver.com/oauth/small_g_in.PNG" /></a>
-		<!-- REST API 카카오 -->
-		<a href="<%=kakao_apiURL%>">카카오로그인</a>
-		<!-- google sign- -->
-		<button id="google">구글로그인</button>
-		<a href = "./normal/" id="normal">이메일로 로그인</a>
+		<div>
+			
+			<h2>기존에 [${join_route}] 로 연동하셨습니다. </h2>
+			<h2>혹시 [${login_route}]도 연동하시겠습니까?</h2>
+			<button bt="on" id="yes">예</button>
+			<button bt="on" id="no">로그인다시하기</button>
+			<button bt="on" id="back">이전경로로 가기</button>
+		</div>
 		
 	</div>
 	<!-- //main contents -->

@@ -60,9 +60,9 @@ public class Login_Naver implements Login_Service{
 	}
 
 	@Override
-	public Model logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return null;
+	public String logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().invalidate();
+		return "index";
 	}
 	
 	
@@ -91,7 +91,7 @@ public class Login_Naver implements Login_Service{
 		userSession.setAttribute("login_route", "naver");
 		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
 		if( resultUser != null) {
-			if(resultUser.getUser_type().contains("naver")) {
+			if(resultUser.getJoin_route().contains("naver")) {
 				// 로그인 완료
 			userSession.setAttribute("access_token", access_token);
 			userSession.setAttribute("refresh_token", refresh_token);
@@ -100,6 +100,7 @@ public class Login_Naver implements Login_Service{
 			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));
 			}else {
 				// 연동할건지 물어보기
+				userSession.setAttribute("join_route", resultUser.getJoin_route());
 				req.setAttribute("login_result", "redirect:/login/adds/");
 			}
 		}else {

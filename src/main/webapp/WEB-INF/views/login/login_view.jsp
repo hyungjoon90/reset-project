@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/login.js"></script>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
+<script src="../../js/jquery-1.12.4.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/login.js"></script>
+<script src="../../js/ser.js"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/main.css" rel="stylesheet">
 	<title>Normol LoginView</title>
 </head>
 <script>
@@ -22,6 +23,7 @@ $(function(){
 		      show: true
 		    });
 	});
+	
 	$( "#forCompany" ).click(function() {
 		$( "#for_company_info" ).toggle( "fast", function() {
 			$("#bisnumFind").prop("disabled",forCompanySW);
@@ -35,12 +37,13 @@ $(function(){
 	});
 	
 	$("input").each(function(){
-		$(this).on("focus",function(){
-	        $(this).val('');
+		$(this).on("focus",function(e){
+	        $(e.target).val('');
 	        $(this).css("color","black");
 	        $(this).parent().find(".errM").remove();
 	    });
 	});
+	
 	
 	$(".check-email").each(function(){
 		$(this).on('blur',function(e){
@@ -49,7 +52,29 @@ $(function(){
 	});
 	$(".only-num").on('keyup',onlyNumber);
 	$(".only-num").on('keydown',onlyNumber);
-})
+
+	$("#goLogin").on('click',function(){
+		
+		var tmpPW = $("#password").val();
+		$("#password").val(SHA256(tmpPW));
+		
+		formData = $("#login_form").serialize();
+		console.log(formData);
+		$.post(".",formData)
+			.done(function(data) {
+				if(data.result>=200 && data.result<400){
+					alert(data.msg);
+					window.location.href=data.redirect;
+				}else{
+					alert(data.msg);
+				}
+		  	})
+		  	.fail(function() {
+		    	alert( "알수 없는 오류" );
+		  	});
+	});
+
+});
 
 
 
@@ -131,17 +156,16 @@ $(document).on({
     		<form id="login_form" action="post">
   				<div class="form-group">
   					<label for="email">Email</label>
-  					<input type="email" class="form-control check-email" id="email" placeholder="email">
+  					<input type="email" name="email" class="form-control check-email" id="email" placeholder="email">
 				</div>    		
   				<div class="form-group">
   					<label for="password">password</label>
-  					<input type="password" class="form-control" id="password" placeholder="비밀번호">
+  					<input type="password" name="password" class="form-control" id="password" placeholder="비밀번호">
 				</div>
     			<div>
     				<button type="button" class="btn btn-default" id="goLogin">로그인하기</button>
     				<button type="button" class="btn btn-default" id="findPw">비밀번호 찾기</button>
     			</div>
-    		
     		</form>
     	</div>
 		<!-- login Modal -->
@@ -159,15 +183,15 @@ $(document).on({
 			    			<button type="button" class="btn btn-default" id="forCompany">기업회원 찾기</button>
 			  				<div class="form-group">
 			  					<label for="emailFind">Email</label>
-			  					<input type="email" class="form-control check-email" id="emailFind" placeholder="email">
+			  					<input type="email" name="emailFind" class="form-control check-email" id="emailFind" placeholder="email">
 							</div>    		
 			  				<div class="form-group">
 			  					<label for="phoneFind">연락처</label>
-			  					<input type="text" class="form-control only-num" id="phoneFind" placeholder="-제외한 숫자만 입력">
+			  					<input type="text" name="phoneFind" class="form-control only-num" id="phoneFind" placeholder="-제외한 숫자만 입력">
 							</div>
 							<div class="form-group" id="for_company_info" style="display:none">
 			  					<label for="bisnumFind">사업자번호</label>
-			  					<input type="text" class="form-control only-num" id="bisnumFind" placeholder="-제외한 숫자만 입력" disabled="disabled">
+			  					<input type="text" name="bisnumFind" class="form-control only-num" id="bisnumFind" placeholder="-제외한 숫자만 입력" disabled="disabled">
 							</div>	
 			    			<div>
 			    				<button type="button" class="btn btn-default" id="checkInfo">확인하기</button>

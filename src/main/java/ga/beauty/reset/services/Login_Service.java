@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 
 public interface Login_Service {
 	
-	public Model logout(Model model, HttpServletRequest req, HttpServletResponse resp);
+	public String logout(Model model, HttpServletRequest req, HttpServletResponse resp);
 	public Model login(Model model, HttpServletRequest req) throws Exception;
 	
 }

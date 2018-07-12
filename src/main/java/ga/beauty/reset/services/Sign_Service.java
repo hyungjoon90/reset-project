@@ -1,16 +1,13 @@
 package ga.beauty.reset.services;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import ga.beauty.reset.dao.Companys_Dao;
 import ga.beauty.reset.dao.Members_Dao;
@@ -57,7 +54,7 @@ public class Sign_Service {
 			resultUser = user_Dao.insertOne(userBean);
 			resultOther = companys_Dao.insertOne( (Companys_Vo) companyBean);
 		}
-		if(resultUser==1 && resultOther ==1) return 1;
+		if(resultUser==1 && resultOther ==1) return 200;
 		else return 9999;
 	}
 	
@@ -82,6 +79,12 @@ public class Sign_Service {
 		String bisnumFind = req.getParameter("bisnumFind");
 		
 		return null;
+	}
+
+
+	public int updateProfile(User_Vo target) throws SQLException {
+		// TODO Auto-generated method stub
+		return user_Dao.updateOne(target);
 	}
 
 	

@@ -75,7 +75,7 @@ public class Sign_Controller {
 	@RequestMapping(value="/sign/{command}", method=RequestMethod.POST)// ajax
 	@ResponseBody
 	public Map<String,Object> checkSomething(@PathVariable String command, @RequestParam(value="target") String target) {
-		int result = 0; // 연결실패 0 성공 1 연결됬는데 이상한 실패 9999
+		int result = 0; // 연결실패 0 성공 200 연결됬는데 이상한 실패 9999
 		try {
 			result = sign_Service.checkSomething(command,target);
 		} catch (SQLException e) {

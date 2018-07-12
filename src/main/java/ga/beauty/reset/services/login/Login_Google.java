@@ -46,9 +46,9 @@ public class Login_Google implements Login_Service{
 	}
 	
 	@Override
-	public Model logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return null;
+	public String logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().invalidate();
+		return "index";
 	}// logout()
 
 	// 이메일 체크할때 토큰 오류 / 이메일 오류 있을수 있음
@@ -86,7 +86,8 @@ public class Login_Google implements Login_Service{
 			}else {
 				// TODO Reset 나중에 지워야됨
 				// 연동할건지 물어보기
-				nextUrl = "/reset/login/add";
+				userSession.setAttribute("join_route", resultUser.getJoin_route());
+				nextUrl = "/reset/login/adds";
 			}
 		}else {
 			// TODO Reset 나중에 지워야됨
@@ -94,6 +95,7 @@ public class Login_Google implements Login_Service{
 			// 회원가입
 		}
 		userSession.setAttribute("nextUrl", nextUrl);
+		req.setAttribute("login_result","login/google");
 		return model;
 	}// login()
 

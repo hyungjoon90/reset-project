@@ -8,7 +8,7 @@ function onlyNumber(event){
     $(event.target).val($(event.target).val().replace(/[^0-9]/g,""));
 }
 
-function inputSucces($target){
+function inputSuccess($target){
 	  $target.parent().find(".errM").remove();
 	  $target.css("color","green");
 	  $target.css("border","1px solid #ccc");

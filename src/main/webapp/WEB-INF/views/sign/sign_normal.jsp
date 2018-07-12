@@ -26,7 +26,7 @@ $(function(){
 			var data =$('#form').serialize();
 			console.log(data);
 			$.post(".",data,function(output){
-				if(output.result==1){
+				if(output.result==200){
 					window.location.href=ouput.url;
 				}else{
 					alert("알수 없는 이유로 회원가입이 실패하였습니다. 잠시후 다시 이용해주세요");

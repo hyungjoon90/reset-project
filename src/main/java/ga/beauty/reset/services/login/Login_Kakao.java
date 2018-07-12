@@ -33,13 +33,13 @@ import ga.beauty.reset.services.Login_Service;
 import ga.beauty.reset.utils.ErrorEnum;
 
 
-@Service("login_Kakko")
-public class Login_Kakko implements Login_Service{
+@Service("login_kakao")
+public class Login_Kakao implements Login_Service{
 
-	private static final Logger logger = Logger.getLogger(Login_Kakko.class);
+	private static final Logger logger = Logger.getLogger(Login_Kakao.class);
 	
 	private final String clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
-	private String redirectURI ="http://localhost:8080/reset/login/kakko";
+	private String redirectURI ="http://localhost:8080/reset/login/kakao";
 
 	private String access_token = "";
 	private String refresh_token = "";
@@ -52,14 +52,14 @@ public class Login_Kakko implements Login_Service{
 
 	@Autowired
 	User_Dao user_Dao;
-	
-	public Login_Kakko() throws UnsupportedEncodingException {
+
+	public Login_Kakao() {
 	}
 	
 	@Override
-	public Model logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		return null;
+	public String logout(Model model, HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().invalidate();
+		return "index";
 	}
 
 
@@ -78,7 +78,7 @@ public class Login_Kakko implements Login_Service{
 			return model;
 		} 
 		// 한번만 실행되면 됨
-		this.setKakkoId();
+		this.setkakaoId();
 		
 		// checkEmail : 가능한 에러 > profile / email 
 		// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
@@ -98,10 +98,10 @@ public class Login_Kakko implements Login_Service{
 		User_Vo checkEmailVo = new User_Vo();
 		checkEmailVo.setEmail(result);
 		userSession.setAttribute("login_email", checkEmailVo.getEmail());
-		userSession.setAttribute("login_route", "kakko");
+		userSession.setAttribute("login_route", "kakao");
 		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
 		if( resultUser != null) {
-			if(resultUser.getUser_type().contains("kakko")) {
+			if(resultUser.getJoin_route().contains("kakao")) {
 				// 로그인 완료
 			userSession.setAttribute("access_token", access_token);
 			userSession.setAttribute("refresh_token", refresh_token);
@@ -110,6 +110,7 @@ public class Login_Kakko implements Login_Service{
 			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));
 			}else {
 				// 연동할건지 물어보기
+				userSession.setAttribute("join_route", resultUser.getJoin_route());
 				req.setAttribute("login_result", "redirect:/login/adds/");
 			}
 		}else {
@@ -141,13 +142,13 @@ public class Login_Kakko implements Login_Service{
 		responseString = EntityUtils.toString(response.getEntity());
 
 		JsonNode tokenJson = null;
-		logger.debug("Response Code - getToken(kakko) : ("+request.getRemoteHost()+")/"+responseCode);
+		logger.debug("Response Code - getToken(kakao) : ("+request.getRemoteHost()+")/"+responseCode);
 		if(responseCode==200) {
 			tokenJson = mapper.readTree(responseString);
 			access_token= tokenJson.get("access_token").asText();
 			refresh_token= tokenJson.get("refresh_token").asText();
 		}else {
-			logger.debug("Response Err - getToken(kakko) : ("+request.getRemoteHost()+")/"+responseString);
+			logger.debug("Response Err - getToken(kakao) : ("+request.getRemoteHost()+")/"+responseString);
 		}
 		return responseCode;
 	}
@@ -155,7 +156,7 @@ public class Login_Kakko implements Login_Service{
 	
 	// 앱연결을 위해서 필요한 ID를 등록합니다. 한번만 등록되며,
 	// 추후에 카카오톡 연결 해제시 해제만 시키면됩니다.
-	private void setKakkoId() throws ClientProtocolException, IOException {
+	private void setkakaoId() throws ClientProtocolException, IOException {
 		
 		String apiURL = "https://kapi.kakao.com/v1/user/signup";
 		final String header1 = "Bearer "+access_token; 
@@ -174,8 +175,8 @@ public class Login_Kakko implements Login_Service{
 //			logger.debug("app_id : " + app_id);
 //			userSession.setAttribute("app_id", app_id);
 		}
-		logger.debug("Response Code -setKakkoId(kakko): ("+request.getRemoteHost()+")/"+responseCode);
-		logger.debug("Response Body -setKakkoId(kakko) : ("+request.getRemoteHost()+")/"+responseString);
+		logger.debug("Response Code -setkakaoId(kakao): ("+request.getRemoteHost()+")/"+responseCode);
+		logger.debug("Response Body -setkakaoId(kakao) : ("+request.getRemoteHost()+")/"+responseString);
 	}
 	
 	private String checkEmail(String resultString) throws IOException {
@@ -212,9 +213,9 @@ public class Login_Kakko implements Login_Service{
 		HttpResponse response = client.execute(post);
 		int responseCode = response.getStatusLine().getStatusCode();
 		String responseString = EntityUtils.toString(response.getEntity(), "utf-8");
-		logger.debug("Response Code -getInfo(kakko): ("+request.getRemoteHost()+")/"+responseCode);
+		logger.debug("Response Code -getInfo(kakao): ("+request.getRemoteHost()+")/"+responseCode);
 		if(responseCode != 200) {
-			logger.debug("Response Err -getInfo(kakko): ("+request.getRemoteHost()+")/"+responseString);
+			logger.debug("Response Err -getInfo(kakao): ("+request.getRemoteHost()+")/"+responseString);
 			return ErrorEnum.PROFILEERR;
 		}
 		return responseString;

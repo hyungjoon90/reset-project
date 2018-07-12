@@ -1,5 +1,6 @@
 package ga.beauty.reset.dao;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class Members_DaoImp implements Members_Dao{
 
 	@Override
 	public Members_Vo selectOne(Members_Vo bean) throws SQLException {
+		
+		
 		return sqlSession.selectOne("members.selectOne",bean);
 	}
 
