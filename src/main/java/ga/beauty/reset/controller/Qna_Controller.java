@@ -58,10 +58,10 @@ public class Qna_Controller {
 		return "qna/qnaResult";
 	}
 
-	@RequestMapping(value = "/qna/qnaResult", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/qna/qnaResult", method = RequestMethod.POST)
 	public String showResult() {
 		return "qna/qnaResult";
-	}
+	}*/
 	
 	
 	//admin의 qna
@@ -122,5 +122,6 @@ public class Qna_Controller {
 		return view2;
 	}*/
 
+	
 
 }// class end

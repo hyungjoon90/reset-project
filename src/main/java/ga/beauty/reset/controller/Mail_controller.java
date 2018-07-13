@@ -3,56 +3,57 @@ package ga.beauty.reset.controller;
 import java.sql.SQLException;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import ga.beauty.reset.dao.entity.Qna_Vo;
+import ga.beauty.reset.services.Qna_Service;
 
 @Controller
-public class Mail_controller {
-	Logger log = Logger.getLogger(getClass());
+public class Mail_Controller {
+
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Autowired
-	private JavaMailSenderImpl mailSender;
-
+	Qna_Service service;
 	
-	@RequestMapping(value="/mailSender", method=RequestMethod.GET)
-	public String showForm() {
-		return "mailSender";
+	//TODO
+	
+	@RequestMapping(value="/mail/qna/{qa_no}" , method = RequestMethod.POST)
+	@ResponseBody
+	public String qnaSender(@PathVariable int qa_no) throws MessagingException, SQLException{
+		
+		Qna_Vo bean = service.selectOnePage(qa_no);
+		String setfrom ="resetbeauty@gmail.com";
+		String toemail = bean.getEmail();
+		String title = "Re : " + bean.getCon();
+		String contents = bean.getCon()+"\n\n\n"+ bean.getAnswer();
+		
+		MimeMessage msg = mailSender.createMimeMessage();
+		MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");
+		
+	
+		messageHelper.setFrom(setfrom);
+		messageHelper.setTo(toemail);
+		messageHelper.setSubject(title);
+		messageHelper.setText(contents);
+	
+		mailSender.send(msg);
+	
+		return "456";
+		
 	}
 	
 	
-	//이메일 전송하기
-	
-		@RequestMapping(value="/qna/qnaEmail" , method = RequestMethod.POST)
-		public String mailSender(HttpServletRequest request, Model model) throws MessagingException{
-			
-			String setfrom ="resetbeauty@gmail.com";
-			String toemail = request.getParameter("toemail");
-			String title = "re : " + request.getParameter("title");
-			String contents = request.getParameter("contents");
-			
-			MimeMessage msg = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");
-			
-			messageHelper.setFrom(setfrom);
-			messageHelper.setTo(toemail);
-			messageHelper.setSubject(title);
-			messageHelper.setText(contents);
-			
-			mailSender.send(msg);
-			
-			return "qna/qnaResult";
-		
-			
-		}
-
 }
