@@ -28,7 +28,8 @@
 	            file = $('#img').prop("files")[0];
 	            blobURL = window.URL.createObjectURL(file);
 	            $('#preview img').attr('src', blobURL);
-	            $('#preview').slideDown(); //업로드한 이미지 미리보기 
+	            $('#preview').slideDown(); //업로드한 이미지 미리보기
+	            $('#Existing_img').hide();
 	            $(this).slideUp(); //파일 양식 감춤
 	        }
 	    });
@@ -50,6 +51,7 @@
  });
 </script>
 <style type="text/css">
+	/* 미리보기 이미지 사이즈 */
 	#control_img { /* div에 주는것도 좋은 방법임. */
 		width: 200px;
 		height: 200px;
@@ -114,28 +116,23 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
-            <!-- TODO -->
-            <!-- detail-page 입니다. -->
-            <form method="post">
-           		<input type="hidden" name="_method" value="put"/>
+            <!-- TODO:이벤트 업데이트 페이지 입니다. -->
+            <!-- update-page 입니다. -->
+            <form method="post"  action="/reset/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm">
+           		<!-- <input type="hidden" name="_method" value="put"/> -->
 	            <div>
 	            	<label for="eve_no"></label>
 	            	<input type="text" name="eve_no" id="eve_no" value="${detail.eve_no }" >
 	            </div>
 	            <div>
 	            	<label for="img">대표이미지</label>
-	            	<div name="img" id="img"><img src="..${detail.img}"></div>
+	            	<div name="Existing_img" id="Existing_img"><img src="..${detail.img}"></div>
 	            	<input type="file" name="img" id="img">
             	</div>
             	<div id="preview">
             		<img src="#" id="control_img">
             		<button type="button">대표이미지 삭제</button>
             	</div>
-	            <%-- <div>
-	            	<label for="img"></label>
-	            	<div name="img" id="img"><img src="..${detail.img}"></div>
-	            	<button type=""></button>
-	            </div> --%>
 	            <div>
 	            	<label for="title">제목</label>
 	            	<input type="text" name="title" id="title" value="${detail.title }" >
@@ -176,8 +173,33 @@
             	</div>
 
 			<button type="reset" class="btn btn-primary">목록</button>
-			<button type="submit" class="btn btn-warning">수정</button>
+			<button type="submit" class="btn btn-warning" id="updateBtn">수정</button>
 			</form>
+			<script type="text/javascript">
+	       	 $("#updateBtn").on('submit',function(event){
+	       		 event.preventDefault();
+	    		 var eve_no=${detail.eve_no};
+	    		 console.log(eve_no);
+	    		 var formData = new FormData($("#event_updateForm")[0]);
+	    		 console.log(formData);
+	    	     $.ajax({
+	    	       type:'post',
+	    	       enctype: 'multipart/form-data',
+	    	       data : formData,
+	    	       url: '/reset/event/'+eve_no+'/update',
+	    	       contentType: false,
+	    	       processData: false,
+	    	       dataType: "Text"
+	    	    }) 
+	    	    .done(function(data){
+	    	       console.log("전송"); 
+	    	     })
+	    	    .fail(function () { // 실패했을때 불러질 함수
+	    	       console.error('데이터 입력 실패');
+	    	    })  
+	    	 });
+            
+            </script>
 			<!-- 내용 끝 -->
         <hr>
     </div>

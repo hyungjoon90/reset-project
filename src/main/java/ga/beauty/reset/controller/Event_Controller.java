@@ -3,12 +3,9 @@ package ga.beauty.reset.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,17 +15,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.services.Event_Service;
+import ga.beauty.reset.utils.UpdateViewUtils;
 import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
@@ -39,8 +35,12 @@ public class Event_Controller {
 	@Autowired
 	Event_Service service;
 	
+	@Autowired
+	UpdateViewUtils viewUtils;
+	
 	String view="redirect:/event";
 
+	
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
 		service.listPage(model);
@@ -48,13 +48,16 @@ public class Event_Controller {
 	}
 	
 	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.GET)
-	public String detail(@PathVariable int eve_no ,Model model) throws SQLException {
+	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException {
+		
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
 		Comment_Vo comment=new Comment_Vo();
 		comment.setCo_type("이벤트");
 		comment.setP_no(eve_no);
+		//쿠기를 사용한 조회수 증가 입니다(3번째 인자로 review,magazine,event 중에 골라서 넣어주세요)
+		viewUtils.UpdateView(resp, req, "event", eve_no, model);
 		
 		service.detailPage(model, bean, comment);
 		return "event/event_detail";
@@ -74,10 +77,16 @@ public class Event_Controller {
 	}
 	
 	
-	//UPDATE EVENT SET IMG=#{img},TITLE=#{title},CON=#{con},TAGS=#{tags} WHERE EVE_NO=#{eve_no}
-	@RequestMapping(value="/event/{eve_no}", method = RequestMethod.PUT)
-	public String update(Model model,@PathVariable("eve_no") int eve_no , @ModelAttribute Event_Vo bean) throws SQLException {
-		service.updatePage(model, bean);
+	@RequestMapping(value="/event/{eve_no}/update", method = RequestMethod.POST)
+	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
+		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		Event_Vo bean= new Event_Vo();
+		bean.setEve_no(eve_no);
+		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		bean.setTitle(req.getParameter("title"));
+		bean.setCon(req.getParameter("con"));
+		bean.setTags(req.getParameter("tags"));
+		service.updatePage(bean);
 		return view;
 	}
 	
@@ -101,9 +110,22 @@ public class Event_Controller {
 	}
 	
 	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.DELETE)
-	public String delete(@PathVariable int eve_no) throws SQLException {
+	public String delete(@PathVariable int eve_no,HttpServletRequest req) throws SQLException {
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
+		
+		Comment_Vo com=new Comment_Vo();
+		com.setCo_type("이벤트");
+		com.setP_no(eve_no);
+
+		String img = req.getParameter("img");
+		String Largeimg=img.replaceAll("#$#", "");
+		String filepath ="/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources";
+		File file = new File(filepath+img);
+		File file2 = new File(filepath+Largeimg);
+		file.delete();
+		file2.delete();
+		
 		service.deletePage(bean);
 		return view;
 	}

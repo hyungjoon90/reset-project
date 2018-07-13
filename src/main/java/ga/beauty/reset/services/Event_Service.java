@@ -32,11 +32,16 @@ public class Event_Service {
 		commonDao.insertOne(bean);
 	}
 	
-	public void updatePage(Model model,Event_Vo bean) throws SQLException{
+	public void updateView(Event_Vo bean) throws SQLException{
+		commonDao.updateView(bean);
+	}
+	
+	public void updatePage(Event_Vo bean) throws SQLException{
 		commonDao.updateOne(bean);
 	}
 	
 	public void deletePage(Event_Vo bean) throws SQLException{
 		commonDao.deleteOne(bean);
 	}
+	
 }

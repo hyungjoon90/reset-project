@@ -17,7 +17,11 @@
   	</update>
   	
   	<update id="updatePop" parameterType="Event_Vo">
-  		UPDATE EVENT SET POP=#{pop}	where EVE_NO=#{eve_no}
+  		UPDATE EVENT SET POP=#{pop}	WHERE EVE_NO=#{eve_no}
+  	</update>
+  	
+  	<update id="updateView" parameterType="Event_Vo">
+  		UPDATE EVENT SET VIEW=VIEW+1 WHERE EVE_NO=#{eve_no}
   	</update>
   	
   	<delete id="deleteOne" parameterType="Event_Vo">

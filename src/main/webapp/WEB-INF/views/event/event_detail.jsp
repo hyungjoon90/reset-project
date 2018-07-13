@@ -86,6 +86,7 @@
 			</form>
 			<form method="post">
 				<input type="hidden" name="_method" value="delete">
+				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="btn btn-danger">삭제</button>
 			</form>
 			<!-- 내용 끝 -->

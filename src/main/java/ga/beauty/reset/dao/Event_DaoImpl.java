@@ -44,6 +44,13 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 		return sqlSession.delete("event.deleteOne", bean);
 	}
 
+	@Override
+	public int updateView(Event_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return sqlSession.update("event.updateView", bean);
+	}
+
+	
 
 
 }

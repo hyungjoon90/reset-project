@@ -34,4 +34,8 @@ public class Comment_Service {
 	public void removeComment(Comment_Vo bean) throws SQLException{
 		commentDao.delete(bean);
 	}
+	
+	public void removeAllComment(Comment_Vo bean) throws SQLException{
+		commentDao.deleteAll(bean);
+	}
 }

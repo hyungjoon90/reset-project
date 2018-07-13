@@ -22,4 +22,8 @@
  	<delete id="delete">
  		DELETE FROM COMMENT WHERE CO_NO=#{co_no} AND CO_TYPE=#{co_type} AND P_NO=#{p_no}
  	</delete>
+ 	
+ 	<delete id="deleteAll">
+ 		DELETE FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO={#p_no}
+ 	</delete>
   </mapper>

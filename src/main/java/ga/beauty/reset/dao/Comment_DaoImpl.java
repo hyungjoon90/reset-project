@@ -46,5 +46,12 @@ public class Comment_DaoImpl implements Comment_Dao<Comment_Vo> {
 		sqlSession.delete("comment.delete",bean);
 	}
 
+	@Override
+	public void deleteAll(Comment_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		sqlSession.delete("comment.deleteAll", bean);
+		
+	}
+
 
 }

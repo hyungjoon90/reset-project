@@ -37,4 +37,10 @@ public class Eve_addr_DaoImpl implements Common_Dao<Eve_addr_Vo>{
 		return 0;
 	}
 
+	@Override
+	public int updateView(Eve_addr_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

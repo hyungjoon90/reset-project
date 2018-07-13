@@ -16,4 +16,6 @@ public interface Comment_Dao<C> {
 	
 	public void delete(C bean) throws SQLException;
 	
+	public void deleteAll(C bean) throws SQLException;
+	
 }
