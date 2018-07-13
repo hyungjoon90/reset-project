@@ -10,11 +10,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="google-signin-client_id"
 	content="1051220480905-p8890ral8a45q8c1q6201a57oqg75k7f.apps.googleusercontent.com">
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
-<script src="../../js/jquery-1.12.4.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
+<!-- TODO 경로 넣어줘야됨 -->
+<link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot }css/main.css" rel="stylesheet">
+<script src="${goRoot }js/jquery-1.12.4.js"></script>
+<script src="${goRoot }js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <title>Insert title here</title>
 <script>
@@ -23,13 +24,13 @@
 			console.log($(this).attr("id"));
 			$.post(".","command="+$(this).attr("id"))
 				.done(function(data){
-					
-				});
-			
-		})
-		
-		
-	});
+					if(data.result==200){
+						alert("성공적으로 연동되었습니다.")
+					}
+					window.location.href=data.redirect;
+				});// post End
+		})// button click end
+	}); // function() end
 
 </script>
 </head>
@@ -95,9 +96,9 @@
 			
 			<h2>기존에 [${join_route}] 로 연동하셨습니다. </h2>
 			<h2>혹시 [${login_route}]도 연동하시겠습니까?</h2>
-			<button bt="on" id="yes">예</button>
-			<button bt="on" id="no">로그인다시하기</button>
-			<button bt="on" id="back">이전경로로 가기</button>
+			<button bt="on" id="adds_yes">예</button>
+			<button bt="on" id="adds_no">로그인다시하기</button>
+			<button bt="on" id="adds_back">이전경로로 가기</button>
 		</div>
 		
 	</div>

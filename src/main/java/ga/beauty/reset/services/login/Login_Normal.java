@@ -1,8 +1,5 @@
 package ga.beauty.reset.services.login;
 
-import java.awt.color.CMMException;
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,8 +24,6 @@ public class Login_Normal implements Login_Service {
 
 	private static Logger logger = Logger.getLogger(Login_Normal.class);
 
-	private HttpSession userSession;
-	private HttpServletRequest request;
 
 	@Autowired
 	User_Dao user_Dao;
@@ -51,8 +46,8 @@ public class Login_Normal implements Login_Service {
 	@Override
 	@Transactional
 	public Model login(Model model, HttpServletRequest req) throws Exception {
-		request = req;
-		userSession = req.getSession();
+		HttpServletRequest request = req;
+		HttpSession userSession = req.getSession();
 		String method = req.getMethod();
 		if(method.equals("GET")) {
 			req.setAttribute("login_result", "login/login_view");
@@ -81,9 +76,7 @@ public class Login_Normal implements Login_Service {
 			User_Vo userBean = new User_Vo();
 			userBean.setEmail(email);
 			User_Vo checkBean = user_Dao.selectOne(userBean);
-			if(!checkBean.getJoin_route().contains("normal"))
-			{
-			
+			if(!checkBean.getJoin_route().contains("normal")){
 				// TODO 연동할건지 물어봐야됨 일반을
 				Members_Vo tmpM = new Members_Vo();
 				tmpM.setEmail(email);
@@ -103,12 +96,12 @@ public class Login_Normal implements Login_Service {
 			String comparePw = "";
 			Companys_Vo tmpC = new Companys_Vo();
 			Members_Vo tmpM = new Members_Vo();
-			if(!checkBean.getUser_type().contains("일반")) {
-				tmpC.setEmail(email);
+			if(!checkBean.getUser_type().equals("일반")) {
 				Companys_Vo compare = companys_Dao.selectOne(tmpC);
 				comparePw = PasswordUtil.getEncryptSHA256(password+compare.getBisnum());
 			}else {
 				tmpM.setEmail(email);
+				System.out.println("일반체크"+password);
 				Members_Vo compare = members_Dao.selectOne(tmpM);
 				comparePw = PasswordUtil.getEncryptSHA256(password+compare.getNick());
 			}
@@ -128,10 +121,7 @@ public class Login_Normal implements Login_Service {
 				req.setAttribute("login_result", "login/login_normal");
 				return model;
 			}
-			
-		
 		}// end post()
 		return model;
-
 	}// end login()
 }// end Login_Normal

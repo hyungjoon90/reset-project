@@ -8,12 +8,14 @@ public class Companys_Vo {
 	private String 	manager;
 	private int 	postcode;
 	private String	address;
+	private String	phone;
 	
 	public Companys_Vo() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Companys_Vo(String email, String company, int bisnum, String manager, int postcode, String address) {
+	public Companys_Vo(String email, String company, int bisnum, String manager, int postcode, String address,
+			String phone) {
 		super();
 		this.email = email;
 		this.company = company;
@@ -21,6 +23,7 @@ public class Companys_Vo {
 		this.manager = manager;
 		this.postcode = postcode;
 		this.address = address;
+		this.phone = phone;
 	}
 
 	public String getEmail() {
@@ -71,10 +74,18 @@ public class Companys_Vo {
 		this.address = address;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
 		return "Companys_Vo [email=" + email + ", company=" + company + ", bisnum=" + bisnum + ", manager=" + manager
-				+ ", postcode=" + postcode + ", address=" + address + "]";
+				+ ", postcode=" + postcode + ", address=" + address + ", phone=" + phone + "]";
 	}
 
 	@Override
@@ -86,6 +97,7 @@ public class Companys_Vo {
 		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((manager == null) ? 0 : manager.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + postcode;
 		return result;
 	}
@@ -121,9 +133,16 @@ public class Companys_Vo {
 				return false;
 		} else if (!manager.equals(other.manager))
 			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
 		if (postcode != other.postcode)
 			return false;
 		return true;
 	}
+	
+	
 	
 }

@@ -1,10 +1,8 @@
 package ga.beauty.reset.dao;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,8 +17,6 @@ public class Members_DaoImp implements Members_Dao{
 
 	@Override
 	public Members_Vo selectOne(Members_Vo bean) throws SQLException {
-		
-		
 		return sqlSession.selectOne("members.selectOne",bean);
 	}
 

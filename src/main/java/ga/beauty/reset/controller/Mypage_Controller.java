@@ -3,9 +3,11 @@ package ga.beauty.reset.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 import ga.beauty.reset.services.mypage.Mypage_ADV_Service;
 import ga.beauty.reset.services.mypage.Mypage_EMP_Service;
@@ -28,7 +30,8 @@ public class Mypage_Controller {
 
 	
 	@RequestMapping(value = "/mypage/", method = RequestMethod.GET)
-	public String showMain(@SessionAttribute(name="user_type") String user_type ) {
+	public String showMain(@SessionAttribute(name="user_type") String user_type, Model model) {
+		model.addAttribute("goRoot","../");
 		if("CEO".equals(user_type) || "직원".equals(user_type)) {
 			return "mypage/mypage_emp_main";
 		}else if("광고주".equals(user_type)) {
@@ -37,7 +40,8 @@ public class Mypage_Controller {
 			return "mypage/mypage_nor_main";
 		}else {
 			// TODO 에러
-			return "err";
+			model.addAttribute("goRoot","./");
+			return "errPage";
 		}
 	}// showMain()
 	

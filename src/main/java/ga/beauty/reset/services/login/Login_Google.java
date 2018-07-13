@@ -82,19 +82,23 @@ public class Login_Google implements Login_Service{
 				userSession.setAttribute("login_user_type", resultUser.getUser_type());
 				userSession.setAttribute("login_email", resultUser.getEmail());
 				userSession.setAttribute("login_on", true);
+				result = "200";
 				nextUrl = (String)userSession.getAttribute("old_url");//이전로그
 			}else {
 				// TODO Reset 나중에 지워야됨
 				// 연동할건지 물어보기
+				result = "300";
 				userSession.setAttribute("join_route", resultUser.getJoin_route());
 				nextUrl = "/reset/login/adds";
 			}
 		}else {
 			// TODO Reset 나중에 지워야됨
+			result = "201"; // 회원가입
 			nextUrl = "/reset/sign/";// 
 			// 회원가입
 		}
-		userSession.setAttribute("nextUrl", nextUrl);
+		req.setAttribute("result", result);
+		req.setAttribute("nextUrl", nextUrl);
 		req.setAttribute("login_result","login/google");
 		return model;
 	}// login()

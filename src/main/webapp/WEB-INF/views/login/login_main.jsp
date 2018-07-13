@@ -10,11 +10,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="google-signin-client_id"
 	content="1051220480905-p8890ral8a45q8c1q6201a57oqg75k7f.apps.googleusercontent.com">
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot}css/main.css" rel="stylesheet">
+<script src="${goRoot}js/jquery-1.12.4.js"></script>
+<script src="${goRoot}js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <title>Insert title here</title>
 <script>
@@ -44,7 +44,10 @@
     	  xhr.onreadystatechange = function () {
     		  if(xhr.readyState === 4 && xhr.status === 200) {
     	        var myJson = JSON.parse(this.responseText);
-    	        window.location.href = myJson.result;
+    	        // 200 성공, 201 회원가입, 300 연동
+    	        if(myJson.result==200)alert("로그인성공");
+    	        else if(myJson.result==201)alert("회원가입으로 이동");
+    	        window.location.href = myJson.redirect;
     		  }
     		};
  		}, function(error) {
@@ -63,14 +66,14 @@
   
   	String naver_clientId = "tfJeSZAfwMMgSJ0l4M9h";//애플리케이션 클라이언트 아이디값";
     String naver_redirectURI = URLEncoder.encode("http://localhost:8080/reset/login/naver/", "UTF-8");
-    String naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    String naver_apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"; 
     naver_apiURL += "&client_id=" + naver_clientId;
     naver_apiURL += "&redirect_uri=" + naver_redirectURI;
     naver_apiURL += "&state=" + state;
     session.setAttribute("state", state);
 
     String kakao_clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
-	String kakao_redirectURI = "http://localhost:8080/reset/login/kakao/";
+	String kakao_redirectURI = "http://localhost:8081/reset/login/kakao/"; // TODO 나중에 바꿀거
     String kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code";
     kakao_apiURL += "&client_id=" + kakao_clientId;
     kakao_apiURL += "&redirect_uri=" + kakao_redirectURI;

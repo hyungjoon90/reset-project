@@ -32,3 +32,25 @@ function checkEmail(ele) {
          return false;
      }
 }// fucntion checkPW()
+
+function submitCheck(ele){
+	  var errTest;
+	  var nullCheck;
+	  $(ele).find("input").each(function(){
+	    errTest = $(this).parent().find(".err");
+	    if(errTest.length>0){
+	      $(this).focus();
+	      $(this).css("border","2px soild red");
+	      return false;
+	    }
+	    nullCheck = $(this).val();
+	    if(nullCheck == null){
+	    	consolo.log("널오류");
+	      $(this).focus();
+	      var $errM = $("<div/>",{"class":"errM"});
+	      inputFail(this,$errM,"값이 비었습니다.");
+	      return false;
+	    }
+	  });// err 체크
+	  return true
+	}

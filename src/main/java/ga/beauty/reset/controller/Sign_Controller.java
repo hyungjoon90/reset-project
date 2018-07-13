@@ -27,63 +27,56 @@ import ga.beauty.reset.services.Sign_Service;
 
 @Controller
 public class Sign_Controller {
-	
+
 	private static final Logger logger = Logger.getLogger(Sign_Controller.class);
 
-	public Sign_Controller() {
-	}
-	
 	@Autowired
 	private Sign_Service sign_Service;
+
+	
+	public Sign_Controller() {
+	}
+
+
 	// 메인페이지나 회원가입 버튼 눌렀을때 처리
-	@RequestMapping(value="/sign/", method=RequestMethod.GET)
-	public String showSignpage(HttpServletRequest req, Model model, HttpSession session ) {
+	@RequestMapping(value = "/sign/", method = RequestMethod.GET)
+	public String showSignpage(HttpServletRequest req, Model model, HttpSession session) {
 		model.addAttribute("goRoot", "../");
-		if(session.getAttribute("old_url")==null) session.setAttribute("old_url", req.getHeader("referer"));
-		if(session.getAttribute("login_route") == null  ) {
+		if (session.getAttribute("old_url") == null)
+			session.setAttribute("old_url", req.getHeader("referer"));
+		if (session.getAttribute("login_route") == null)
 			session.setAttribute("login_route", "normal");
-		}
-		return "sign/sign_normal"; 
+		return "sign/sign_normal";
 	}
-	
-	//유저등록 : 일반일경우 url에 리턴넣음
-	@RequestMapping(value="/sign/", method=RequestMethod.POST) // Ajax
+
+	// 유저등록 : 일반일경우 url에 리턴넣음
+	@RequestMapping(value = "/sign/", method = RequestMethod.POST) // Ajax
 	@ResponseBody
-	public Map<String,Object> sign(User_Vo userBean,Members_Vo memberBean,Companys_Vo componyBean, HttpSession session) {
+	public Map<String, Object> sign(User_Vo userBean, Members_Vo memberBean, Companys_Vo componyBean,
+			HttpSession session) throws NoSuchAlgorithmException, SQLException {
 		int result = 0;
-		Map<String, Object> map = new HashMap<String,Object>();
-		try {
-			if(userBean.getUser_type().equals("일반")) {
-				logger.debug("일반유저 일반들어옴");
-				map.put("url",session.getAttribute("old_url"));
-				result = sign_Service.signUp(userBean, memberBean);
-			}else {
-				result = sign_Service.signUp(userBean, componyBean);
-			}
-		} catch (SQLException e) {
-			// TODO 에러처리
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (userBean.getUser_type().equals("일반")) {
+			logger.debug("일반유저 일반들어옴");
+			map.put("url", session.getAttribute("old_url"));
+			result = sign_Service.signUp(userBean, memberBean);
+		} else {
+			result = sign_Service.signUp(userBean, componyBean);
 		}
-		map.put("result", result);
-		return map;	
-	}
-	
-	
-	// 유저 등록시 중복체크 검사
-	@RequestMapping(value="/sign/{command}", method=RequestMethod.POST)// ajax
-	@ResponseBody
-	public Map<String,Object> checkSomething(@PathVariable String command, @RequestParam(value="target") String target) {
-		int result = 0; // 연결실패 0 성공 200 연결됬는데 이상한 실패 9999
-		try {
-			result = sign_Service.checkSomething(command,target);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("result", result);
 		return map;
 	}
-	
+
+	// 유저 등록시 중복체크 검사
+	@RequestMapping(value = "/sign/{command}", method = RequestMethod.POST) // ajax
+	@ResponseBody
+	public Map<String, Object> checkSomething(@PathVariable String command,
+			@RequestParam(value = "target") String target) throws SQLException {
+		int result = 0; // 연결실패 0 성공 200 연결됬는데 이상한 실패 9999
+		result = sign_Service.checkSomething(command, target);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", result);
+		return map;
+	}
+
 }

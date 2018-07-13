@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- TODO 경로 넣어줘야됨 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../../js/jquery-1.12.4.js"></script>
 <script src="../../js/bootstrap.min.js"></script>
@@ -23,7 +24,6 @@ $(function(){
 		      show: true
 		    });
 	});
-	
 	$( "#forCompany" ).click(function() {
 		$( "#for_company_info" ).toggle( "fast", function() {
 			$("#bisnumFind").prop("disabled",forCompanySW);
@@ -35,7 +35,6 @@ $(function(){
 			}
 		});
 	});
-	
 	$("input").each(function(){
 		$(this).on("focus",function(e){
 	        $(e.target).val('');
@@ -43,7 +42,6 @@ $(function(){
 	        $(this).parent().find(".errM").remove();
 	    });
 	});
-	
 	
 	$(".check-email").each(function(){
 		$(this).on('blur',function(e){
@@ -54,17 +52,39 @@ $(function(){
 	$(".only-num").on('keydown',onlyNumber);
 
 	$("#goLogin").on('click',function(){
-		
-		var tmpPW = $("#password").val();
-		$("#password").val(SHA256(tmpPW));
-		
-		formData = $("#login_form").serialize();
-		console.log(formData);
-		$.post(".",formData)
+		if(submitCheck(document.getElementById("login_form"))){
+			var tmpPW = $("#password").val();
+			$("#password").val(SHA256(tmpPW));
+			formData = $("#login_form").serialize();
+			$.post(".",formData)
+				.done(function(data) {
+					if(data.result>=200 && data.result<400){
+						alert(data.msg);
+						window.location.href=data.redirect;
+					}else{
+						alert(data.msg);
+					}
+			  	})
+			  	.fail(function() {
+			    	alert( "알수 없는 오류" );
+			  	});
+		}	
+	});// goLogin 클릭이벤트 끝
+	
+	$("#checkInfo").on('click',function(){
+		var $bisnum = $("#bisnumFind");
+		if($bisnum.val()=="") $("#bisnumFind").val(0);
+		if(submitCheck(document.getElementById("findForm"))){
+			var abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			var newPw = Math.random().toString(22).slice(5) 
+					+ abc.charAt(Math.floor(Math.random() * abc.length));
+			$("#tmp1").val(newPw);
+			$("#tmp2").val(SHA256(newPw));
+			formData = $("#findForm").serialize();
+			$.post("../find/",formData)
 			.done(function(data) {
 				if(data.result>=200 && data.result<400){
 					alert(data.msg);
-					window.location.href=data.redirect;
 				}else{
 					alert(data.msg);
 				}
@@ -72,8 +92,9 @@ $(function(){
 		  	.fail(function() {
 		    	alert( "알수 없는 오류" );
 		  	});
-	});
-
+		}
+	});// #checkInfo
+		
 });
 
 
@@ -184,7 +205,7 @@ $(document).on({
 			  				<div class="form-group">
 			  					<label for="emailFind">Email</label>
 			  					<input type="email" name="emailFind" class="form-control check-email" id="emailFind" placeholder="email">
-							</div>    		
+							</div>
 			  				<div class="form-group">
 			  					<label for="phoneFind">연락처</label>
 			  					<input type="text" name="phoneFind" class="form-control only-num" id="phoneFind" placeholder="-제외한 숫자만 입력">
@@ -192,7 +213,9 @@ $(document).on({
 							<div class="form-group" id="for_company_info" style="display:none">
 			  					<label for="bisnumFind">사업자번호</label>
 			  					<input type="text" name="bisnumFind" class="form-control only-num" id="bisnumFind" placeholder="-제외한 숫자만 입력" disabled="disabled">
-							</div>	
+							</div>
+							<input type="hidden" name="tmp1" id="tmp1" value="0"/>
+							<input type="hidden" name="tmp2" id="tmp2" value="0"/>
 			    			<div>
 			    				<button type="button" class="btn btn-default" id="checkInfo">확인하기</button>
 			    			</div>

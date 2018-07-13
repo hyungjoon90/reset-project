@@ -12,19 +12,20 @@
 	<insert id="insertone" parameterType="int">
   		INSERT INTO COMPANYS
 		(`EMAIL`, `COMPANY`, `BISNUM`, 
-		`MANAGER`, `POSTCODE`, `ADDRESS`) 
+		`MANAGER`, `POSTCODE`, `ADDRESS`, 'PHONE') 
 		VALUES (#{email}, #{company}, #{bisnum}, 
-		#{manager}, #{postcode}, #{address});
+		#{manager}, #{postcode}, #{address}, #{phone});
   	</insert>
   	<update id="updateOne" parameterType="int">
   		UPDATE COMPANYS
-  		<set>
-			<if test="company != null">COMPANY=#{company}</if>
-			<if test="bisnum != null">BISNUM=#{bisnum}</if>
-			<if test="manager != null">MANAGER=#{manager}</if>
-			<if test="postcode != null">POSTCODE=#{postcode}</if>
-			<if test="address != null">ADDRESS=#{address}</if>
-		</set>
+  		<trim prefix="SET" suffixOverrides=",">
+			<if test="company != null">COMPANY=#{company},</if>
+			<if test="bisnum != null">BISNUM=#{bisnum},</if>
+			<if test="manager != null">MANAGER=#{manager},</if>
+			<if test="postcode != null">POSTCODE=#{postcode},</if>
+			<if test="address != null">ADDRESS=#{address},</if>
+			<if test="phone != null">PHONE=#{phone},</if>
+		</trim>
 		WHERE EMAIL = #{beam.email}
   	</update>
 </mapper>

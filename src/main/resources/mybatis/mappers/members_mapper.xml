@@ -16,14 +16,14 @@
   	</insert>
   	<update id="updateOne" parameterType="int">
   		UPDATE MEMBERS
-  		<set>
-			<if test="nick != null">nick=#{nick}</if>
-			<if test="age != null">age=#{age}</if>
-			<if test="skin != null">skin=#{skin}</if>
-			<if test="phone != null">phone=#{phone}</if>
-			<if test="cart != null">cart=#{cart}</if>
-			<if test="exp != null">exp=#{exp}</if>
-		</set>
+  		<trim prefix="SET" suffixOverrides=",">
+			<if test="nick != null">nick=#{nick},</if>
+			<if test="age != null">age=#{age},</if>
+			<if test="skin != null">skin=#{skin},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="cart != null">cart=#{cart},</if>
+			<if test="exp != null">exp=#{exp},</if>
+		</trim>
 		WHERE EMAIL = #{email}
   	</update>
   	<select id="checkInfo" resultType="int">

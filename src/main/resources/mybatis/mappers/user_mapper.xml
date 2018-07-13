@@ -13,11 +13,11 @@
   	</insert>
   	<update id="updateOne" parameterType="User_Vo">
   		UPDATE USER
-  		<set>
-  			<if test="password">PASSWORD=#{password}</if>
-  			<if test="user_type">USER_TYPE=#{user_type}</if>
-  			<if test="join_route">JOIN_ROUTE=#{join_route}</if>
-  		</set>
+  		<trim prefix="SET" suffixOverrides=",">
+  			<if test="password != null">PASSWORD=#{password},</if>
+  			<if test="user_type != null">USER_TYPE=#{user_type},</if>
+  			<if test="join_route != null">JOIN_ROUTE=#{join_route}</if>
+  		</trim>
   		WHERE EMAIL=#{email}
   	</update>
   	<select id="checkInfo" resultType="int">
