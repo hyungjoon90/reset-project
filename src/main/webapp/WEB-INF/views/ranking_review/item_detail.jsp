@@ -145,6 +145,8 @@ $(document).ready(function(){
 				console.error('데이터 입력 실패');
 			})    
 		})
+		
+		$('.reviewBox img').css("src");
 	
 });
 	
@@ -168,7 +170,7 @@ function reviewListadd(){
 					"<label>"+data.star+"</label>/"+
 					"<label>"+data.nalja+"</label>"+
 					"<p>"+data.good+"</p>"+
-					"<p>"+data.good+"</p>"+
+					"<p>"+data.bad+"</p>"+
 					"<p>"+data.tip+"</p></div></a>");
 		})
 	})
@@ -360,17 +362,21 @@ function cart(){
 			  찜하기
 			</button>
 		</div>
-		
         <c:forEach items="${review_bean }" var="review">
         <a href="./${item_bean.item }/review/${review.rev_no}">
         <div class="reviewBox">
-            <img src="${goRoot}${review.img }"/>
+	    	<c:choose>
+				<c:when test="${review.img != ''}">
+					<img src="${goRoot}${review.img }"/>
+				</c:when>
+			</c:choose>
             <label>${review.writer }</label>
             <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>/
             <label>${review.star }점</label>/<label>${review.nalja }</label>
             <p>${review.good }</p>
-            <p>${review.good }</p>
+            <p>${review.bad }</p>
             <p>${review.tip }</p>
+            <p>${review.pop }</p>
         </div>
         </a>
         </c:forEach>

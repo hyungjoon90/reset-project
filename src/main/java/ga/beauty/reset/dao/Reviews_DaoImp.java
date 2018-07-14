@@ -1,8 +1,6 @@
-/**
- * 
- */
 package ga.beauty.reset.dao;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +32,7 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	public List<Reviews_Vo> reviewAll(int item) throws SQLException {
 		log.debug("DaoImp-reviewAll-param: "+item);
 		this.review_num=5;
-		return sqlSession.selectList("items.reviewAll", item);
+		return sqlSession.selectList("reviews.reviewAll", item);
 	}
 	
 	@Override
@@ -46,13 +44,13 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		map.put("item", item);
 		map.put("review_num", this.review_num);
 		log.debug(sqlSession.selectList("items.reviewListAdd", map).equals(null));
-		return sqlSession.selectList("items.reviewListAdd", map);
+		return sqlSession.selectList("reviews.reviewListAdd", map);
 	}
 
 	@Override
 	public int reviewAdd(Reviews_Vo bean) throws SQLException {
 		log.debug("DaoImp-reviewAdd:"+bean);
-		return sqlSession.insert("items.reviewAdd", bean);
+		return sqlSession.insert("reviews.reviewAdd", bean);
 	}
 
 	@Override
@@ -63,18 +61,42 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		map.put("item", item);
 		map.put("rev_no", rev_no);
 		
-		return sqlSession.selectOne("items.reviewOne", map);
+		return sqlSession.selectOne("reviews.reviewOne", map);
 	}
 	
 	@Override
-	public int reviewUpdate(Reviews_Vo C) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int reviewUpdate(int option,Reviews_Vo bean) throws SQLException {
+		if(option==1) {
+			log.debug("확인"+bean.getImg());
+			StringBuffer sb=new StringBuffer(bean.getImg());
+			sb.insert(26,"s_");
+			log.debug("재확인: "+sb);
+			String temp=sb.toString();
+			bean.setImg(temp);
+		}
+		
+		
+		return sqlSession.update("reviews.reviewUpdate",bean);
 	}
 
 	@Override
-	public int reviewDelete(Reviews_Vo C) throws SQLException {
-		// TODO Auto-generated method stub
+	public int reviewDelete(String filePath,Reviews_Vo bean) throws SQLException {
+		
+		bean=sqlSession.selectOne("reviews.reviewOne", bean);
+		if(!bean.getImg().equals("")) {
+			log.debug(filePath+bean.getImg());
+			String temp=filePath+bean.getImg();
+			log.debug(temp);
+			File file1 = new File(temp);
+			file1.delete();
+			
+			String[] temp2=temp.split("s_");
+			temp=temp2[0]+temp2[1];
+			log.debug(temp);
+			File file2 = new File(temp);
+			file2.delete();
+		}
+//		return sqlSession.delete("reviews.reviewDelete", bean);
 		return 0;
 	}
 

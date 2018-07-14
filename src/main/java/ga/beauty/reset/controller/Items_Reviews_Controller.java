@@ -27,7 +27,7 @@ import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Items_Reviews_Controller {
-	String filePath="C:/Users/11/git/reset-project/src/main/webapp/resources/imgs/upload_imgs";
+	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/upload_imgs";
 	Logger log=Logger.getLogger(getClass());
 	ObjectMapper mapper = new ObjectMapper();
 	
@@ -92,7 +92,11 @@ public class Items_Reviews_Controller {
 		bean.setBad(req.getParameter("bad"));
 		bean.setTip(req.getParameter("tip"));
 		bean.setStar(Integer.parseInt(req.getParameter("star")));
-		bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		if(!file.getOriginalFilename().equals("")) {
+			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		}else {
+			bean.setImg("");
+		}
 		
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(service.review_addPage(resp,bean));
@@ -119,21 +123,46 @@ public class Items_Reviews_Controller {
 	
 	// 리뷰 수정
 	@RequestMapping(value="/item/{item}/review/{rev_no}", method=RequestMethod.POST)
-	public void review_update(@PathVariable("item") int item,@PathVariable("rev_no") int rev_no,@RequestParam("img") MultipartFile file,HttpServletResponse resp,HttpServletRequest req) throws Exception{
-		log.debug("review_add: "+item);
-		log.debug(file.getOriginalFilename());
-		
+	public void review_update(@PathVariable("item") int item,@PathVariable("rev_no") int rev_no,@RequestParam("img") MultipartFile file, HttpServletResponse resp,HttpServletRequest req) throws Exception{
+		log.debug("review_update: "+item);
+		log.debug("파일이름: "+file.getOriginalFilename());
+		log.debug("option: "+req.getParameter("option"));// 원래대로1,바꿈2,지움3
+		int option=Integer.parseInt(req.getParameter("option"));
+		// 공통
 		Reviews_Vo bean=new Reviews_Vo();
 		bean.setItem(item);
+		bean.setRev_no(rev_no);
 		bean.setWriter(req.getParameter("writer"));
 		bean.setGood(req.getParameter("good"));
 		bean.setBad(req.getParameter("bad"));
 		bean.setTip(req.getParameter("tip"));
 		bean.setStar(Integer.parseInt(req.getParameter("star")));
-//		bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		bean.setPop(Integer.parseInt(req.getParameter("pop")));
+
+		if(req.getParameter("option").equals("1")) {
+			bean.setImg(req.getParameter("preimg"));
+		}else if(req.getParameter("option").equals("2")) {
+			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		}else if(req.getParameter("option").equals("3")) {
+			bean.setImg("");
+		}
+		resp.setCharacterEncoding("utf-8");
+		resp.getWriter().print(service.review_updatePage(option,bean));
+	}
+	
+	// 리뷰 삭제
+	@RequestMapping(value="/item/{item}/review/{rev_no}", method=RequestMethod.DELETE)
+	public void review_delete(@PathVariable("item") int item,@PathVariable("rev_no") int rev_no,HttpServletResponse resp,HttpServletRequest req) throws Exception{
+		log.debug("review_delete: "+item+"/"+rev_no);
+		
+		// 공통
+		Reviews_Vo bean=new Reviews_Vo();
+		bean.setItem(item);
+		bean.setRev_no(rev_no);
+		bean.setWriter(req.getParameter("writer"));
 		
 		resp.setCharacterEncoding("utf-8");
-//		resp.getWriter().print(service.review_addPage(resp,bean));
-		resp.getWriter().print(1);
+		resp.getWriter().print(service.review_deletePage(filePath,bean));
 	}
+	
 }

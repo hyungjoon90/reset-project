@@ -16,19 +16,6 @@
   	<select id="totAll" resultType="ranks_vo">
   		SELECT * FROM MYDB.RANK WHERE ITEM=#{item}
   	</select>
-  	<select id="reviewAll" resultType="reviews_vo">
-  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} ORDER BY REV_NO LIMIT 10;
-  	</select>
-  	<select id="reviewListAdd" resultType="reviews_vo">
-  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} ORDER BY REV_NO LIMIT #{review_num},5;
-  	</select>
-  	<insert id="reviewAdd" parameterType="reviews_vo">
-  		Insert into `mydb`.`review` (`item`, `img`, `writer`, `good`, `bad`, `tip`, `pop`, `star`) 
-		VALUES (#{item}, #{img}, #{writer}, #{good}, #{bad}, #{tip}, '0', #{star})
-  	</insert>
-  	<select id="reviewOne" resultType="reviews_vo">
-  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND REV_NO=#{rev_no}
-  	</select>
   	<select id="cartAll" resultType="members_Vo">
   		SELECT CART FROM `MYDB`.`MEMBERS` WHERE EMAIL=#{email}
   	</select>
@@ -48,6 +35,5 @@
   		,SYSDATE,#{pay})
   	</insert> -->
   	
- 
   	
   </mapper>

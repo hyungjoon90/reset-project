@@ -168,14 +168,29 @@ public class Items_Reviews_Service {
 		//tot end
 		
 		Reviews_Vo bean=Reviews_Dao.reviewOne(item,rev_no);
-		log.debug("확인"+bean.getImg());
-		String temp=bean.getImg();
-		String[] temp2=temp.split("s_");
-		bean.setImg(temp2[0]+temp2[1]);
+		log.debug(bean);
+		if(!bean.getImg().equals("")) {
+			log.debug("확인"+bean.getImg());
+			String temp=bean.getImg();
+			String[] temp2=temp.split("s_");
+			bean.setImg(temp2[0]+temp2[1]);
+		}
 		
 		model.addAttribute("item_bean", Items_Dao.selectOne(item));
 		model.addAttribute("map", map);
 		model.addAttribute("review_bean", bean);
+	}
+	
+	// 리뷰 수정페이지
+	public int review_updatePage(int option,Reviews_Vo bean) throws SQLException, IOException {
+		log.debug("updatePage param: "+option+" "+bean);
+		return Reviews_Dao.reviewUpdate(option,bean);
+	}
+	
+	// 리뷰 삭제페이지
+	public int review_deletePage(String filePath,Reviews_Vo bean) throws SQLException, IOException {
+		log.debug("deletePage param: "+bean);
+		return Reviews_Dao.reviewDelete(filePath,bean);
 	}
 }
 

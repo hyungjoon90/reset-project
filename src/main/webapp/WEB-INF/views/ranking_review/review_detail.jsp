@@ -81,9 +81,6 @@
 	    cursor: inherit;
 	    display: block;
 	}
-	#img_preview {
-   		/* display:none; */
-	}
 	#img_preview img{
 		width: 100%;
 	}
@@ -91,28 +88,24 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-
+	var option=1;
 	$('#review_update').on('shown.bs.modal', function () {
 	})	
 	 
-	
 	$("#reivewUpdate").on("click",function(){
-		    var item=${item_bean.item};
+		    var item=${review_bean.item};
 		    var rev_no=${review_bean.rev_no };
-		    var img=$('#img').val();
-		    console.log(img);
 		    var preview_img=$('#img_preview img').first().attr("src");
-		    console.log(preview_img);
-		    if(img==""){
+		    if(preview_img==""){
 		    	console.log("null");
-		    	
+		    	$('#option').attr("value","3");
 		    }else{
 		    	console.log("null아님");
 		    }
             var formData = new FormData($('#review')[0]);
 		    console.log(formData);
 		    $.ajax({
-				type:"POST",
+				type:"post",
 				enctype: 'multipart/form-data',
 				data : formData,
 				url: "/reset/item/"+item+"/review/"+rev_no,
@@ -124,7 +117,7 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
-					/* window.location.href=item; */
+					window.location.href="/reset/item/"+item+"/review/"+rev_no;
 				} else if(data=="0"){
 					alert("글수정에 실패하였습니다.");
 				}
@@ -133,7 +126,32 @@ $(document).ready(function(){
 				console.error('데이터 수정 실패');
 			})     
 		})
-	
+		$("#reivewDelete").on("click",function(){
+			var item=${item_bean.item};
+		    var rev_no=${review_bean.rev_no };
+			var formData = new FormData($('#review')[0]);
+			$.ajax({
+				type:"delete",
+				enctype: 'multipart/form-data',
+				data : formData,
+				url: "/reset/item/"+item+"/review/"+rev_no,
+				contentType: false,
+				processData: false,
+				dataType: "text"
+			}) 
+			.done(function(data){
+				console.log(data);
+				if(data=="1"){
+					console.log("성공");
+					window.location.href="/reset/item/"+item;
+				} else if(data=="0"){
+					alert("글삭제에 실패하였습니다.");
+				}
+		 	})
+			.fail(function () { // 실패했을때 불러질 함수
+				console.error('데이터 삭제 실패');
+			}) 
+		})
 });
 	
 </script>
@@ -257,19 +275,24 @@ $(document).ready(function(){
 			<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#review_update" >
 			  수정
 			</button>
-			<button type="button" class="btn btn-lg btn-color" >
+			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#review_delete" >
 			  삭제
 			</button>
 		</div>
 		
        <div class="reviewBox">
-            <img src="${goRoot}${review_bean.img }"/>
+      		<c:choose>
+				<c:when test="${review_bean.img != ''}">
+            		<img src="${goRoot}${review_bean.img }"/>
+				</c:when>
+			</c:choose>
             <label>${review_bean.writer }</label>
             <label>${review_bean.age }</label>/<label>${review_bean.skin }</label>/<label>${review_bean.gender }</label>/
             <label>${review_bean.star }점</label>/<label>${review_bean.nalja }</label>
             <p>${review_bean.good }</p>
-            <p>${review_bean.good }</p>
+            <p>${review_bean.bad }</p>
             <p>${review_bean.tip }</p>
+            <p>${review_bean.pop }</p>
         </div>
         <div class="icon">
 	        <button type="button" class="btn btn-default btn-lg">
@@ -288,9 +311,13 @@ $(document).ready(function(){
 		        <h4 class="modal-title" id="myModalLabel">리뷰 수정</h4>
 		      </div>
 		      <div class="modal-body">
-		      <form id="review" action="/reset/item/${item_bean.item}" name="review" method="post" enctype="multipart/form-data">
-		        <input type="hidden" name="_method" value="put">
+		      <form id="review" action="/reset/item/${item_bean.item}" name="review" enctype="multipart/form-data">
+	        	<input type="hidden" id="option" name="option" value="1"/>
+	        	<input type="hidden" id="rev_no" name="rev_no" value="${review_bean.rev_no}"/>
+	        	<input type="hidden" id="preimg" name="preimg" value="${review_bean.img }"/>
 			    <input type="hidden" name="writer" value="${review_bean.writer }"/>
+			    <input type="hidden" name="pop" value="${review_bean.pop }"/>
+			    
 		      	<label>좋은점</label>
 		        <textarea class="form-control" rows="3" name="good" id="good">${review_bean.good }</textarea>
 		      	<label>나쁜점</label>
@@ -314,11 +341,21 @@ $(document).ready(function(){
 		        <input type="file" name="img" id="img" />
 			    </form>
 			    
-			    <div id="img_preview">
-			        <img src="${goRoot}${review_bean.img }" />
-			        <br />
-			        <a href="${goRoot}${review_bean.img }">Remove</a>
-			    </div>
+				<c:choose>
+					<c:when test="${review_bean.img != ''}">
+						<div id="img_preview">
+							<img src="${goRoot}${review_bean.img }"/>
+							<a href="${goRoot}${review_bean.img }">Remove</a>
+						</div>
+					</c:when>
+					<c:when test="${review_bean.img == ''}">
+						<div id="img_preview" style="display:none;">
+							<img src=""/>
+							<a href="">Remove</a>
+						</div>
+					</c:when>
+				</c:choose>
+				<br />
 			  
 		      </div>
 		      <div class="modal-footer">
@@ -329,7 +366,24 @@ $(document).ready(function(){
 		  </div>
 		</div>
     <!-- //modal -->
-    
+    <div class="modal fade" id="review_delete" >
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">리뷰 삭제</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>리뷰를 삭제하시겠습니까?&hellip;</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-danger" id="reivewDelete">리뷰 삭제</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
     <!--footer-->
     <div class="footer">
         <div class="wrap">
@@ -378,20 +432,21 @@ $(document).ready(function(){
             $('#img_preview img').css('width', '400px');
             $('#img_preview').slideDown(); //업로드한 이미지 미리보기 
             $(this).slideUp(); //파일 양식 감춤
+            $('#option').attr('value',2);
         }
     });
 
     $('#img_preview a').bind('click', function() {
         resetFormElement($('#img')); //전달한 양식 초기화
-        $('#img').slideDown(); //파일 양식 보여줌
-        $(this).parent().slideUp(); //미리 보기 영역 감춤
+        $(this).parent().slideUp(100); //미리 보기 영역 감춤
+        $('#img').slideDown(100); //파일 양식 보여줌
+        $('#option').attr('value',3);
         return false; //기본 이벤트 막음
     });
     $('#close').bind('click', function() {
-        resetFormElement($('#img')); //전달한 양식 초기화
         resetFormElement($('#review')); //전달한 양식 초기화
-        $('#img').slideDown(); //파일 양식 보여줌
-        /* $('#img_preview').slideUp(); //미리 보기 영역 감춤 */
+        $('#option').attr('value',1);
+    	$('#img_preview').css('display','');
     });
 
     /** 

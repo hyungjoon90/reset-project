@@ -13,7 +13,7 @@ public interface Reviews_Dao<C> {
 	List<C> reviewListAdd(int c) throws SQLException;
 	int reviewAdd(C c) throws SQLException;
 	Reviews_Vo reviewOne(int c, int v) throws SQLException;
-	int reviewUpdate(C C) throws SQLException;
-	int reviewDelete(C C) throws SQLException;
+	int reviewUpdate(int c, C C) throws SQLException;
+	int reviewDelete(String v,C C) throws SQLException;
 	int cartAdd(int c,String v) throws SQLException;
 }
