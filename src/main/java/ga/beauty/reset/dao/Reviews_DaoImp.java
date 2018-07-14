@@ -83,9 +83,12 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	public int reviewDelete(String filePath,Reviews_Vo bean) throws SQLException {
 		
 		bean=sqlSession.selectOne("reviews.reviewOne", bean);
+		filePath=filePath.replaceFirst("imgs/upload_imgs", "");
 		if(!bean.getImg().equals("")) {
 			log.debug(filePath+bean.getImg());
 			String temp=filePath+bean.getImg();
+			log.debug(temp);
+			temp.replace("/", "\\");
 			log.debug(temp);
 			File file1 = new File(temp);
 			file1.delete();
@@ -96,8 +99,7 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 			File file2 = new File(temp);
 			file2.delete();
 		}
-//		return sqlSession.delete("reviews.reviewDelete", bean);
-		return 0;
+		return sqlSession.delete("reviews.reviewDelete", bean);
 	}
 
 	@Override

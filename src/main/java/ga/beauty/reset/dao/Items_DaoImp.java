@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ga.beauty.reset.dao.entity.Items_Vo;
-import ga.beauty.reset.dao.entity.Ranks_Vo;
-import ga.beauty.reset.dao.entity.Reviews_Vo;
 
 @Repository
 public class Items_DaoImp implements Items_Dao<Items_Vo> {

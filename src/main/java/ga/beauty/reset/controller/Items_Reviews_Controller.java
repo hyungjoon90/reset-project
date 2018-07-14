@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ga.beauty.reset.dao.Comment_DaoImpl;
 import ga.beauty.reset.dao.Items_DaoImp;
 import ga.beauty.reset.dao.Reviews_DaoImp;
+import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.services.Items_Reviews_Service;
 import ga.beauty.reset.utils.UploadFileUtils;
@@ -41,6 +43,9 @@ public class Items_Reviews_Controller {
 	
 	@Autowired
 	Reviews_DaoImp reviews_DaoImp;
+	
+	@Autowired
+	Comment_DaoImpl comment_DaoImpl;
 	
 	String view="redirect:/ranking/";
 	
@@ -116,7 +121,12 @@ public class Items_Reviews_Controller {
 		
 		goRoot="../../../";
 			
+		Comment_Vo comment=new Comment_Vo();
+		comment.setCo_type("리뷰");
+		comment.setP_no(rev_no);
+		
 		model.addAttribute("goRoot", goRoot);
+		model.addAttribute("comment",comment_DaoImpl.list(comment));
 		service.review_detailPage(model,item,rev_no);
 		return "ranking_review/review_detail";
 	}

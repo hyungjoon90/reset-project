@@ -8,6 +8,7 @@
   	<typeAlias alias="ranks_vo" type="ga.beauty.reset.dao.entity.Ranks_Vo"/>
   	<typeAlias alias="reviews_vo" type="ga.beauty.reset.dao.entity.Reviews_Vo"/>
   	<typeAlias alias="members_Vo" type="ga.beauty.reset.dao.entity.Members_Vo"/>
+  	<typeAlias type="ga.beauty.reset.dao.entity.Comment_Vo" alias="Comment_Vo" />
   </typeAliases>
   
 </configuration>
