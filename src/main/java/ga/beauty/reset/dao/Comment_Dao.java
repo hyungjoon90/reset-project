@@ -3,8 +3,6 @@ package ga.beauty.reset.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import ga.beauty.reset.dao.entity.Comment_Vo;
-
 public interface Comment_Dao<C> {
 	public int count(C bean) throws SQLException;
 	

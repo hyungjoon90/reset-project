@@ -7,13 +7,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import ga.beauty.reset.dao.Common_Dao;
-import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 
 @Service
 public class Magazine_Service {
 	@Autowired
 	Common_Dao<Magazine_Vo> commonDao;
+	
+	public Magazine_Service() {
+	}
 	
 	public void listPage(Model model) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll());

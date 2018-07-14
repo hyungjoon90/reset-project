@@ -13,7 +13,6 @@ public class Event_Vo {
 	int view;
 	
 	public Event_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Event_Vo(int eve_no, String img, String title, String con, String tags, Date nalja, int pop, int view) {
