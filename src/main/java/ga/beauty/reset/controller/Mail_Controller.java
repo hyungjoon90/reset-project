@@ -42,7 +42,6 @@ public class Mail_Controller {
 		
 		MimeMessage msg = mailSender.createMimeMessage();
 		MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");
-		
 	
 		messageHelper.setFrom(setfrom);
 		messageHelper.setTo(toemail);
@@ -52,8 +51,5 @@ public class Mail_Controller {
 		mailSender.send(msg);
 	
 		return "456";
-		
 	}
-	
-	
 }
