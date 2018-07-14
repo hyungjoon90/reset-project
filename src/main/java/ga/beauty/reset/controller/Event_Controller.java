@@ -54,9 +54,9 @@ public class Event_Controller {
 		bean.setEve_no(eve_no);
 		
 		Comment_Vo comment=new Comment_Vo();
-		comment.setCo_type("ÀÌº¥Æ®");
+		comment.setCo_type("ì´ë²¤íŠ¸");
 		comment.setP_no(eve_no);
-		//Äí±â¸¦ »ç¿ëÇÑ Á¶È¸¼ö Áõ°¡ ÀÔ´Ï´Ù(3¹øÂ° ÀÎÀÚ·Î review,magazine,event Áß¿¡ °ñ¶ó¼­ ³Ö¾îÁÖ¼¼¿ä)
+		//ì¿ ê¸°ë¥¼ ì‚¬ìš©í•œ ì¡°íšŒìˆ˜ ì¦ê°€ ì…ë‹ˆë‹¤(3ë²ˆì§¸ ì¸ìë¡œ review,magazine,event ì¤‘ì— ê³¨ë¼ì„œ ë„£ì–´ì£¼ì„¸ìš”)
 		viewUtils.UpdateView(resp, req, "event", eve_no, model);
 		
 		service.detailPage(model, bean, comment);
@@ -69,7 +69,7 @@ public class Event_Controller {
 		bean.setEve_no(eve_no);
 		
 		Comment_Vo comment=new Comment_Vo();
-		comment.setCo_type("ÀÌº¥Æ®");
+		comment.setCo_type("ì´ë²¤íŠ¸");
 		comment.setP_no(eve_no);
 		
 		service.detailPage(model, bean, comment);
@@ -79,7 +79,7 @@ public class Event_Controller {
 	
 	@RequestMapping(value="/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
-		String filePath="C:\\Users\\hb\\Desktop\\3Â÷ ÇÁ·ÎÁ§Æ®\\ÄÚµù\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		String filePath="C:\\Users\\hb\\Desktop\\3ì°¨ í”„ë¡œì íŠ¸\\ì½”ë”©\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Event_Vo bean= new Event_Vo();
 		bean.setEve_no(eve_no);
 		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
@@ -97,14 +97,14 @@ public class Event_Controller {
 	
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
-		String filePath="C:\\Users\\hb\\Desktop\\3Â÷ ÇÁ·ÎÁ§Æ®\\ÄÚµù\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		String filePath="C:\\Users\\hb\\Desktop\\3ì°¨ í”„ë¡œì íŠ¸\\ì½”ë”©\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Event_Vo bean= new Event_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setTags(req.getParameter("tags"));
-		// ÆÄÀÏ¾÷·Îµå start
+		// íŒŒì¼ì—…ë¡œë“œ start
 	    bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
-	    // ÆÄÀÏ¾÷·Îµå end
+	    // íŒŒì¼ì—…ë¡œë“œ end
 		service.addPage(bean);
 		return view;
 	}
@@ -115,12 +115,12 @@ public class Event_Controller {
 		bean.setEve_no(eve_no);
 		
 		Comment_Vo com=new Comment_Vo();
-		com.setCo_type("ÀÌº¥Æ®");
+		com.setCo_type("ì´ë²¤íŠ¸");
 		com.setP_no(eve_no);
 
 		String img = req.getParameter("img");
 		String Largeimg=img.replaceAll("#$#", "");
-		String filepath ="/Users/hb/Desktop/3Â÷ ÇÁ·ÎÁ§Æ®/ÄÚµù/reset_pro/src/main/webapp/resources";
+		String filepath ="/Users/hb/Desktop/3ì°¨ í”„ë¡œì íŠ¸/ì½”ë”©/reset_pro/src/main/webapp/resources";
 		File file = new File(filepath+img);
 		File file2 = new File(filepath+Largeimg);
 		file.delete();
@@ -130,7 +130,7 @@ public class Event_Controller {
 		return view;
 	}
 	
-//	ckeditor ¼­¹ö·Î ÀÌ¹ÌÁö ¾÷·ÎµåÇÏ°í ´Ù½Ã º¸¿©ÁÖ´Â ¸Ş¼Òµå ÀÔ´Ï´Ù.
+	//ckeditor ì„œë²„ë¡œ ì´ë¯¸ì§€ ì—…ë¡œë“œí•˜ê³  ë‹¤ì‹œ ë³´ì—¬ì£¼ëŠ” ë©”ì†Œë“œ ì…ë‹ˆë‹¤.
 	@RequestMapping(value = "/add/img", method=RequestMethod.POST)
     public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
  
@@ -143,20 +143,21 @@ public class Event_Controller {
  
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
-            String uploadPath = "C:\\Users\\hb\\Desktop\\3Â÷ ÇÁ·ÎÁ§Æ®\\ÄÚµù\\reset_pro\\src\\main\\webapp\\resources\\upload\\" + fileName;//ÀúÀå°æ·Î
+            String uploadPath = "C:\\Users\\hb\\Desktop\\3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®\\ï¿½Úµï¿½\\reset_pro\\src\\main\\webapp\\resources\\upload\\" + fileName;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             String callback = request.getParameter("CKEditorFuncNum");
  
             printWriter = response.getWriter();
-            String fileUrl = "http://localhost:8080/reset/upload/"+ fileName;//url°æ·Î
+            //urlê²½ë¡œ
+            String fileUrl = "http://localhost:8080/reset/upload/"+ fileName;
             
             printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
                     + callback
                     + ",'"
                     + fileUrl
-                    + "','ÀÌ¹ÌÁö¸¦ ¾÷·Îµå ÇÏ¿´½À´Ï´Ù.'"
+                    + "','ì´ë¯¸ì§€ë¥¼ ì—…ë¡œë“œ í•˜ì˜€ìŠµë‹ˆë‹¤.'"
                     + ")</script>");
             printWriter.flush();
  
