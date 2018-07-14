@@ -3,11 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <typeAliases>
-  	<typeAlias alias="items_vo" type="ga.beauty.reset.dao.entity.Items_Vo"/>
-  	<typeAlias alias="ranks_vo" type="ga.beauty.reset.dao.entity.Ranks_Vo"/>
-  	<typeAlias alias="reviews_vo" type="ga.beauty.reset.dao.entity.Reviews_Vo"/>
-  	<typeAlias alias="members_Vo" type="ga.beauty.reset.dao.entity.Members_Vo"/>
-  </typeAliases>
-  
+	<typeAliases>
+	  	<typeAlias alias="items_vo" type="ga.beauty.reset.dao.entity.Items_Vo"/>
+	  	<typeAlias alias="ranks_vo" type="ga.beauty.reset.dao.entity.Ranks_Vo"/>
+	  	<typeAlias alias="reviews_vo" type="ga.beauty.reset.dao.entity.Reviews_Vo"/>
+	  	<typeAlias alias="members_Vo" type="ga.beauty.reset.dao.entity.Members_Vo"/>
+		<typeAlias type="ga.beauty.reset.dao.entity.Qna_Vo"	alias="Qna_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Notice_Vo"	alias="Notice_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.TestVo"	alias="TestVo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Comment_Vo"	alias="Comment_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Event_Vo"	alias="Event_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Eve_addr_Vo" alias="Eve_addr_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Magazine_Vo"	alias="Magazine_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.User_Vo"	alias="User_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Members_Vo"	alias="Members_Vo" />
+	</typeAliases>
 </configuration>
