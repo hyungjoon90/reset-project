@@ -8,7 +8,8 @@ import org.springframework.http.MediaType;
 
 public class MediaUtils {
 	private static Map<String, MediaType> mediaMap;
-    // �ڵ��ε�
+    // �ڵ��ε�
+	// TODO 한글깨짐
     static {
         mediaMap = new HashMap<String, MediaType>();
         mediaMap.put("JPG", MediaType.IMAGE_JPEG);

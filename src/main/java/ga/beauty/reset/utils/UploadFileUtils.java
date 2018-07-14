@@ -13,92 +13,92 @@ import org.springframework.util.FileCopyUtils;
 
 
 public class UploadFileUtils {
-
+		//TODO í•œê¸€ê¹¨ì§
     public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
-        // UUID ¹ß±Ş
+        // UUID ï¿½ß±ï¿½
         UUID uuid = UUID.randomUUID();
-        // ÀúÀåÇÒ ÆÄÀÏ¸í = UUID + ¿øº»ÀÌ¸§
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ = UUID + ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
         String savedName = uuid.toString() + "_" + originalName;
-        // ¾÷·ÎµåÇÒ µğ·ºÅä¸®(³¯Â¥º° Æú´õ) »ı¼º 
+        // ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®(ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ 
         String savedPath = calcPath(uploadPath);
-        // ÆÄÀÏ °æ·Î(±âÁ¸ÀÇ ¾÷·Îµå°æ·Î+³¯Â¥º°°æ·Î), ÆÄÀÏ¸íÀ» ¹Ş¾Æ ÆÄÀÏ °´Ã¼ »ı¼º
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½+ï¿½ï¿½Â¥ï¿½ï¿½ï¿½ï¿½ï¿½), ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ ï¿½Ş¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
         File target = new File(uploadPath + savedPath, savedName);
-        // ÀÓ½Ã µğ·ºÅä¸®¿¡ ¾÷·ÎµåµÈ ÆÄÀÏÀ» ÁöÁ¤µÈ µğ·ºÅä¸®·Î º¹»ç
+        // ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         FileCopyUtils.copy(fileData, target);
-        // ½æ³×ÀÏÀ» »ı¼ºÇÏ±â À§ÇÑ ÆÄÀÏÀÇ È®ÀåÀÚ °Ë»ç
-        // ÆÄÀÏ¸íÀÌ aaa.bbb.ccc.jpgÀÏ °æ¿ì ¸¶Áö¸· ¸¶Ä§Ç¥¸¦ Ã£±â À§ÇØ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+        // ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ aaa.bbb.ccc.jpgï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä§Ç¥ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
         String uploadedFileName = null;
-        // ÀÌ¹ÌÁö ÆÄÀÏÀº ½æ³×ÀÏ »ç¿ë
+        // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (MediaUtils.getMediaType(formatName) != null) {
-            // ½æ³×ÀÏ »ı¼º
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
-        // ³ª¸ÓÁö´Â ¾ÆÀÌÄÜ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         } else {
-            // ¾ÆÀÌÄÜ »ı¼º
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
         }
         return uploadedFileName;
     }
 
-    // ³¯Â¥º° µğ·ºÅä¸® ÃßÃâ
+    // ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½
     private static String calcPath(String uploadPath) {
         Calendar cal = Calendar.getInstance();
-        // File.separator : µğ·ºÅä¸® ±¸ºĞÀÚ(\\)
-        // ¿¬µµ, ex) \\2017 
+        // File.separator : ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(\\)
+        // ï¿½ï¿½ï¿½ï¿½, ex) \\2017 
         String yearPath = File.separator + cal.get(Calendar.YEAR);
         System.out.println(yearPath);
-        // ¿ù, ex) \\2017\\03
+        // ï¿½ï¿½, ex) \\2017\\03
         String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
         System.out.println(monthPath);
-        // ³¯Â¥, ex) \\2017\\03\\01
+        // ï¿½ï¿½Â¥, ex) \\2017\\03\\01
         String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
         System.out.println(datePath);
-        // µğ·ºÅä¸® »ı¼º ¸Ş¼­µå È£Ãâ
+        // ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½
         makeDir(uploadPath, yearPath, monthPath, datePath);
         return datePath;
     }
 
-    // µğ·ºÅä¸® »ı¼º
+    // ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½
     private static void makeDir(String uploadPath, String... paths) {
-        // µğ·ºÅä¸®°¡ Á¸ÀçÇÏ¸é
+        // ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½
         if (new File(paths[paths.length - 1]).exists()){
             return;
         }
-        // µğ·ºÅä¸®°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é
+        // ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (String path : paths) {
             // 
             File dirPath = new File(uploadPath + path);
-            // µğ·ºÅä¸®°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é
+            // ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (!dirPath.exists()) {
-                dirPath.mkdir(); //µğ·ºÅä¸® »ı¼º
+                dirPath.mkdir(); //ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½
             }
         }
     }    
 
-    // ½æ³×ÀÏ »ı¼º
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception {
-        // ÀÌ¹ÌÁö¸¦ ÀĞ±â À§ÇÑ ¹öÆÛ
+        // ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
-        // 100ÇÈ¼¿ ´ÜÀ§ÀÇ ½æ³×ÀÏ »ı¼º
+        // 100ï¿½È¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
-        // ½æ³×ÀÏÀÇ ÀÌ¸§À» »ı¼º(¿øº»ÆÄÀÏ¸í¿¡ 's_'¸¦ ºÙÀÓ)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ 's_'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         String thumbnailName = uploadPath + path + File.separator + "#$#" + fileName;
         File newFile = new File(thumbnailName);
         String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-        // ½æ³×ÀÏ »ı¼º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         ImageIO.write(destImg, formatName.toUpperCase(), newFile);
-        // ½æ³×ÀÏÀÇ ÀÌ¸§À» ¸®ÅÏÇÔ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar, '/');
     }
 
-    // ¾ÆÀÌÄÜ »ı¼º
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private static String makeIcon(String uploadPath, String path, String fileName) throws Exception {
-        // ¾ÆÀÌÄÜÀÇ ÀÌ¸§
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
         String iconName = uploadPath + path + File.separator + fileName;
-        // ¾ÆÀÌÄÜ ÀÌ¸§À» ¸®ÅÏ
-        // File.separatorChar : µğ·ºÅä¸® ±¸ºĞÀÚ
-        // À©µµ¿ì \ , À¯´Ğ½º(¸®´ª½º) /         
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // File.separatorChar : ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ \ , ï¿½ï¿½ï¿½Ğ½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) /         
         return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
     }
 }

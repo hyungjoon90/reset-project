@@ -15,6 +15,9 @@ public class Magazine_Service {
 	@Autowired
 	Common_Dao<Magazine_Vo> commonDao;
 	
+	public Magazine_Service() {
+	}
+	
 	public void listPage(Model model) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll());
 	}

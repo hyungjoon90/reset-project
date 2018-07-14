@@ -19,6 +19,9 @@ public class Event_Service {
 	@Autowired
 	Comment_Dao<Comment_Vo> commentDao;
 	
+	public Event_Service() {
+	}
+	
 	public void listPage(Model model) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll());
 	}

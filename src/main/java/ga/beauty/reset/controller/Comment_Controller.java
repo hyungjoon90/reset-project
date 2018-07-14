@@ -28,20 +28,21 @@ public class Comment_Controller {
 	String convert_err = "co_type error";
 	
 	private String convert_Type(String co_type) {
-		// co_type¸¦ ¿µ¾î¿¡¼­ ÇÑ±Û·Î ¹Ù²Ù´Â ¸Ş¼Òµå ÀÔ´Ï´Ù.
+		// TODO ì—¬ê¸° í•œê¸€ ê¹¨ì§
+		// co_typeï¿½ï¿½ ï¿½ï¿½ï¿½î¿¡ï¿½ï¿½ ï¿½Ñ±Û·ï¿½ ï¿½Ù²Ù´ï¿½ ï¿½Ş¼Òµï¿½ ï¿½Ô´Ï´ï¿½.
 		if(co_type.equals("event")){
-			return co_type="ÀÌº¥Æ®";
+			return co_type="ï¿½Ìºï¿½Æ®";
 		}else if(co_type.equals("magazine")) {
-			return co_type="¸Å°ÅÁø";
+			return co_type="ï¿½Å°ï¿½ï¿½ï¿½";
 		}else if(co_type.equals("review")) {
-			return co_type="¸®ºä";
+			return co_type="ï¿½ï¿½ï¿½ï¿½";
 		}else {
 			return convert_err;
 		}
 	}
 	
 	
-	/*//´ñ±ÛÀÇ °¹¼ö¸¦ È®ÀÎÇÏ´Â ÄÁÆ®·Ñ·¯
+	/*//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.GET)
 	public ResponseEntity<Integer> count(@PathVariable("co_type") String co_type
 			,@PathVariable("p_no") int p_no){
@@ -58,7 +59,7 @@ public class Comment_Controller {
 		return entity;
 	}*/
 	
-	//´ñ±ÛÀÇ ¸ñ·ÏÀ» º¸¿©ÁÖ´Â ÄÁÆ®·Ñ·¯
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping(value="/{co_type}/{p_no}/comment/all", method=RequestMethod.GET)
 	public ResponseEntity<List<Comment_Vo>> list(@PathVariable("co_type") String co_type
 			,@PathVariable("p_no") int p_no){
@@ -77,7 +78,7 @@ public class Comment_Controller {
 		return entity;
 	}
 	
-	//´ñ±ÛÀ» ÀÔ·ÂÇÏ´Â ÄÁÆ®·Ñ·¯
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.POST)
 	public ResponseEntity<String> register(@PathVariable("co_type") String co_type, @RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity=null;
@@ -94,7 +95,7 @@ public class Comment_Controller {
 		return entity;
 	}
 	
-	//´ñ±ÛÀ» ¼öÁ¤ÇÏ´Â ÄÁÆ®·Ñ·¯
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}",method= {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> update(@PathVariable("co_type") String co_type
 			,@PathVariable("p_no") int p_no
@@ -115,7 +116,7 @@ public class Comment_Controller {
 		return entity;
 	}
 	
-	//´ñ±ÛÀ» »èÁ¦ÇÏ´Â ÄÁÆ®·Ñ·¯
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
 	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}", method=RequestMethod.DELETE)
 	public ResponseEntity<String> remove(@PathVariable("co_type") String co_type
 			,@PathVariable("p_no") int p_no

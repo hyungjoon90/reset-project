@@ -15,7 +15,6 @@ public class Magazine_Vo {
 	private int view;
 	
 	public Magazine_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Magazine_Vo(int mag_no, String img, String title, String con, int cate, String tags, String writer,
