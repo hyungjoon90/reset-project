@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.cj.Session;
-
 import ga.beauty.reset.dao.Companys_Dao;
 import ga.beauty.reset.dao.Members_Dao;
 import ga.beauty.reset.dao.entity.Companys_Vo;
@@ -33,7 +30,6 @@ import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
 import ga.beauty.reset.services.Sign_Service;
-import ga.beauty.reset.utils.PasswordUtil;
 
 @Controller
 public class Login_Controller {
