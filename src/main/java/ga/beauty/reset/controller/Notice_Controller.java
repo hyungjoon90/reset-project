@@ -1,6 +1,5 @@
 package ga.beauty.reset.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;

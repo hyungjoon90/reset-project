@@ -2,7 +2,6 @@ package ga.beauty.reset.services;
 
 import java.sql.SQLException;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
