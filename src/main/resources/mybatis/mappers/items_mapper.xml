@@ -22,18 +22,11 @@
   	<update id="cartAdd">
   		UPDATE `MYDB`.`MEMBERS` SET CART=#{cart} WHERE email=#{email}
   	</update>
-  <!-- 	<insert id="insertOne" parameterType="dto">
-  		INSERT INTO GUEST VALUES(#{sabun},
-  		 <choose>
-		    <when test='name==""'>
-		      '이름없음'
-		    </when>
-		    <otherwise>
-		      #{name}
-		    </otherwise>
-		  </choose>
-  		,SYSDATE,#{pay})
-  	</insert> -->
-  	
-  	
+
+	<select id="itemBrand" resultType="items_vo">
+  		SELECT * FROM ITEMS WHERE brand LIKE CONCAT('%',#{brand},'%')
+  	</select>
+  	<select id="itemName" resultType="items_vo">
+  		SELECT * FROM ITEMS WHERE name LIKE CONCAT('%',#{name},'%')
+  	</select>
   </mapper>

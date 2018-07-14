@@ -1,6 +1,7 @@
 package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -33,6 +34,25 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	public Items_Vo selectOne(int item) throws SQLException {
 		log.debug("DaoImp-selectOne-param: "+item);
 		return sqlSession.selectOne("items.selectOne", item);
+	}
+
+	@Override
+	public List<Items_Vo> itemSearch(String condition,String type) throws SQLException {
+		log.debug("DaoImp-itemSearch-param: "+condition+"/"+type);
+		if(type.equals("brand")) {
+			log.debug("브랜드 검색");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("brand", condition);
+			return sqlSession.selectList("items.itemBrand", map);
+		}else if(type.equals("name")) {
+			log.debug("이름 검색");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("name", condition);
+			log.debug(sqlSession.selectList("items.itemName", map));
+			return sqlSession.selectList("items.itemName", map);
+		}else {
+			return null;
+		}
 	}
 	
 	

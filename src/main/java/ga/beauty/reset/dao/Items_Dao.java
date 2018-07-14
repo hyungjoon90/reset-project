@@ -10,4 +10,6 @@ public interface Items_Dao<C> {
 	//ranking 상세페이지
 	C selectOne(int c) throws SQLException;
 	
+	//item 검색
+	List<C> itemSearch(String c,String v) throws SQLException;
 }

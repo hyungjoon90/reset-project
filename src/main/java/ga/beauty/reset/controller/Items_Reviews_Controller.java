@@ -47,8 +47,6 @@ public class Items_Reviews_Controller {
 	@Autowired
 	Comment_DaoImpl comment_DaoImpl;
 	
-	String view="redirect:/ranking/";
-	
 	//랭킹 리스트 조회
 	@RequestMapping(value="/ranking", method = RequestMethod.GET)
 	public String ranking_list(@RequestParam("id") int cate,Model model) throws SQLException {
