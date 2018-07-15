@@ -4,7 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="magazine">
   	<select id="selectAll" resultType="Magazine_Vo">
-  		SELECT * FROM MAGAZINE ORDER BY MAG_NO
+  		SELECT * FROM MAGAZINE
+		<where>
+			<if test="cate=1">
+			CATE=1
+			</if>
+			<if test="cate=2">
+			CATE=2
+			</if>
+			<if test="cate=3">
+			CATE=3
+			</if>
+			<if test="cate=4">
+			CATE=4
+			</if>
+		</where>
+		ORDER BY MAG_NO
   	</select>
   	
   	<select id="selectOne" resultType="Magazine_Vo">
@@ -17,6 +32,14 @@
   	
   	<update id="updateOne" parameterType="Magazine_Vo">
   		UPDATE MAGAZINE SET IMG=#{img},TITLE=#{title},CON=#{con},CATE=#{cate},TAGS=#{tags} WHERE MAG_NO=#{mag_no}
+  	</update>
+  	
+  	<update id="updatePop" parameterType="Magazine_Vo">
+  		UPDATE EVENT SET POP=#{pop}	WHERE MAG_NO=#{mag_no}
+  	</update>
+  	
+  	<update id="updateView" parameterType="Magazine_Vo">
+  		UPDATE EVENT SET VIEW=VIEW+1 WHERE MAG_NO=#{mag_no}
   	</update>
   	
   	<delete id="deleteOne" parameterType="Magazine_Vo">

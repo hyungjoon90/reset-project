@@ -28,6 +28,9 @@ public class UpdateViewUtils {
 	@Autowired
 	Common_Dao<Event_Vo> event_Dao;
 	
+	@Autowired
+	Common_Dao<Magazine_Vo> magazine_Dao;
+	
 	public UpdateViewUtils() {
 	}
 	
@@ -56,14 +59,11 @@ public class UpdateViewUtils {
 			
 			resp.addCookie(cookie);
 			
-			/*//조회수 업데이트
-			Event_DaoImpl EventDao = new Event_DaoImpl();
-			Event_Vo bean =new Event_Vo();
-			EventDao.updateView(bean);*/
+			//조회수 업데이트
 			if(type.equals("event")) {
 				updateEventView(no);
 			}else if(type.equals("magazine")) {
-				//updateMagazineView(no);
+				updateMagazineView(no);
 			}
 		}
 	}
@@ -75,13 +75,12 @@ public class UpdateViewUtils {
 		event_Dao.updateView(bean);
 	}
 	
-	/*public void updateMagazineView(int no) throws SQLException {
+	public void updateMagazineView(int no) throws SQLException {
 		//조회수 업데이트
-		Magazine_DaoImpl MagazineDao = new Magazine_DaoImpl();
 		Magazine_Vo bean =new Magazine_Vo();
-		//bean.setEve_no(no);
-		//EventDao.updateView(bean);
-	}*/
+		bean.setMag_no(no);
+		magazine_Dao.updateView(bean);
+	}
 	
 	
 }

@@ -50,7 +50,6 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 		return sqlSession.update("event.updateView", bean);
 	}
 
-	
 
 
 }

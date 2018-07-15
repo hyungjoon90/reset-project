@@ -14,4 +14,5 @@ public interface Common_Dao<C> {
 	int updateOne(C bean) throws SQLException;
 	int deleteOne(C bean) throws SQLException;
 	int updateView(C bean) throws SQLException;
+	
 }

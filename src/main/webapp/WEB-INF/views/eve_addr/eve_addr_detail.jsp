@@ -68,87 +68,46 @@
     <!-- main contents -->
     <div class="page_container">
         <hr>
-            <!-- 내용 입력 -->
-            <!-- TODO -->
-            <!-- detail-page 입니다. -->
-            <form method="post">
-	            <div>${detail.eve_no }</div>
-	            <div><img src="..${detail.img }"></div>
-	            <div>${detail.title }</div>
-	            <div>${detail.nalja }</div>
-	            <div>${detail.con }</div>
-	            <div>${detail.tags }</div>
-	            <div>${detail.pop }</div>
-	            <div>${detail.view }</div>
-	            <!-- TODO:이벤트 주소입력 으로 가는곳입니다. -->
-				<a href="/reset/event/${detail.eve_no}/addr"></a><img alt="event_submit" src="#"></a>
-			<button type="reset" class="btn btn-primary">목록</button>
-			<button type="submit" class="btn btn-warning">수정</button>
-			</form>
-			<form method="post">
-				<input type="hidden" name="_method" value="delete">
-				<input type="hidden" name="img" id="img" value="${detail.img }">
-				<button type="submit" class="btn btn-danger">삭제</button>
-			</form>
-			<!-- 내용 끝 -->
-			<!-- 댓글입력(comment) 시작 -->
-			<div>
-				<div class="box box-success">
-					<div class="box-header">
-						<h3 class="box-title">ADD NEW Comment</h3>
-					</div>
-					<div class="box-body">
-						<label for="writer">writer</label>
-						<input class="form-control" type="text" name="writer" id="writer">
-						<label for="content">content</label>
-						<input class="form-control" type="text" name="content" id="content">
-						
-						<!-- 고정값 및 임의값 -->
-						<input type="text" name="email" id="email" value="test@gmail.com">
-					</div>
-					<div class="box-footer">
-						<button type="submit" class="btn btn-primary" id="comment_addBtn">add comment</button>
-					</div>
-				</div>
-			</div>
-			<!-- 댓글입력 끝 -->
-			<!-- MOD 버튼 클릭시 모달 시작 -->
-			<div id="modDiv" style="display : none;">
-				<div class="modal-title">
-					<input type="hidden" id="commentnum" >
-					댓글 수정
-				</div>
-				<div>
-					<input type="text" id="commenttext">
-				</div>
-				<div>
-					<button type="button" id="commentModBtn">수정</button>
-					<button type="button" id="commentDelBtn">삭제</button>
-					<button type="button" id="closeBtn">닫기</button>
-				</div>
-			</div>
-			<!-- MOD 버튼 클릭시 모달 끝 -->
-			<!-- 댓글 리스트 시작 -->
-			<div>
-				<ul class="timeline">
-					<li class="time-label" id="comment_div"><span class="bg-green">Comment List</span></li>
-				</ul>
-				<%-- <c:forEach items="${comment }" var="com">
-					<div>
-						<hr/>
-						<div id="writer_${co_no}">${com.writer }</div>
-						<div id="conetent_${co_no}">${com.content }</div>
-						<div id="nalja_${co_no}">${com.nalja }</div>
-						<div>
-							<button>MOD</button>
-						</div>
-					</div>
-				</c:forEach> --%>
-		   	 	<div id="comment">
-				
-				</div>
-			</div>
-			<!-- 댓글 리스트 끝 -->
+            <!-- 내용 입력 시작 -->
+            <!-- 아코디언 시작 -->
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <c:forEach items="${detail }" var="bean">
+			  <div class="panel panel-default">
+			    <div class="panel-heading" role="tab" id="headingOne">
+			      <h4 class="panel-title">
+			        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			          ${bean.add_no} : ${bean.name}
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			      <div class="panel-body">
+			     	<div>
+			     		<label for="name">이름</label>
+			     		<div id="name" name="name">${bean.name}</div>
+			     	</div>
+			     	<div>
+			     		<label for="email">이메일</label>
+			     		<div id="email" name="email">${bean.email}</div>
+			     	</div>
+			     	<div>
+			     		<label for="phone">전화번호</label>
+			     		<div id="phone" name="phone">${bean.phone}</div>
+			     	</div>
+			     	<div>
+			     		<label for="postcode">우편번호</label>
+			     		<div id="postcode" name="postcode">${bean.postcode }</div>
+			     	</div>
+			     	<div>
+			     		<label for="address">주소</label>
+			     		<div id="address" name="address">${bean.address }</div>
+			     	</div>
+			      </div>
+			    </div>
+			  </div>
+			  </c:forEach>
+			</div><!-- 아코디언 끝 -->
+            <!-- 내용 입력 끝 -->
         <hr>
     </div>
     <!-- //main contents -->

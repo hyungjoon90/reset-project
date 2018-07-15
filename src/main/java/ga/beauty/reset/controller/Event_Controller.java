@@ -56,6 +56,7 @@ public class Event_Controller {
 		Comment_Vo comment=new Comment_Vo();
 		comment.setCo_type("이벤트");
 		comment.setP_no(eve_no);
+		
 		//쿠기를 사용한 조회수 증가 입니다(3번째 인자로 review,magazine,event 중에 골라서 넣어주세요)
 		viewUtils.UpdateView(resp, req, "event", eve_no, model);
 		
@@ -110,7 +111,7 @@ public class Event_Controller {
 	}
 	
 	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.DELETE)
-	public String delete(@PathVariable int eve_no,HttpServletRequest req) throws SQLException {
+	public String delete(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws SQLException {
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
@@ -143,14 +144,17 @@ public class Event_Controller {
  
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
-            String uploadPath = "C:\\Users\\hb\\Desktop\\3�� ������Ʈ\\�ڵ�\\reset_pro\\src\\main\\webapp\\resources\\upload\\" + fileName;//������
+            //TODO
+            String uploadPath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources/upload/" + fileName;
  
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             String callback = request.getParameter("CKEditorFuncNum");
  
             printWriter = response.getWriter();
+            
             //url경로
+            //TODO
             String fileUrl = "http://localhost:8080/reset/upload/"+ fileName;
             
             printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("

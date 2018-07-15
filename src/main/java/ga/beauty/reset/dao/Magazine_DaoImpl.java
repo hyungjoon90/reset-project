@@ -47,7 +47,8 @@ public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 	@Override
 	public int updateView(Magazine_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("magazine.updateView", bean);
 	}
+
 
 }

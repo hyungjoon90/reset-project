@@ -68,19 +68,17 @@
     <!-- main contents -->
     <div class="page_container">
         <hr>
-        	<!-- 내용 입력 -->
-            <!-- Magazine list-page 입니다. -->
-            <a href="./magazine/add" class="btn btn-primary">글쓰기</a>
-            <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
+            <!-- 내용 입력 -->
+            <!-- eve_addr list-page 입니다. -->
             <c:forEach items="${alist }" var="bean">
             <div class="list-group">
             	<div class="row">
 				  <div class="col-sm-6 col-md-4">
 				    <div class="thumbnail">
-				      <a href="magazine/${bean.mag_no}"><img src="${bean.img}" alt="main_img"></a>
+				      <a href="eveaddr/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
 				      <div class="caption">
-				        <a href="magazine/${bean.mag_no}"><h3>${bean.title}</h3></a>
-				        <p><img src="#" alt="카테고리" class="cate"/>${bean.cate }</p>
+				        <a href="eveaddr/${bean.eve_no}"><h3>${bean.title}</h3></a>
+				        <p>${bean.nalja}</p>
 				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
 				      </div>
 				    </div>
@@ -88,6 +86,7 @@
 				</div>
             </div>
 			</c:forEach>
+			<!-- 내용 끝 -->
         <hr>
     </div>
     <!-- //main contents -->
