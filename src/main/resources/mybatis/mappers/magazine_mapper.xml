@@ -6,17 +6,8 @@
   	<select id="selectAll" resultType="Magazine_Vo">
   		SELECT * FROM MAGAZINE
 		<where>
-			<if test="cate=1">
-			CATE=1
-			</if>
-			<if test="cate=2">
-			CATE=2
-			</if>
-			<if test="cate=3">
-			CATE=3
-			</if>
-			<if test="cate=4">
-			CATE=4
+			<if test="cate!=null">
+			CATE=#{cate}
 			</if>
 		</where>
 		ORDER BY MAG_NO
@@ -35,11 +26,11 @@
   	</update>
   	
   	<update id="updatePop" parameterType="Magazine_Vo">
-  		UPDATE EVENT SET POP=#{pop}	WHERE MAG_NO=#{mag_no}
+  		UPDATE MAGAZINE SET POP=#{pop}	WHERE MAG_NO=#{mag_no}
   	</update>
   	
   	<update id="updateView" parameterType="Magazine_Vo">
-  		UPDATE EVENT SET VIEW=VIEW+1 WHERE MAG_NO=#{mag_no}
+  		UPDATE MAGAZINE SET VIEW=VIEW+1 WHERE MAG_NO=#{mag_no}
   	</update>
   	
   	<delete id="deleteOne" parameterType="Magazine_Vo">

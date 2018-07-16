@@ -10,14 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Eve_addr_Vo;
-import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.services.Eve_addr_Service;
 import ga.beauty.reset.services.Event_Service;
 
@@ -55,7 +52,19 @@ public class Eve_Addr_Controller {
 	
 	
 	@RequestMapping(value="/event/{eve_no}/addr",method=RequestMethod.POST)
-	public String add(@PathVariable("eve_no") int eve_no,Eve_addr_Vo bean) throws SQLException{
+	public String add(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws SQLException{
+		Eve_addr_Vo bean = new Eve_addr_Vo();
+		bean.setEve_no(eve_no);
+		bean.setEmail(req.getParameter("email"));
+		bean.setName(req.getParameter("name"));
+		//주소 
+		String address =req.getParameter("roadAddrPart1") + req.getParameter("addrDetail");
+		bean.setAddress(address);
+		
+		bean.setPhone(Integer.parseInt(req.getParameter("phone")));
+		
+		bean.setPostcode(Integer.parseInt(req.getParameter("zipNo")));
+		
 		service.addPage(bean);
 		return "redirect:/event/"+eve_no;
 	}

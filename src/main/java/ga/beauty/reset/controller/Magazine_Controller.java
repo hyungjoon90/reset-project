@@ -129,7 +129,7 @@ public class Magazine_Controller {
 		return view;
 	}
 	
-	//ckeditor 서버로 이미지 업로드하고 다시 보여주는 메소드 입니다.
+	/*//ckeditor 서버로 이미지 업로드하고 다시 보여주는 메소드 입니다.
 	@RequestMapping(value = "/add/img", method=RequestMethod.POST)
     public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
  
@@ -180,6 +180,6 @@ public class Magazine_Controller {
         }
  
         return;
-    }
+    }*/
 	
 }//class end

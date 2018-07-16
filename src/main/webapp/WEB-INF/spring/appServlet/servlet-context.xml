@@ -29,5 +29,5 @@
 	
 	<context:component-scan base-package="ga.beauty.reset" />
 	
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<!-- <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" /> -->
 </beans:beans>
