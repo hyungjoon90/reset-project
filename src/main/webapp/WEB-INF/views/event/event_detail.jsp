@@ -71,7 +71,7 @@
             <!-- 내용 입력 -->
             <!-- TODO -->
             <!-- detail-page 입니다. -->
-            <form method="post">
+            <form method="post" action="/reset/admin/event/${detail.eve_no}">
 	            <div>${detail.eve_no }</div>
 	            <div><img src="..${detail.img }"></div>
 	            <div>${detail.title }</div>
@@ -85,7 +85,7 @@
 			<button type="reset" class="btn btn-primary">목록</button>
 			<button type="submit" class="btn btn-warning">수정</button>
 			</form>
-			<form method="post">
+			<form method="post" action="/reset/admin/event/${detail.eve_no}">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="btn btn-danger">삭제</button>
@@ -133,17 +133,6 @@
 				<ul class="timeline">
 					<li class="time-label" id="comment_div"><span class="bg-green">Comment List</span></li>
 				</ul>
-				<%-- <c:forEach items="${comment }" var="com">
-					<div>
-						<hr/>
-						<div id="writer_${co_no}">${com.writer }</div>
-						<div id="conetent_${co_no}">${com.content }</div>
-						<div id="nalja_${co_no}">${com.nalja }</div>
-						<div>
-							<button>MOD</button>
-						</div>
-					</div>
-				</c:forEach> --%>
 		   	 	<div id="comment">
 				
 				</div>
@@ -185,14 +174,14 @@
     </div>
     <!--//footer-->    
 <script type="text/javascript">
-	/* 댓글  */
-		var p_no=${detail.eve_no };
+		/* 댓글  */
+		var p_no=${detail.eve_no};
 		var co_type="event";
 		
 		<%//TODO url 경로 변경해야함.%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
-			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment/all",function(data){
+			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){
 				var str="";
 				
 			$(data).each(
@@ -223,7 +212,7 @@
 			<%//TODO url 경로 변경해야함.%>
 			$.ajax({
 				type:'post',
-				url: '/reset/'+co_type+'/'+p_no+'/'+'comment',
+				url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method_Override" : "POST"		

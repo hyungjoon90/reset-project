@@ -3,7 +3,6 @@ package ga.beauty.reset.controller;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,28 +29,29 @@ public class Eve_Addr_Controller {
 	
 	String view="redirect:/eveaddr";
 	
-	@RequestMapping(value = "/eveaddr", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/eveaddr", method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
 		eventService.listPage(model);
 		return "eve_addr/eve_addr_list";
 	}
 	
-	@RequestMapping(value = "/eveaddr/{eve_no}", method = RequestMethod.GET)
-	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException {
+	@RequestMapping(value = "/admin/eveaddr/{eve_no}", method = RequestMethod.GET)
+	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req) throws SQLException {
 		Eve_addr_Vo bean=new Eve_addr_Vo();
 		bean.setEve_no(eve_no);
 		
-		service.detailPage(model, bean);
+		service.listPage(model, bean);
 		return "eve_addr/eve_addr_detail";
 	}
 	
-	@RequestMapping(value="/event/{eve_no}/addr",method=RequestMethod.GET)
-	public String addForm(Model model) throws SQLException{
+	@RequestMapping(value="/event/{eve_no}/addr", method=RequestMethod.GET)
+	public String addForm(@PathVariable("eve_no") int eve_no,Model model) throws SQLException{
+		model.addAttribute("event",eve_no);
 		return "event/event_addr";
 	}
 	
 	
-	@RequestMapping(value="/event/{eve_no}/addr",method=RequestMethod.POST)
+	@RequestMapping(value="/event/{eve_no}/addr", method=RequestMethod.POST)
 	public String add(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws SQLException{
 		Eve_addr_Vo bean = new Eve_addr_Vo();
 		bean.setEve_no(eve_no);
@@ -61,7 +61,7 @@ public class Eve_Addr_Controller {
 		String address =req.getParameter("roadAddrPart1") + req.getParameter("addrDetail");
 		bean.setAddress(address);
 		
-		bean.setPhone(Integer.parseInt(req.getParameter("phone")));
+		bean.setPhone(req.getParameter("phone"));
 		
 		bean.setPostcode(Integer.parseInt(req.getParameter("zipNo")));
 		

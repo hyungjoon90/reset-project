@@ -60,11 +60,13 @@ public class Event_Controller {
 		//쿠기를 사용한 조회수 증가 입니다(3번째 인자로 review,magazine,event 중에 골라서 넣어주세요)
 		viewUtils.UpdateView(resp, req, "event", eve_no, model);
 		
+		model.addAttribute("no",eve_no);
+		model.addAttribute("type","event");
 		service.detailPage(model, bean, comment);
 		return "event/event_detail";
 	}
 	
-	@RequestMapping(value="/event/{eve_no}", method = RequestMethod.POST)
+	@RequestMapping(value="/admin/event/{eve_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable int eve_no ,Model model) throws SQLException {
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
@@ -78,7 +80,7 @@ public class Event_Controller {
 	}
 	
 	
-	@RequestMapping(value="/event/{eve_no}/update", method = RequestMethod.POST)
+	@RequestMapping(value="/admin/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
 		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Event_Vo bean= new Event_Vo();
@@ -91,12 +93,12 @@ public class Event_Controller {
 		return view;
 	}
 	
-	@RequestMapping("/event/add")
+	@RequestMapping("/admin/event/add")
 	public String addForm(Model model) {
 		return "event/event_add";
 	}
 	
-	@RequestMapping(value = "/event", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
 		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Event_Vo bean= new Event_Vo();
@@ -110,8 +112,9 @@ public class Event_Controller {
 		return view;
 	}
 	
-	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/admin/event/{eve_no}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws SQLException {
+		/*
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
@@ -126,7 +129,9 @@ public class Event_Controller {
 		File file2 = new File(filepath+Largeimg);
 		file.delete();
 		file2.delete();
-		
+		*/
+		Event_Vo bean=new Event_Vo();
+		bean.setEve_no(eve_no);
 		service.deletePage(bean);
 		return view;
 	}

@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+<script src="../js/jquery-1.12.4.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../css/main.css" rel="stylesheet">
 	<title>Home</title>
 </head>
 <body>
@@ -75,9 +75,9 @@
             	<div class="row">
 				  <div class="col-sm-6 col-md-4">
 				    <div class="thumbnail">
-				      <a href="eveaddr/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+				      <a href="/reset/admin/eveaddr/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
 				      <div class="caption">
-				        <a href="eveaddr/${bean.eve_no}"><h3>${bean.title}</h3></a>
+				        <a href="/reset/admin/eveaddr/${bean.eve_no}"><h3>${bean.title}</h3></a>
 				        <p>${bean.nalja}</p>
 				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
 				      </div>

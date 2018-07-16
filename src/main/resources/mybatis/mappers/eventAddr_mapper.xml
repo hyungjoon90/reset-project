@@ -3,10 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="eveAddr">
-  	<select id="selectAll">
+  	<select id="selectAll" resultType="Eve_addr_Vo">
   		SELECT * FROM EVE_ADDR WHERE EVE_NO=#{eve_no}
   	</select>
-  	<insert id="insertOne">
-  		INSERT INTO EVE_ADDR (EMAIL,NAME,ADDRESS,PHONE,POSTCODE) VALUES (#{email},#{name},#{address},#{phone},#{postcode})
+  	<insert id="insertOne" parameterType="Eve_addr_Vo">
+  		INSERT INTO EVE_ADDR (EVE_NO,EMAIL,NAME,ADDRESS,PHONE,POSTCODE) VALUES (#{eve_no},#{email},#{name},#{address},#{phone},#{postcode})
   	</insert>
   </mapper>

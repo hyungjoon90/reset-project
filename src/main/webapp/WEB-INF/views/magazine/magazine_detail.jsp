@@ -70,9 +70,9 @@
         <hr>
             <!-- 내용 입력 -->
             <!-- magazine detail-page 입니다. -->
-            <form method="post">
+            <form method="post" action="/reset/admin/magazine/${detail.mag_no}">
 		            <div>${detail.mag_no }</div>
-		            <div><img src="..${detail.img }"></div>
+		            <div><img src="../..${detail.img }"></div>
 		            <div>${detail.title }</div>
 		            <div>${detail.con }</div>
 		            <div>${detail.cate }</div>
@@ -133,17 +133,6 @@
 				<ul class="timeline">
 					<li class="time-label" id="comment_div"><span class="bg-green">Comment List</span></li>
 				</ul>
-				<%-- <c:forEach items="${comment }" var="com">
-					<div>
-						<hr/>
-						<div id="writer_${co_no}">${com.writer }</div>
-						<div id="conetent_${co_no}">${com.content }</div>
-						<div id="nalja_${co_no}">${com.nalja }</div>
-						<div>
-							<button>MOD</button>
-						</div>
-					</div>
-				</c:forEach> --%>
 		   	 	<div id="comment">
 				
 				</div>
@@ -187,13 +176,13 @@
 <script type="text/javascript">
 	/* 댓글  */
 		//아래 두개의 변수만 바꿔주면 됩니다.
-		var p_no=${detail.mag_no };
+		var p_no=${detail.mag_no};
 		var co_type="magazine";
 		
 		<%//TODO url 경로 변경해야함.%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
-			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment/all",function(data){
+			$.getJSON("/reset/"+co_type+"/"+p_no+"/comment",function(data){
 				var str="";
 				
 			$(data).each(
@@ -224,7 +213,7 @@
 			<%//TODO url 경로 변경해야함.%>
 			$.ajax({
 				type:'post',
-				url: '/reset/'+co_type+'/'+p_no+'/'+'comment',
+				url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method_Override" : "POST"		

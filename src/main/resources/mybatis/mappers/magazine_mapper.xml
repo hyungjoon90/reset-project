@@ -4,12 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="magazine">
   	<select id="selectAll" resultType="Magazine_Vo">
-  		SELECT * FROM MAGAZINE
-		<where>
-			<if test="cate!=null">
-			CATE=#{cate}
-			</if>
-		</where>
+  		SELECT * FROM MAGAZINE WHERE OPEN=1
+		<if test="cate!=null">
+		 AND CATE=#{cate}
+		</if>
 		ORDER BY MAG_NO
   	</select>
   	

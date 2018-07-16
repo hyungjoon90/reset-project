@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../ckeditor/ckeditor.js"></script>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
+<script src="../../js/jquery-1.12.4.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../ckeditor/ckeditor.js"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/main.css" rel="stylesheet">
 	<title>Home</title>
 <script type="text/javascript">
  $(function(){
@@ -116,7 +116,7 @@
         	<!-- 내용 입력 -->
             <!-- TODO: 내용입력 -->
             <!-- magazine add-page 입니다. -->
-            <form action="/reset/magazine" method="post" enctype="multipart/form-data" id="magazine_addForm">
+            <form action="/reset/admin/magazine" method="post" enctype="multipart/form-data" id="magazine_addForm">
             	<div>
 	            	<label for="img">대표이미지</label>
 	            	<input type="file" name="img" id="img">
@@ -162,10 +162,10 @@
             	<div>
             		<label for="cate">카테고리</label>
             		<select name="cate" id="cate">
-            			<option value=1>신상&트렌드</option>
+            			<option value=1>신상&amp;트렌드</option>
             			<option value=2>화장품 펙트체크</option>
             			<option value=3>인기템 리뷰</option>
-            			<option value=4>다이어트&운동</option>
+            			<option value=4>다이어트&amp;운동</option>
             		</select>
             	</div>
             	<div>
@@ -191,7 +191,7 @@
 	    	       type:"post",
 	    	       enctype: 'multipart/form-data',
 	    	       data : formData,
-	    	       url: "/reset/magazine",
+	    	       url: "/reset/admin/magazine",
 	    	       contentType: false,
 	    	       processData: false,
 	    	       dataType: "Text"

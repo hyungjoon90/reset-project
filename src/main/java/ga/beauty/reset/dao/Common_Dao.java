@@ -9,6 +9,7 @@ import ga.beauty.reset.dao.Common_Dao;
 public interface Common_Dao<C> {
 
 	List<C> selectAll() throws SQLException;
+	List<C> selectAll(C bean) throws SQLException;
 	void insertOne(C bean) throws SQLException;
 	C selectOne(C bean) throws SQLException;
 	int updateOne(C bean) throws SQLException;

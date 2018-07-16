@@ -23,6 +23,10 @@ public class Magazine_Service {
 	public void listPage(Model model) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll());
 	}
+
+	public void listPage(Model model, Magazine_Vo bean) throws SQLException{
+		model.addAttribute("alist",commonDao.selectAll(bean));
+	}
 	
 	public void detailPage(Model model,Magazine_Vo bean,Comment_Vo comment) throws SQLException{
 		model.addAttribute("detail",commonDao.selectOne(bean));

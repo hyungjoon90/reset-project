@@ -70,8 +70,30 @@
         <hr>
         	<!-- 내용 입력 -->
             <!-- Magazine list-page 입니다. -->
-            <a href="./magazine/add" class="btn btn-primary">글쓰기</a>
+            <a href="/reset/admin/magazine/add" class="btn btn-primary">글쓰기</a>
             <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
+            <select name="cate" id="cate">
+            	<option value="99">전체 콘텐츠</option>
+            	<option value="1">신상&amp;트렌드</option>
+            	<option value="2">화장품 펙트체크</option>
+            	<option value="3">인기템 리뷰</option>
+            	<option value="4">다이어트&amp;운동</option>
+            </select>
+            <script type="text/javascript">
+            $("#cate").change(function(){
+            	var cate=$("#cate option:selected").val();
+            	$.ajax({
+    				type: 'get',
+    				url:'/reset/magazine/ajax',
+    				data:"cate="+cate,
+    				dataType:'text',
+    				success:function(result){
+    					$("#listTarget").html(result);
+    				}
+    			});
+            });
+            </script>
+            <div id="listTarget">
             <c:forEach items="${alist }" var="bean">
             <div class="list-group">
             	<div class="row">
@@ -88,6 +110,7 @@
 				</div>
             </div>
 			</c:forEach>
+			</div>
         <hr>
     </div>
     <!-- //main contents -->

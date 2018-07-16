@@ -55,7 +55,7 @@ public class Comment_Controller {
 	}*/
 	
 	//댓글의 목록을 보여주는 컨트롤러
-	@RequestMapping(value="/{co_type}/{p_no}/comment/all", method=RequestMethod.GET)
+	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.GET)
 	public ResponseEntity<List<Comment_Vo>> list(@PathVariable("co_type") String co_type
 			,@PathVariable("p_no") int p_no){
 		ResponseEntity<List<Comment_Vo>> entity=null;
@@ -74,7 +74,7 @@ public class Comment_Controller {
 	}
 	
 	//댓글을 입력하는 컨트롤러
-	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.POST)
+	@RequestMapping(value="/{co_type}/{p_no}/comment/add", method=RequestMethod.POST)
 	public ResponseEntity<String> register(@PathVariable("co_type") String co_type, @RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity=null;
 		

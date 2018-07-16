@@ -50,5 +50,11 @@ public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 		return sqlSession.update("magazine.updateView", bean);
 	}
 
+	@Override
+	public List<Magazine_Vo> selectAll(Magazine_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("magazine.selectAll",bean);
+	}
+
 
 }

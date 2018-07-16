@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
@@ -45,6 +46,15 @@ public class Magazine_Controller {
 		return "magazine/magazine_list";
 	}
 	
+	@RequestMapping(value="/magazine/ajax",method=RequestMethod.GET)
+	public String listAjax(Model model, Magazine_Vo bean) throws SQLException {
+		if(bean.getCate()==99) {
+				service.listPage(model);
+			}else{
+				service.listPage(model,bean);
+			}
+		return "magazine/magazine_list_ajax";
+	}
 	
 	@RequestMapping(value="/magazine/{mag_no}", method=RequestMethod.GET)
 	public String detail(@PathVariable("mag_no") int mag_no,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException{
@@ -59,10 +69,12 @@ public class Magazine_Controller {
 		viewUtils.UpdateView(resp, req, "magazine", mag_no, model);
 		
 		service.detailPage(model, bean, comment);
+		model.addAttribute("no",mag_no);
+		model.addAttribute("type","magazine");
 		return "magazine/magazine_detail";
 	}
 	
-	@RequestMapping(value="/magazine/{mag_no}", method = RequestMethod.POST)
+	@RequestMapping(value="/admin/magazine/{mag_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable("mag_no") int mag_no, Model model) throws SQLException{
 		Magazine_Vo bean=new Magazine_Vo();
 		bean.setMag_no(mag_no);
@@ -75,14 +87,15 @@ public class Magazine_Controller {
 		return "magazine/magazine_update";
 	}
 	
-	@RequestMapping(value="/magazine/{mag_no}/update",method=RequestMethod.POST)
-	public String update(@PathVariable("mag_no") int mag_no,@RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
+	@RequestMapping(value="/admin/magazine/{mag_no}/update",method=RequestMethod.POST)
+	public String update(@PathVariable("mag_no") int mag_no, @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Magazine_Vo bean=new Magazine_Vo();
 		bean.setMag_no(mag_no);
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
+		bean.setCate(Integer.parseInt(req.getParameter("cate")));
+		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
 		bean.setTags(req.getParameter("tags"));
 		service.updatePage(bean);
 		return view;
@@ -90,14 +103,14 @@ public class Magazine_Controller {
 	
 	
 	
-	@RequestMapping("/magazine/add")
+	@RequestMapping("/admin/magazine/add")
 	public String addForm(Model model) throws SQLException{
 		return "magazine/magazine_add";
 	}
 	
-	@RequestMapping(value="/magazine", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/magazine", method=RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception{
-		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources/thumbnail";
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
@@ -108,7 +121,7 @@ public class Magazine_Controller {
 		return "view";
 	}
 	
-	@RequestMapping(value="/magazine/{mag_no}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/admin/magazine/{mag_no}", method=RequestMethod.DELETE)
 	public String delete(@PathVariable("mag_no") int mag_no,HttpServletRequest req) throws SQLException{
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(mag_no);
@@ -129,57 +142,5 @@ public class Magazine_Controller {
 		return view;
 	}
 	
-	/*//ckeditor 서버로 이미지 업로드하고 다시 보여주는 메소드 입니다.
-	@RequestMapping(value = "/add/img", method=RequestMethod.POST)
-    public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
- 
-        OutputStream out = null;
-        PrintWriter printWriter = null;
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
- 
-        try{
- 
-            String fileName = upload.getOriginalFilename();
-            byte[] bytes = upload.getBytes();
-            
-            //TODO
-            String uploadPath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources/upload/" + fileName;
- 
-            out = new FileOutputStream(new File(uploadPath));
-            out.write(bytes);
-            String callback = request.getParameter("CKEditorFuncNum");
- 
-            printWriter = response.getWriter();
-            
-            //url경로
-            //TODO
-            String fileUrl = "http://localhost:8080/reset/upload/"+ fileName;
-            
-            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
-                    + callback
-                    + ",'"
-                    + fileUrl
-                    + "','이미지를 업로드 하였습니다.'"
-                    + ")</script>");
-            printWriter.flush();
- 
-        }catch(IOException e){
-            e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (printWriter != null) {
-                    printWriter.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
- 
-        return;
-    }*/
 	
 }//class end

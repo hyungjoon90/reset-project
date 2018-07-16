@@ -29,7 +29,7 @@ public class Eve_addr_DaoImpl implements Common_Dao<Eve_addr_Vo>{
 	@Override
 	public Eve_addr_Vo selectOne(Eve_addr_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("eveAddr.selectAll",bean);
+		return null;
 	}
 
 	@Override
@@ -48,6 +48,12 @@ public class Eve_addr_DaoImpl implements Common_Dao<Eve_addr_Vo>{
 	public int updateView(Eve_addr_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Eve_addr_Vo> selectAll(Eve_addr_Vo bean) throws SQLException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("eveAddr.selectAll",bean);
 	}
 
 }

@@ -116,7 +116,7 @@
             <!-- 내용 입력 -->
             <!-- TODO: 내용입력 -->
             <!-- add-page 입니다. -->
-            <form action="/reset/event" method="post" enctype="multipart/form-data" id="event_addForm">
+            <form action="/reset/admin/event" method="post" enctype="multipart/form-data" id="event_addForm">
             	<div>
 	            	<label for="img">대표이미지</label>
 	            	<input type="file" name="img" id="img">
@@ -177,7 +177,7 @@
 	    	       type:"post",
 	    	       enctype: 'multipart/form-data',
 	    	       data : formData,
-	    	       url: "/reset/event",
+	    	       url: "/reset/admin/event",
 	    	       contentType: false,
 	    	       processData: false,
 	    	       dataType: "Text"

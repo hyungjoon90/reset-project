@@ -139,9 +139,9 @@ $(function(){
             <!-- 내용 입력 시작-->
 	       	<div class="">
 			배경이미지 있음
-			<form method="post" action="/reset/event/{eve_no}/addr">
+			<form method="post" action="/reset/event/${event}/addr">
 				<div>
-					<input type="hidden" name="eve_no" id="eve_no" value="${event.eve_no }">
+					<input type="hidden" name="eve_no" id="eve_no" value="${event}">
 				</div>
 				<div>
 					<label for="email">이메일(ID)</label>			
@@ -149,20 +149,17 @@ $(function(){
 				</div>
 				<div>
 					<label for="name">받는사람 이름</label>			
-					<input type="email" name="name" id="name" class="" value="" />
+					<input type="text" name="name" id="name" class="" value="" />
 				</div>
 				<div>
 					<label for="phone">연락처</label>			
-					<input type="tel" name="phone" id="phone" class="" value="" />
+					<input type="text" name="phone" id="phone" class="" value="" />
 				</div>
 				<div>
 					<label for="">주소</label><a href=""  class="btn btn-primary"  data-toggle="modal" data-target=".bs-example-modal-sm">주소검색</a>
 					<input type="text"  style="width:500px;" id="zipNo"  name="zipNo" />
 					<input type="text"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" />
 					<input type="text"  style="width:500px;" id="addrDetail"  name="addrDetail" />
-				</div>
-				<div>
-					<a href="" id="myform-submit" role="btn" class="btn btn-default">입력</a>
 				</div>
 				<div>
 					<button type="submit">이벤트 참가</button>
