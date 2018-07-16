@@ -67,7 +67,7 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
-					$("#result").val(data);
+					$("#result").val("like");
 				} else if(data=="0"){
 					alert("실패하였습니다.");
 				}
@@ -102,7 +102,7 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
-					$("#result").val(data);
+					$("#result").val("unlike");
 				} else if(data=="0"){
 					alert("실패하였습니다.");
 				}
