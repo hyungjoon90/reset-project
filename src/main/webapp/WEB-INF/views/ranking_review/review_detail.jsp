@@ -108,7 +108,6 @@ $(document).ready(function(){
 				type:"post",
 				enctype: 'multipart/form-data',
 				data : formData,
-				//TODO
 				url: "/reset/item/"+item+"/review/"+rev_no,
 				contentType: false,
 				processData: false,

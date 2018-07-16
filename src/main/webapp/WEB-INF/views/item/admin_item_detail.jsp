@@ -99,36 +99,23 @@
 	    cursor: inherit;
 	    display: block;
 	}
-	#img_preview {
-   		display:none;
-	}
-	.img_preview img{
-		width: 400px;
+	#img_preview img{
+		width: 100%;
 	}
 </style>
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$(".icon").click(function(){
-		reviewListadd();
-	});
-	$("#cart").click(function(){
-		cart();
-	});
 	
-	$('#review_write').on('shown.bs.modal', function () {
-	})	
-	 
-	
-	$("#reivewAdd").on("click",function(){
+	$("#itemUpdate").on("click",function(){
 		    var item=${item_bean.item};
-            var formData = new FormData($('#review')[0]);
+            var formData = new FormData($('#item')[0]);
 		    console.log(formData);
 		    $.ajax({
 				type:"post",
 				enctype: 'multipart/form-data',
 				data : formData,
-				url: "/reset/item/"+item,
+				url: "/reset/admin/itemUpdate/"+item,
 				contentType: false,
 				processData: false,
 				dataType: "text"
@@ -138,7 +125,32 @@ $(document).ready(function(){
 				if(data=="1"){
 					window.location.href=item;
 				} else if(data=="0"){
-					alert("글쓰기에 실패하였습니다.");
+					alert("수정에 실패하였습니다.");
+				}
+		 	})
+			.fail(function () { // 실패했을때 불러질 함수
+				console.error('데이터 입력 실패');
+			})    
+		})
+	$("#itemDelete").on("click",function(){
+		    var item=${item_bean.item};
+            var formData = new FormData($('#item')[0]);
+		    console.log(formData);
+		    $.ajax({
+				type:"delete",
+				enctype: 'multipart/form-data',
+				data : formData,
+				url: "/reset/admin/item/"+item,
+				contentType: false,
+				processData: false,
+				dataType: "text"
+			}) 
+			.done(function(data){
+				console.log(data);
+				if(data=="1"){
+					window.history.back();
+				} else if(data=="0"){
+					alert("삭제에 실패하였습니다.");
 				}
 		 	})
 			.fail(function () { // 실패했을때 불러질 함수
@@ -146,58 +158,8 @@ $(document).ready(function(){
 			})    
 		})
 		
-		$('.reviewBox img').css("src");
 	
 });
-	
-function reviewListadd(){
-	var item=${item_bean.item};
-	$.ajax({
-	        type: 'GET', // get 방식으로 요청
-			dataType: 'json', // json 타입
-			url: "reviewadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
-	})
-	.done(function(data){
- 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
- 			$('.icon').prev().after(
- 					"<a href=./"+data.item+"/review/"+data.rev_no+">"+
-					"<div class='reviewBox'>"+
-					"<img src='${goRoot}"+data.img+"'/>"+
-					"<label>"+data.writer+"&nbsp;</label>"+
-					"<label>"+data.age+"</label>/"+
-					"<label>"+data.skin+"</label>/"+
-					"<label>"+data.gender+"</label>"+
-					"<label>"+data.star+"</label>/"+
-					"<label>"+data.nalja+"</label>"+
-					"<p>"+data.good+"</p>"+
-					"<p>"+data.bad+"</p>"+
-					"<p>"+data.tip+"</p></div></a>");
-		})
-	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 불러오기 실패');
-	})
-}
-function cart(){
-	var item=${item_bean.item};
-	/* var nick=${login_email}}; */
-	var email="cus1@naver.com";
-	$.ajax({
-	        type: 'GET', // get 방식으로 요청
-			dataType: 'json', // json 타입
-			url: "cartAdd?item="+item+"&email="+email, // 데이터를 불러오는 json-server 주소입니다 .
-	})
-	.done(function(data){
-		if(data==3){
-			window.alert("이미 찜하셨습니다.");	
-		}else{
- 			window.alert("찜하셨습니다.");
-		}
-	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('실패');
-	})
-}
 
 </script>
 </head>
@@ -355,89 +317,111 @@ function cart(){
         
         <div class="btn-position">
 	        <!-- Button trigger modal -->
-			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#review_write">
-			  글쓰기
+			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#item_edit">
+			  수정
 			</button>
-			<button type="button" class="btn btn-lg btn-color" id="cart" >
-			  찜하기
+			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#item_delete">
+			  삭제
 			</button>
 		</div>
-        <c:forEach items="${review_bean }" var="review">
-        <a href="./${item_bean.item }/review/${review.rev_no}">
-        <div class="reviewBox">
-	    	<c:choose>
-				<c:when test="${review.img != ''}">
-					<img src="${goRoot}${review.img }"/>
-				</c:when>
-			</c:choose>
-            <label>${review.writer }</label>
-            <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>/
-            <label>${review.star }점</label>/<label>${review.nalja }</label>
-            <p>${review.good }</p>
-            <p>${review.bad }</p>
-            <p>${review.tip }</p>
-            <p>${review.pop }</p>
-        </div>
-        </a>
-        </c:forEach>
-        <div class="icon">
-	        <button type="button" class="btn btn-default btn-lg">
-	        	<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-	        </button>
-        </div>
+        
 	</div>
     <!-- //main contents -->
     
 		<!-- Modal -->
-		<div class="modal fade" id="review_write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="item_edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">리뷰 쓰기</h4>
+		        <h4 class="modal-title" id="myModalLabel">제품 수정</h4>
 		      </div>
 		      <div class="modal-body">
-		      <form id="review" action="/reset/item/${item_bean.item}" name="review" method="post" enctype="multipart/form-data">
-			    <input type="hidden" name="writer" value="닉넴1"/>
-		      	<label>좋은점</label>
-		        <textarea class="form-control" rows="3" name="good" id="good"></textarea>
-		      	<label>나쁜점</label>
-		        <textarea class="form-control" rows="3" name="bad" id="bad"></textarea>
-		      	<label>꿀팁</label>
-		        <textarea class="form-control" rows="3" name="tip" id="tip"></textarea>
-		        
-		       
-				<label class="radio-inline" for="star">1</label>점
-   				<input type="radio" name="star" value="1"/> 
-				<label class="radio-inline" for="star">2</label>점
-				<input type="radio" name="star" value="2"/> 
-				<label class="radio-inline" for="star">3</label>점
-				<input type="radio" name="star" value="3"/>
-				<label class="radio-inline" for="star">4</label>점
-				<input type="radio" name="star" value="4"/>
-				<label class="radio-inline" for="star">5</label>점
-				<input type="radio" name="star" value="5"/><br>
-			   
-				<label for="img">이미지 업로드</label>
-		        <input type="file" name="img" id="img" />
-			    </form>
+		      <form id="item" name="item" method="post" enctype="multipart/form-data">
+		      <input type="hidden" id="option" name="option" value="1"/>
+			    <table class="table">
+                	<tr>
+                    	<td>분류</td>
+                        <td>
+	                        <select class="form-control" name="cate" id="cate">
+							  <option>essence</option>
+							  <option>lotion</option>
+							  <option>skin</option>
+							</select>
+						</td>
+                    </tr>
+                    <tr>
+                    	<td>브랜드</td>
+                        <td><input type="text" name="brand" id="brand" value="${item_bean.brand }"></td>
+                    </tr>
+                    <tr>
+                    	<td>이름</td>
+                        <td><input type="text" name="name" id="name" value="${item_bean.name }"></td>
+                    </tr>
+                    <tr>
+                        <td>용량</td>
+                        <td><input type="text" name="vol" id="vol" value="${item_bean.vol }"></td>
+                    </tr>
+                    <tr>
+                        <td>판매가격</td>
+                        <td><input type="number" name="price" id="price" value="${item_bean.price }">원</td>
+                    </tr>
+                    <tr>
+                    	<td>피부타입</td>
+                        <td>
+	                        <select class="form-control" name="type" id="type">
+							  <option>oil</option>
+							  <option>dry</option>
+							  <option>sen</option>
+							</select>
+						</td>
+                    </tr>
+                    <tr>
+                        <td>기능성 성분</td>
+                        <td><input type="text" name="comp" id="comp" value="${item_bean.comp }"></td>
+                    </tr>
+                    <tr>
+                        <td>태그</td>
+                        <td><input type="text" name="tags" id="tags" value="${item_bean.tags }"></td>
+                    </tr>
+                </table>
+                	<label for="img">이미지 업로드</label>
+		        	<input type="file" name="img" id="img" />
+               </form>
 			    
 			    <div id="img_preview">
-			        <img src="#" />
+			        <img src="${goRoot}${item_bean.img }" />
 			        <br />
-			        <a href="#">Remove</a>
+			        <a href="${goRoot}${item_bean.img }">Remove</a>
 			    </div>
 			  
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">닫기</button>
-		        <button type="button" id="reivewAdd" class="btn btn-primary">글쓰기</button>
+		        <button type="button" id="itemUpdate" class="btn btn-primary">수정</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
     <!-- //modal -->
-
+	<div class="modal fade" id="item_delete" >
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">제품 삭제</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>제품을 삭제하시겠습니까?&hellip;</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-danger" id="itemDelete">제품 삭제</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
     <!--footer-->
     <div class="footer">
         <div class="wrap">
@@ -486,6 +470,7 @@ function cart(){
             $('#img_preview img').css('width', '400px');
             $('#img_preview').slideDown(); //업로드한 이미지 미리보기 
             $(this).slideUp(); //파일 양식 감춤
+            $('#option').attr('value',2);
         }
     });
 
@@ -497,9 +482,9 @@ function cart(){
     });
     $('#close').bind('click', function() {
         resetFormElement($('#img')); //전달한 양식 초기화
-        resetFormElement($('#review')); //전달한 양식 초기화
-        $('#img').slideDown(); //파일 양식 보여줌
-        $('#img_preview').slideUp(); //미리 보기 영역 감춤
+        resetFormElement($('#item_edit')); //전달한 양식 초기화
+        $('#img').slideUp(); //파일 양식 감춤
+        $('#img_preview').slideDown(); //미리 보기 영역 보여줌
     });
 
     /** 
@@ -511,6 +496,9 @@ function cart(){
         //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
         //DOM에서 제공하는 초기화 메서드 reset()을 호출
         e.unwrap(); //감싼 <form> 태그를 제거
+        $('#img_preview img').attr("src","${goRoot}${item_bean.img }");
+        $('#img_preview img').css('width', '100%');
+        $('#img_preview a').attr("href","${goRoot}${item_bean.img }");
     }
         	
     </script> 

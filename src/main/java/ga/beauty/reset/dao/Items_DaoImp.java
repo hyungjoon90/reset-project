@@ -62,11 +62,19 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 		log.debug("DaoImp-itemAdd:"+bean);
 		return sqlSession.insert("items.itemAdd", bean);
 	}
-
+	
 	@Override
 	public int rankAdd(Items_Vo bean) throws SQLException {
 		return sqlSession.insert("items.rankAdd", bean);
 	}
+
+	@Override
+	public int itemDelete(int item) throws SQLException {
+		log.debug("DaoImp-itemDel: "+item);
+		return sqlSession.delete("items.itemDel",item);
+	}
+
+	
 	
 	
 }

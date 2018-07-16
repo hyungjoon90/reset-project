@@ -39,10 +39,10 @@ public class Items_Service {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//tag.start
-		Items_Vo temp = Items_Dao.selectOne(item);
-		log.debug(temp.getTags());
+		Items_Vo bean = Items_Dao.selectOne(item);
+		log.debug(bean.getTags());
 		String tempStr="";
-		tempStr=temp.getTags().toString();
+		tempStr=bean.getTags().toString();
 		
 		StringTokenizer tokens = new StringTokenizer( tempStr, "$" );
 		List<String> list=new ArrayList<String>();
@@ -52,8 +52,16 @@ public class Items_Service {
 		log.debug(list.size());
 		//tag.end
 		
+		log.debug(bean);
+		if(!bean.getImg().equals("")) {
+			log.debug("확인"+bean.getImg());
+			String temp=bean.getImg();
+			String[] temp2=temp.split("s_");
+			bean.setImg(temp2[0]+temp2[1]);
+		}
 		
-		model.addAttribute("item_bean", Items_Dao.selectOne(item));
+		
+		model.addAttribute("item_bean", bean);
 		model.addAttribute("tags", list);
 		model.addAttribute("map", map);
 		
@@ -74,11 +82,11 @@ public class Items_Service {
 //		log.debug("updatePage param: "+option+" "+bean);
 //		return Reviews_Dao.reviewUpdate(option,bean);
 //	}
-//		
-//	// 아이템 삭제
-//	public int item_delete(String filePath,Reviews_Vo bean) throws SQLException, IOException {
-//		log.debug("deletePage param: "+bean);
-//		return Reviews_Dao.reviewDelete(filePath,bean);
-//	}
+		
+	// 아이템 삭제
+	public int item_delete(int item) throws SQLException, IOException {
+		log.debug("deletePage param: "+item);
+		return Items_Dao.itemDelete(item);
+	}
 }
 

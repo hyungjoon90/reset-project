@@ -195,8 +195,6 @@ $(document).ready(function(){
 			    </div>
             </div>
             <div class="InfoBox">
-           
-                <h4>${item_bean.name }</h4>
                 <table class="table">
                 	<tr>
                     	<td>분류</td>

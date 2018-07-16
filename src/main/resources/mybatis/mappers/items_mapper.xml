@@ -5,13 +5,13 @@
   
   <mapper namespace="items">
   <select id="rankAll" resultType="items_Vo">
-  		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10
+  		SELECT * FROM ITEMS WHERE CATE=#{cate} AND OPEN=1 ORDER BY TOT DESC LIMIT 10
   	</select>
   	<select id="rankListAdd" resultType="items_Vo">
-		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10,5
+		SELECT * FROM ITEMS WHERE CATE=#{cate} AND OPEN=1 ORDER BY TOT DESC LIMIT 10,5
   	</select>
   	<select id="selectOne" resultType="items_Vo">
-  		SELECT * FROM ITEMS WHERE ITEM=#{item}
+  		SELECT * FROM ITEMS WHERE ITEM=#{item} AND OPEN=1
   	</select>
   	<select id="totAll" resultType="ranks_Vo">
   		SELECT * FROM MYDB.RANK WHERE ITEM=#{item}
@@ -23,10 +23,10 @@
   		UPDATE `MYDB`.`MEMBERS` SET CART=#{cart} WHERE email=#{email}
   	</update>
 	<select id="itemBrand" resultType="items_Vo">
-  		SELECT * FROM ITEMS WHERE brand LIKE CONCAT('%',#{brand},'%')
+  		SELECT * FROM ITEMS WHERE brand LIKE CONCAT('%',#{brand},'%') AND OPEN=1
   	</select>
   	<select id="itemName" resultType="items_Vo">
-  		SELECT * FROM ITEMS WHERE name LIKE CONCAT('%',#{name},'%')
+  		SELECT * FROM ITEMS WHERE name LIKE CONCAT('%',#{name},'%') AND OPEN=1
   	</select>
   	
   	<insert id="itemAdd" parameterType="items_Vo">
@@ -40,5 +40,7 @@
   		INSERT INTO MYDB.RANK (item,one,two,three,four,five) VALUES(#{item},'0','0','0','0','0')
   	</insert>
   	
-  	
+  	<update id="itemDel">
+  		UPDATE MYDB.ITEMS SET OPEN=0 WHERE ITEM=#{item}
+  	</update>
   </mapper>
