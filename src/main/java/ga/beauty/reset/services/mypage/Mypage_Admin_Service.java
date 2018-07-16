@@ -8,9 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Mypage_NOR_Service {
+public class Mypage_Admin_Service {
+// 권한으로 CEO, 직원 구별한다
 
 	public Map<String, Object> getInfo(String command, HttpSession session, HttpServletRequest req) {
 		return null;
-	}// getInfo() end
-}// Mypage_NOR_Service
+	}	
+	
+	
+}

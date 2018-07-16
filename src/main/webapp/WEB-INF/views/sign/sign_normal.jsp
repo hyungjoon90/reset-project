@@ -15,6 +15,7 @@
 <script type="text/javascript">
 $(function(){
     addFormEvent();
+    
 	$("#form").submit(function(e){
          e.preventDefault();
     	var result = submitCheck();

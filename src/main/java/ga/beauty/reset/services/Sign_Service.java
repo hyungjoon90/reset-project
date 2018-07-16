@@ -121,6 +121,7 @@ public class Sign_Service {
 	public int updateProfile(String command, HttpSession session) throws SQLException, NoSuchAlgorithmException {
 		
 		if(command.equals("adds_yes")) {
+			// 맴버에 들어가는 회원들만 여려가지 방법으로 연동가능함.
 			User_Vo target = new User_Vo();
 			Members_Vo memGetNick = new Members_Vo();
 			String email = (String)session.getAttribute("login_email");

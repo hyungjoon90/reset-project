@@ -10,23 +10,33 @@
 		</layout>
 	</appender>
 	
+	<!-- 날짜별 로그 파일 생성 -->
+	<!-- TODO: 물어볼거 !! -->
+    <appender name="dayFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/log/weblog.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="100MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d][%p]-%m%%n" />
+        </layout>  
+    </appender>
 	
 	<!-- Application Loggers -->
 	<logger name="ga.beauty.reset">
 		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="dayFile"/>
 	</logger>
-	
-	
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
-	
 	<logger name="org.springframework.beans">
 		<level value="info" />
 	</logger>
-	
 	<logger name="org.springframework.context">
 		<level value="info" />
 	</logger>

@@ -2,7 +2,6 @@ package ga.beauty.reset.controller;
 
 import java.sql.SQLException;
 
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
