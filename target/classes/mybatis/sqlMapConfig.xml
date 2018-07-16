@@ -4,11 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
-  	<typeAlias alias="items_vo" type="ga.beauty.reset.dao.entity.Items_Vo"/>
-  	<typeAlias alias="ranks_vo" type="ga.beauty.reset.dao.entity.Ranks_Vo"/>
-  	<typeAlias alias="reviews_vo" type="ga.beauty.reset.dao.entity.Reviews_Vo"/>
+  	<typeAlias alias="items_Vo" type="ga.beauty.reset.dao.entity.Items_Vo"/>
+  	<typeAlias alias="ranks_Vo" type="ga.beauty.reset.dao.entity.Ranks_Vo"/>
+  	<typeAlias alias="reviews_Vo" type="ga.beauty.reset.dao.entity.Reviews_Vo"/>
   	<typeAlias alias="members_Vo" type="ga.beauty.reset.dao.entity.Members_Vo"/>
   	<typeAlias type="ga.beauty.reset.dao.entity.Comment_Vo" alias="Comment_Vo" />
+  	<typeAlias alias="likes_Vo" type="ga.beauty.reset.dao.entity.Likes_Vo"/>
   </typeAliases>
   
 </configuration>

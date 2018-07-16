@@ -109,11 +109,18 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$('#item_write').on('shown.bs.modal', function () {
+	$(".icon").click(function(){
+		reviewListadd();
+	});
+	$("#cart").click(function(){
+		cart();
+	});
+	
+	$('#review_write').on('shown.bs.modal', function () {
 	})	
 	 
 	
-	$("#item_write").on("click",function(){
+	$("#reivewAdd").on("click",function(){
 		    var item=${item_bean.item};
             var formData = new FormData($('#review')[0]);
 		    console.log(formData);
@@ -143,6 +150,55 @@ $(document).ready(function(){
 	
 });
 	
+function reviewListadd(){
+	var item=${item_bean.item};
+	$.ajax({
+	        type: 'GET', // get 방식으로 요청
+			dataType: 'json', // json 타입
+			url: "reviewadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
+	})
+	.done(function(data){
+ 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
+ 			$('.icon').prev().after(
+ 					"<a href=./"+data.item+"/review/"+data.rev_no+">"+
+					"<div class='reviewBox'>"+
+					"<img src='${goRoot}"+data.img+"'/>"+
+					"<label>"+data.writer+"&nbsp;</label>"+
+					"<label>"+data.age+"</label>/"+
+					"<label>"+data.skin+"</label>/"+
+					"<label>"+data.gender+"</label>"+
+					"<label>"+data.star+"</label>/"+
+					"<label>"+data.nalja+"</label>"+
+					"<p>"+data.good+"</p>"+
+					"<p>"+data.bad+"</p>"+
+					"<p>"+data.tip+"</p></div></a>");
+		})
+	})
+	.fail(function () { // 실패했을때 불러질 함수
+		console.error('데이터 불러오기 실패');
+	})
+}
+function cart(){
+	var item=${item_bean.item};
+	/* var nick=${login_email}}; */
+	var email="cus1@naver.com";
+	$.ajax({
+	        type: 'GET', // get 방식으로 요청
+			dataType: 'json', // json 타입
+			url: "cartAdd?item="+item+"&email="+email, // 데이터를 불러오는 json-server 주소입니다 .
+	})
+	.done(function(data){
+		if(data==3){
+			window.alert("이미 찜하셨습니다.");	
+		}else{
+ 			window.alert("찜하셨습니다.");
+		}
+	})
+	.fail(function () { // 실패했을때 불러질 함수
+		console.error('실패');
+	})
+}
+
 </script>
 </head>
 <body>
@@ -193,51 +249,195 @@ $(document).ready(function(){
    <div class="page_container">
         <div class="contentsBox">
             <div class="ImgBox">
-                <label for="img">이미지 업로드</label>
-		        <input type="file" name="img" id="img" />
-			    
-			    <div id="img_preview">
-			        <img src="#" />
-			        <br />
-			        <a href="#">Remove</a>
-			    </div>
+                <img src="${goRoot}${item_bean.img }" class="img-responsive" alt="Responsive image">
             </div>
             <div class="InfoBox">
                 <h4>${item_bean.name }</h4>
                 <table class="table">
                     <tr>
                     	<td>브랜드</td>
-                        <td><input type="text" name="brand" id="brand"></td>
+                        <td>${item_bean.brand }</td>
                     </tr>
                     <tr>
                         <td>용량</td>
-                        <td><input type="number" name="vol" id="vol"></td>
+                        <td>${item_bean.vol }</td>
                     </tr>
                     <tr>
                         <td>판매가격</td>
-                        <td><input type="number" name="price" id="price">원</td>
+                        <td>${item_bean.price }원</td>
+                    </tr>
+                    <tr>
+                        <td>평점</td>
+                        <td>${item_bean.tot }</td>
                     </tr>
                     <tr>
                         <td>기능성 성분</td>
-                        <td><input type="text" name="comp" id="comp"></td>
+                        <td>${item_bean.comp }</td>
                     </tr>
                     <tr>
                         <td>태그</td>
-                        <td><input type="text" name="tags" id="tags"></td>
+                        <td>
+                        	<c:forEach var="tag" items="${tags}">
+								<span>${tag }</span>
+							</c:forEach>
+						</td>
                     </tr>
                 </table>
             </div>
         </div>
+        <div class="avgBox">
+        	
+            <p>점수 총 <span>${map.total }</span>명 <span>${item_bean.tot }</span>점</p>
+            <table class="table">
+            	<tr>
+         			<td>
+         				<span>5점</span>
+            		</td>
+         			<td>
+         				<div class="progress">
+							<div class="progress-bar progress-bar bar1" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.five }%">
+						    	${map.five }%
+							</div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>4점</span>
+            		</td>
+         			<td>
+         				<div class="progress">
+						  <div class="progress-bar progress-bar bar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.four }%">
+						    ${map.four }%
+						  </div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>3점</span>
+            		</td>
+         			<td>
+         				<div class="progress">
+						  <div class="progress-bar progress-bar bar3" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.three }%">
+						    ${map.three }%
+						  </div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>2점</span>
+            		</td>
+         			<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar bar4" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.two }%">
+						    	${map.two }%
+					    	</div>
+						</div>
+            		</td>
+            	</tr>
+            	<tr>
+         			<td>
+         				<span>1점</span>
+            		</td>
+         			<td>
+						<div class="progress">
+						  <div class="progress-bar progress-bar bar5" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.one }%">
+						    ${map.one }%
+						  </div>
+						</div>
+            		</td>
+            	</tr>
+            </table>
+			
+        </div>
         
         <div class="btn-position">
 	        <!-- Button trigger modal -->
-			<button type="button" class="btn btn-lg btn-color">
-			  제품 추가
+			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#review_write">
+			  글쓰기
+			</button>
+			<button type="button" class="btn btn-lg btn-color" id="cart" >
+			  찜하기
 			</button>
 		</div>
+        <c:forEach items="${review_bean }" var="review">
+        <a href="./${item_bean.item }/review/${review.rev_no}">
+        <div class="reviewBox">
+	    	<c:choose>
+				<c:when test="${review.img != ''}">
+					<img src="${goRoot}${review.img }"/>
+				</c:when>
+			</c:choose>
+            <label>${review.writer }</label>
+            <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>/
+            <label>${review.star }점</label>/<label>${review.nalja }</label>
+            <p>${review.good }</p>
+            <p>${review.bad }</p>
+            <p>${review.tip }</p>
+            <p>${review.pop }</p>
+        </div>
+        </a>
+        </c:forEach>
+        <div class="icon">
+	        <button type="button" class="btn btn-default btn-lg">
+	        	<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+	        </button>
+        </div>
 	</div>
     <!-- //main contents -->
-   
+    
+		<!-- Modal -->
+		<div class="modal fade" id="review_write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">리뷰 쓰기</h4>
+		      </div>
+		      <div class="modal-body">
+		      <form id="review" action="/reset/item/${item_bean.item}" name="review" method="post" enctype="multipart/form-data">
+			    <input type="hidden" name="writer" value="닉넴1"/>
+		      	<label>좋은점</label>
+		        <textarea class="form-control" rows="3" name="good" id="good"></textarea>
+		      	<label>나쁜점</label>
+		        <textarea class="form-control" rows="3" name="bad" id="bad"></textarea>
+		      	<label>꿀팁</label>
+		        <textarea class="form-control" rows="3" name="tip" id="tip"></textarea>
+		        
+		       
+				<label class="radio-inline" for="star">1</label>점
+   				<input type="radio" name="star" value="1"/> 
+				<label class="radio-inline" for="star">2</label>점
+				<input type="radio" name="star" value="2"/> 
+				<label class="radio-inline" for="star">3</label>점
+				<input type="radio" name="star" value="3"/>
+				<label class="radio-inline" for="star">4</label>점
+				<input type="radio" name="star" value="4"/>
+				<label class="radio-inline" for="star">5</label>점
+				<input type="radio" name="star" value="5"/><br>
+			   
+				<label for="img">이미지 업로드</label>
+		        <input type="file" name="img" id="img" />
+			    </form>
+			    
+			    <div id="img_preview">
+			        <img src="#" />
+			        <br />
+			        <a href="#">Remove</a>
+			    </div>
+			  
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        <button type="button" id="reivewAdd" class="btn btn-primary">글쓰기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+    <!-- //modal -->
+
     <!--footer-->
     <div class="footer">
         <div class="wrap">

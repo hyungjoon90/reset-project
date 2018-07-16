@@ -36,7 +36,7 @@ public class Items_Reviews_Controller {
 	String goRoot="../";
 	
 	@Autowired
-	Items_Reviews_Service service;
+	Items_Reviews_Service Items_Reviews_service;
 	
 	@Autowired
 	Items_DaoImp items_DaoImp;
@@ -51,7 +51,7 @@ public class Items_Reviews_Controller {
 	@RequestMapping(value="/ranking", method = RequestMethod.GET)
 	public String ranking_list(@RequestParam("id") int cate,Model model) throws SQLException {
 		log.debug("list-param: "+cate);
-		service.ranking_listPage(model, cate);
+		Items_Reviews_service.ranking_listPage(model, cate);
 		return "ranking_review/ranking_list";
 	}
 	
@@ -60,14 +60,14 @@ public class Items_Reviews_Controller {
 	public void ranking_list_add(@RequestParam("id") int cate,HttpServletResponse resp) throws SQLException, IOException {
 		log.debug("list-param: "+cate);
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(mapper.writeValueAsString(items_DaoImp.rankAdd(cate)));
+		resp.getWriter().print(mapper.writeValueAsString(items_DaoImp.rankListAdd(cate)));
 	}
 	
 	// item 상세
 	@RequestMapping(value="/item/{item}",method=RequestMethod.GET)
 	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
 		log.debug("detail-param: "+item);
-		service.ranking_detailPage(model,item);
+		Items_Reviews_service.item_detailPage(model,item);
 		
 		goRoot="../";
 		model.addAttribute("goRoot", goRoot);
@@ -102,7 +102,7 @@ public class Items_Reviews_Controller {
 		}
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(service.review_addPage(resp,bean));
+		resp.getWriter().print(Items_Reviews_service.review_addPage(resp,bean));
 	}
 	
 	// 찜목록에 추가
@@ -125,7 +125,7 @@ public class Items_Reviews_Controller {
 		
 		model.addAttribute("goRoot", goRoot);
 		model.addAttribute("comment",comment_DaoImpl.list(comment));
-		service.review_detailPage(model,item,rev_no);
+		Items_Reviews_service.review_detailPage(model,item,rev_no);
 		return "ranking_review/review_detail";
 	}
 	
@@ -155,7 +155,7 @@ public class Items_Reviews_Controller {
 			bean.setImg("");
 		}
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(service.review_updatePage(option,bean));
+		resp.getWriter().print(Items_Reviews_service.review_updatePage(option,bean));
 	}
 	
 	// 리뷰 삭제
@@ -170,7 +170,7 @@ public class Items_Reviews_Controller {
 		bean.setWriter(req.getParameter("writer"));
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(service.review_deletePage(filePath,bean));
+		resp.getWriter().print(Items_Reviews_service.review_deletePage(filePath,bean));
 	}
 	
 }

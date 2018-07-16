@@ -108,6 +108,7 @@ $(document).ready(function(){
 				type:"post",
 				enctype: 'multipart/form-data',
 				data : formData,
+				//TODO
 				url: "/reset/item/"+item+"/review/"+rev_no,
 				contentType: false,
 				processData: false,
@@ -531,7 +532,7 @@ $(document).ready(function(){
 	<%//TODO url 경로 변경해야함.%>
 	//댓글 리스트 받아오기.
 	function getAllList(){
-		$.getJSON('/reset/'+co_type+"/"+p_no+"/comment/all",function(data){
+		$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){
 			var str="";
 			
 		$(data).each(
@@ -562,7 +563,7 @@ $(document).ready(function(){
 		<%//TODO url 경로 변경해야함.%>
 		$.ajax({
 			type:'post',
-			url: '/reset/'+co_type+'/'+p_no+'/'+'comment',
+			url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
 			headers : {
 				"Content-Type" : "application/json",
 				"X-HTTP-Method_Override" : "POST"		

@@ -74,7 +74,7 @@ function search_brand(){
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
-			url: "${goRoot}itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
+			url: "/reset/itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
@@ -84,7 +84,7 @@ function search_brand(){
   					"<div class='numbox box'>"+
   					"<label>○</label></div>"+
   					"<div class='imgbox box'>"+
-  					"<img src='${goRoot}"+data.img+"'>"+
+  					"<img src='${goRoot }"+data.img+"'>"+
   					"</div>"+
   					"<div class='conbox box'>"+
   					"<p>"+data.brand+"</p>"+
@@ -103,7 +103,7 @@ function search_name(){
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
-			url: "${goRoot}itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
+			url: "/reset/itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
@@ -113,7 +113,7 @@ function search_name(){
   					"<div class='numbox box'>"+
   					"<label>○</label></div>"+
   					"<div class='imgbox box'>"+
-  					"<img src='${goRoot}"+data.img+"'>"+
+  					"<img src='${goRoot }"+data.img+"'>"+
   					"</div>"+
   					"<div class='conbox box'>"+
   					"<p>"+data.brand+"</p>"+
@@ -136,7 +136,7 @@ function search_name(){
             <nav class="main_menu container">
                 <div class="menu_img">
                	  <a href="/reset/">
-                    <img src="${goRoot}imgs/header_logo.png">
+                    <img src="${goRoot }imgs/header_logo.png">
                   </a>
                 </div>
                 <div class="menu_login">
@@ -182,6 +182,7 @@ function search_name(){
         </div>
         <button id="search" type="button" class="btn send_btn"><span class="main_font">검색</span></button>
     </form>
+    <a href="./itemAdd">아이템 추가</a>
     	<h1>브랜드</h1>
     	<div class="brand">
     	</div>

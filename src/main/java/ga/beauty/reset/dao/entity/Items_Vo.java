@@ -14,13 +14,14 @@ public class Items_Vo {
 	private int comp;
 	private int cate;
 	private String tags;
+	private int open;
 	
 	public Items_Vo() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Items_Vo(int item, String name, String img, String brand, String vol, int price, double tot, int oil,
-			int dry, int sen, int comp, int cate, String tags) {
+			int dry, int sen, int comp, int cate, String tags, int open) {
 		super();
 		this.item = item;
 		this.name = name;
@@ -35,13 +36,14 @@ public class Items_Vo {
 		this.comp = comp;
 		this.cate = cate;
 		this.tags = tags;
+		this.open = open;
 	}
 
 	@Override
 	public String toString() {
 		return "Items_Vo [item=" + item + ", name=" + name + ", img=" + img + ", brand=" + brand + ", vol=" + vol
 				+ ", price=" + price + ", tot=" + tot + ", oil=" + oil + ", dry=" + dry + ", sen=" + sen + ", comp="
-				+ comp + ", cate=" + cate + ", tags=" + tags + "]";
+				+ comp + ", cate=" + cate + ", tags=" + tags + ", open=" + open + "]";
 	}
 
 	@Override
@@ -56,6 +58,7 @@ public class Items_Vo {
 		result = prime * result + item;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + oil;
+		result = prime * result + open;
 		result = prime * result + price;
 		result = prime * result + sen;
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
@@ -99,6 +102,8 @@ public class Items_Vo {
 		} else if (!name.equals(other.name))
 			return false;
 		if (oil != other.oil)
+			return false;
+		if (open != other.open)
 			return false;
 		if (price != other.price)
 			return false;
@@ -222,7 +227,15 @@ public class Items_Vo {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
-	
+
+	public int getOpen() {
+		return open;
+	}
+
+	public void setOpen(int open) {
+		this.open = open;
+	}
+
 	
 	
 }

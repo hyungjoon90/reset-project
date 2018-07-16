@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="items">
-  	<select id="rankAll" resultType="items_Vo">
+  <select id="rankAll" resultType="items_Vo">
   		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10
   	</select>
-  	<select id="rankAdd" resultType="items_Vo">
+  	<select id="rankListAdd" resultType="items_Vo">
 		SELECT * FROM ITEMS WHERE CATE=#{cate} ORDER BY TOT DESC LIMIT 10,5
   	</select>
   	<select id="selectOne" resultType="items_Vo">
@@ -22,11 +22,23 @@
   	<update id="cartAdd">
   		UPDATE `MYDB`.`MEMBERS` SET CART=#{cart} WHERE email=#{email}
   	</update>
-
 	<select id="itemBrand" resultType="items_Vo">
   		SELECT * FROM ITEMS WHERE brand LIKE CONCAT('%',#{brand},'%')
   	</select>
   	<select id="itemName" resultType="items_Vo">
   		SELECT * FROM ITEMS WHERE name LIKE CONCAT('%',#{name},'%')
   	</select>
+  	
+  	<insert id="itemAdd" parameterType="items_Vo">
+  		INSERT INTO ITEMS (name,img, brand, vol, price, tot, oil, dry, sen, cate, tags) 
+	VALUES (#{name},#{img},#{brand},#{vol},#{price},#{tot},#{oil},#{dry},#{sen},#{cate},#{tags})
+	<selectKey resultType="integer" keyProperty="item" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+  	</insert>
+  	<insert id="rankAdd" parameterType="items_Vo">
+  		INSERT INTO MYDB.RANK (item,one,two,three,four,five) VALUES(#{item},'0','0','0','0','0')
+  	</insert>
+  	
+  	
   </mapper>

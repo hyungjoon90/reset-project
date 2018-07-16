@@ -39,7 +39,7 @@ public class Items_Reviews_Service {
 	}
 	
 	// item 상세 페이지
-	public void ranking_detailPage(Model model,int item) throws SQLException{
+	public void item_detailPage(Model model,int item) throws SQLException{
 		log.debug("param: "+item);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		

@@ -16,13 +16,14 @@ public class Reviews_Vo {
 	private int pop;
 	private int star;
 	private Date nalja;
+	private int open;
 	
 	public Reviews_Vo() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Reviews_Vo(int rev_no, int item, String img, String writer, int age, String skin, String gender, String good,
-			String bad, String tip, int pop, int star, Date nalja) {
+			String bad, String tip, int pop, int star, Date nalja, int open) {
 		super();
 		this.rev_no = rev_no;
 		this.item = item;
@@ -37,13 +38,14 @@ public class Reviews_Vo {
 		this.pop = pop;
 		this.star = star;
 		this.nalja = nalja;
+		this.open = open;
 	}
 
 	@Override
 	public String toString() {
 		return "Reviews_Vo [rev_no=" + rev_no + ", item=" + item + ", img=" + img + ", writer=" + writer + ", age="
 				+ age + ", skin=" + skin + ", gender=" + gender + ", good=" + good + ", bad=" + bad + ", tip=" + tip
-				+ ", pop=" + pop + ", star=" + star + ", nalja=" + nalja + "]";
+				+ ", pop=" + pop + ", star=" + star + ", nalja=" + nalja + ", open=" + open + "]";
 	}
 
 	@Override
@@ -56,6 +58,7 @@ public class Reviews_Vo {
 		result = prime * result + ((good == null) ? 0 : good.hashCode());
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
 		result = prime * result + item;
+		result = prime * result + open;
 		result = prime * result + pop;
 		result = prime * result + rev_no;
 		result = prime * result + ((skin == null) ? 0 : skin.hashCode());
@@ -97,6 +100,8 @@ public class Reviews_Vo {
 		} else if (!img.equals(other.img))
 			return false;
 		if (item != other.item)
+			return false;
+		if (open != other.open)
 			return false;
 		if (pop != other.pop)
 			return false;
@@ -224,6 +229,14 @@ public class Reviews_Vo {
 
 	public void setNalja(Date nalja) {
 		this.nalja = nalja;
+	}
+
+	public int getOpen() {
+		return open;
+	}
+
+	public void setOpen(int open) {
+		this.open = open;
 	}
 
 	
