@@ -83,7 +83,7 @@ public class UploadFileUtils {
         // 100픽셀 단위의 썸네일 생성
         BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
         // 썸네일의 이름을 생성(원본파일명에 's_'를 붙임)
-        String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
+        String thumbnailName = uploadPath + path + File.separator + "#$#" + fileName;
         File newFile = new File(thumbnailName);
         String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
         // 썸네일 생성

@@ -36,8 +36,7 @@ public class Comment_Controller {
 			return convert_err;
 		}
 	}
-	
-	
+
 	/*//댓글의 갯수를 확인하는 컨트롤러
 	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.GET)
 	public ResponseEntity<Integer> count(@PathVariable("co_type") String co_type
@@ -136,3 +135,4 @@ public class Comment_Controller {
 	
 	
 }//class-end
+

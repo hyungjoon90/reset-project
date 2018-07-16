@@ -2,7 +2,6 @@ package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import ga.beauty.reset.dao.entity.Items_Vo;
 
 public interface Items_Dao<C> {

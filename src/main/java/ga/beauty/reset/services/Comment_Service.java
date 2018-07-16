@@ -14,6 +14,9 @@ public class Comment_Service {
 	
 	@Autowired
 	Comment_Dao<Comment_Vo> commentDao;
+
+	public Comment_Service() {
+	}
 	
 	public int countComment(Comment_Vo bean) throws SQLException{
 		return commentDao.count(bean);

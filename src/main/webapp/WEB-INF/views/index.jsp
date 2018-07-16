@@ -13,6 +13,7 @@
 	<title>Home</title>
 </head>
 <body>
+<body>
 	<!--header-->
     <div class="header">
     	<div class="wrap">
@@ -29,8 +30,8 @@
                             <input type="text" class="form-control input_box" placeholder="검색">
                         </div>
                         <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
+                        <a href="./login/" class="btn send_btn"><span class="main_font">로그인</span></a>
+                        <a href="./sign/" class="btn send_btn"><span class="main_font">회원가입</span></a>
                     </form>
                 </div>
                 <div class="menu_bar">
@@ -48,20 +49,19 @@
                       <li><a href="#">화플</a></li>
                       <li><a href="#">이벤트</a>
                       </li>                                  
-                      <li><a href="contacts.html">문의</a></li>
+                      <li><a href="./qna/qnaEmail">문의</a></li>
+                      <li><a href="./admin/qnaList">admin</a></li>
+                      </ul>
                     </ul>
                 </div>
              </nav>                
         </div>    
     </div>
     <!--//header-->    
-     
     <!-- main contents -->
     <div class="page_container">
         <hr>
-            <div>
-                <h1>내용</h1>
-            </div>
+            
         <hr>
 
        

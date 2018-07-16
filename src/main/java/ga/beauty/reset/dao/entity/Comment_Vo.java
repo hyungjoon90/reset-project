@@ -8,9 +8,8 @@ public class Comment_Vo {
 	private String email;
 	private Date nalja;
 	private String content;
-	private String co_type; //ENUM('¸Å°ÅÁø','¸®ºä','ÀÌº¥Æ®')
+	private String co_type; //ENUM('ï¿½Å°ï¿½ï¿½ï¿½','ï¿½ï¿½ï¿½ï¿½','ï¿½Ìºï¿½Æ®')
 	private int p_no;
-	
 	public Comment_Vo() {
 		// TODO Auto-generated constructor stub
 	}
