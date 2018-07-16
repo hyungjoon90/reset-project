@@ -15,6 +15,8 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	/* 좋아요 시작 */
+	
 	var email=$("#email").val();
     /* var email=${email}; */
     var p_no=$("#p_no").val();
@@ -37,11 +39,20 @@ $(document).ready(function(){
 	}) 
 	.done(function(data){
 		$("#result").val(data);
+		if($('#result').val()=="unlike"){
+			$('#unLikes').hide();
+		}else if($('#result').val()=="like"){
+			$('#Likes').hide();
+		}
  	})
 	.fail(function () { // 실패했을때 불러질 함수
 		console.error('데이터 수정 실패');
 	})     
 	
+	
+	if($('#result').val()=="like"){
+		console.log("좋아요를 이미 누르셨습니다");
+	}else{
 	$("#Likes").on("click",function(){
 		    var email=$("#email").val();
 		    /* var email=${email}; */
@@ -67,6 +78,8 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
+					$("#Likes").hide();
+					$("#unLikes").show();
 					$("#result").val("like");
 				} else if(data=="0"){
 					alert("실패하였습니다.");
@@ -76,7 +89,11 @@ $(document).ready(function(){
 				console.error('데이터 수정 실패');
 			})     
 		})
+	}
 		
+    if($('#result').val()=="unlike"){
+    	console.log("좋아요를 누르지 않았습니다");
+    }else{
 	$("#unLikes").on("click",function(){
 		    var email=$("#email").val();
 		    /* var email=${email}; */
@@ -102,6 +119,8 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
+					$("#Likes").show();
+					$("#unLikes").hide();
 					$("#result").val("unlike");
 				} else if(data=="0"){
 					alert("실패하였습니다.");
@@ -111,7 +130,9 @@ $(document).ready(function(){
 				console.error('데이터 수정 실패');
 			})     
 		})
-		
+    }
+    /* 좋아요 끝 */
+    
 });
 	
 </script>
