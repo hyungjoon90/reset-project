@@ -5,12 +5,155 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
+<script src="${goRoot}js/jquery-1.12.4.js"></script>
+<script src="${goRoot}js/bootstrap.min.js"></script>
+<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot}css/main.css" rel="stylesheet">
 	<title>Home</title>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 좋아요 시작 */
+	
+	var email=$("#email").val();
+    /* var email=${email}; */
+    var p_no=$("#p_no").val();
+    /* var p_no=${p_no}; */
+	var type=$("#type").val();	    
+	/* var type=${type}; */		
+	var popNum=$("#popNum").text();
+	
+	function getPopNum(){
+		<%//TODO: POPNUM%>
+		popNum.text();
+	}
+    $.ajax({
+    	type:'post',
+		url: '/reset/like/'+type+'/'+p_no,
+		data : JSON.stringify({
+			email : email,
+			type : type,
+			p_no : p_no
+		}),
+		headers:{
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType: "text"
+	}) 
+	.done(function(data){
+		$("#result").val(data);
+		if($('#result').val()=="unlike"){
+			$('#unLikes').hide();
+		}else if($('#result').val()=="like"){
+			$('#Likes').hide();
+		}
+ 	})
+	.fail(function () { // 실패했을때 불러질 함수
+		console.error('데이터 수정 실패');
+	})     
+	
+	
+	if($('#result').val()=="like"){
+		console.log("좋아요를 이미 누르셨습니다");
+	}else{
+	$("#Likes").on("click",function(){
+		    var email=$("#email").val();
+		    /* var email=${email}; */
+		    var p_no=$("#p_no").val();
+		    /* var p_no=${p_no}; */
+			var type=$("#type").val();	    
+			/* var type=${type}; */	
+		    $.ajax({
+		    	type:'PUT',
+				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+				data : JSON.stringify({
+					email : email,
+					type : type,
+					p_no : p_no
+				}),
+				headers:{
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "PUT"
+				},
+				dataType: "text"
+			}) 
+			.done(function(data){
+				console.log(data);
+				if(data=="1"){
+					console.log("성공");
+					$("#Likes").hide();
+					$("#unLikes").show();
+					$("#result").val("like");
+					getPopNum();
+				} else if(data=="0"){
+					alert("실패하였습니다.");
+				}
+		 	})
+			.fail(function () { // 실패했을때 불러질 함수
+				console.error('데이터 수정 실패');
+			})     
+		})
+	}
+		
+    if($('#result').val()=="unlike"){
+    	console.log("좋아요를 누르지 않았습니다");
+    }else{
+	$("#unLikes").on("click",function(){
+		    var email=$("#email").val();
+		    /* var email=${email}; */
+		    var p_no=$("#p_no").val();
+		    /* var p_no=${p_no}; */
+			var type=$("#type").val();	    
+			/* var type=${type}; */	
+		    $.ajax({
+		    	type:'DELETE',
+				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+				data : JSON.stringify({
+					email : email,
+					type : type,
+					p_no : p_no
+				}),
+				headers:{
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType: "text"
+			}) 
+			.done(function(data){
+				console.log(data);
+				if(data=="1"){
+					console.log("성공");
+					$("#Likes").show();
+					$("#unLikes").hide();
+					$("#result").val("unlike");
+					getPopNum();
+				} else if(data=="0"){
+					alert("실패하였습니다.");
+				}
+		 	})
+			.fail(function () { // 실패했을때 불러질 함수
+				console.error('데이터 수정 실패');
+			})     
+		})
+    }
+    /* 좋아요 끝 */
+    
+});
+</script>
+<style type="text/css">
+.likeBtn{
+	width: 4%;
+}
+.addrBtn{
+	color: white;
+	background-color: #D00B01;
+	border-style: solid;
+}
+.view{
+	width: 4%;
+}
+</style>
 </head>
 <body>
 	<!--header-->
@@ -69,19 +212,45 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
-            <!-- TODO -->
             <!-- detail-page 입니다. -->
             <form method="post" action="/reset/admin/event/${detail.eve_no}">
-	            <div>${detail.eve_no }</div>
-	            <div><img src="..${detail.img }"></div>
-	            <div>${detail.title }</div>
-	            <div>${detail.nalja }</div>
-	            <div>${detail.con }</div>
-	            <div>${detail.tags }</div>
-	            <div>${detail.pop }</div>
-	            <div>${detail.view }</div>
+	            <div>
+	            	<span>${detail.eve_no }</span>
+	            </div>
+	            <div>
+	            	<span><img src="..${detail.img }"></span>
+	            </div>
+	            <div>
+	            	<span>${detail.title }</span>
+	            </div>
+	            <div>
+	            	<span>${detail.nalja }</span>
+	            </div>
+	            <div>
+	            	<span>${detail.con }</span>
+	            </div>
+	            <div>
+	            	<span>${detail.tags }</span>
+	            </div>
+	            <div>
+	            	<input id="email" type="hidden" value="cus1@naver.com" />
+					<input id="p_no" type="hidden" value="${detail.eve_no }" />
+					<input id="type" type="hidden" value="event" />
+					<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn">
+					<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn">
+					<input id="result" type="hidden" value="" />
+					<span><strong id="popNum">${detail.pop }</strong></span>
+	            </div>
+	            <div>
+	            	<img alt="view" src="${goRoot}imgs/icon/grey_view.png" class="view">
+	            	<span><strong>${detail.view }</strong></span>
+	            </div>
 	            <!-- TODO:이벤트 주소입력 으로 가는곳입니다. -->
-				<a href="/reset/event/${detail.eve_no}/addr"></a><img alt="event_submit" src="#"></a>
+	            <div>
+					<a href="/reset/event/${detail.eve_no}/addr">
+						<button type="button" class="addrBtn">이벤트 참가 신청하기</button>
+					</a>
+				</div>
 			<button type="reset" class="btn btn-primary">목록</button>
 			<button type="submit" class="btn btn-warning">수정</button>
 			</form>
@@ -178,7 +347,7 @@
 		var p_no=${detail.eve_no};
 		var co_type="event";
 		
-		<%//TODO url 경로 변경해야함.%>
+		<%//TODO 댓글 리스트%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
 			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){

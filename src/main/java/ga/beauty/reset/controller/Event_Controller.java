@@ -40,16 +40,18 @@ public class Event_Controller {
 	
 	String view="redirect:/event";
 
+	String goRoot="../";
 	
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
+		model.addAttribute("goRoot",goRoot);
 		service.listPage(model);
 		return "event/event_list";
 	}
 	
 	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.GET)
 	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException {
-		
+		model.addAttribute("goRoot",goRoot);
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
@@ -68,6 +70,8 @@ public class Event_Controller {
 	
 	@RequestMapping(value="/admin/event/{eve_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable int eve_no ,Model model) throws SQLException {
+		String goRoot="../../";
+		model.addAttribute("goRoot",goRoot);
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
@@ -82,9 +86,11 @@ public class Event_Controller {
 	
 	@RequestMapping(value="/admin/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
+		//TODO : 썸네일 주소
 		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Event_Vo bean= new Event_Vo();
 		bean.setEve_no(eve_no);
+		//TODO : 썸네일 사진을 불러오는 곳입니다.
 		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
@@ -95,17 +101,21 @@ public class Event_Controller {
 	
 	@RequestMapping("/admin/event/add")
 	public String addForm(Model model) {
+		String goRoot="../../";
+		model.addAttribute("goRoot",goRoot);
 		return "event/event_add";
 	}
 	
 	@RequestMapping(value = "/admin/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
+		//TODO : 썸네일 주소
 		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Event_Vo bean= new Event_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setTags(req.getParameter("tags"));
 		// 파일업로드 start
+		//TODO : 썸네일 사진을 불러오는 곳입니다.
 	    bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
 	    // 파일업로드 end
 		service.addPage(bean);
@@ -149,7 +159,7 @@ public class Event_Controller {
  
             String fileName = upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
-            //TODO
+            //TODO: CKeditor 이미지 저장 장소
             String uploadPath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources/upload/" + fileName;
  
             out = new FileOutputStream(new File(uploadPath));
@@ -159,7 +169,7 @@ public class Event_Controller {
             printWriter = response.getWriter();
             
             //url경로
-            //TODO
+            //TODO: ckeditor 이미지 가져오는 주소
             String fileUrl = "http://localhost:8080/reset/upload/"+ fileName;
             
             printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("

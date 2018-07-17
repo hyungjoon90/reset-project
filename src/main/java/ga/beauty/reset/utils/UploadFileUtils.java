@@ -45,13 +45,13 @@ public class UploadFileUtils {
     private static String calcPath(String uploadPath) {
         Calendar cal = Calendar.getInstance();
         // File.separator : 디렉토리 구분자(\\)
-        // 연도, ex) \\2017 
+        // 연도, ex) \\2018 
         String yearPath = File.separator + cal.get(Calendar.YEAR);
         System.out.println(yearPath);
-        // 월, ex) \\2017\\03
+        // 월, ex) \\2018\\07
         String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
         System.out.println(monthPath);
-        // 날짜, ex) \\2017\\03\\01
+        // 날짜, ex) \\2018\\07\\01
         String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
         System.out.println(datePath);
         // 디렉토리 생성 메서드 호출
@@ -82,7 +82,7 @@ public class UploadFileUtils {
         BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
         // 100픽셀 단위의 썸네일 생성
         BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
-        // 썸네일의 이름을 생성(원본파일명에 's_'를 붙임)
+        // 썸네일의 이름을 생성(원본파일명에 '#$#'를 붙임)
         String thumbnailName = uploadPath + path + File.separator + "#$#" + fileName;
         File newFile = new File(thumbnailName);
         String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);

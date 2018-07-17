@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../../js/jquery-1.12.4.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
-<script src="../../ckeditor/ckeditor.js"></script>
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../../css/main.css" rel="stylesheet">
+<script src="${goRoot }js/jquery-1.12.4.js"></script>
+<script src="${goRoot }js/bootstrap.min.js"></script>
+<script src="${goRoot }ckeditor/ckeditor.js"></script>
+<link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot }css/main.css" rel="stylesheet">
 	<title>Home</title>
 <script type="text/javascript">
  $(function(){
@@ -53,8 +53,8 @@
 <style type="text/css">
 	/* 미리보기 이미지 사이즈 */
 	#control_img { /* div에 주는것도 좋은 방법임. */
-		width: 200px;
-		height: 200px;
+		width: 570px;
+		height: 285px;
 	}
 
 </style>
