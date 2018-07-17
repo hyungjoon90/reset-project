@@ -13,20 +13,15 @@ import javax.servlet.http.HttpSessionListener;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-@Component(value="login_Lsn")
-public class Login_Listener implements HttpSessionListener, Common_Listener{
+@Component(value="session_Lsn")
+public class Session_Listener implements HttpSessionListener{
 
-	private static final Logger logger = Logger.getLogger(Login_Listener.class);
-	
+	private static final Logger logger = Logger.getLogger(Session_Listener.class);
     private static final Map<String, HttpSession> SESSIONS = new HashMap<>();
-
-    
     
     public void sessionCreated(HttpSessionEvent event) {
         HttpSession session = event.getSession();
-        
         synchronized(this){
-        	logger.info("@login@"+"");
         	SESSIONS.put(session.getId(),session);
         }
     }
@@ -51,33 +46,5 @@ public class Login_Listener implements HttpSessionListener, Common_Listener{
     		if(session.getAttribute("login_on")!=null)count++;
     	}
     	return count;
-    }
-
-	@Override
-	public void addLog() throws Exception {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public <T> List<T> getLogsAll() throws Exception {
-		return null;
-	}
-
-	@Override
-	public <T> List<T> getLogsWithCount(int recentIdx, int counts) throws Exception {
-		return null;
-	}
-
-	@Override
-	public void saveLogOneday() throws Exception {
-		// TODO Auto-generated method stub
-	}
-	
-	@Override
-	public void finalize() throws Throwable {
-		// TODO Auto-generated method stub
-		super.finalize();
-	}
-
-	
-}
+    }	
+}// Session_Linstener

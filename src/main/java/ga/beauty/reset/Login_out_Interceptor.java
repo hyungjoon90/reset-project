@@ -8,27 +8,22 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class Auth_Interceptor extends HandlerInterceptorAdapter{
+public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 
-	private static final Logger logger = Logger.getLogger(Auth_Interceptor.class);
+	private static final Logger logger = Logger.getLogger(Login_out_Interceptor.class);
 	
-	public Auth_Interceptor() {
-	}
-	
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("login_on")==null) {
-			response.sendRedirect("/login/");
-			return false;
-		}		
-		return super.preHandle(request, response, handler);
+	public Login_out_Interceptor() {
 	}
 	
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login_on")!=null && ((boolean)session.getAttribute("login_on") == true) ) {
+			
+		}else {
+			
+		}
 		super.afterCompletion(request, response, handler, ex);
 	}
 	

@@ -32,14 +32,19 @@
 	
 	
 	    <!-- 인터셉터 객체 생성 -->
-    <beans:bean id="auth_Interceptor" class="ga.beauty.reset.Auth_Interceptor">
-    </beans:bean>
+    <beans:bean id="auth_Interceptor" class="ga.beauty.reset.Auth_Interceptor"/>
+    <beans:bean id="login_out_Interceptor" class="ga.beauty.reset.Login_out_Interceptor"/>
     <!-- Interceptor 설정 -->
     <interceptors>
         <interceptor>
             <mapping path="/admin/"/>
             <mapping path="/mypage/"/>
             <beans:ref bean="auth_Interceptor"/>
+        </interceptor>
+        <interceptor>
+        	<mapping path="/login/"/>
+        	<mapping path="/logout/"/>
+        	<beans:ref bean="login_out_Interceptor"/>
         </interceptor>
     </interceptors>
 	<!-- 파일업로드 필수 
