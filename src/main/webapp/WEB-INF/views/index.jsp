@@ -13,12 +13,15 @@
 	<title>Home</title>
 </head>
 <body>
+<body>
 	<!--header-->
     <div class="header">
     	<div class="wrap">
             <nav class="main_menu container">
                 <div class="menu_img">
+                <a href="/reset/">
                     <img src="imgs/header_logo.png">
+                    </a>
                 </div>
                 <div class="menu_login">
                     <form class="form-inline">
@@ -27,44 +30,34 @@
                             <input type="text" class="form-control input_box" placeholder="검색">
                         </div>
                         <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
+                        <a href="./login/" class="btn send_btn"><span class="main_font">로그인</span></a>
+                        <a href="./sign/" class="btn send_btn"><span class="main_font">회원가입</span></a>
                     </form>
                 </div>
                 <div class="menu_bar">
                     <ul class="nav">
-                      <li class="current"><a href="index.html">홈</a></li>
-                      <li><a href="about.html">랭킹</a></li>
-                      <li class="top-menu"><a href="javascript:{}">화플</a>
-                          <ul class="sub-menu">
-                              <li><a href="scaffolding.html">Scaffolding</a></li>
-                              <li><a href="typography.html">Typography</a></li>
-                              <li><a href="shortcodes.html">Shortcodes</a></li>
-                              <li><a href="tables.html">Tables</a></li>
-                          </ul>
-                      </li>
-                      <li class="top-menu"><a href="javascript:{}">이벤트</a>
-                           <ul class="sub-menu">
-                              <li><a href="portfolio_2columns.html">2 Columns</a></li>
-                              <li><a href="portfolio_3columns.html">3 Columns</a></li>
-                              <li><a href="portfolio_4columns.html">4 Columns</a></li>
-                          </ul>
+                      <li class="current"><a href="/reset/">홈</a></li>
+                      <li class="top-menu"><a href="/reset/">랭킹</a>
+                      	<div class="space">
+						  <ul class="sub-menu">
+						      <li><a href="./ranking?id=1">스킨</a></li>
+							  <li><a href="./ranking?id=2">로션</a></li>
+							  <li><a href="./ranking?id=3">에센스</a></li>
+						  </ul>
+					    </div>
+					  </li>
+                      <li><a href="#">화플</a></li>
+                      <li><a href="#">이벤트</a>
                       </li>                                  
-                      <li class="top-menu"><a href="javascript:{}">리뷰</a>
-                           <ul class="sub-menu">
-                              <li><a href="blog.html">Blog with right sidebar</a></li>
-                              <li><a href="blog_post.html">Blog post</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="contacts.html">문의</a></li>
+                      <li><a href="./qna/qnaEmail">문의</a></li>
+                      <li><a href="./admin/qnaList">admin</a></li>
+                      </ul>
                     </ul>
                 </div>
              </nav>                
-             
         </div>    
     </div>
     <!--//header-->    
-     
     <!-- main contents -->
     <div class="page_container">
         <hr>

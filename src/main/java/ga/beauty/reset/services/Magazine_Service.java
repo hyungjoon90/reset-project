@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import ga.beauty.reset.dao.Comment_Dao;
 import ga.beauty.reset.dao.Common_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
-import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 
 @Service
@@ -19,6 +18,9 @@ public class Magazine_Service {
 	
 	@Autowired
 	Comment_Dao<Comment_Vo> commentDao;
+	
+	public Magazine_Service() {
+	}
 	
 	public void listPage(Model model) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll());

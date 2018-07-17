@@ -16,7 +16,6 @@ public class Magazine_Vo {
 	private int open;
 	
 	public Magazine_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

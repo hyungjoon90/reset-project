@@ -10,7 +10,6 @@ public class Eve_addr_Vo {
 	private int postcode;
 
 	public Eve_addr_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Eve_addr_Vo(int add_no, int eve_no, String email, String name, String address, String phone, int postcode) {

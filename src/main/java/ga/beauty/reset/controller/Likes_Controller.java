@@ -22,6 +22,9 @@ public class Likes_Controller {
 	@Autowired
 	Likes_Service likes_Service;
 	
+	public Likes_Controller() {
+	}
+	
 	
 	@RequestMapping("/likes")
 	public String likes() {
