@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
+			<version>1.2.17</version>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
@@ -82,7 +82,13 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
-
+		<!-- user-add -->
+		<!-- https://mvnrepository.com/artifact/log4j/apache-log4j-extras -->
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>apache-log4j-extras</artifactId>
+		    <version>1.2.17</version>
+		</dependency>
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>

@@ -4,12 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-@Component(value="comment_Lsn")
-public class Comment_Listener implements Common_Listener{
+@Component(value="review_Lsn")
+public class Review_Lsn implements Common_Listener {
 
-	public Comment_Listener() {
-		// TODO Auto-generated constructor stub
-	}
+	// 리뷰 총량 / 일별 증가량
 	
 	@Override
 	public void addLog() throws Exception {
@@ -34,12 +32,14 @@ public class Comment_Listener implements Common_Listener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	// 이벤트 
+	
 	@Override
 	public void finalize() throws Throwable {
 		// TODO Auto-generated method stub
 		super.finalize();
 	}
+	
 	
 	
 }
