@@ -123,6 +123,7 @@ $(document).ready(function(){
 				console.log(data);
 				if(data=="1"){
 					alert("아이템 추가 성공");
+					window.history.back();
 				} else if(data=="0"){
 					alert("추가에 실패하였습니다.");
 				}

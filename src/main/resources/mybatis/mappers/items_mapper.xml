@@ -39,7 +39,9 @@
   	<insert id="rankAdd" parameterType="items_Vo">
   		INSERT INTO MYDB.RANK (item,one,two,three,four,five) VALUES(#{item},'0','0','0','0','0')
   	</insert>
-  	
+  	<update id="itemUpdate" parameterType="items_Vo">
+  		UPDATE ITEMS SET NAME=#{name},IMG=#{img},BRAND=#{brand},VOL=#{vol},PRICE=#{price},OIL=#{oil},DRY=#{dry}, SEN=#{sen},CATE=#{cate}, TAGS=#{tags} WHERE ITEM=#{item}
+  	</update>
   	<update id="itemDel">
   		UPDATE MYDB.ITEMS SET OPEN=0 WHERE ITEM=#{item}
   	</update>

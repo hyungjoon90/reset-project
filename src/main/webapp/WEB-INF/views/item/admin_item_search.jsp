@@ -78,6 +78,7 @@ function search_brand(){
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
+ 			console.log(data.img);
   			$('.brand').append(
   					"<a href='./item/"+data.item+"'>"+
   					"<div class='contentsbox'>"+
