@@ -123,6 +123,7 @@ public class Magazine_Controller {
 	
 	@RequestMapping(value="/admin/magazine/{mag_no}", method=RequestMethod.DELETE)
 	public String delete(@PathVariable("mag_no") int mag_no,HttpServletRequest req) throws SQLException{
+		/*
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(mag_no);
 		
@@ -138,6 +139,10 @@ public class Magazine_Controller {
 		file.delete();
 		file2.delete();
 		
+		service.deletePage(bean);
+		*/
+		Magazine_Vo bean =new Magazine_Vo();
+		bean.setMag_no(mag_no);
 		service.deletePage(bean);
 		return view;
 	}

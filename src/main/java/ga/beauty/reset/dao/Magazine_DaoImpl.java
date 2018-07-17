@@ -41,7 +41,8 @@ public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 	@Override
 	public int deleteOne(Magazine_Vo bean) throws SQLException {
 		// TODO Auto-generated method stub
-		return sqlSession.delete("magazine.deleteOne", bean);
+		/*return sqlSession.delete("magazine.deleteOne", bean);*/
+		return sqlSession.update("magazine.deleteOne", bean);
 	}
 
 	@Override

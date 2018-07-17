@@ -30,8 +30,13 @@
   	<update id="updateView" parameterType="Magazine_Vo">
   		UPDATE MAGAZINE SET VIEW=VIEW+1 WHERE MAG_NO=#{mag_no}
   	</update>
-  	
+  	<!-- 
   	<delete id="deleteOne" parameterType="Magazine_Vo">
   		DELETE FROM MAGAZINE WHERE MAG_NO=#{mag_no}
   	</delete>
+  	 -->
+  	 
+  	 <update id="deleteOne" parameterType="Magazine_Vo">
+  	 	UPDATE MAGAZINE SET OPEN=0 WHERE MAG_NO=#{mag_no}
+  	 </update>
   </mapper>
