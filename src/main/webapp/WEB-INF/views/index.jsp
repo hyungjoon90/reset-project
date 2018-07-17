@@ -49,9 +49,12 @@
                       <li><a href="#">화플</a></li>
                       <li><a href="#">이벤트</a>
                       </li>                                  
-                      <li><a href="./qna/qnaEmail">문의</a></li>
-                      <li><a href="./admin/qnaList">admin</a></li>
-                      </ul>
+                           <ul class="sub-menu">
+                              <li><a href="blog.html">Blog with right sidebar</a></li>
+                              <li><a href="blog_post.html">Blog post</a></li>
+                          </ul>
+                      </li>
+                      <li><a href="contacts.html">문의</a></li>
                     </ul>
                 </div>
              </nav>                

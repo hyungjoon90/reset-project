@@ -42,14 +42,6 @@ public class Qna_Controller {
 		return "qna/qnaEmail";
 	}
 
-	/*
-	 * @RequestMapping(value="/qna/qnaEmail", method = RequestMethod.GET) public
-	 * String list(Model model) throws SQLException { service.listPage(model);
-	 * log.debug(getClass()); return "qna/qnaEmail";
-	 * 
-	 * }
-	 */
-
 	@RequestMapping(value = "/qna/qna", method = RequestMethod.POST)
 	public String add(Qna_Vo bean, Model model) throws SQLException {
 		System.out.println("전송");
@@ -58,10 +50,10 @@ public class Qna_Controller {
 		return "qna/qnaResult";
 	}
 
-/*	@RequestMapping(value = "/qna/qnaResult", method = RequestMethod.POST)
+	@RequestMapping(value = "/qna/qnaResult", method = RequestMethod.POST)
 	public String showResult() {
 		return "qna/qnaResult";
-	}*/
+	}
 	
 	
 	//admin의 qna
@@ -78,16 +70,6 @@ public class Qna_Controller {
 	model.addAttribute("bean", service.selectOnePage(qa_no));
 	return "admin/qnaDetail";
 	}
-	
-/*	@RequestMapping(value = "/admin/qnaDetail/{qa_no}", method=RequestMethod.POST)
-	public String addAdminPage(Qna_Vo bean) throws SQLException {
-		System.out.println("디테일에서 답변 입력, 입력전");
-		service.updatePage(bean);
-		System.out.println("디테일에서 답변 입력, 입력후");
-		return "admin/qnaDetail/{qa_no}";
-	}
-*/
-//	http://gcomx.blogspot.com/2017/11/jquery-ajax-controller-list.html
 	
 	//TODO
 
@@ -108,20 +90,6 @@ public class Qna_Controller {
 		return result;
 	}
 
-	
-	@RequestMapping(value = "/admin/qnaDetail/{qa_no }", method = RequestMethod.PUT)
-	public String edit(@PathVariable int qa_no, @ModelAttribute Qna_Vo bean, Model model) throws SQLException {
-		service.updatePage(bean);
-		model.addAttribute("qa_no", qa_no);
-		return view;
-	}
-	
-/*	@RequestMapping(value = "/admin/qnaDetail/{bean.qa_no }", method = RequestMethod.DELETE)
-	public String delete(@PathVariable int qa_no) throws SQLException {
-		service.deletePage(qa_no);
-		return view2;
-	}*/
 
-	
 
 }// class end
