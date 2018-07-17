@@ -3,10 +3,6 @@ package ga.beauty.reset.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSessionException;
-
-import ga.beauty.reset.dao.entity.Qna_Vo;
-
 public interface Qna_Dao<Qna_Vo> {
 	
 	 List<Qna_Vo> selectAll() throws SQLException;
