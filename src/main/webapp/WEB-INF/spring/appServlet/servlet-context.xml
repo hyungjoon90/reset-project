@@ -30,8 +30,7 @@
 	
 	<context:component-scan base-package="ga.beauty.reset" />
 	
-	
-	    <!-- 인터셉터 객체 생성 -->
+	<!-- 인터셉터 객체 생성 -->
     <beans:bean id="auth_Interceptor" class="ga.beauty.reset.Auth_Interceptor"/>
     <beans:bean id="login_out_Interceptor" class="ga.beauty.reset.Login_out_Interceptor"/>
     <!-- Interceptor 설정 -->

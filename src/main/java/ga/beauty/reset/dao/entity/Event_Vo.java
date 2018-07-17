@@ -4,18 +4,20 @@ import java.sql.Date;
 
 public class Event_Vo {
 	private int eve_no;
-	String img;
-	String title;
-	String con;
-	String tags;
-	Date nalja;
-	int pop;
-	int view;
+	private String img;
+	private String title;
+	private String con;
+	private String tags;
+	private Date nalja;
+	private int pop;
+	private int view;
+	private int open;
 	
 	public Event_Vo() {
 	}
 
-	public Event_Vo(int eve_no, String img, String title, String con, String tags, Date nalja, int pop, int view) {
+	public Event_Vo(int eve_no, String img, String title, String con, String tags, Date nalja, int pop, int view,
+			int open) {
 		super();
 		this.eve_no = eve_no;
 		this.img = img;
@@ -25,6 +27,7 @@ public class Event_Vo {
 		this.nalja = nalja;
 		this.pop = pop;
 		this.view = view;
+		this.open = open;
 	}
 
 	public int getEve_no() {
@@ -91,10 +94,18 @@ public class Event_Vo {
 		this.view = view;
 	}
 
+	public int getOpen() {
+		return open;
+	}
+
+	public void setOpen(int open) {
+		this.open = open;
+	}
+
 	@Override
 	public String toString() {
-		return "EventVo [eve_no=" + eve_no + ", img=" + img + ", title=" + title + ", con=" + con + ", tags=" + tags
-				+ ", nalja=" + nalja + ", pop=" + pop + ", view=" + view + "]";
+		return "Event_Vo [eve_no=" + eve_no + ", img=" + img + ", title=" + title + ", con=" + con + ", tags=" + tags
+				+ ", nalja=" + nalja + ", pop=" + pop + ", view=" + view + ", open=" + open + "]";
 	}
 
 	@Override
@@ -104,6 +115,7 @@ public class Event_Vo {
 		result = prime * result + ((con == null) ? 0 : con.hashCode());
 		result = prime * result + eve_no;
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
+		result = prime * result + open;
 		result = prime * result + pop;
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -132,6 +144,8 @@ public class Event_Vo {
 				return false;
 		} else if (!img.equals(other.img))
 			return false;
+		if (open != other.open)
+			return false;
 		if (pop != other.pop)
 			return false;
 		if (tags == null) {
@@ -148,6 +162,7 @@ public class Event_Vo {
 			return false;
 		return true;
 	}
+	
 	
 	
 	

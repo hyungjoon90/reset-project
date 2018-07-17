@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+<script src="../../js/jquery-1.12.4.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/main.css" rel="stylesheet">
 	<title>Home</title>
 </head>
 <body>
@@ -68,49 +68,46 @@
     <!-- main contents -->
     <div class="page_container">
         <hr>
-        	<!-- 내용 입력 -->
-            <!-- Magazine list-page 입니다. -->
-            <a href="/reset/admin/magazine/add" class="btn btn-primary">글쓰기</a>
-            <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
-            <select name="cate" id="cate">
-            	<option value="99">전체 콘텐츠</option>
-            	<option value="1">신상&amp;트렌드</option>
-            	<option value="2">화장품 펙트체크</option>
-            	<option value="3">인기템 리뷰</option>
-            	<option value="4">다이어트&amp;운동</option>
-            </select>
-            <script type="text/javascript">
-            $("#cate").change(function(){
-            	var cate=$("#cate option:selected").val();
-            	$.ajax({
-    				type: 'get',
-    				url:'/reset/magazine/ajax',
-    				data:"cate="+cate,
-    				dataType:'text',
-    				success:function(result){
-    					$("#listTarget").html(result);
-    				}
-    			});
-            });
-            </script>
-            <div id="listTarget">
-            <c:forEach items="${alist }" var="bean">
-            <div class="list-group">
-            	<div class="row">
-				  <div class="col-sm-6 col-md-4">
-				    <div class="thumbnail">
-				      <a href="magazine/${bean.mag_no}"><img src="${bean.img}" alt="main_img"></a>
-				      <div class="caption">
-				        <a href="magazine/${bean.mag_no}"><h3>${bean.title}</h3></a>
-				        <p><img src="#" alt="카테고리" class="cate"/>${bean.cate }</p>
-				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-            </div>
-			</c:forEach>
-			</div>
+            <!-- 내용 입력 시작 -->
+            <!-- 아코디언 시작 -->
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <c:forEach items="${detail }" var="bean">
+			  <div class="panel panel-default">
+			    <div class="panel-heading" role="tab" id="headingOne">
+			      <h4 class="panel-title">
+			        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			          ${bean.add_no} : ${bean.name}
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			      <div class="panel-body">
+			     	<div>
+			     		<label for="name">이름</label>
+			     		<div id="name" name="name">${bean.name}</div>
+			     	</div>
+			     	<div>
+			     		<label for="email">이메일</label>
+			     		<div id="email" name="email">${bean.email}</div>
+			     	</div>
+			     	<div>
+			     		<label for="phone">전화번호</label>
+			     		<div id="phone" name="phone">${bean.phone}</div>
+			     	</div>
+			     	<div>
+			     		<label for="postcode">우편번호</label>
+			     		<div id="postcode" name="postcode">${bean.postcode }</div>
+			     	</div>
+			     	<div>
+			     		<label for="address">주소</label>
+			     		<div id="address" name="address">${bean.address }</div>
+			     	</div>
+			      </div>
+			    </div>
+			  </div>
+			  </c:forEach>
+			</div><!-- 아코디언 끝 -->
+            <!-- 내용 입력 끝 -->
         <hr>
     </div>
     <!-- //main contents -->
@@ -146,6 +143,5 @@
         </div>
     </div>
     <!--//footer-->    
-
 </body>
 </html>

@@ -13,12 +13,20 @@ public class Magazine_Vo {
 	private Date nalja;
 	private int pop;
 	private int view;
+	private int open;
 	
 	public Magazine_Vo() {
 	}
 
+	@Override
+	public String toString() {
+		return "Magazine_Vo [mag_no=" + mag_no + ", img=" + img + ", title=" + title + ", con=" + con + ", cate=" + cate
+				+ ", tags=" + tags + ", writer=" + writer + ", nalja=" + nalja + ", pop=" + pop + ", view=" + view
+				+ ", open=" + open + "]";
+	}
+
 	public Magazine_Vo(int mag_no, String img, String title, String con, int cate, String tags, String writer,
-			Date nalja, int pop, int view) {
+			Date nalja, int pop, int view, int open) {
 		super();
 		this.mag_no = mag_no;
 		this.img = img;
@@ -30,6 +38,7 @@ public class Magazine_Vo {
 		this.nalja = nalja;
 		this.pop = pop;
 		this.view = view;
+		this.open = open;
 	}
 
 	public int getMag_no() {
@@ -112,11 +121,12 @@ public class Magazine_Vo {
 		this.view = view;
 	}
 
-	@Override
-	public String toString() {
-		return "MagazineVo [mag_no=" + mag_no + ", img=" + img + ", title=" + title + ", con=" + con + ", cate=" + cate
-				+ ", tags=" + tags + ", writer=" + writer + ", nalja=" + nalja + ", pop=" + pop + ", view=" + view
-				+ "]";
+	public int getOpen() {
+		return open;
+	}
+
+	public void setOpen(int open) {
+		this.open = open;
 	}
 
 	@Override
@@ -127,6 +137,7 @@ public class Magazine_Vo {
 		result = prime * result + ((con == null) ? 0 : con.hashCode());
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
 		result = prime * result + mag_no;
+		result = prime * result + open;
 		result = prime * result + pop;
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -158,6 +169,8 @@ public class Magazine_Vo {
 			return false;
 		if (mag_no != other.mag_no)
 			return false;
+		if (open != other.open)
+			return false;
 		if (pop != other.pop)
 			return false;
 		if (tags == null) {
@@ -179,6 +192,5 @@ public class Magazine_Vo {
 			return false;
 		return true;
 	}
-	
 	
 }

@@ -7,55 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../js/jquery-1.12.4.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../ckeditor/ckeditor.js"></script>
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="../css/main.css" rel="stylesheet">
 	<title>Home</title>
-<script type="text/javascript">
- $(function(){
-	 $('#preview').hide();
-	 
-	 $('#img').on('change', function() {
-	        
-	        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-	        
-	        //배열에 추출한 확장자가 존재하는지 체크
-	        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-	            resetFormElement($(this)); //폼 초기화
-	            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-	        } else {
-	            file = $('#img').prop("files")[0];
-	            blobURL = window.URL.createObjectURL(file);
-	            $('#preview img').attr('src', blobURL);
-	            $('#preview').slideDown(); //업로드한 이미지 미리보기 
-	            $(this).slideUp(); //파일 양식 감춤
-	        }
-	    });
-	 $('#preview button').bind('click', function() {
-	        resetFormElement($('#img')); //전달한 양식 초기화
-	        $('#img').slideDown(); //파일 양식 보여줌
-	        $(this).parent().slideUp(); //미리 보기 영역 감춤
-	        return false; //기본 이벤트 막음
-	    });
-	 
-	 function resetFormElement(e) {
-	        e.wrap('<form>').closest('form').get(0).reset(); 
-	        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
-	        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
-	        //DOM에서 제공하는 초기화 메서드 reset()을 호출
-	        e.unwrap(); //감싼 <form> 태그를 제거
-	    }
-	  
- });
-</script>
-<style type="text/css">
-	#control_img { /* div에 주는것도 좋은 방법임. */
-		width: 200px;
-		height: 200px;
-	}
-
-</style>
 </head>
 <body>
 	<!--header-->
@@ -114,84 +69,23 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
-            <!-- TODO: 내용입력 -->
-            <!-- add-page 입니다. -->
-            <form action="/reset/admin/event" method="post" enctype="multipart/form-data" id="event_addForm">
-            	<div>
-	            	<label for="img">대표이미지</label>
-	            	<input type="file" name="img" id="img">
-            	</div>
-            	<div id="preview">
-            		<img src="#" id="control_img">
-            		<button type="button">대표이미지 삭제</button>
-            	</div>
-            	<div>
-	            	<label for="title">제목</label>
-	            	<input type="text" name="title" id="title">
-            	</div>
-            	<div>
-	            	<label for="con">내용</label>
-			        <textarea name="con" id="con" style="width: 700px; height: 400px;"></textarea>
-			        <!-- ckeditor를 사용하여 서버로 이미지를 올리고 다시 불러오는 설정입니다. -->
-			        <script>
-				    $(function(){
-				         
-				        CKEDITOR.replace( 'con', {//해당 이름으로 된 textarea에 에디터를 적용
-				            width:'100%',
-				            height:'400px',
-				            filebrowserImageUploadUrl: '/reset/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
-				        });
-				         
-				         
-				        CKEDITOR.on('dialogDefinition', function( ev ){
-				            var dialogName = ev.data.name;
-				            var dialogDefinition = ev.data.definition;
-				          
-				            switch (dialogName) {
-				                case 'image': //Image Properties dialog
-				                    //dialogDefinition.removeContents('info');
-				                    dialogDefinition.removeContents('Link');
-				                    dialogDefinition.removeContents('advanced');
-				                    break;
-				            }
-				        });
-				         
-				    });
-				</script>
-            	</div>
-            	<div>
-	            	<label for="tags">해시태그</label>
-	            	<input type="text" name="tags" id="tags">
-            	</div>
-            	<div>
-            		<button type="submit" id="addBtn">등록</button>
-            		<button type="reset">취소</button>
-            	</div>
-            </form>
-            <script type="text/javascript">
-	       	 $("#addBtn").on('submit',function(event){
-	    		 event.preventDefault();
-	    		 var formData = new FormData($("#event_addForm")[0]);
-	    	
-	    	     $.ajax({
-	    	       type:"post",
-	    	       enctype: 'multipart/form-data',
-	    	       data : formData,
-	    	       url: "/reset/admin/event",
-	    	       contentType: false,
-	    	       processData: false,
-	    	       dataType: "Text"
-	    	    }) 
-	    	    .done(function(data){
-	    	       console.log("전송"); 
-	    	         
-	    	     })
-	    	    .fail(function () { // 실패했을때 불러질 함수
-	    	       console.error('데이터 입력 실패');
-	    	    })  
-	    	 });
-            
-            </script>
+            <!-- eve_addr list-page 입니다. -->
+            <c:forEach items="${alist }" var="bean">
+            <div class="list-group">
+            	<div class="row">
+				  <div class="col-sm-6 col-md-4">
+				    <div class="thumbnail">
+				      <a href="/reset/admin/eveaddr/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+				      <div class="caption">
+				        <a href="/reset/admin/eveaddr/${bean.eve_no}"><h3>${bean.title}</h3></a>
+				        <p>${bean.nalja}</p>
+				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+            </div>
+			</c:forEach>
 			<!-- 내용 끝 -->
         <hr>
     </div>

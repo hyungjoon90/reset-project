@@ -6,13 +6,13 @@ public class Eve_addr_Vo {
 	private String email;
 	private String name;
 	private String address;
-	private int phone;
+	private String phone;
 	private int postcode;
 
 	public Eve_addr_Vo() {
 	}
 
-	public Eve_addr_Vo(int add_no, int eve_no, String email, String name, String address, int phone, int postcode) {
+	public Eve_addr_Vo(int add_no, int eve_no, String email, String name, String address, String phone, int postcode) {
 		super();
 		this.add_no = add_no;
 		this.eve_no = eve_no;
@@ -21,6 +21,12 @@ public class Eve_addr_Vo {
 		this.address = address;
 		this.phone = phone;
 		this.postcode = postcode;
+	}
+
+	@Override
+	public String toString() {
+		return "Eve_addr_Vo [add_no=" + add_no + ", eve_no=" + eve_no + ", email=" + email + ", name=" + name
+				+ ", address=" + address + ", phone=" + phone + ", postcode=" + postcode + "]";
 	}
 
 	public int getAdd_no() {
@@ -63,11 +69,11 @@ public class Eve_addr_Vo {
 		this.address = address;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -80,12 +86,6 @@ public class Eve_addr_Vo {
 	}
 
 	@Override
-	public String toString() {
-		return "Eve_addrVo [add_no=" + add_no + ", eve_no=" + eve_no + ", email=" + email + ", name=" + name
-				+ ", address=" + address + ", phone=" + phone + ", postcode=" + postcode + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -94,7 +94,7 @@ public class Eve_addr_Vo {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + eve_no;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + phone;
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + postcode;
 		return result;
 	}
@@ -127,12 +127,14 @@ public class Eve_addr_Vo {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (phone != other.phone)
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
 			return false;
 		if (postcode != other.postcode)
 			return false;
 		return true;
 	}
-	
 	
 }

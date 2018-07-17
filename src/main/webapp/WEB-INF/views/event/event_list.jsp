@@ -69,8 +69,8 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 -->
-            <!-- list-page 입니다. -->
-			<a href="./event/add" class="btn btn-primary">글쓰기</a>
+            <!-- Event list-page 입니다. -->
+			<a href="/reset/admin/event/add" class="btn btn-primary">글쓰기</a>
             <c:forEach items="${alist }" var="bean">
             <div class="list-group">
             	<div class="row">

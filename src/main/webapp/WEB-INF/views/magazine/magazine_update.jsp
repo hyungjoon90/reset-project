@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../ckeditor/ckeditor.js"></script>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
+<script src="../../js/jquery-1.12.4.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../ckeditor/ckeditor.js"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/main.css" rel="stylesheet">
 	<title>Home</title>
 <script type="text/javascript">
  $(function(){
@@ -28,7 +28,8 @@
 	            file = $('#img').prop("files")[0];
 	            blobURL = window.URL.createObjectURL(file);
 	            $('#preview img').attr('src', blobURL);
-	            $('#preview').slideDown(); //업로드한 이미지 미리보기 
+	            $('#preview').slideDown(); //업로드한 이미지 미리보기
+	            $('#Existing_img').hide();
 	            $(this).slideUp(); //파일 양식 감춤
 	        }
 	    });
@@ -45,11 +46,12 @@
 	        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
 	        //DOM에서 제공하는 초기화 메서드 reset()을 호출
 	        e.unwrap(); //감싼 <form> 태그를 제거
-	    }
-	  
+	    } 
+	 
  });
 </script>
 <style type="text/css">
+	/* 미리보기 이미지 사이즈 */
 	#control_img { /* div에 주는것도 좋은 방법임. */
 		width: 200px;
 		height: 200px;
@@ -113,25 +115,30 @@
     <!-- main contents -->
     <div class="page_container">
         <hr>
-            <!-- 내용 입력 -->
-            <!-- TODO: 내용입력 -->
-            <!-- add-page 입니다. -->
-            <form action="/reset/admin/event" method="post" enctype="multipart/form-data" id="event_addForm">
-            	<div>
+        	<!-- 내용 입력 시작-->
+            <!-- Magazine update-page 입니다. -->
+            <form method="post"  action="/reset/admin/magazine/${detail.mag_no}/update" enctype="multipart/form-data" id="magazine_updateForm">
+           		<!-- <input type="hidden" name="_method" value="put"/> -->
+	            <div>
+	            	<label for="mag_no"></label>
+	            	<input type="text" name="mag_no" id="mag_no" value="${detail.mag_no }" >
+	            </div>
+	            <div>
 	            	<label for="img">대표이미지</label>
+	            	<div name="Existing_img" id="Existing_img"><img src="..${detail.img}"></div>
 	            	<input type="file" name="img" id="img">
             	</div>
             	<div id="preview">
             		<img src="#" id="control_img">
             		<button type="button">대표이미지 삭제</button>
             	</div>
-            	<div>
+	            <div>
 	            	<label for="title">제목</label>
-	            	<input type="text" name="title" id="title">
-            	</div>
-            	<div>
+	            	<input type="text" name="title" id="title" value="${detail.title }" >
+	            </div>
+	            <div>
 	            	<label for="con">내용</label>
-			        <textarea name="con" id="con" style="width: 700px; height: 400px;"></textarea>
+			        <textarea name="con" id="con" >${detail.con }</textarea>
 			        <!-- ckeditor를 사용하여 서버로 이미지를 올리고 다시 불러오는 설정입니다. -->
 			        <script>
 				    $(function(){
@@ -160,31 +167,40 @@
 				</script>
             	</div>
             	<div>
+            		<label for="cate">카테고리</label>
+            		<select name="cate" id="cate">
+            			<option value=1 <c:if test="${detail.cate}==1">selected</c:if>>신상&amp;트렌드</option>
+            			<option value=2 <c:if test="${detail.cate}==2">selected</c:if>>화장품 펙트체크</option>
+            			<option value=3 <c:if test="${detail.cate}==3">selected</c:if>>인기템 리뷰</option>
+            			<option value=4 <c:if test="${detail.cate}==4">selected</c:if>>다이어트&amp;운동</option>
+            		</select>
+            	</div>
+	            <div>
 	            	<label for="tags">해시태그</label>
-	            	<input type="text" name="tags" id="tags">
+	            	<input type="text" name="tags" id="tags" value="${detail.tags }">
             	</div>
-            	<div>
-            		<button type="submit" id="addBtn">등록</button>
-            		<button type="reset">취소</button>
-            	</div>
-            </form>
-            <script type="text/javascript">
-	       	 $("#addBtn").on('submit',function(event){
-	    		 event.preventDefault();
-	    		 var formData = new FormData($("#event_addForm")[0]);
-	    	
+
+			<button type="reset" class="btn btn-primary">목록</button>
+			<button type="submit" class="btn btn-warning" id="updateBtn">수정</button>
+			</form>
+			<script type="text/javascript">
+	       	 $("#updateBtn").on('submit',function(event){
+	       		 event.preventDefault();
+	    		 var mag_no=${detail.mag_no};
+	    		 console.log(eve_no);
+	    		 var formData = new FormData($("#magazine_updateForm")[0]);
+	    		 console.log(formData);
 	    	     $.ajax({
-	    	       type:"post",
+	    	       type:'post',
 	    	       enctype: 'multipart/form-data',
 	    	       data : formData,
-	    	       url: "/reset/admin/event",
+	    	       url: '/reset/admin/magazine/'+mag_no+'/update',
 	    	       contentType: false,
 	    	       processData: false,
 	    	       dataType: "Text"
 	    	    }) 
 	    	    .done(function(data){
 	    	       console.log("전송"); 
-	    	         
 	    	     })
 	    	    .fail(function () { // 실패했을때 불러질 함수
 	    	       console.error('데이터 입력 실패');
@@ -192,7 +208,7 @@
 	    	 });
             
             </script>
-			<!-- 내용 끝 -->
+            <!-- 내용 입력 끝 -->
         <hr>
     </div>
     <!-- //main contents -->

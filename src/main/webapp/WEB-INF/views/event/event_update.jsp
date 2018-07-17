@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../ckeditor/ckeditor.js"></script>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
+<script src="../../js/jquery-1.12.4.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../ckeditor/ckeditor.js"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/main.css" rel="stylesheet">
 	<title>Home</title>
 <script type="text/javascript">
  $(function(){
@@ -118,7 +118,7 @@
             <!-- 내용 입력 -->
             <!-- TODO:이벤트 업데이트 페이지 입니다. -->
             <!-- update-page 입니다. -->
-            <form method="post"  action="/reset/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm">
+            <form method="post"  action="/reset/admin/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm">
            		<!-- <input type="hidden" name="_method" value="put"/> -->
 	            <div>
 	            	<label for="eve_no"></label>
@@ -126,7 +126,7 @@
 	            </div>
 	            <div>
 	            	<label for="img">대표이미지</label>
-	            	<div name="Existing_img" id="Existing_img"><img src="..${detail.img}"></div>
+	            	<div name="Existing_img" id="Existing_img"><img src="../..${detail.img}"></div>
 	            	<input type="file" name="img" id="img">
             	</div>
             	<div id="preview">
@@ -186,7 +186,7 @@
 	    	       type:'post',
 	    	       enctype: 'multipart/form-data',
 	    	       data : formData,
-	    	       url: '/reset/event/'+eve_no+'/update',
+	    	       url: '/reset/admin/event/'+eve_no+'/update',
 	    	       contentType: false,
 	    	       processData: false,
 	    	       dataType: "Text"

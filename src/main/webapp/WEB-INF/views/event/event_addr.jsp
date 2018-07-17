@@ -5,12 +5,80 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+<script src="../../js/jquery-1.12.4.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/main.css" rel="stylesheet">
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 	<title>Home</title>
+<script type="text/javascript">
+var element_layer;
+function sample2_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            var fullAddr = data.address; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 기본 주소가 도로명 타입일때 조합한다.
+            if(data.addressType === 'R'){
+                //법정동명이 있을 경우 추가한다.
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있을 경우 추가한다.
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('zipNo').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('roadAddrPart1').value = fullAddr;
+            element_layer.style.display = 'none';
+        },
+        width : '100%',
+        height : '100%',
+        maxSuggestItems : 5,
+        onclose: function(state) {
+            if(state === 'FORCE_CLOSE'){
+                //사용자가 브라우저 닫기 버튼을 통해 팝업창을 닫았을 경우, 실행될 코드를 작성하는 부분입니다.
+				$('#address_modal').modal('hide')
+            } else if(state === 'COMPLETE_CLOSE'){
+                //사용자가 검색결과를 선택하여 팝업창이 닫혔을 경우, 실행될 코드를 작성하는 부분입니다.
+                //oncomplete 콜백 함수가 실행 완료된 후에 실행됩니다.
+                $('#address_modal').modal('hide')
+            }
+        }
+    }).embed(element_layer,{autoClose:true});
+
+    // iframe을 넣은 element를 보이게 한다.
+    element_layer.style.display = 'block';
+    initLayerPosition();
+}
+function initLayerPosition(){
+    var width = 250; //우편번호서비스가 들어갈 element의 width
+    var height = 500; //우편번호서비스가 들어갈 element의 height
+    var borderWidth = 1; //샘플에서 사용하는 border의 두께
+
+    // 위에서 선언한 값들을 실제 element에 넣는다.
+    //element_layer.style.width = width + 'px';
+    element_layer.style.height = height + 'px';
+    element_layer.style.border = borderWidth + 'px solid';
+}
+$(function(){
+	$('#address_modal').on('show.bs.modal', function (e) {
+		element_layer = document.getElementById('layer');
+		sample2_execDaumPostcode();
+		});
+	$('#address_modal').on('hide.bs.modal',function(e){
+	    $('#addrDetail').focus();
+	});
+});// end document.onload
+</script>
 </head>
 <body>
 	<!--header-->
@@ -68,49 +136,43 @@
     <!-- main contents -->
     <div class="page_container">
         <hr>
-        	<!-- 내용 입력 -->
-            <!-- Magazine list-page 입니다. -->
-            <a href="/reset/admin/magazine/add" class="btn btn-primary">글쓰기</a>
-            <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
-            <select name="cate" id="cate">
-            	<option value="99">전체 콘텐츠</option>
-            	<option value="1">신상&amp;트렌드</option>
-            	<option value="2">화장품 펙트체크</option>
-            	<option value="3">인기템 리뷰</option>
-            	<option value="4">다이어트&amp;운동</option>
-            </select>
-            <script type="text/javascript">
-            $("#cate").change(function(){
-            	var cate=$("#cate option:selected").val();
-            	$.ajax({
-    				type: 'get',
-    				url:'/reset/magazine/ajax',
-    				data:"cate="+cate,
-    				dataType:'text',
-    				success:function(result){
-    					$("#listTarget").html(result);
-    				}
-    			});
-            });
-            </script>
-            <div id="listTarget">
-            <c:forEach items="${alist }" var="bean">
-            <div class="list-group">
-            	<div class="row">
-				  <div class="col-sm-6 col-md-4">
-				    <div class="thumbnail">
-				      <a href="magazine/${bean.mag_no}"><img src="${bean.img}" alt="main_img"></a>
-				      <div class="caption">
-				        <a href="magazine/${bean.mag_no}"><h3>${bean.title}</h3></a>
-				        <p><img src="#" alt="카테고리" class="cate"/>${bean.cate }</p>
-				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
-				      </div>
-				    </div>
-				  </div>
+            <!-- 내용 입력 시작-->
+	       	<div class="">
+			배경이미지 있음
+			<form method="post" action="/reset/event/${event}/addr">
+				<div>
+					<input type="hidden" name="eve_no" id="eve_no" value="${event}">
 				</div>
-            </div>
-			</c:forEach>
+				<div>
+					<label for="email">이메일(ID)</label>			
+					<input type="email" name="email" id="email" class="" value="" />
+				</div>
+				<div>
+					<label for="name">받는사람 이름</label>			
+					<input type="text" name="name" id="name" class="" value="" />
+				</div>
+				<div>
+					<label for="phone">연락처</label>			
+					<input type="text" name="phone" id="phone" class="" value="" />
+				</div>
+				<div>
+					<label for="">주소</label><a href=""  class="btn btn-primary"  data-toggle="modal" data-target=".bs-example-modal-sm">주소검색</a>
+					<input type="text"  style="width:500px;" id="zipNo"  name="zipNo" />
+					<input type="text"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" />
+					<input type="text"  style="width:500px;" id="addrDetail"  name="addrDetail" />
+				</div>
+				<div>
+					<button type="submit">이벤트 참가</button>
+					<button type="reset">취소</button>
+				</div>
+			</form>
+			<div id="address_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+			  <div class="modal-dialog modal-sm" role="document">
+			    <div id="layer" class="modal-content"></div>
+			  </div>
 			</div>
+			</div>
+           	<!-- 내용 입력 끝 -->
         <hr>
     </div>
     <!-- //main contents -->
@@ -146,6 +208,5 @@
         </div>
     </div>
     <!--//footer-->    
-
 </body>
 </html>
