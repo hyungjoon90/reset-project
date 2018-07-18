@@ -15,7 +15,6 @@ public class Qna_Vo {
 	
 
 	public Qna_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	

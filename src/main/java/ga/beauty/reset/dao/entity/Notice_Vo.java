@@ -11,7 +11,6 @@ public class Notice_Vo {
 	private Date nalja; 	//��¥
 	
 	public Notice_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Notice_Vo(int no_no, String title, String content, Date nalja) {

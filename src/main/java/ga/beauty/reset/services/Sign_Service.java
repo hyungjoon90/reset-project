@@ -50,6 +50,7 @@ public class Sign_Service {
 			String newPw = null;
 			if(userBean.getUser_type().equals("일반")) {
 			// salt 값으로 사업자번호
+			// 뒤에 붙임.
 				newPw = PasswordUtil.getEncryptSHA256(userBean.getPassword()+companyBean.getBisnum());
 				userBean.setPassword(newPw);
 			}

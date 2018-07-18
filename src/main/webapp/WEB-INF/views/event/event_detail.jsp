@@ -81,7 +81,7 @@
 	            <div>${detail.pop }</div>
 	            <div>${detail.view }</div>
 	            <!-- TODO:이벤트 주소입력 으로 가는곳입니다. -->
-				<a href="/reset/event/${detail.eve_no}/addr"></a><img alt="event_submit" src="#"></a>
+				<a href="/reset/event/${detail.eve_no}/addr"></a><img alt="event_submit" src="#">
 			<button type="reset" class="btn btn-primary">목록</button>
 			<button type="submit" class="btn btn-warning">수정</button>
 			</form>

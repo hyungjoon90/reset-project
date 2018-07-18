@@ -12,9 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class Home_Controller {
 	
@@ -26,6 +23,7 @@ public class Home_Controller {
         String ip = req.getHeader("X-FORWARDED-FOR");
         if (ip == null) ip = req.getRemoteAddr();		
         logger.info("@접속@"+"{ip:"+ip+", locale:"+locale+"}");
+        // XXX 여기에 login-listener 올리자
 		return "index";
 	}
 	

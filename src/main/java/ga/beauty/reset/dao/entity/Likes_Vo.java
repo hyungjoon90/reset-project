@@ -11,7 +11,6 @@ public class Likes_Vo {
 	
 	
 	public Likes_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Likes_Vo(int like_no, String email, Date nalja, String type, int p_no) {

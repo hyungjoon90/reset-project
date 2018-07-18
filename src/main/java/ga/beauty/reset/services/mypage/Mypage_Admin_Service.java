@@ -19,6 +19,7 @@ public class Mypage_Admin_Service {
 	
 	
 	// 통계 객체로 필요한것들 18-01 18-02 등등
+	// 이때 맵은 data : List인데 이놈을 컨트롤러에서 objectMapper로 처리한다.
 	public Map<String, Object> getInfoAsMap(String command, HttpSession session, HttpServletRequest req) {
 		return null;
 	}	

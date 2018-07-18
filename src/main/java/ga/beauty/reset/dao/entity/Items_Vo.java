@@ -17,7 +17,6 @@ public class Items_Vo {
 	private int open;
 	
 	public Items_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Items_Vo(int item, String name, String img, String brand, String vol, int price, double tot, int oil,

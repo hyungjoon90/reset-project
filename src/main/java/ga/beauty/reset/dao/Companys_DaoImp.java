@@ -32,17 +32,12 @@ public class Companys_DaoImp implements Companys_Dao {
 
 	@Override
 	public int updateOne(Companys_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		return sqlSession.update("companys.updateOne", bean);
 	}
 
 	@Override
 	public int deleteOne(Companys_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
-
 
 }

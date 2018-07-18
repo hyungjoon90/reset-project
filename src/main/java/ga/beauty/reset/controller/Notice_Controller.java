@@ -23,7 +23,6 @@ public class Notice_Controller {
 	
 	String view = "redirect:/admin/notice";
 	public Notice_Controller() {
-		// TODO Auto-generated constructor stub
 	}
 		
 	@RequestMapping(value="/admin/notice")

@@ -74,8 +74,6 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 			String temp=sb.toString();
 			bean.setImg(temp);
 		}
-		
-		
 		return sqlSession.update("reviews.reviewUpdate",bean);
 	}
 

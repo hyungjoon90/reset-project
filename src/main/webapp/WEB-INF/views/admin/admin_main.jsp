@@ -6,31 +6,37 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="${goRoot}css/admin/sb-admin.css" rel="stylesheet">
     <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
+    <link href="${goRoot}css/admin/morris.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="${goRoot}css/admin/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    
 <title>Insert title here</title>
 </head>
+
 <body>
-<body>
-	<!-- TODO: 해야함. -->
+
     <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="${goRoot}admin/">Reset-Admin</a>
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+			data-target=".navbar-ex1-collapse">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="${goRoot}admin/">Reset-Admin</a>
+	</div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
@@ -132,7 +138,59 @@
                     </ul>
                 </li>
             </ul>
-		<%@include file="/WEB-INF/template/admin_side_menu.jsp"%><
+
+	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+	<div class="collapse navbar-collapse navbar-ex1-collapse">
+		<ul class="nav navbar-nav side-nav">
+			<li class="active"><a href="${goRoot}admin/">Dashboard</a></li>
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu1">회원관리</a>
+				<ul id="menu1" class="collapse">
+					<li><a href="${goRoot}admin/member/normal/">일반회원</a></li>
+					<li><a href="${goRoot}admin/member/company/">기업회원</a></li>
+					<li><a href="${goRoot}admin/member/emp/">직원관리</a></li>
+				</ul>
+			</li>
+			<li><a href="${goRoot}admin/member/review/">리뷰</a></li>
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">매거진</a>
+				<ul id="menu2" class="collapse">
+					<li><a href="${goRoot}admin/member/normal/">전체보기</a></li>
+					<li><a href="${goRoot}admin/member/company/">글쓰기</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">이벤트</a>
+				<ul id="menu2" class="collapse">
+					<li><a href="${goRoot}admin/event/">전체보기</a></li>
+					<!--  ${goRoot}admin/event/addr/-->
+					<li><a href="${goRoot}admin/event/add/">글쓰기</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:;" data-toggle="collapse"
+				data-target="#menu3"><i class="fa fa-fw fa-arrows-v"></i> 상품관리 <i
+					class="fa fa-fw fa-caret-down"></i></a>
+				<ul id="menu3" class="collapse">
+					<li><a href="${goRoot}admin/item/">전체보기</a></li>
+					<li><a href="${goRoot}admin/item/add/">등록하기</a></li>
+				</ul></li>
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu4">통계</a>
+				<ul id="menu4" class="collapse">
+					<li><a href="${goRoot}admin/chart/login/">접속자수</a></li>
+					<li><a href="${goRoot}admin/chart/review/"></a>리뷰</li>
+					<li><a href="${goRoot}admin/chart/magzine/"></a>매거진</li>
+					<li><a href="${goRoot}admin/chart/event/"></a>이벤트</li>
+					<li><a href="${goRoot}admin/chart/like/"></a>좋아요</li>
+				</ul>
+			</li>
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu5">로그</a>
+				<ul id="menu5" class="collapse">
+					<li><a href="${goRoot}admin/log/">전체로그</a></li>
+					<li><a href="${goRoot}admin/log/error/"></a>에러로그</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</nav>
+<!-- /.navbar-collapse -->
+
 
         <div id="page-wrapper">
 
@@ -428,12 +486,4 @@
 
 </body>
 
-
-
-
-
-
-
-
-</body>
 </html>

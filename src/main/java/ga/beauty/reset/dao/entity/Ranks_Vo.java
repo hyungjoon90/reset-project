@@ -9,7 +9,6 @@ public class Ranks_Vo {
 	private int five;
 	
 	public Ranks_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Ranks_Vo(int item, int one, int two, int three, int four, int five) {

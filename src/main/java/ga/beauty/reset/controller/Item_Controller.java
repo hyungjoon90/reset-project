@@ -1,6 +1,5 @@
 package ga.beauty.reset.controller;
 
-import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.sql.SQLException;
 

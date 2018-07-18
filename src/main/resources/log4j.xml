@@ -11,21 +11,38 @@
 	</appender>
 	
 	<!-- 날짜별 로그 파일 생성 -->
-	<!-- TODO: 물어볼거 !! -->
-
 	<appender name="dayFile" class="org.apache.log4j.rolling.RollingFileAppender">
                 <!-- The active file to log to -->
                 <param name="file" value="c:/reset/applogs/weblog.log" />
                 <param name="append" value="true" />
                 <param name="encoding" value="UTF-8" />
+    			<param name="Threshold" value="INFO"/> 
                 <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
                         <!-- The file to roll to, this is a fairly intelligent parameter, if the file
                         ends in .gz, it gzips it, based on the date stamp it rolls at that time, 
                         default is yyyy-MM-dd, (rolls at midnight)
                         See: http://logging.apache.org/log4j/companions/extras/apidocs/org/apache/log4j/rolling/TimeBasedRollingPolicy.html -->
-                        <param name="FileNamePattern" value="/applogs/myportal/%d{yy-dd-mm}.weblog.log" />
+                        <param name="FileNamePattern" value="c:/reset/applogs/%d{yy-dd-mm}.weblog.log" />
                 </rollingPolicy>
-
+                <layout class="org.apache.log4j.PatternLayout">
+                        <!-- The log message pattern -->
+            <param name="ConversionPattern" value="[%d][%p]-%m%n" />                
+            </layout>
+        </appender>
+    <!-- 경고로그 -->    
+	<appender name="errorFile" class="org.apache.log4j.rolling.RollingFileAppender">
+                <!-- The active file to log to -->
+                <param name="file" value="c:/reset/applogs/errlog.log" />
+                <param name="append" value="true" />
+                <param name="encoding" value="UTF-8" />
+    			<param name="Threshold" value="ERROR"/> 
+                <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+                        <!-- The file to roll to, this is a fairly intelligent parameter, if the file
+                        ends in .gz, it gzips it, based on the date stamp it rolls at that time, 
+                        default is yyyy-MM-dd, (rolls at midnight)
+                        See: http://logging.apache.org/log4j/companions/extras/apidocs/org/apache/log4j/rolling/TimeBasedRollingPolicy.html -->
+                        <param name="FileNamePattern" value="c:/reset/applogs/%d{yy-dd-mm}.errlog.log" />
+                </rollingPolicy>
                 <layout class="org.apache.log4j.PatternLayout">
                         <!-- The log message pattern -->
             <param name="ConversionPattern" value="[%d][%p]-%m%n" />                
@@ -38,6 +55,11 @@
 		<appender-ref ref="console"/>
 		<appender-ref ref="dayFile"/>
 	</logger>
+	<logger name="errLog" additivity="false">  
+        <level value="ERROR"/>  
+        <appender-ref ref="errorFile"/>  
+    </logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

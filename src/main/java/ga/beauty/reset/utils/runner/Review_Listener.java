@@ -21,25 +21,25 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ga.beauty.reset.dao.entity.Likes_Vo;
+import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_C_Vo;
 import ga.beauty.reset.utils.MySDF;
 
-@Component(value="like_Lsn")
-public class Like_Listener implements Common_Listener{
+@Component(value="review_Lsn")
+public class Review_Listener implements Common_Listener {
 
-	Logger logger = Logger.getLogger(Like_Listener.class);
+	Logger logger = Logger.getLogger(Review_Listener.class);
 	
 	// like/yyyy/MM/dd.json
 	//{"data":[{"name":String,"num":int}]}
-	private String defaultFP = "c:/reset/report/like/";
+	private String defaultFP = "c:/reset/report/review/";
 	// 좋아요 총량 / 일별 증가량
 
 	private List<Log_C_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;
-
-	public Like_Listener() {
+	
+	public Review_Listener() {
 		init();
 	}
 	
@@ -66,15 +66,15 @@ public class Like_Listener implements Common_Listener{
 	@Async("threadPoolTaskExecutor")
 	@Override
 	public <T> Future<String> addLog(T bean, String type, int chNum) throws Exception {
-		if(bean instanceof Likes_Vo) {
-			Likes_Vo target = (Likes_Vo)bean;
+		if(bean instanceof Reviews_Vo) {
+			Reviews_Vo target = (Reviews_Vo)bean;
 			changeValue(target,type,chNum);
 		}
         return new AsyncResult<String>("Success");
 	}// addLog()
-
-	private void changeValue(Likes_Vo target, String type, int chNum) {
-		Log_C_Vo checkVo = new Log_C_Vo("좋아요",0);
+	
+	private void changeValue(Reviews_Vo target, String type, int chNum) {
+		Log_C_Vo checkVo = new Log_C_Vo("리뷰",0);
 		synchronized(this){
 			// 기존에 있는건지 확인
 			int maybeIdx = list.indexOf(checkVo);
@@ -85,12 +85,12 @@ public class Like_Listener implements Common_Listener{
 				checkVo.setNum(checkVo.getNum()+chNum);
 			}
 		}
-	}
+	}//changeValue()
 
 	@Override
 	public List getList() throws Exception {
 		return list;
-	}
+	}//getList()
 
 	@Override
 	public void saveLogOneday() throws Exception {
@@ -108,10 +108,10 @@ public class Like_Listener implements Common_Listener{
 			init();
 			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 				buffOut.write(sbr.toString());
-				logger.info("@저장@ ["+MySDF.SDF_ALL.format(date)+"]일의 좋아요수치가 저장되었습니다.");
+				logger.info("@저장@ ["+MySDF.SDF_ALL.format(date)+"]일의 리뷰수치가 저장되었습니다.");
 			}
 		}		
-	}
+	}// saveLogOneday()
 	
 	@Override
 	protected void finalize() throws Throwable {
@@ -130,5 +130,6 @@ public class Like_Listener implements Common_Listener{
 		}
 		sbr.append("]}");
 		return null;
-	}
-}// Like_Listener end
+	}//createJsonString()
+	
+}//Review_Listener
