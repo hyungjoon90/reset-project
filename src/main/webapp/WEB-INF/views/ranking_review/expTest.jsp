@@ -74,6 +74,27 @@ $(document).ready(function(){
 				}
 			}) 
 			.done(function(data){
+				/* var email=$("#email").val();
+				var type="review";
+				$.ajax({
+			    	type:'POST',
+					url: '/reset/exp',
+					data : JSON.stringify({
+						email : email,
+						type : type
+					}),
+					headers:{
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType: "text"
+				}) 
+				.done(function(data){
+					console.log(data);
+			 	})
+				.fail(function () { // 실패했을때 불러질 함수
+					console.error('데이터 수정 실패');
+				})  */
 				console.log(data);
 			 	if(data.result=="1"){
 					console.log("성공");
@@ -115,6 +136,23 @@ $(document).ready(function(){
 				}
 			}) 
 			.done(function(data){
+				/* var email=$("#email").val();
+				var type="review";
+				$.ajax({
+			    	type:'DELETE',
+					url: '/reset/exp',
+					data : JSON.stringify({
+						email : email,
+						type : type
+					}),
+					dataType: "text"
+				}) 
+				.done(function(data){
+					console.log(data);
+			 	})
+				.fail(function () { // 실패했을때 불러질 함수
+					console.error('데이터 수정 실패');
+				})  */
 				console.log(data);
 				if(data.result=="1"){
 					console.log("성공");

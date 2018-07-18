@@ -24,7 +24,7 @@ public class Exp_Controller {
 	Exp_Service exp_Service;
 	
 	@RequestMapping(value="/reset/exp/", method=RequestMethod.POST)
-	public void expUp(@RequestBody HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
+	public void expUp() throws IOException, SQLException {
 		log.debug("실행");
 //		log.debug("param: "+email+"/"+type);
 //		resp.getWriter().print(exp_Service.up(email,type));
