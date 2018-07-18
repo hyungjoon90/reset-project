@@ -191,6 +191,27 @@ function search_name(){
     	<h1>이름</h1>
     	<div class="name">
     	</div>
+    	<br>
+    	<h1>모든 제품</h1>
+    	<div>
+    	<c:forEach items="${alist }" var="bean">
+	    	<a href="./item/${bean.item }">
+				<div class="contentsbox">
+					<div class="numbox box">
+				         <label>○</label>
+					</div>
+					<div class="imgbox box">
+					     <img src="${goRoot}${bean.img }">
+					</div>
+					<div class="conbox box">
+		                <p>${bean.brand }</p>
+					    <p>${bean.name }</p>
+					    <p>${bean.vol }&nbsp;${bean.price }원</p>
+					</div>
+				</div>
+       		</a>
+     	</c:forEach>
+    	</div>
     </div>
     <!-- //main contents -->
 

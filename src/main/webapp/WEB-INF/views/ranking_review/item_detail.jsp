@@ -108,17 +108,21 @@
 </style>
 <script type="text/javascript">
 
+var page=10;
+var	pageTot=${tot};
 $(document).ready(function(){
-	$(".icon").click(function(){
+	$("#listAdd").click(function(){
 		reviewListadd();
+		if(page>pageTot){
+			$("#listAdd").hide();
+		}
 	});
 	$("#cart").click(function(){
-		cart();
 	});
 	
 	$('#review_write').on('shown.bs.modal', function () {
 	})	
-	 
+	
 	
 	$("#reivewAdd").on("click",function(){
 		    var item=${item_bean.item};
@@ -151,11 +155,14 @@ $(document).ready(function(){
 });
 	
 function reviewListadd(){
+	page+=5;
 	var item=${item_bean.item};
+	var Data= { "page": page};
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
 			url: "reviewadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
+			data: Data
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
@@ -275,12 +282,8 @@ function cart(){
                         <td>${item_bean.comp }</td>
                     </tr>
                     <tr>
-                        <td>태그</td>
-                        <td>
-                        	<c:forEach var="tag" items="${tags}">
-								<span>${tag }</span>
-							</c:forEach>
-						</td>
+                    	<td>네이버 가격정보</td>
+                        <td><a href="https://search.shopping.naver.com/search/all.nhn?query=${item_bean.name}">바로가기</a></td>
                     </tr>
                 </table>
             </div>
@@ -380,7 +383,7 @@ function cart(){
         </div>
         </a>
         </c:forEach>
-        <div class="icon">
+        <div id="listAdd" class="icon">
 	        <button type="button" class="btn btn-default btn-lg">
 	        	<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
 	        </button>

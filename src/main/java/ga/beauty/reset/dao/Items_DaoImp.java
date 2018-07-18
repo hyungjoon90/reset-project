@@ -19,6 +19,12 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	SqlSession sqlSession;
 	
 	@Override
+	public List<Items_Vo> itemAll() throws SQLException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("items.itemAll");
+	}
+	
+	@Override
 	public List<Items_Vo> rankAll(int cate) throws SQLException {
 		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
 		log.debug("DaoImp-rankAll-param: "+cate);

@@ -16,65 +16,11 @@
 
 $(document).ready(function(){
 	/* 좋아요 시작 */
-	
-	var email=$("#email").val();
-    /* var email=${email}; */
-    var p_no=$("#p_no").val();
-    /* var p_no=${p_no}; */
-	var type=$("#type").val();	    
-	/* var type=${type}; */		    
-    $.ajax({
-    	type:'post',
-		url: '/reset/like/'+type+'/'+p_no,
-		data : JSON.stringify({
-			email : email,
-			type : type,
-			p_no : p_no
-		}),
-		headers:{
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType: "text"
-	}) 
-	.done(function(data){
-		$("#result").val(data);
-		if($('#result').val()=="unlike"){
-			$('#unLikes').hide();
-		}else if($('#result').val()=="like"){
-			$('#Likes').hide();
-		}
- 	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 수정 실패');
-	})     
+
 	
 	
-	if($('#result').val()=="like"){
-		console.log("좋아요를 이미 누르셨습니다");
-	}else{
 	$("#Likes").on("click",function(){
-		    var email=$("#email").val();
-		    /* var email=${email}; */
-		    var p_no=$("#p_no").val();
-		    /* var p_no=${p_no}; */
-			var type=$("#type").val();	    
-			/* var type=${type}; */		    
-		    $.ajax({
-		    	type:'PUT',
-				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
-				data : JSON.stringify({
-					email : email,
-					type : type,
-					p_no : p_no
-				}),
-				headers:{
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "PUT"
-				}
-			}) 
-			.done(function(data){
-				/* var email=$("#email").val();
+			 var email=$("#email").val();
 				var type="review";
 				$.ajax({
 			    	type:'POST',
@@ -94,49 +40,11 @@ $(document).ready(function(){
 			 	})
 				.fail(function () { // 실패했을때 불러질 함수
 					console.error('데이터 수정 실패');
-				})  */
-				console.log(data);
-			 	if(data.result=="1"){
-					console.log("성공");
-					$("#Likes").hide();
-					$("#unLikes").show();
-					$("#result").val("like");
-					$("#su").val(data.like);
-				} else if(data=="0"){
-					alert("실패하였습니다.");
-				} 
-		 	})
-			.fail(function () { // 실패했을때 불러질 함수
-				console.error('데이터 수정 실패');
-			})     
+				}) 
 		})
-	}
-		
-    if($('#result').val()=="unlike"){
-    	console.log("좋아요를 누르지 않았습니다");
-    }else{
+  
 	$("#unLikes").on("click",function(){
-		    var email=$("#email").val();
-		    /* var email=${email}; */
-		    var p_no=$("#p_no").val();
-		    /* var p_no=${p_no}; */
-			var type=$("#type").val();	    
-			/* var type=${type}; */		    
-		    $.ajax({
-		    	type:'DELETE',
-				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
-				data : JSON.stringify({
-					email : email,
-					type : type,
-					p_no : p_no
-				}),
-				headers:{
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "DELETE"
-				}
-			}) 
-			.done(function(data){
-				/* var email=$("#email").val();
+				var email=$("#email").val();
 				var type="review";
 				$.ajax({
 			    	type:'DELETE',
@@ -145,6 +53,10 @@ $(document).ready(function(){
 						email : email,
 						type : type
 					}),
+					headers:{
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "DELETE"
+					},
 					dataType: "text"
 				}) 
 				.done(function(data){
@@ -152,24 +64,8 @@ $(document).ready(function(){
 			 	})
 				.fail(function () { // 실패했을때 불러질 함수
 					console.error('데이터 수정 실패');
-				})  */
-				console.log(data);
-				if(data.result=="1"){
-					console.log("성공");
-					$("#Likes").show();
-					$("#unLikes").hide();
-					$("#result").val("unlike");
-					$("#su").val(data.like);
-				} else if(data=="0"){
-					alert("실패하였습니다.");
-				} 
-		 	})
-			.fail(function () { // 실패했을때 불러질 함수
-				console.error('데이터 수정 실패');
-			})     
+				}) 
 		})
-    }
-    /* 좋아요 끝 */
     
 });
 	

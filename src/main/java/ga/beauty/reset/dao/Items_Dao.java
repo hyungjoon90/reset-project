@@ -6,6 +6,8 @@ import ga.beauty.reset.dao.entity.Items_Vo;
 
 public interface Items_Dao<C> {
 	
+	//item search 페이지에서만 사용
+	List<C> itemAll() throws SQLException;
 	//ranking 페이지에서만 사용
 	List<C> rankAll(int type) throws SQLException;
 	//rank 추가

@@ -20,7 +20,13 @@
   	<update id="reviewUpdate" parameterType="reviews_Vo">
   		UPDATE review SET IMG=#{img}, GOOD=#{good},BAD=#{bad},TIP=#{tip},STAR=#{star},POP=#{pop} WHERE ITEM=#{item} AND REV_NO=#{rev_no}
   	</update>
-  	<delete id="reviewDelete" parameterType="int">
+  <!-- 	<delete id="reviewDelete" parameterType="int">
   		DELETE FROM REVIEW WHERE ITEM=#{item} AND REV_NO=#{rev_no}
-  	</delete>
+  	</delete> -->
+  	<update id="reviewDelete" parameterType="int">
+  		UPDATE REVIEW SET OPEN=0 WHERE ITEM=#{item} AND REV_NO=#{rev_no}
+  	</update>
+  	<select id="reviewTot" resultType="int">
+  		SELECT COUNT(*) FROM REVIEW WHERE ITEM=#{item}
+  	</select>
   </mapper>

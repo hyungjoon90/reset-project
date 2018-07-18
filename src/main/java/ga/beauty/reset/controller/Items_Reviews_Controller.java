@@ -29,6 +29,7 @@ import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Items_Reviews_Controller {
+	//TODD 이미지 저장 경로 설정 해야함
 	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/upload_imgs";
 	Logger log=Logger.getLogger(getClass());
 	ObjectMapper mapper = new ObjectMapper();
@@ -76,10 +77,10 @@ public class Items_Reviews_Controller {
 	
 	// 리뷰 리스트 추가 ajax
 	@RequestMapping(value="/item/reviewadd", method=RequestMethod.GET)
-	public void reviews_list_add(@RequestParam("item") int item,HttpServletResponse resp) throws SQLException, IOException {
+	public void reviews_list_add(@RequestParam("item") int item,@RequestParam("page") int review_num,HttpServletResponse resp) throws SQLException, IOException {
 		log.debug("review-param: "+item);
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(mapper.writeValueAsString(reviews_DaoImp.reviewListAdd(item)));
+		resp.getWriter().print(mapper.writeValueAsString(reviews_DaoImp.reviewListAdd(item,review_num)));
 	}
 	
 	// 리뷰 작성

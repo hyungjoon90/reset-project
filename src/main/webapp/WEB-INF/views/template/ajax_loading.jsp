@@ -1,7 +1,7 @@
 <script>
 $(function(){
 	$(document).ajaxStart(function() {$('.wrap-loading').removeClass('display-none');});
-	$(document).ajaxStop(function() {$('.wrap-loading').addClass('display-none'););
+	$(document).ajaxStop(function() {$('.wrap-loading').addClass('display-none')});
 });
 </script>
 <style type="text/css" >

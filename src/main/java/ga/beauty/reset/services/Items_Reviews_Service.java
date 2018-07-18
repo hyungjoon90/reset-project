@@ -109,6 +109,7 @@ public class Items_Reviews_Service {
 		model.addAttribute("tags", list);
 		model.addAttribute("map", map);
 		model.addAttribute("review_bean", Reviews_Dao.reviewAll(item));
+		model.addAttribute("tot", Reviews_Dao.reviewTot(item));
 	}
 	
 	// 리뷰 추가
@@ -172,7 +173,7 @@ public class Items_Reviews_Service {
 		if(!bean.getImg().equals("")) {
 			log.debug("확인"+bean.getImg());
 			String temp=bean.getImg();
-			String[] temp2=temp.split("s_");
+			String[] temp2=temp.split("#@#");
 			bean.setImg(temp2[0]+temp2[1]);
 		}
 		
@@ -184,7 +185,18 @@ public class Items_Reviews_Service {
 	// 리뷰 수정페이지
 	public int review_updatePage(int option,Reviews_Vo bean) throws SQLException, IOException {
 		log.debug("updatePage param: "+option+" "+bean);
-		return Reviews_Dao.reviewUpdate(option,bean);
+		
+		if(option==1) {
+			log.debug("확인"+bean.getImg());
+			StringBuffer sb=new StringBuffer(bean.getImg());
+			//TODO 이미지 경로 26번째 자리 확인
+			sb.insert(26,"#$#");
+			log.debug("재확인: "+sb);
+			String temp=sb.toString();
+			bean.setImg(temp);
+		}
+
+		return Reviews_Dao.reviewUpdate(bean);
 	}
 	
 	// 리뷰 삭제페이지

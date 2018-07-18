@@ -4,7 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="items">
-  <select id="rankAll" resultType="items_Vo">
+  
+  	<select id="itemAll" resultType="items_Vo">
+  		SELECT * FROM ITEMS
+  	</select>
+  	<select id="rankAll" resultType="items_Vo">
   		SELECT * FROM ITEMS WHERE CATE=#{cate} AND OPEN=1 ORDER BY TOT DESC LIMIT 10
   	</select>
   	<select id="rankListAdd" resultType="items_Vo">

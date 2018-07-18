@@ -2,6 +2,7 @@ package ga.beauty.reset.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,16 +24,25 @@ public class Exp_Controller {
 	@Autowired
 	Exp_Service exp_Service;
 	
-	@RequestMapping(value="/reset/exp/", method=RequestMethod.POST)
-	public void expUp() throws IOException, SQLException {
-		log.debug("실행");
-//		log.debug("param: "+email+"/"+type);
-//		resp.getWriter().print(exp_Service.up(email,type));
+	@RequestMapping(value="/exp",method=RequestMethod.GET)
+	public String exp() {
+	
+		return "ranking_review/expTest";
 	}
 	
-	@RequestMapping(value="/reset/exp/", method=RequestMethod.DELETE)
-	public void expdown(@RequestParam("email") String email,@RequestParam("type") String type, HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
-		log.debug("param: "+email+"/"+type);
+	@RequestMapping(value="/exp", method=RequestMethod.POST)
+	public void expUp(@RequestBody Map map,HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
+		log.debug("param: "+map.get("email")+"/"+map.get("type"));
+		String email=map.get("email").toString();
+		String type=map.get("type").toString();
+		resp.getWriter().print(exp_Service.up(email,type));
+	}
+	
+	@RequestMapping(value="/exp", method=RequestMethod.DELETE)
+	public void expdown(@RequestBody Map map,HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
+		log.debug("param: "+map.get("email")+"/"+map.get("type"));
+		String email=map.get("email").toString();
+		String type=map.get("type").toString();
 		resp.getWriter().print(exp_Service.down(email,type));
 	}
 }

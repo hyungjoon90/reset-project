@@ -26,7 +26,8 @@ import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Item_Controller {
-	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/item_imgs";
+	//TODD 이미지 저장 경로 설정 해야함
+ 	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/item_imgs";
 	String essence="/essence";
 	String lotion="/lotion";
 	String skin="/skin";
@@ -55,9 +56,10 @@ public class Item_Controller {
 	
 	// admin 아이템 검색 페이지 이동
 	@RequestMapping(value="/admin/item",method=RequestMethod.GET)
-	public String admin_item_page(Model model) {
+	public String admin_item_page(Model model) throws SQLException {
 		goRoot="../";
 		model.addAttribute("goRoot", goRoot);
+		model.addAttribute("alist", items_DaoImp.itemAll());
 		return "item/admin_item_search";
 	}
 	
