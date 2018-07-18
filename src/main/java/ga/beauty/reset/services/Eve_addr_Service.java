@@ -21,6 +21,6 @@ public class Eve_addr_Service {
 	}
 	
 	public void addPage(Eve_addr_Vo bean) throws SQLException{
-		commonDao.insertOne(bean);
+		commonDao.insertOne(bean); // XXX 이벤트주소 추가시점
 	}
 }
