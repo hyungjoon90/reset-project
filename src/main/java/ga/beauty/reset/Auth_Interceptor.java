@@ -27,7 +27,7 @@ public class Auth_Interceptor extends HandlerInterceptorAdapter{
         	logger.info("@비정상접속@"+"{ip:"+ip+", locale:"+locale+"}");
 			response.sendRedirect("/login/");
 			return false;
-		}*/
+		}*/ // TODO 이거 나중에 살려야됨.
 		return super.preHandle(request, response, handler);
 	}
 	

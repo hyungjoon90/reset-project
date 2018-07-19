@@ -14,18 +14,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import javax.annotation.PreDestroy;
+
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_EM_Vo;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
 @Component(value="mag_Lsn")
@@ -46,10 +49,32 @@ public class Magzine_Listener implements Common_Listener{
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
-	public Magzine_Listener() {
+	public Magzine_Listener() throws IOException {
 		init();
 	}
 
+	private void init() throws IOException {
+		list = new ArrayList<Log_EM_Vo>();
+		objectMapper = new ObjectMapper();
+		Date date = new Date();
+		String filename =  
+				defaultFP + MySDF.SDF_Y.format(date)
+				+"/"+MySDF.SDF_M.format(date)
+				+"/"+MySDF.SDF_D.format(date)
+				+".json";
+		File file = new File(filename);
+		if(!file.exists()) {
+			new File(file.getParent()).mkdirs();
+		}else {
+			try {
+				node = objectMapper.readTree(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_EM_Vo>>(){});
+		}		
+	}
+	
 	@Async("threadPoolTaskExecutor")
 	@Override
 	public <T> Future<String> addLog(T bean, String type, int chNum) throws Exception {
@@ -89,7 +114,10 @@ public class Magzine_Listener implements Common_Listener{
 
 
 	@Override
+	@Async("threadPoolTaskExecutor")
+	@Scheduled(cron=" 0 3 0 * * *\r\n" )
 	public void saveLogOneday() throws Exception {
+		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Calendar cal = new GregorianCalendar();
 			cal.add(Calendar.DATE, -1);
@@ -100,36 +128,51 @@ public class Magzine_Listener implements Common_Listener{
 					+"/"+MySDF.SDF_D.format(date)
 					+".json";
 			File file = new File(filename);
+			if(!file.exists()) {
+				new File(file.getParent()).mkdirs();
+			}
 			StringBuilder sbr = createJsonString();
-			init();
 			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 				buffOut.write(sbr.toString());
-				logger.info("@저장@ ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 저장되었습니다.");
+				buffOut.flush();
+				logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 저장되었습니다.");
 			}
+			init();
 		}
 	}//
 	
-	private void init() {
-		list = new ArrayList<Log_EM_Vo>();
-		objectMapper = new ObjectMapper();
-		Date date = new Date();
-		String filename =  
-				defaultFP + MySDF.SDF_Y.format(date)
-				+"/"+MySDF.SDF_M.format(date)
-				+"/"+MySDF.SDF_D.format(date)
-				+".json";
-		File file = new File(filename);
-		if(file.exists()) {
-			try {
-				node = objectMapper.readTree(file);
-			} catch (IOException e) {
-				e.printStackTrace();
+	
+	@Override
+	@PreDestroy
+	public void saveTmp() throws Exception {
+		System.out.println("매거진"); // TODO 안됨 해결해야됨.
+		if(list.size()==0) {return ;}
+		synchronized (this) {
+			Date date = new Date();
+			String filename =  
+					defaultFP + MySDF.SDF_Y.format(date)
+					+"/"+MySDF.SDF_M.format(date)
+					+"/"+MySDF.SDF_D.format(date)
+					+".json";
+			File file = new File(filename);
+			if(!file.exists()) {
+				new File(file.getParent()).mkdirs();
 			}
-			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_EM_Vo>>(){});
-		}		
+			StringBuilder sbr = createJsonString();
+			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
+				buffOut.write(sbr.toString());
+				buffOut.flush();
+				logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 임시저장 되었습니다.");
+			}
+		}
 	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		saveTmp();
+	}// finalize()
+	
 
-	@Async("threadPoolTaskExecutor")
 	private StringBuilder createJsonString(){
 		StringBuilder sbr = new StringBuilder("{\"data\":[");
 		Collections.sort(list, new Comparator<Log_EM_Vo>() {
@@ -151,11 +194,5 @@ public class Magzine_Listener implements Common_Listener{
 		return sbr;
 	}
 	
-	
-	@Override
-	protected void finalize() throws Throwable {
-		saveLogOneday();
-		super.finalize();
-	}
 	
 }

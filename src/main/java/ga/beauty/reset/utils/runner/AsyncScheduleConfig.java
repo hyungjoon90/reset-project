@@ -8,28 +8,32 @@ import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.scheduling.SchedulingTaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 @EnableAsync
-public class AsyncConfig {
+@EnableScheduling
+public class AsyncScheduleConfig {
 
 	/* 출처 : http://dveamer.github.io/java/SpringAsync.html
+	 * 출처 : https://blog.outsider.ne.kr/1066
 	 * 공부해야됩니다.
 	 * */
-    Logger errorLogger = Logger.getLogger("errLog");
+    Logger errorLogger = Logger.getLogger(AsyncScheduleConfig.class);
     @Bean(name = "threadPoolTaskExecutor")
     public Executor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-        taskExecutor.setCorePoolSize(3);
-        taskExecutor.setMaxPoolSize(30);
+        taskExecutor.setCorePoolSize(5);
+        taskExecutor.setMaxPoolSize(40);
         taskExecutor.setQueueCapacity(10);
         taskExecutor.setThreadNamePrefix("Executor-");
         taskExecutor.initialize();
         return new HandlingExecutor(taskExecutor); // HandlingExecutor로 wrapping 합니다.
     }
-    public class HandlingExecutor implements AsyncTaskExecutor {
+    public class HandlingExecutor implements AsyncTaskExecutor,SchedulingTaskExecutor {
         private AsyncTaskExecutor executor;
         public HandlingExecutor(AsyncTaskExecutor executor) {
             this.executor = executor;
@@ -77,8 +81,12 @@ public class AsyncConfig {
             };
         }
         private void handle(Exception ex) {
-            errorLogger.error("@비동기에러@",ex);
+            errorLogger.error("@비동기-스케쥴러에러@",ex);
         }
+		@Override
+		public boolean prefersShortLivedTasks() {
+			return false;
+		}
 
     }
 }

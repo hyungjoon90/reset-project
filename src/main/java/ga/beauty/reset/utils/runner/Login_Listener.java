@@ -12,10 +12,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import javax.annotation.PreDestroy;
+
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.stereotype.Component;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,14 +25,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_C_Vo;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
-@Component(value="login_Lsn")
 public class Login_Listener implements Common_Listener{
 
-	private static final Logger logger = Logger.getLogger(Login_Listener.class);
+	Logger logger = Logger.getLogger(Login_Listener.class);
 	// login/yy/MM/dd.json
-	//{"data":[{"name":String,"num":int}]}
+	//{"data":[{"name":"로그인","num":int},{"name":"접속자","num":int}]}
+	
 	private String defaultFP = "c:/reset/report/login/";
 
 	// addLog 할때 user 넣으면 로그인숫자 올리기
@@ -38,12 +41,22 @@ public class Login_Listener implements Common_Listener{
 	// 일마다 로그인 한 사람들 총수
 	// XXX 추가작업-월마다 다 더해서 하나 만들기
 	
+	// session lsn가 잘 작동하니까 이걸 이용해서 전체 접속숫자는 저장한다.
+	
+	
 	private List<Log_C_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;	
 	
+	static Login_Listener self; // TODO 임시용
+
 	public Login_Listener() {
 		init();
+		self = this; // TODO 임시용
+	}
+	
+	public static Login_Listener getThis() {
+		return self; // TODO 임시용
 	}
 	
 	private void init() {
@@ -56,19 +69,21 @@ public class Login_Listener implements Common_Listener{
 				+"/"+MySDF.SDF_D.format(date)
 				+".json";
 		File file = new File(filename);
-		if(file.exists()) {
+		if(!file.exists()) {
+			new File(file.getParent()).mkdirs();
+		}else {
 			try {
 				node = objectMapper.readTree(file);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_C_Vo>>(){});
-		}		
+		}
 	}// init()
 
 	@Async("threadPoolTaskExecutor")
 	@Override
-	public <T> Future<String> addLog(T bean, String type, int chNum) throws Exception {
+	public <T>  Future<String> addLog(T bean, String type, int chNum) throws Exception {
 		if(bean == null) {
 			changeValue(null,type,chNum);
 		}else if(bean instanceof User_Vo) {
@@ -83,7 +98,6 @@ public class Login_Listener implements Common_Listener{
 		Log_C_Vo checkVo = null;
 		if(target!=null) checkVo = new Log_C_Vo("로그인",0);
 		else checkVo = new Log_C_Vo("접속자",0);
-		synchronized(this){
 			// 기존에 있는건지 확인
 			int maybeIdx = list.indexOf(checkVo);
 			if(maybeIdx>=0) checkVo = list.get(maybeIdx);
@@ -91,8 +105,8 @@ public class Login_Listener implements Common_Listener{
 			// 어떤거 값 변화 
 			if(type.equals("num")) { // 사실 안써도 됨.
 				checkVo.setNum(checkVo.getNum()+chNum);
+				logger.info("되냐?");
 			}
-		}
 	}//changeValue()
 
 	@Override
@@ -101,7 +115,10 @@ public class Login_Listener implements Common_Listener{
 	}//getList()
 
 	@Override
+	@Async("threadPoolTaskExecutor")
+	@Scheduled(cron=" 0 1 0 * * *\r\n" )
 	public void saveLogOneday() throws Exception {
+		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Calendar cal = new GregorianCalendar();
 			cal.add(Calendar.DATE, -1);
@@ -113,20 +130,45 @@ public class Login_Listener implements Common_Listener{
 					+".json";
 			File file = new File(filename);
 			StringBuilder sbr = createJsonString();
-			init();
 			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 				buffOut.write(sbr.toString());
-				logger.info("@저장@ ["+MySDF.SDF_ALL.format(date)+"]일의 로그인/접속자 수치가 저장되었습니다.");
+				buffOut.flush();
+				logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 로그인/접속자 수치가 저장되었습니다.");
 			}
+			init();
 		}		
 	}// saveLogOneday()
 	
 	@Override
-	protected void finalize() throws Throwable {
-		saveLogOneday();
-		super.finalize();
-	}// finalize()
+	@PreDestroy
+	public void saveTmp() throws Exception {
+		System.out.println("로그인"); // TODO 안됨 해결해야됨.
+		if(list.size()==0) {return ;}
+		synchronized (this) {
+			Date date = new Date();
+			String filename =  
+					defaultFP + MySDF.SDF_Y.format(date)
+					+"/"+MySDF.SDF_M.format(date)
+					+"/"+MySDF.SDF_D.format(date)
+					+".json";
+			File file = new File(filename);
+			if(!file.exists()) {
+				new File(file.getParent()).mkdirs();
+			}
+			StringBuilder sbr = createJsonString();
+			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
+				buffOut.write(sbr.toString());
+				buffOut.flush();
+				logger.warn(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 로그인 로그가 임시저장 되었습니다.");
+			}
+		}
+	}
 
+	@Override
+	protected void finalize() throws Throwable {
+		saveTmp();
+	}// finalize()
+	
 	private StringBuilder createJsonString() {
 		StringBuilder sbr = new StringBuilder("{\"data\":[");
 		Iterator<Log_C_Vo> ite = list.iterator();
@@ -137,7 +179,7 @@ public class Login_Listener implements Common_Listener{
 			i++;
 		}
 		sbr.append("]}");
-		return null;
+		return sbr;
 	}//createJsonString()
 	
 }// Login_Listener

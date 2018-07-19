@@ -52,7 +52,7 @@ public class Log_EM_Vo {
 
 	@Override
 	public String toString() {
-		return "{\"no\"="+no+",\"like\"="+like+",\"view\"="+view+",\"num\"="+num+"}";
+		return "{\"no\":"+no+",\"like\":"+like+",\"view\":"+view+",\"num\":"+num+"}";
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class Log_C_Vo {
 
 	@Override
 	public String toString() {
-		return "{\"name\"=\""+name+"\", \"num\"=\""+num+"\"]";
+		return "{\"name\":\""+name+"\", \"num\":\""+num+"\"}";
 	}
 
 	@Override

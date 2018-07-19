@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
@@ -111,7 +112,7 @@
             </ul>
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-	<div class="collapse navbar-collapse navbar-ex1-collapse">
+<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav side-nav">
 			<li class="active"><a href="${goRoot}admin/">Dashboard</a></li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu1">회원관리</a>
@@ -121,40 +122,30 @@
 					<li><a href="${goRoot}admin/member/emp/">직원관리</a></li>
 				</ul>
 			</li>
-			<li><a href="${goRoot}admin/member/review/">리뷰</a></li>
-			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">매거진</a>
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">홈페이지관리</a>
 				<ul id="menu2" class="collapse">
-					<li><a href="${goRoot}admin/member/normal/">전체보기</a></li>
-					<li><a href="${goRoot}admin/member/company/">글쓰기</a></li>
+					<li><a href="${goRoot}admin/page/login/">로그인페이지</a></li>
+					<li><a href="${goRoot}admin/qna/">문의사항</a></li>
+					<li><a href="${goRoot}admin/notice/">공지사항</a></li>
 				</ul>
 			</li>
-			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">이벤트</a>
-				<ul id="menu2" class="collapse">
-					<li><a href="${goRoot}admin/event/">전체보기</a></li>
-					<!--  ${goRoot}admin/event/addr/-->
-					<li><a href="${goRoot}admin/event/add/">글쓰기</a></li>
-				</ul>
-			</li>
-			<li><a href="javascript:;" data-toggle="collapse"
-				data-target="#menu3"><i class="fa fa-fw fa-arrows-v"></i> 상품관리 <i
-					class="fa fa-fw fa-caret-down"></i></a>
+			<li><a href="${goRoot}admin/member/reviews/">리뷰</a></li>
+			<li><a href="${goRoot}admin/member/magazines/">매거진</a></li>
+			<li><a href="${goRoot}admin/member/events/">이벤트</a></li>
+			<li><a href="${goRoot}admin/member/items/">상품관리</a></li>
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu3">통계</a>
 				<ul id="menu3" class="collapse">
-					<li><a href="${goRoot}admin/item/">전체보기</a></li>
-					<li><a href="${goRoot}admin/item/add/">등록하기</a></li>
-				</ul></li>
-			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu4">통계</a>
-				<ul id="menu4" class="collapse">
 					<li><a href="${goRoot}admin/chart/login/">접속자수</a></li>
-					<li><a href="${goRoot}admin/chart/review/"></a>리뷰</li>
-					<li><a href="${goRoot}admin/chart/magzine/"></a>매거진</li>
-					<li><a href="${goRoot}admin/chart/event/"></a>이벤트</li>
-					<li><a href="${goRoot}admin/chart/like/"></a>좋아요</li>
+					<li><a href="${goRoot}admin/chart/review/">리뷰</a></li>
+					<li><a href="${goRoot}admin/chart/magzine/">매거진</a></li>
+					<li><a href="${goRoot}admin/chart/event/">이벤트</a></li>
+					<li><a href="${goRoot}admin/chart/like/">좋아요</a></li>
 				</ul>
 			</li>
-			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu5">로그</a>
-				<ul id="menu5" class="collapse">
+			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu4">로그</a>
+				<ul id="menu4" class="collapse">
 					<li><a href="${goRoot}admin/log/">전체로그</a></li>
-					<li><a href="${goRoot}admin/log/error/"></a>에러로그</li>
+					<li><a href="${goRoot}admin/log/error/">에러로그</a></li>
 				</ul>
 			</li>
 		</ul>
