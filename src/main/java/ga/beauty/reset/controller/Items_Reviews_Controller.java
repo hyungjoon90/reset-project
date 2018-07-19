@@ -96,7 +96,7 @@ public class Items_Reviews_Controller {
 		bean.setTip(req.getParameter("tip"));
 		bean.setStar(Integer.parseInt(req.getParameter("star")));
 		if(!file.getOriginalFilename().equals("")) {
-			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}else {
 			bean.setImg("");
 		}
@@ -150,7 +150,7 @@ public class Items_Reviews_Controller {
 		if(req.getParameter("option").equals("1")) {
 			bean.setImg(req.getParameter("preimg"));
 		}else if(req.getParameter("option").equals("2")) {
-			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}else if(req.getParameter("option").equals("3")) {
 			bean.setImg("");
 		}

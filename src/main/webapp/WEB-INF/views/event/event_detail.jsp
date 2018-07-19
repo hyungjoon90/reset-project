@@ -10,6 +10,7 @@
 <link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
 <link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot}css/main.css" rel="stylesheet">
+<link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 	<title>Home</title>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -189,6 +190,7 @@ $(document).ready(function(){
 	position:relative;
 	top:1px;
 }
+
 /* 제목표시줄 아래에 있는 줄 */
 #titleHr{
 	width: 85%;
@@ -341,19 +343,19 @@ $(document).ready(function(){
 					<span><strong id="popNum">${detail.pop }</strong></span>
 	            </div>
 	        <div class="funBtn">
-				<button type="reset" id="listBack" class="btn btn-primary">목록</button>
+				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
 			</div>
-			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
+			<%-- <c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}"> --%>
 			<div class="funBtn">
-				<button type="submit" class="btn btn-warning">수정</button>
+				<button type="submit" class="editBtn redBtn">수정</button>
 			</div>
-			</c:if>
+			<%-- </c:if> --%>
 			</form>
 			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 			<form method="post" action="/reset/admin/event/${detail.eve_no}">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
-				<button type="submit" class="btn btn-danger funBtn">삭제</button>
+				<button type="submit" class="deleteBtn funBtn redBtn">삭제</button>
 			</form>
 			</c:if>
 			</div>
@@ -375,17 +377,17 @@ $(document).ready(function(){
 					<div class="box-body">
 						<!-- 고정값 및 임의값 -->
 						<!-- TODO: event_댓글 로그인 세션에서 받아와야함 -->
-						<input class="form-control" type="hidden" name="writer" id="writer" value="nickname">
-						<!-- TODO: event_댓글 로그인 세션에서 받아와야함 -->
+						<input class="form-control" type="hidden" name="writer" id="writer" value="${login_nick }">
+						<!-- 댓글 글쓰는곳 -->
 						<textarea rows="5" class="form-control" type="text" name="content" id="content"></textarea>
 						<!-- 고정값 및 임의값 -->
 						<!-- TODO: event_댓글 로그인 세션에서 받아와야함 -->
-						<input class="form-control" type="hidden" name="email" id="email" value="test@gmail.com">
+						<input class="form-control" type="hidden" name="email" id="email" value="${login_email }">
 					</div>
 					<!-- TODO: event 댓글 입력버튼 -->
 					<c:if test="${login_on=='true'}">
 					<div class="box-footer">
-						<button type="submit" class="btn btn-primary" id="comment_addBtn">add comment</button>
+						<button type="submit" class="redBtn" id="comment_addBtn">댓글입력</button>
 					</div>
 					</c:if>
 				</div>
@@ -401,9 +403,9 @@ $(document).ready(function(){
 					<textarea rows="5" class="form-control" type="text" id="commenttext"></textarea>
 				</div>
 				<div>
-					<button type="button" id="commentModBtn" class="btn btn_default">수정</button>
-					<button type="button" id="commentDelBtn" class="btn btn_default">삭제</button>
-					<button type="button" id="closeBtn" class="btn btn_default">닫기</button>
+					<button type="button" id="commentModBtn" class="redBtn">수정</button>
+					<button type="button" id="commentDelBtn" class="redBtn">삭제</button>
+					<button type="button" id="closeBtn" class="darkBtn">닫기</button>
 				</div>
 			</div>
 			<!-- TODO: event 댓글수정 버튼 클릭시 모달 끝 -->
@@ -477,7 +479,7 @@ $(document).ready(function(){
 						+"<div class='com_writer com_div'><strong>"+this.writer+"</strong></div>"
 						+"<div  class='com_nalja com_div'>"+this.nalja+"</div>"
 						+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
-						+"<div class='com_btn'><button class='comBtn btn btn-primary' email="+this.email+">댓글수정</button></div>"
+						+"<div class='com_btn'><button class='comBtn redBtn' email="+this.email+">댓글수정</button></div>"
 						+"</div>";
 					});
 				$("#comment").html(str);

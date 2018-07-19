@@ -8,7 +8,7 @@ $(function(){
 .wrap-loading{
     position: fixed;
     left:0;	right:0; top:0; bottom:0;
-    background: rgba(0,0,0,0.2); 
+    background: rgba(0,0,0,0.6); 
     filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');
 }
 .wrap-loading div{ 
@@ -22,5 +22,5 @@ $(function(){
 }
 </style>
 <div class="wrap-loading display-none">
-	<div><img src="${goRoot }img/loading1.gif" /></div>
+	<div><img src="${goRoot }imgs/header_logo.png" /></div>
 </div>  

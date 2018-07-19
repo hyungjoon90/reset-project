@@ -98,7 +98,7 @@ public class Magazine_Controller {
 		bean.setCon(req.getParameter("con"));
 		bean.setCate(Integer.parseInt(req.getParameter("cate")));
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
 		bean.setTags(req.getParameter("tags"));
 		service.updatePage(bean);
 		return view;
@@ -123,7 +123,7 @@ public class Magazine_Controller {
 		bean.setCate(Integer.parseInt((req.getParameter("cate"))));
 		bean.setTags(req.getParameter("tags"));
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
 		service.addPage(bean);
 		return "view";
 	}

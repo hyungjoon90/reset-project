@@ -128,7 +128,7 @@ public class Item_Controller {
 		bean.setTags(req.getParameter("tags"));
 		
 		if(!file.getOriginalFilename().equals("")) {
-			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}
 		log.debug(bean);
 		
@@ -182,14 +182,14 @@ public class Item_Controller {
 		bean.setTags(req.getParameter("tags"));
 		
 		if(!file.getOriginalFilename().equals("")) {
-			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}
 		log.debug(bean);
 		
 		if(req.getParameter("option").equals("1")) {
 			bean.setImg(req.getParameter("preimg"));
 		}else if(req.getParameter("option").equals("2")) {
-			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}else if(req.getParameter("option").equals("3")) {
 			bean.setImg("");
 		}
