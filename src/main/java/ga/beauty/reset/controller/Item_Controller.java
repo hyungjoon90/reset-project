@@ -1,6 +1,5 @@
 package ga.beauty.reset.controller;
 
-import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -27,7 +26,8 @@ import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Item_Controller {
-	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/item_imgs";
+	//TODD 이미지 저장 경로 설정 해야함
+ 	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/item_imgs";
 	String essence="/essence";
 	String lotion="/lotion";
 	String skin="/skin";
@@ -56,9 +56,10 @@ public class Item_Controller {
 	
 	// admin 아이템 검색 페이지 이동
 	@RequestMapping(value="/admin/item",method=RequestMethod.GET)
-	public String admin_item_page(Model model) {
+	public String admin_item_page(Model model) throws SQLException {
 		goRoot="../";
 		model.addAttribute("goRoot", goRoot);
+		model.addAttribute("alist", items_DaoImp.itemAll());
 		return "item/admin_item_search";
 	}
 	
@@ -99,15 +100,15 @@ public class Item_Controller {
 		if(req.getParameter("cate").equals("essence")) {
 			bean.setCate(1);
 			filePath+=essence;
-			subPath=essence;
+			subPath+=essence;
 		}else if(req.getParameter("cate").equals("lotion")) {
 			bean.setCate(2);
 			filePath+=lotion;
-			subPath=lotion;
+			subPath+=lotion;
 		}else if(req.getParameter("cate").equals("skin")) {
 			bean.setCate(3);
 			filePath+=skin;
-			subPath=skin;
+			subPath+=skin;
 		}
 		bean.setBrand(req.getParameter("brand"));
 		bean.setVol(req.getParameter("vol"));
@@ -142,7 +143,6 @@ public class Item_Controller {
 	public void item_update(@PathVariable("item") int item,@RequestParam("img") MultipartFile file, HttpServletResponse resp,HttpServletRequest req) throws IOException, Exception {
 
 		log.debug("item_update: "+item);
-		log.debug("파일이름: "+file.getOriginalFilename());
 		log.debug("option: "+req.getParameter("option"));// 원래대로1,바꿈2
 		int option=Integer.parseInt(req.getParameter("option"));
 		log.debug(option);
@@ -153,15 +153,15 @@ public class Item_Controller {
 		if(req.getParameter("cate").equals("essence")) {
 			bean.setCate(1);
 			filePath+=essence;
-			subPath=essence;
+			subPath+=essence;
 		}else if(req.getParameter("cate").equals("lotion")) {
 			bean.setCate(2);
 			filePath+=lotion;
-			subPath=lotion;
+			subPath+=lotion;
 		}else if(req.getParameter("cate").equals("skin")) {
 			bean.setCate(3);
 			filePath+=skin;
-			subPath=skin;
+			subPath+=skin;
 		}
 		bean.setBrand(req.getParameter("brand"));
 		bean.setVol(req.getParameter("vol"));
@@ -180,22 +180,17 @@ public class Item_Controller {
 			subPath+=sen;
 		}
 		bean.setTags(req.getParameter("tags"));
+		bean.setTot(Double.parseDouble(req.getParameter("tot")));
 		
-		if(!file.getOriginalFilename().equals("")) {
-			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
-		}
-		log.debug(bean);
 		
 		if(req.getParameter("option").equals("1")) {
 			bean.setImg(req.getParameter("preimg"));
 		}else if(req.getParameter("option").equals("2")) {
-			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
-		}else if(req.getParameter("option").equals("3")) {
-			bean.setImg("");
+			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
 		}
+		log.debug("item controller param: "+bean);
 		resp.setCharacterEncoding("utf-8");
-//		items_service.review_updatePage(option,bean)
-		resp.getWriter().print(1);
+		resp.getWriter().print(items_service.item_update(option,bean));
 	}
 	
 	// 아이템 삭제

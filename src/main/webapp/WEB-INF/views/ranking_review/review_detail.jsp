@@ -11,6 +11,8 @@
 <link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
 <link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot }css/main.css" rel="stylesheet">
+<link href="${goRoot }css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+<script src=".${goRoot }js/star-rating.js" type="text/javascript"></script>
 	<title>Home</title>
 <style type="text/css">
     /* 전체 container */
@@ -86,6 +88,8 @@
 	}
 </style>
 <script type="text/javascript">
+	
+
 
 $(document).ready(function(){
 	var option=1;
@@ -111,20 +115,36 @@ $(document).ready(function(){
 				url: "/reset/item/"+item+"/review/"+rev_no,
 				contentType: false,
 				processData: false,
-				dataType: "text"
+				dataType: "text",
+				success:function(data){
+					console.log(data);
+					if(data=="1"){
+						console.log("성공");
+							window.location.href="/reset/item/"+item+"/review/"+rev_no;
+					} else if(data=="0"){
+						alert("글수정에 실패하였습니다.");
+					}
+				},
+				beforeSend:function(){
+			        $('.wrap-loading').removeClass('display-none');
+			    },
+			    complete:function(){
+			        $('.wrap-loading').addClass('display-none');
+			    }
 			}) 
-			.done(function(data){
+	/* 		.done(function(data){
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
 					window.location.href="/reset/item/"+item+"/review/"+rev_no;
+					
 				} else if(data=="0"){
 					alert("글수정에 실패하였습니다.");
 				}
-		 	})
+		 	}) */
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 수정 실패');
-			})     
+			})    
 		})
 		$("#reivewDelete").on("click",function(){
 			var item=${item_bean.item};
@@ -153,7 +173,7 @@ $(document).ready(function(){
 			}) 
 		})
 });
-	
+
 </script>
 </head>
 <body>
@@ -293,11 +313,6 @@ $(document).ready(function(){
             <p>${review_bean.bad }</p>
             <p>${review_bean.tip }</p>
             <p>${review_bean.pop }</p>
-        </div>
-        <div class="icon">
-	        <button type="button" class="btn btn-default btn-lg">
-	        	<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-	        </button>
         </div>
         
         <!-- 댓글입력(comment) 시작 -->
@@ -474,6 +489,7 @@ $(document).ready(function(){
             </div>
         </div>
     </div>
+    <%@include file="/WEB-INF/views/template/ajax_loading.jsp"%>
     <!--//footer--> 
       
 <script type="text/javascript">

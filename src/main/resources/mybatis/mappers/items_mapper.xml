@@ -4,7 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="items">
-  <select id="rankAll" resultType="items_Vo">
+  
+  	<select id="itemAll" resultType="items_Vo">
+  		SELECT * FROM ITEMS
+  	</select>
+  	<select id="rankAll" resultType="items_Vo">
   		SELECT * FROM ITEMS WHERE CATE=#{cate} AND OPEN=1 ORDER BY TOT DESC LIMIT 10
   	</select>
   	<select id="rankListAdd" resultType="items_Vo">
@@ -39,7 +43,9 @@
   	<insert id="rankAdd" parameterType="items_Vo">
   		INSERT INTO MYDB.RANK (item,one,two,three,four,five) VALUES(#{item},'0','0','0','0','0')
   	</insert>
-  	
+  	<update id="itemUpdate" parameterType="items_Vo">
+  		UPDATE ITEMS SET NAME=#{name},IMG=#{img},BRAND=#{brand},VOL=#{vol},PRICE=#{price},OIL=#{oil},DRY=#{dry}, SEN=#{sen},CATE=#{cate}, TAGS=#{tags} WHERE ITEM=#{item}
+  	</update>
   	<update id="itemDel">
   		UPDATE MYDB.ITEMS SET OPEN=0 WHERE ITEM=#{item}
   	</update>

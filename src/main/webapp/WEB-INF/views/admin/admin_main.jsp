@@ -132,7 +132,7 @@
                     </ul>
                 </li>
             </ul>
-		<%@include file="/WEB-INF/template/admin_side_menu.jsp"%><
+		<%@include file="/WEB-INF/views/template/admin_side_menu.jsp"%><
 
         <div id="page-wrapper">
 
