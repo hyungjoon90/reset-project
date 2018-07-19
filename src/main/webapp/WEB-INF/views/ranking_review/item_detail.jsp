@@ -16,7 +16,12 @@
     /* 전체 container */
     .page_container{
     	width: 80%;
-        border: 1px solid rgb(217, 222, 232);
+    }
+    .page_container a{
+    	color: black;
+    }
+    .page_container a:hover{
+    	text-decoration: none;
     }
     .contentsBox{
         width: 100%;
@@ -34,7 +39,12 @@
         margin: 100px 0px;
         float: left;
     }
-    
+    .table{
+    	border-top: 1px solid #e5e5e5;
+    }
+    .InfoBoxtable>tbody>tr>td{
+    	border: 0px;
+    }
     .ImgBox>img{
 		max-height: 400px;
 		margin: 0px auto;
@@ -44,24 +54,32 @@
     	margin: 0px auto;
    		border: 1px solid #e5e5e5;
     }
+    .avgBox>p{
+    	margin-left: 20px;
+    }
+    .avgBox>p:first-child{
+    	font-size: 20px;
+    }
+   
     .avgBox>table>tbody>tr>td:first-child{
     	width: 10%;
     	text-align: center;
+    	font-size: 20px;
     }
     .bar1{
-    	background-image: -webkit-linear-gradient(top,#FDEB71 0,#F8D800 100%);
+    	background-image: -webkit-linear-gradient(top,#F01A30 0,#F01A30 100%); 
     }
     .bar2{
-    	background-image: -webkit-linear-gradient(top,#ABDCFF 0,#0396FF 100%);
+    	background-image: -webkit-linear-gradient(top,#F04A58 0,#F04A58 100%);
     }
     .bar3{
-    	background-image: -webkit-linear-gradient(top,#FEB692 0,#EA5455 100%);
+    	background-image: -webkit-linear-gradient(top,#D7D8DB 0,#D7D8DB 100%);
     }
     .bar4{
-    	background-image: -webkit-linear-gradient(top,#CE9FFC 0,#7367F0 100%);
+    	background-image: -webkit-linear-gradient(top,#71DDE3 0,#71DDE3 100%);
     }
     .bar5{
-    	background-image: -webkit-linear-gradient(top,#90F7EC 0,#32CCBC 100%);
+    	background-image: -webkit-linear-gradient(top,#0396A6 0,#0396A6 100%);
     }
     .reviewBox{
     	width: 95%;
@@ -72,10 +90,10 @@
    	    text-align: center;
    	    margin: 5px 0px;
     }
-   	.btn-color{
+    .btn-color{
    		color: white;
    		background-image: -webkit-gradient(linear,left top,left bottom,from(#F5515F),to(#A1051D));
-   	}
+   	} 
    	.btn-position{
    	    text-align: center;
    	    margin: 5px 0px;
@@ -105,12 +123,74 @@
 	.img_preview img{
 		width: 400px;
 	}
+	
+	#cart{
+		margin-left:10px;
+	}
+	.listAddBtn{
+		width:7%;
+	}
+	.myRedBtn {
+		background-color:#dd2d25;
+		-moz-border-radius:3px;
+		-webkit-border-radius:3px;
+		border-radius:3px;
+		border:1px solid #dd2d25;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size: 15px;
+	    font-weight: bold;
+	    padding: 5px 8px;
+		text-decoration:none;
+	}
+	.myRedBtn:hover {
+		color:#fff;
+		background-color:#d00b01; 
+		
+	}
+	.myRedBtn:active {
+		position:relative;
+		top:1px;
+	}
+	
+	/* reviewBox 위치 */
+	.emptyImg{
+		width: 133px;
+		height: 100px;
+	}
+	.reviewBox>img{
+		margin: 0px 0px 20px 25px;
+	}
+	.rightBox{
+        float: right;
+    }
+    .emtyspace{
+        margin-left: 40px; 
+        margin-top: 15px;       
+    }
+    .main_content{
+    	font-size: 20px;
+    }
+    .sub-content{
+		color: #84868e;
+		min-height: 20px;
+		line-height: 20px;
+    }
+    /* reviewBox 위치 */
 </style>
 <script type="text/javascript">
-
+<!-- //TODO: 1.ajax로 리스트 크롤링 -->
+var page=10;/* 해당 페이지 리스트 갯수 */
+var	pageTot=${tot};/* 리스트 총 갯수 */
 $(document).ready(function(){
-	$(".icon").click(function(){
+
+	$("#listAdd").click(function(){
 		reviewListadd();
+		if(page>pageTot){
+			$("#listAdd").hide();
+		}
 	});
 	$("#cart").click(function(){
 		cart();
@@ -118,12 +198,11 @@ $(document).ready(function(){
 	
 	$('#review_write').on('shown.bs.modal', function () {
 	})	
-	 
 	
+	/* 리스트 추가 버튼 클릭시 실행 */
 	$("#reivewAdd").on("click",function(){
-		    var item=${item_bean.item};
-            var formData = new FormData($('#review')[0]);
-		    console.log(formData);
+		var item=${item_bean.item};
+		var formData = new FormData($('#review')[0]);
 		    $.ajax({
 				type:"post",
 				enctype: 'multipart/form-data',
@@ -146,16 +225,18 @@ $(document).ready(function(){
 			})    
 		})
 		
-		$('.reviewBox img').css("src");
 	
 });
 	
 function reviewListadd(){
+	page+=5;
 	var item=${item_bean.item};
+	var Data= { "page": page};
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
 			url: "reviewadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
+			data: Data
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
@@ -181,7 +262,7 @@ function reviewListadd(){
 function cart(){
 	var item=${item_bean.item};
 	/* var nick=${login_email}}; */
-	var email="cus1@naver.com";
+	var email="cus1@naver.com";//TODO 찜목록저장시 아이디 수정
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
@@ -243,6 +324,13 @@ function cart(){
              </nav>                
         </div>    
     </div>
+    <div class="breadcrumb">
+    	<div>
+   		<a href="/reset/">HOME</a>
+   		<span class="slash">/</span>
+   		로션
+   		</div>
+    </div>
     <!--//header-->    
      
     <!-- main contents -->
@@ -252,7 +340,7 @@ function cart(){
                 <img src="../${item_bean.img }" class="img-responsive" alt="Responsive image">
             </div>
             <div class="InfoBox">
-                <h4>${item_bean.name }</h4>
+                <h2>${item_bean.name }</h2>
                 <table class="table">
                     <tr>
                     	<td>브랜드</td>
@@ -275,19 +363,15 @@ function cart(){
                         <td>${item_bean.comp }</td>
                     </tr>
                     <tr>
-                        <td>태그</td>
-                        <td>
-                        	<c:forEach var="tag" items="${tags}">
-								<span>${tag }</span>
-							</c:forEach>
-						</td>
+                    	<td>네이버 가격정보</td>
+                        <td><a href="https://search.shopping.naver.com/search/all.nhn?query=${item_bean.name}">바로가기</a></td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="avgBox">
         	
-            <p>점수 총 <span>${map.total }</span>명 <span>${item_bean.tot }</span>점</p>
+            <p><span>총 ${map.total }</span>명 <span>${item_bean.tot }</span></p>
             <table class="table">
             	<tr>
          			<td>
@@ -355,35 +439,43 @@ function cart(){
         
         <div class="btn-position">
 	        <!-- Button trigger modal -->
-			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#review_write">
+			<button type="button" class="btn btn-lg myRedBtn" data-toggle="modal" data-target="#review_write">
 			  글쓰기
 			</button>
-			<button type="button" class="btn btn-lg btn-color" id="cart" >
+			<button type="button" class="btn btn-lg myRedBtn" id="cart" >
 			  찜하기
 			</button>
 		</div>
         <c:forEach items="${review_bean }" var="review">
         <a href="./${item_bean.item }/review/${review.rev_no}">
-        <div class="reviewBox">
+       	<div class="reviewBox">
+            <span class="rightBox">
+                <label>좋아요 ${review.pop }</label>
+                <label>${review.nalja }</label>
+            </span>
 	    	<c:choose>
 				<c:when test="${review.img != ''}">
-					<img src="${goRoot}${review.img }"/>
+					<img src="${goRoot}${review.img}"/>
+				</c:when>
+				<c:when test="${review.img == ''}">
+					<img class="emptyImg" src="${goRoot}imgs/thany.png"/>
 				</c:when>
 			</c:choose>
-            <label>${review.writer }</label>
-            <label>${review.age }</label>/<label>${review.skin }</label>/<label>${review.gender }</label>/
-            <label>${review.star }점</label>/<label>${review.nalja }</label>
-            <p>${review.good }</p>
-            <p>${review.bad }</p>
-            <p>${review.tip }</p>
-            <p>${review.pop }</p>
+			
+            <label class="emtyspace">
+            <span class="main_content">${review.writer }</span>
+            <br><span class="sub-content">${review.age }세<sapn>
+            </sapn>/<sapn></sapn>${review.skin }<sapn>
+            </sapn>/<sapn> </sapn>${review.gender }<sapn>
+            </sapn>/<sapn> </sapn>${review.star }점</span><br>
+           	<span>${review.good }</span><br>
+           	<span>${review.bad }</span>
+            </label>
         </div>
         </a>
         </c:forEach>
-        <div class="icon">
-	        <button type="button" class="btn btn-default btn-lg">
-	        	<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-	        </button>
+        <div id="listAdd" class="icon">
+			<img class="listAddBtn" src="${goRoot}imgs/icon/grey-bottom.png" onmouseover="this.src='${goRoot}imgs/icon/red-bottom.png'" onmouseout="this.src='${goRoot}imgs/icon/grey-bottom.png'">
         </div>
 	</div>
     <!-- //main contents -->
@@ -468,6 +560,7 @@ function cart(){
             </div>
         </div>
     </div>
+    <%@include file="/WEB-INF/views/template/ajax_loading.jsp"%>
     <!--//footer-->   
     
     <script type="text/javascript">

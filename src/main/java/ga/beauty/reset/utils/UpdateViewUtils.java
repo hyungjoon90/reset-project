@@ -61,9 +61,9 @@ public class UpdateViewUtils {
 			
 			//조회수 업데이트
 			if(type.equals("event")) {
-				updateEventView(no);
+				updateEventView(no); // XXX 실제로 조회수 업데이트
 			}else if(type.equals("magazine")) {
-				updateMagazineView(no);
+				updateMagazineView(no); // XXX 실제로 조회수 업데이트
 			}
 		}
 	}
@@ -79,7 +79,7 @@ public class UpdateViewUtils {
 		//조회수 업데이트
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(no);
-		magazine_Dao.updateView(bean);
+		magazine_Dao.updateView(bean); 
 	}
 	
 	

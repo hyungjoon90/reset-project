@@ -2,16 +2,16 @@ package ga.beauty.reset.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ga.beauty.reset.dao.entity.Likes_Vo;
 import ga.beauty.reset.services.Likes_Service;
@@ -21,10 +21,6 @@ public class Likes_Controller {
 	
 	@Autowired
 	Likes_Service likes_Service;
-	
-	public Likes_Controller() {
-	}
-	
 	
 	@RequestMapping("/likes")
 	public String likes() {
@@ -44,12 +40,14 @@ public class Likes_Controller {
 	}
 	
 	@RequestMapping(value="/likes/{type}/{p_no}", method=RequestMethod.PUT)
-	public void likesAddUp(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws IOException, SQLException {
-		resp.getWriter().print(likes_Service.up(bean));
+	@ResponseBody
+	public Map<String,Object> likesAddUp(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws IOException, SQLException {
+		return likes_Service.up(bean);
 	}
 	
 	@RequestMapping(value="/likes/{co_type}/{p_no}", method=RequestMethod.DELETE)
-	public void likesDeldown(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws IOException, SQLException {
-		resp.getWriter().print(likes_Service.down(bean));
+	@ResponseBody
+	public Map<String,Object> likesDeldown(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws IOException, SQLException {
+		return likes_Service.down(bean);
 	}
 }

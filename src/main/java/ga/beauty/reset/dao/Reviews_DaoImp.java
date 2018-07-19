@@ -17,7 +17,6 @@ import ga.beauty.reset.dao.entity.Reviews_Vo;
 @Repository
 public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	Logger log=Logger.getLogger(getClass());
-	int review_num=0;
 	
 	@Autowired
 	SqlSession sqlSession;
@@ -31,19 +30,17 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	@Override
 	public List<Reviews_Vo> reviewAll(int item) throws SQLException {
 		log.debug("DaoImp-reviewAll-param: "+item);
-		this.review_num=5;
 		return sqlSession.selectList("reviews.reviewAll", item);
 	}
 	
+	//TODO: 3.크롤링 dao 부분
 	@Override
-	public List<Reviews_Vo> reviewListAdd(int item) throws SQLException {
-		this.review_num+=5;
-		log.debug("DaoImp-reviewAdd-param: "+item+" "+this.review_num);
+	public List<Reviews_Vo> reviewListAdd(int item,int review_num) throws SQLException {
+		log.debug("DaoImp-reviewAdd-param: "+item+" "+review_num);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("item", item);
-		map.put("review_num", this.review_num);
-		log.debug(sqlSession.selectList("items.reviewListAdd", map).equals(null));
+		map.put("review_num", review_num);
 		return sqlSession.selectList("reviews.reviewListAdd", map);
 	}
 
@@ -81,22 +78,23 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	public int reviewDelete(String filePath,Reviews_Vo bean) throws SQLException {
 		
 		bean=sqlSession.selectOne("reviews.reviewOne", bean);
-		filePath=filePath.replaceFirst("imgs/upload_imgs", "");
-		if(!bean.getImg().equals("")) {
-			log.debug(filePath+bean.getImg());
-			String temp=filePath+bean.getImg();
-			log.debug(temp);
-			temp.replace("/", "\\");
-			log.debug(temp);
-			File file1 = new File(temp);
-			file1.delete();
-			
-			String[] temp2=temp.split("s_");
-			temp=temp2[0]+temp2[1];
-			log.debug(temp);
-			File file2 = new File(temp);
-			file2.delete();
-		}
+		//open=0으로 인한 생략
+//		filePath=filePath.replaceFirst("imgs/upload_imgs", "");
+//		if(!bean.getImg().equals("")) {
+//			log.debug(filePath+bean.getImg());
+//			String temp=filePath+bean.getImg();
+//			log.debug(temp);
+//			temp.replace("/", "\\");
+//			log.debug(temp);
+//			File file1 = new File(temp);
+//			file1.delete();
+//			
+//			String[] temp2=temp.split("s_");
+//			temp=temp2[0]+temp2[1];
+//			log.debug(temp);
+//			File file2 = new File(temp);
+//			file2.delete();
+//		}
 		return sqlSession.delete("reviews.reviewDelete", bean);
 	}
 
@@ -124,6 +122,11 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 			return 3;
 		}
 		
+	}
+
+	@Override
+	public int reviewTot(int item) throws SQLException {
+		return sqlSession.selectOne("reviews.reviewTot", item);
 	}
 
 

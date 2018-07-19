@@ -35,8 +35,11 @@ public class Magazine_Controller {
 	
 	String view="redirect:/magazine";
 	
+	String goRoot="../";
+	
 	@RequestMapping(value="/magazine", method=RequestMethod.GET)
 	public String list(Model model) throws SQLException{
+		model.addAttribute("goRoot",goRoot);
 		service.listPage(model);
 		return "magazine/magazine_list";
 	}
@@ -53,6 +56,7 @@ public class Magazine_Controller {
 	
 	@RequestMapping(value="/magazine/{mag_no}", method=RequestMethod.GET)
 	public String detail(@PathVariable("mag_no") int mag_no,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException{
+		model.addAttribute("goRoot",goRoot);
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(mag_no);
 		
@@ -71,6 +75,8 @@ public class Magazine_Controller {
 	
 	@RequestMapping(value="/admin/magazine/{mag_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable("mag_no") int mag_no, Model model) throws SQLException{
+		String goRoot="../../";
+		model.addAttribute("goRoot",goRoot);
 		Magazine_Vo bean=new Magazine_Vo();
 		bean.setMag_no(mag_no);
 		
@@ -84,13 +90,15 @@ public class Magazine_Controller {
 	
 	@RequestMapping(value="/admin/magazine/{mag_no}/update",method=RequestMethod.POST)
 	public String update(@PathVariable("mag_no") int mag_no, @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
+		//TODO : 썸네일 사진 저장 장소 입니다.
 		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
 		Magazine_Vo bean=new Magazine_Vo();
 		bean.setMag_no(mag_no);
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setCate(Integer.parseInt(req.getParameter("cate")));
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		//TODO : 썸네일 사진을 불러오는 곳입니다.
+		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
 		bean.setTags(req.getParameter("tags"));
 		service.updatePage(bean);
 		return view;
@@ -100,18 +108,22 @@ public class Magazine_Controller {
 	
 	@RequestMapping("/admin/magazine/add")
 	public String addForm(Model model) throws SQLException{
+		String goRoot="../../";
+		model.addAttribute("goRoot",goRoot);
 		return "magazine/magazine_add";
 	}
 	
 	@RequestMapping(value="/admin/magazine", method=RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception{
+		//TODO : 썸네일 사진 저장 장소 입니다.
 		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources/thumbnail";
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setCate(Integer.parseInt((req.getParameter("cate"))));
 		bean.setTags(req.getParameter("tags"));
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		//TODO : 썸네일 사진을 불러오는 곳입니다.
+		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
 		service.addPage(bean);
 		return "view";
 	}

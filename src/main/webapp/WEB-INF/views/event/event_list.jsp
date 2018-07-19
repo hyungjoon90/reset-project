@@ -10,7 +10,38 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
+<link href="css/btn/btn.css" rel="stylesheet">
 	<title>Home</title>
+<style type="text/css">
+.page_container{
+	max-width: 1080px;
+	margin: 0px auto;
+}
+.contents_container{
+	display: inline-block;
+    text-align: center;
+}
+.contentsBox{
+	width: 50%;
+	float: left;
+	margin-top: 5%;
+}
+.icon{
+	width:3%;
+}
+
+.redBtn{
+	margin-left: 90%;
+	text-decoration: none;
+}
+
+@media (max-width: 991px) {
+ 
+ .contentsBox {
+    width: 100%;
+	}
+} 
+</style>
 </head>
 <body>
 	<!--header-->
@@ -70,22 +101,30 @@
         <hr>
             <!-- 내용 입력 -->
             <!-- Event list-page 입니다. -->
-			<a href="/reset/admin/event/add" class="btn btn-primary">글쓰기</a>
+           
+				<a href="/reset/admin/event/add" class="redBtn">글쓰기</a>
+
+    	<div class="contents_container">
             <c:forEach items="${alist }" var="bean">
-            <div class="list-group">
-            	<div class="row">
-				  <div class="col-sm-6 col-md-4">
-				    <div class="thumbnail">
-				      <a href="event/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
-				      <div class="caption">
-				        <a href="event/${bean.eve_no}"><h3>${bean.title}</h3></a>
-				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
-				      </div>
-				    </div>
-				  </div>
-				</div>
+            <div class="contentsBox" class="span6 element category01" data-category="category01">
+                <div class="hover_img">
+                    <a href="event/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+                </div> 
+                <div class="item_description">
+                    <h6><a href="event/${bean.eve_no}"><strong>${bean.title}</strong></a></h6>
+                    <div>
+                    	<span class="pop">
+                    		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
+                    	</span>
+                    	&emsp;&emsp;&emsp;&emsp;
+                    	<span class="view">
+	                    	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
+                    	</span>
+                    </div>
+                </div>                                    
             </div>
 			</c:forEach>
+        </div>
 			<!-- 내용 끝 -->
         <hr>
     </div>

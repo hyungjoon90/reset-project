@@ -7,10 +7,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="js/jquery-1.12.4.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.selectric.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
+<link href="css/selectric.css" rel="stylesheet">
 	<title>Home</title>
+	
+<script type="text/javascript">
+$(function() {
+	  $('select').selectric();
+	  $(".strong").each(function(){
+		  var target = $(this).text();
+	  		if(target==1){
+	  			$(this).text("신상&트렌드");
+	  		} else if(target==2){
+	  			$(this).text("화장품 펙트체크");
+	  		}else if(target==3){
+	  			$(this).text("인기템 리뷰");
+	  		}else if(target==4){
+	  			$(this).text("다이어트&운동");
+	  		}
+	  });  
+	});
+
+</script>
+
+<style type="text/css">
+.page_container{
+	max-width: 1080px;
+	margin: 0px auto;
+}
+.contents_container{
+	display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+.contentsBox{
+	width: 50%;
+	float: left;
+	margin-top: 5%;
+}
+
+.headCon{
+	display: block;
+	width: 1080px;
+	line-height: 50px;
+	vertical-align: middle;
+}
+
+.addBtn{
+	display: inline-block;
+	margin-left: 0%;
+	vertical-align: middle;
+}
+
+.selCate{
+	display: inline-block;
+	margin-left: 74%;
+	vertical-align: middle;
+}
+.icon{
+	width:3%;
+}
+@media (max-width: 991px) {
+ 
+	.contentsBox {
+	    width: 100%;
+	}
+	
+	.selectric {
+	  border-radius: 6px;
+	  background: #D00B01;
+	  position: relative;
+	  width:80%;
+	  margin : 0px auto;
+	} 
+}
+</style>
 </head>
 <body>
 	<!--header-->
@@ -70,18 +144,24 @@
         <hr>
         	<!-- 내용 입력 -->
             <!-- Magazine list-page 입니다. -->
-            <a href="/reset/admin/magazine/add" class="btn btn-primary">글쓰기</a>
             <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
-            <select name="cate" id="cate">
-            	<option value="99">전체 콘텐츠</option>
-            	<option value="1">신상&amp;트렌드</option>
-            	<option value="2">화장품 펙트체크</option>
-            	<option value="3">인기템 리뷰</option>
-            	<option value="4">다이어트&amp;운동</option>
-            </select>
+           	<div class="headCon">
+           	<div class="addBtn">
+           		<a href="/reset/admin/magazine/add" class="btn btn-primary">글쓰기</a>
+           	</div>
+           	<div class="selCate">
+	            <select name="cate" id="select">
+	            	<option value="99">전체 콘텐츠</option>
+	            	<option value="1">신상&amp;트렌드</option>
+	            	<option value="2">화장품 펙트체크</option>
+	            	<option value="3">인기템 리뷰</option>
+	            	<option value="4">다이어트&amp;운동</option>
+	            </select>
+            </div>
+            </div>
             <script type="text/javascript">
-            $("#cate").change(function(){
-            	var cate=$("#cate option:selected").val();
+            $("#select").change(function(){
+            	var cate=$("#select option:selected").val();
             	$.ajax({
     				type: 'get',
     				url:'/reset/magazine/ajax',
@@ -93,21 +173,25 @@
     			});
             });
             </script>
-            <div id="listTarget">
+            <div id="listTarget" class="contents_container">
             <c:forEach items="${alist }" var="bean">
-            <div class="list-group">
-            	<div class="row">
-				  <div class="col-sm-6 col-md-4">
-				    <div class="thumbnail">
-				      <a href="magazine/${bean.mag_no}"><img src="${bean.img}" alt="main_img"></a>
-				      <div class="caption">
-				        <a href="magazine/${bean.mag_no}"><h3>${bean.title}</h3></a>
-				        <p><img src="#" alt="카테고리" class="cate"/>${bean.cate }</p>
-				        <p><img src="#" alt="좋아요" class="pop"/>${bean.pop }<img src="#" alt="조회수" class="view"/>${bean.view }</p>
-				      </div>
-				    </div>
-				  </div>
-				</div>
+            <div class="contentsBox" class="span6 element category01" data-category="category01">
+                <div class="hover_img">
+                    <a href="magazine/${bean.mag_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+                </div> 
+                <div class="item_description">
+                    <h6><a href="magazine/${bean.mag_no}">${bean.title}</a></h6>
+                    <div><strong class="strong">${bean.cate}</strong></div>
+                    <div>
+                    	<span class="pop">
+                    		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
+                    	</span>
+                    	&emsp;&emsp;&emsp;&emsp;
+                    	<span class="view">
+	                    	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
+                    	</span>
+                    </div>
+                </div>                                    
             </div>
 			</c:forEach>
 			</div>

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.common.io.Files;
 
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
@@ -40,16 +44,18 @@ public class Event_Controller {
 	
 	String view="redirect:/event";
 
+	String goRoot="../";
 	
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
+		model.addAttribute("goRoot",goRoot);
 		service.listPage(model);
 		return "event/event_list";
 	}
 	
 	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.GET)
 	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException {
-		
+		model.addAttribute("goRoot",goRoot);
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
@@ -68,6 +74,8 @@ public class Event_Controller {
 	
 	@RequestMapping(value="/admin/event/{eve_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable int eve_no ,Model model) throws SQLException {
+		String goRoot="../../";
+		model.addAttribute("goRoot",goRoot);
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
@@ -82,10 +90,13 @@ public class Event_Controller {
 	
 	@RequestMapping(value="/admin/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
-		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		//TODO : 썸네일 주소
+		String filePath="/Users/hb/Desktop/3차 프로젝트/new master/src/main/webapp/resources/imgs/event_imgs";
 		Event_Vo bean= new Event_Vo();
 		bean.setEve_no(eve_no);
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		//TODO : 썸네일 사진을 불러오는 곳입니다.
+		bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
+		Thread.sleep(3000);
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setTags(req.getParameter("tags"));
@@ -95,18 +106,23 @@ public class Event_Controller {
 	
 	@RequestMapping("/admin/event/add")
 	public String addForm(Model model) {
+		String goRoot="../../";
+		model.addAttribute("goRoot",goRoot);
 		return "event/event_add";
 	}
 	
 	@RequestMapping(value = "/admin/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
-		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		//TODO : 썸네일 주소
+		String filePath="/Users/hb/Desktop/3차 프로젝트/new master/src/main/webapp/resources/imgs/event_imgs";
 		Event_Vo bean= new Event_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setTags(req.getParameter("tags"));
 		// 파일업로드 start
-	    bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+		//TODO : 썸네일 사진을 불러오는 곳입니다.
+	    bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),285));
+	    Thread.sleep(3000);
 	    // 파일업로드 end
 		service.addPage(bean);
 		return view;
@@ -146,27 +162,31 @@ public class Event_Controller {
         response.setContentType("text/html;charset=utf-8");
  
         try{
- 
-            String fileName = upload.getOriginalFilename();
+        	String now = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());  //현재시간
+            String fileName = now+upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
-            //TODO
-            String uploadPath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources/upload/" + fileName;
+            //TODO: CKeditor 이미지 저장 장소
+            String uploadPath = "/Users/hb/Desktop/3차 프로젝트/new master/src/main/webapp/resources/imgs/ckeditor_imgs/" + fileName;
  
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
+            out.flush();
             String callback = request.getParameter("CKEditorFuncNum");
- 
+            
             printWriter = response.getWriter();
             
             //url경로
-            //TODO
-            String fileUrl = "http://localhost:8080/reset/upload/"+ fileName;
+            //TODO: ckeditor 이미지 가져오는 주소(uploadPath의 resources의 뒤부터 추가해주세요 )
+            String fileUrl = "http://localhost:8080/reset/imgs/ckeditor_imgs/"+ fileName;
             
-            printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
+            printWriter.println("<script type='text/javascript'>"
+            		+"setTimeout(function(){"
+            		+ "window.parent.CKEDITOR.tools.callFunction("
                     + callback
                     + ",'"
                     + fileUrl
                     + "','이미지를 업로드 하였습니다.'"
+                    + ")},2000"
                     + ")</script>");
             printWriter.flush();
  

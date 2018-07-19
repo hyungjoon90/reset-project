@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../js/jquery-1.12.4.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../css/main.css" rel="stylesheet">
+<script src="${goRoot}js/jquery-1.12.4.js"></script>
+<script src="${goRoot}js/bootstrap.min.js"></script>
+<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot}css/main.css" rel="stylesheet">
 	<title>Home</title>
 </head>
 <body>
