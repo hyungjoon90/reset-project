@@ -66,7 +66,7 @@
 		      	<form action="notice/${bean.no_no }" method="post">
 		      		<div class="form-group">
 		      			<label for="name">제목</label>
-		      			<input type="text" class="form-control" name="title" id="title"" placeholder="제목" />
+		      			<input type="text" class="form-control" name="title" id="title" placeholder="제목" />
 		      		</div>
 		      		<div class="form-group">
 		      			<label for="content">내용</label>
@@ -115,7 +115,7 @@
 		      		<div class="form-group">
 		      			<label for="title">제목</label>
 				        <div class="well well-sm well-input">${bean.title }</div>
-		      			<input type="text" value="${bean.title }" class="form-control" name="title"" id="title" placeholder="제목" />
+		      			<input type="text" value="${bean.title }" class="form-control" name="title" id="title" placeholder="제목" />
 		      		</div>
 		      		<div class="form-group">
 		      			<label for="content">내용</label>

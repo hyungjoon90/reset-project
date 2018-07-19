@@ -22,6 +22,7 @@ $(function(){
 	display:none;
 }
 </style>
+
 <div class="wrap-loading display-none">
 	<div><img src="${goRoot }imgs/Eclipse-1s-200px red.svg" /></div>
 </div>  

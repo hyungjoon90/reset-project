@@ -42,7 +42,6 @@ $(document).ready(function() {
 	});
 	​
 </script>
-
 <body>
 	<form action="qna" method="post" id="form">
 		<div>
@@ -81,19 +80,12 @@ $(document).ready(function() {
         </select>-->
 			</div>
 			<div>
-				<button type="submit" id="qnaSave">전송</button>
+				<button type="submit" onclick="verifyEmail();">전송</button>
+				<!--<button type="submit" id="qnaSave">전송</button>-->
 				<button type="reset">취소</button>
 			</div>
 		</div>
 	</form>
 </body>
 
-</html>
-
-
-
-
-
-
-</body>
 </html>

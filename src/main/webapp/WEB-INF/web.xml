@@ -16,7 +16,7 @@
 	<!-- userAdd -->
 	<!-- session tracker -->
 	<listener> 
-   		<listener-class>ga.beauty.reset.utils.runner.Login_Listener</listener-class> 
+   		<listener-class>ga.beauty.reset.utils.runner.Session_Listener</listener-class> 
 	</listener> 
 	
 	<!-- encodingFilter Filter -->

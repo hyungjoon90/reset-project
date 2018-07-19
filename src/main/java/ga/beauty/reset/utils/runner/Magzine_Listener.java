@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 @Component(value="mag_Lsn")
 public class Magzine_Listener implements Common_Listener{
 
+	// 어떤 글이냐?
+	// 좋아요 총량 / 일별 증가량
+	// 조회수 총량 / 일별 증가량
+	// 댓글 총량 / 일별 증가량
+	
 	@Override
 	public void addLog() throws Exception {
 		// TODO Auto-generated method stub
