@@ -33,6 +33,7 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		return sqlSession.selectList("reviews.reviewAll", item);
 	}
 	
+	//TODO: 3.크롤링 dao 부분
 	@Override
 	public List<Reviews_Vo> reviewListAdd(int item,int review_num) throws SQLException {
 		log.debug("DaoImp-reviewAdd-param: "+item+" "+review_num);

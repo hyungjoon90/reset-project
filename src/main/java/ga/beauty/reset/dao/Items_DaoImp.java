@@ -79,7 +79,7 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 		if(option==1) {
 			log.debug("확인"+bean.getImg());
 			StringBuffer sb=new StringBuffer(bean.getImg());
-			sb.insert(26,"#$#");
+			sb.insert(26,"_s_");
 			log.debug("재확인: "+sb);
 			String temp=sb.toString();
 			bean.setImg(temp);

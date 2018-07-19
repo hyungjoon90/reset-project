@@ -16,7 +16,6 @@
     /* 컨텐츠 contatiner */
 	.page_container{
 		width: 80%;
-        border: 0.5px solid rgb(217, 222, 232);
 	}
     .page_container>a{
         text-decoration: none;
@@ -31,6 +30,7 @@
         margin: 0px auto;
         display: flex;
         border-bottom: 0.5px solid rgb(217, 222, 232);
+        padding: 5px 0px;
     }   
     .numbox{
         width: 20%;
@@ -134,6 +134,13 @@ function add(){
                 </div>
              </nav>                
         </div>    
+    </div>
+    <div class="breadcrumb">
+    	<div>
+   		<a href="/reset/">HOME</a>
+   		<span class="slash">/</span>
+   		로션
+   		</div>
     </div>
     <!--//header-->    
      

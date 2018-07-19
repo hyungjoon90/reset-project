@@ -53,7 +53,7 @@ public class Items_Service {
 			log.debug("확인"+bean.getImg());
 			String temp=bean.getImg();
 			log.debug(temp);
-			String[] temp2=temp.split("#\\$#");
+			String[] temp2=temp.split("_s_");
 			bean.setImg(temp2[0]+temp2[1]);
 		}
 		

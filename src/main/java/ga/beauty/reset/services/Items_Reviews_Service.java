@@ -173,7 +173,7 @@ public class Items_Reviews_Service {
 		if(!bean.getImg().equals("")) {
 			log.debug("확인"+bean.getImg());
 			String temp=bean.getImg();
-			String[] temp2=temp.split("#@#");
+			String[] temp2=temp.split("_s_");
 			bean.setImg(temp2[0]+temp2[1]);
 		}
 		
@@ -190,7 +190,7 @@ public class Items_Reviews_Service {
 			log.debug("확인"+bean.getImg());
 			StringBuffer sb=new StringBuffer(bean.getImg());
 			//TODO 이미지 경로 26번째 자리 확인
-			sb.insert(26,"#$#");
+			sb.insert(26,"_s_");
 			log.debug("재확인: "+sb);
 			String temp=sb.toString();
 			bean.setImg(temp);

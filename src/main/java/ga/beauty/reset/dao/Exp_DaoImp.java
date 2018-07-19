@@ -16,7 +16,7 @@ public class Exp_DaoImp implements Exp_Dao {
 	SqlSession sqlSession;
 
 	
-	
+	//TODO exp service 쪽으로 옮기기
 	@Override
 	public int up(String email, String type) throws SQLException {
 		int exp=0;
