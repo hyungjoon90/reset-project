@@ -339,6 +339,8 @@ $(document).ready(function(){
 		      <div class="modal-body">
 		      <form id="item" name="item" method="post" enctype="multipart/form-data">
 		      <input type="hidden" id="option" name="option" value="1"/>
+		      <input type="hidden" id="preimg" name="preimg" value="${item_bean.img }"/>
+		      <input type="hidden" id="tot" name="tot" value="${item_bean.tot }"/>
 			    <table class="table">
                 	<tr>
                     	<td>분류</td>

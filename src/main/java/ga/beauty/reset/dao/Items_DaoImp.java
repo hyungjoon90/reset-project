@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ga.beauty.reset.dao.entity.Items_Vo;
-import ga.beauty.reset.dao.entity.Reviews_Vo;
 
 @Repository
 public class Items_DaoImp implements Items_Dao<Items_Vo> {
@@ -18,6 +17,12 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Override
+	public List<Items_Vo> itemAll() throws SQLException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("items.itemAll");
+	}
 	
 	@Override
 	public List<Items_Vo> rankAll(int cate) throws SQLException {
@@ -68,13 +73,24 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 		return sqlSession.insert("items.rankAdd", bean);
 	}
 
+
+	@Override
+	public int itemUpdate(int option, Items_Vo bean) throws SQLException {
+		if(option==1) {
+			log.debug("확인"+bean.getImg());
+			StringBuffer sb=new StringBuffer(bean.getImg());
+			sb.insert(26,"_s_");
+			log.debug("재확인: "+sb);
+			String temp=sb.toString();
+			bean.setImg(temp);
+		}
+		return sqlSession.update("items.itemUpdate",bean);
+	}
+	
 	@Override
 	public int itemDelete(int item) throws SQLException {
 		log.debug("DaoImp-itemDel: "+item);
 		return sqlSession.delete("items.itemDel",item);
 	}
 
-	
-	
-	
 }

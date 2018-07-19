@@ -16,16 +16,17 @@
 		var answerCancel = $('#answerCancel'); //디테일로 돌아가는 취소창
 		var mailSend = $('#mailSend');
 		var target = $('#target');
+		var saveCancelBtns = $('.saveCancelBtns');
 
 		answer.hide(); // 답변 input hide
 		answerWrite.show(); //답변 작성하기 보여줌
 		mailSend.hide();
-		
+		saveCancelBtns.hide();
 		//TODO
 		
 		answerWrite.click(function() {
 			answerWrite.hide();
-			$('.saveCancelBtns').hide();
+			saveCancelBtns.show();
 			answer.show();
 			if (target.val() == "등록된 답변이 없습니다. 답변을 입력해주세요") {
 				mailSend.hide();
@@ -122,16 +123,16 @@
 		<input type="text" name="answer" id="answer" class="answer-input"
 			placeholder="답변을 작성하세요" />
 	</div>
-<button id="callConfirm">Confirm!</button>
+
 
 ​
 
 	<button type="button">목록</button>
 	<button type="button" id="answerWrite">답변</button>
-	<div class="saveCancelBtns">
+	<span class="saveCancelBtns">
 	<button type="button" id="answerSave">저장</button>
 	<button type="button" id="answerCancel">취소</button>
-	</div>
+	</span>
 	</form>
 </body>
 </html>

@@ -29,7 +29,8 @@ import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Items_Reviews_Controller {
-	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/upload_imgs";
+	//TODO 이미지 저장 경로 설정 해야함
+	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/review_imgs";
 	Logger log=Logger.getLogger(getClass());
 	ObjectMapper mapper = new ObjectMapper();
 	
@@ -74,12 +75,13 @@ public class Items_Reviews_Controller {
 		return "ranking_review/item_detail";
 	}
 	
+	// TODO: 2. 크롤링 받는곳
 	// 리뷰 리스트 추가 ajax
 	@RequestMapping(value="/item/reviewadd", method=RequestMethod.GET)
-	public void reviews_list_add(@RequestParam("item") int item,HttpServletResponse resp) throws SQLException, IOException {
+	public void reviews_list_add(@RequestParam("item") int item,@RequestParam("page") int review_num,HttpServletResponse resp) throws SQLException, IOException {
 		log.debug("review-param: "+item);
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(mapper.writeValueAsString(reviews_DaoImp.reviewListAdd(item)));
+		resp.getWriter().print(mapper.writeValueAsString(reviews_DaoImp.reviewListAdd(item,review_num)));
 	}
 	
 	// 리뷰 작성
@@ -97,6 +99,9 @@ public class Items_Reviews_Controller {
 		bean.setStar(Integer.parseInt(req.getParameter("star")));
 		if(!file.getOriginalFilename().equals("")) {
 			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
+//			//TODO 이미지 저장 경로 설정
+//			bean.setImg("imgs/review_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+//			Thread.sleep(5000);
 		}else {
 			bean.setImg("");
 		}
@@ -151,6 +156,9 @@ public class Items_Reviews_Controller {
 			bean.setImg(req.getParameter("preimg"));
 		}else if(req.getParameter("option").equals("2")) {
 			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
+//			//TODO 이미지 저장 경로설정
+//			bean.setImg("imgs/review_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
+//			Thread.sleep(5000);
 		}else if(req.getParameter("option").equals("3")) {
 			bean.setImg("");
 		}

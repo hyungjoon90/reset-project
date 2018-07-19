@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 @Component(value="session_Lsn")
 public class Session_Listener implements HttpSessionListener{
 
+	// 접속자수 / 로그인수 만 보여주는 놈
+	
 	private static final Logger logger = Logger.getLogger(Session_Listener.class);
     private static final Map<String, HttpSession> SESSIONS = new HashMap<>();
     

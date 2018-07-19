@@ -78,6 +78,7 @@ function search_brand(){
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
+ 			console.log(data.img);
   			$('.brand').append(
   					"<a href='./item/"+data.item+"'>"+
   					"<div class='contentsbox'>"+
@@ -189,6 +190,27 @@ function search_name(){
     	<br>
     	<h1>이름</h1>
     	<div class="name">
+    	</div>
+    	<br>
+    	<h1>모든 제품</h1>
+    	<div>
+    	<c:forEach items="${alist }" var="bean">
+	    	<a href="./item/${bean.item }">
+				<div class="contentsbox">
+					<div class="numbox box">
+				         <label>○</label>
+					</div>
+					<div class="imgbox box">
+					     <img src="${goRoot}${bean.img }">
+					</div>
+					<div class="conbox box">
+		                <p>${bean.brand }</p>
+					    <p>${bean.name }</p>
+					    <p>${bean.vol }&nbsp;${bean.price }원</p>
+					</div>
+				</div>
+       		</a>
+     	</c:forEach>
     	</div>
     </div>
     <!-- //main contents -->

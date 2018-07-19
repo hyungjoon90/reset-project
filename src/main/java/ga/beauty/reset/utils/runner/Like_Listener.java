@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Component(value="like_Lsn")
 public class Like_Listener implements Common_Listener{
 
+	// 좋아요 총량 / 일별 증가량
+	
 	@Override
 	public void addLog() throws Exception {
 		// TODO Auto-generated method stub

@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-@Component(value="report_Cre")
-public class Report_Creator implements Common_Listener {
+@Component(value="review_Lsn")
+public class Review_Lsn implements Common_Listener {
 
+	// 리뷰 총량 / 일별 증가량
+	
 	@Override
 	public void addLog() throws Exception {
 		// TODO Auto-generated method stub

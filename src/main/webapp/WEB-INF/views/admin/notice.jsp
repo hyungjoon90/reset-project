@@ -44,25 +44,16 @@
 
 	
 	$(function(){
-		
 		detail();
+		
 		$('.edit').click(function(){ edit(); });
+		
 	});
 	
 </script>
 </head>
 <body>
-<nav class="navbar navbar-default">		<!-- 메뉴 nav -->
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <p>비트교육센터</p>
-      </a>
-    </div>
-    <ul class="nav navbar-nav">					<!-- 메뉴 ul -->
-    	<li><a href="#">Home</a></li>
-    	<li><a href="#">List</a></li>
-    	<li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">새 공지사항입력하기</a></li>
+<h1>공지사항입니다</h1>
     	
     		<!-- 입력하기 -->
 		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -72,14 +63,10 @@
 		      	<h4>입력페이지</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<form method="post">
-		      <!-- 		<div class="form-group">
-		      			<label for="no_no">no_no</label>
-		      			<input type="text" class="form-control" name="no_no" id="no_no" placeholder="사번" />
-		      		</div> -->
+		      	<form action="notice/${bean.no_no }" method="post">
 		      		<div class="form-group">
 		      			<label for="name">제목</label>
-		      			<input type="text" class="form-control" name="title" id="title"" placeholder="제목" />
+		      			<input type="text" class="form-control" name="title" id="title" placeholder="제목" />
 		      		</div>
 		      		<div class="form-group">
 		      			<label for="content">내용</label>
@@ -93,9 +80,8 @@
 		    </div>
 		  </div>
 		</div> <!-- 입력페이지 끝-->
-    </ul>	<!-- 메뉴 ul -->
-  </div>
-</nav>	<!-- 메뉴 nav -->
+
+
 
 <div class="list-group"> <!-- list 시작 -->
 	<c:forEach items="${alist }" var="bean">
@@ -104,9 +90,8 @@
 <!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것 -->
 		<span class="badge">New</span>
 	  	<h4 class="list-group-item-heading">${bean.no_no }</h4>
-	    <p class="list-group-item-text">[${bean.nalja }]${bean.content }</p>
-	  </button> <!-- list 끝 -->
-	  
+	    <p class="list-group-item-text">[${bean.nalja }]${bean.content }</p></button>
+
 <!-- Modal -->
 		<div class="modal fade yourModal" id="myModal-${bean.no_no }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-${bean.no_no }">
 		  <div class="modal-dialog" role="document">
@@ -116,7 +101,7 @@
 		        <h4 class="modal-title" id="myModalLabel-${bean.no_no }">${bean.no_no }번 공지사항</h4>
 		      </div>
 		      <div class="modal-body">
-		        <form action="notice/${bean.no_no }" method="post" class="detailForm"  accept-charset="UTF-8">
+		        <form action="notice/${bean.no_no }" method="POST" class="detailForm"  accept-charset="UTF-8">
 		        	<input type="hidden" name="_method" value="put">
 		      		<div class="form-group">
 		      			<label for="no_no">글번호</label>
@@ -130,22 +115,26 @@
 		      		<div class="form-group">
 		      			<label for="title">제목</label>
 				        <div class="well well-sm well-input">${bean.title }</div>
-		      			<input type="text" value="${bean.title }" class="form-control" name="title"" id="title" placeholder="제목" />
+		      			<input type="text" value="${bean.title }" class="form-control" name="title" id="title" placeholder="제목" />
 		      		</div>
 		      		<div class="form-group">
 		      			<label for="content">내용</label>
 				        <div class="well well-sm well-input">${bean.content }</div>
 		      			<input type="text" value="${bean.content }" class="form-control" name="content" id="content" placeholder="내용" />
 		      		</div>
+		      		
 			        <input type="submit" class="btn btn-danger" value="수정"/>
 			        <input type="button" class="btn btn-default" data-dismiss="modal" value="Close"/>
-		      	</form>
+		      </form>
 		      </div>
+		      
 		      <div class="modal-footer">
-		        <form action="notice/${bean.no_no }" method="POST">
-		        <input type="hidden" name="_method" value="delete">
+		       
 		        <button type="button" class="btn btn-default" data-dismiss="modal">목록보기</button>
 		        <button type="button" class="btn btn-primary edit">수정</button>
+		      
+		       <form action="notice/${bean.no_no }" method="POST" >
+		        <input type="hidden" name="_method" value="delete">
 		        <button type="submit" class="btn btn-danger delete">삭제</button>
 		        </form>
 		      </div>
@@ -153,7 +142,9 @@
 		  </div>
 		</div>
 	</c:forEach>
+	   <button type="button" class="addNotice btn pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" >입력하기</button>
 </div>
+	
 
 </body>
 </html>

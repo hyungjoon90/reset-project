@@ -8,17 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import ga.beauty.reset.dao.Items_Dao;
-import ga.beauty.reset.dao.Reviews_Dao;
 import ga.beauty.reset.dao.entity.Items_Vo;
-import ga.beauty.reset.dao.entity.Reviews_Vo;
 
 @Service
 public class Items_Service {
@@ -56,7 +52,8 @@ public class Items_Service {
 		if(!bean.getImg().equals("")) {
 			log.debug("확인"+bean.getImg());
 			String temp=bean.getImg();
-			String[] temp2=temp.split("s_");
+			log.debug(temp);
+			String[] temp2=temp.split("_s_");
 			bean.setImg(temp2[0]+temp2[1]);
 		}
 		
@@ -77,11 +74,11 @@ public class Items_Service {
 			}
 		}
 	
-//	// 아이템 수정
-//	public int item_update(int option,Reviews_Vo bean) throws SQLException, IOException {
-//		log.debug("updatePage param: "+option+" "+bean);
-//		return Reviews_Dao.reviewUpdate(option,bean);
-//	}
+	// 아이템 수정
+	public int item_update(int option,Items_Vo bean) throws SQLException, IOException {
+		log.debug("updatePage param: "+option+" "+bean);
+		return Items_Dao.itemUpdate(option, bean);
+	}
 		
 	// 아이템 삭제
 	public int item_delete(int item) throws SQLException, IOException {
