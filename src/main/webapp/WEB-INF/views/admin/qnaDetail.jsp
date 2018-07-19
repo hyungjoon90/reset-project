@@ -11,8 +11,6 @@
 <link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="../../css/main.css" rel="stylesheet">
 	<title>Home</title>
-
-	
 	<style type="text/css">
 	
 	.redbtn {
@@ -92,11 +90,7 @@ top_margin: 100px;
 
 
 	</style>
-	
-	
-	
 	<script type="text/javascript">
-
 	$(document).ready(function() {
 		var answerSave = $('#answerSave'); // 답변저장
 		var answerWrite = $('#answerWrite'); //답변작성하기

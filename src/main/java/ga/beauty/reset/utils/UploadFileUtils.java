@@ -14,7 +14,7 @@ import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
 
-    public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
+    public static String uploadFile(String uploadPath, String originalName, byte[] fileData, int size) throws Exception {
         // UUID 발급
         UUID uuid = UUID.randomUUID();
         // 저장할 파일명 = UUID + 원본이름
@@ -32,7 +32,7 @@ public class UploadFileUtils {
         // 이미지 파일은 썸네일 사용
         if (MediaUtils.getMediaType(formatName) != null) {
             // 썸네일 생성
-            uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
+            uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName,size);
         // 나머지는 아이콘
         } else {
             // 아이콘 생성
@@ -45,13 +45,13 @@ public class UploadFileUtils {
     private static String calcPath(String uploadPath) {
         Calendar cal = Calendar.getInstance();
         // File.separator : 디렉토리 구분자(\\)
-        // 연도, ex) \\2017 
+        // 연도, ex) \\2018 
         String yearPath = File.separator + cal.get(Calendar.YEAR);
         System.out.println(yearPath);
-        // 월, ex) \\2017\\03
+        // 월, ex) \\2018\\07
         String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
         System.out.println(monthPath);
-        // 날짜, ex) \\2017\\03\\01
+        // 날짜, ex) \\2018\\07\\01
         String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
         System.out.println(datePath);
         // 디렉토리 생성 메서드 호출
@@ -77,13 +77,13 @@ public class UploadFileUtils {
     }    
 
     // 썸네일 생성
-    private static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception {
+    private static String makeThumbnail(String uploadPath, String path, String fileName, int size) throws Exception {
         // 이미지를 읽기 위한 버퍼
         BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
         // 100픽셀 단위의 썸네일 생성
         BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
         // 썸네일의 이름을 생성(원본파일명에 's_'를 붙임)
-        String thumbnailName = uploadPath + path + File.separator + "#$#" + fileName;
+        String thumbnailName = uploadPath + path + File.separator + "_s_" + fileName;
         File newFile = new File(thumbnailName);
         String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
         // 썸네일 생성

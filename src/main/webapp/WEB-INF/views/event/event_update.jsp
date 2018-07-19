@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../../js/jquery-1.12.4.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
-<script src="../../ckeditor/ckeditor.js"></script>
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="../../css/main.css" rel="stylesheet">
+<script src="${goRoot }js/jquery-1.12.4.js"></script>
+<script src="${goRoot }js/bootstrap.min.js"></script>
+<script src="${goRoot }ckeditor/ckeditor.js"></script>
+<link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
+<link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="${goRoot }css/main.css" rel="stylesheet">
+<link href="${goRoot }css/btn/btn.css" rel="stylesheet">
 	<title>Home</title>
 <script type="text/javascript">
  $(function(){
@@ -31,12 +32,14 @@
 	            $('#preview').slideDown(); //업로드한 이미지 미리보기
 	            $('#Existing_img').hide();
 	            $(this).slideUp(); //파일 양식 감춤
+	            $('.imgDiv').hide();
 	        }
 	    });
 	 $('#preview button').bind('click', function() {
 	        resetFormElement($('#img')); //전달한 양식 초기화
 	        $('#img').slideDown(); //파일 양식 보여줌
 	        $(this).parent().slideUp(); //미리 보기 영역 감춤
+	        $('.imgDiv').show();
 	        return false; //기본 이벤트 막음
 	    });
 	 
@@ -53,10 +56,39 @@
 <style type="text/css">
 	/* 미리보기 이미지 사이즈 */
 	#control_img { /* div에 주는것도 좋은 방법임. */
-		width: 200px;
-		height: 200px;
+		width: 300px;
 	}
-
+	#preview{
+		width: 570px;
+		height: 350px;
+	}
+	.delImgBtn{
+		display: block;
+	}
+	.imgDiv label { 
+		display: inline-block; 
+		padding: .5em .75em; 
+		font-size: inherit; 
+		line-height: normal;
+		color:#ffffff; 
+		vertical-align: middle; 
+		background-color: #313131; 
+		cursor: pointer; 
+		border: 1px solid #313131; 
+		border-bottom-color: #313131; 
+		border-radius: .25em; 
+		} 
+	
+	.imgDiv input[type="file"] { /* 파일 필드 숨기기 */ 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
+		}
 </style>
 </head>
 <body>
@@ -122,20 +154,20 @@
            		<!-- <input type="hidden" name="_method" value="put"/> -->
 	            <div>
 	            	<label for="eve_no"></label>
-	            	<input type="text" name="eve_no" id="eve_no" value="${detail.eve_no }" >
+	            	<input type="hidden" name="eve_no" id="eve_no" value="${detail.eve_no }" >
 	            </div>
-	            <div>
-	            	<label for="img">대표이미지</label>
+	            <div class="imgDiv">
+	            	<label for="img">대표이미지 수정</label>
 	            	<div name="Existing_img" id="Existing_img"><img src="../..${detail.img}"></div>
-	            	<input type="file" name="img" id="img">
+	            	<input type="file" name="img" id="img" class="darkBtn">
             	</div>
             	<div id="preview">
             		<img src="#" id="control_img">
-            		<button type="button">대표이미지 삭제</button>
+            		<button type="button" class="redBtn delImgBtn">대표이미지 삭제</button>
             	</div>
 	            <div>
 	            	<label for="title">제목</label>
-	            	<input type="text" name="title" id="title" value="${detail.title }" >
+	            	<input type="text" name="title" id="title" value="${detail.title }"  class="form-control">
 	            </div>
 	            <div>
 	            	<label for="con">내용</label>
@@ -168,12 +200,11 @@
 				</script>
             	</div>
 	            <div>
-	            	<label for="tags">해시태그</label>
-	            	<input type="text" name="tags" id="tags" value="${detail.tags }">
+	            	<input type="hidden" name="tags" id="tags" value="${detail.tags }">
             	</div>
 
-			<button type="reset" class="btn btn-primary">목록</button>
-			<button type="submit" class="btn btn-warning" id="updateBtn">수정</button>
+			<button type="reset" class="darkBtn">목록</button>
+			<button type="submit" class="redBtn" id="updateBtn">수정</button>
 			</form>
 			<script type="text/javascript">
 	       	 $("#updateBtn").on('submit',function(event){
@@ -204,7 +235,8 @@
         <hr>
     </div>
     <!-- //main contents -->
-
+    <!-- 로딩화면 -->
+	<%@include file="../../views/template/ajax_loading.jsp" %>
     <!--footer-->
     <div class="footer">
         <div class="wrap">

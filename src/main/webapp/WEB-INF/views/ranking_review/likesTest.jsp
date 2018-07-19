@@ -71,19 +71,19 @@ $(document).ready(function(){
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "PUT"
-				},
-				dataType: "text"
+				}
 			}) 
 			.done(function(data){
 				console.log(data);
-				if(data=="1"){
+			 	if(data.result=="1"){
 					console.log("성공");
 					$("#Likes").hide();
 					$("#unLikes").show();
 					$("#result").val("like");
+					$("#su").val(data.like);
 				} else if(data=="0"){
 					alert("실패하였습니다.");
-				}
+				} 
 		 	})
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 수정 실패');
@@ -112,19 +112,19 @@ $(document).ready(function(){
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "DELETE"
-				},
-				dataType: "text"
+				}
 			}) 
 			.done(function(data){
 				console.log(data);
-				if(data=="1"){
+				if(data.result=="1"){
 					console.log("성공");
 					$("#Likes").show();
 					$("#unLikes").hide();
 					$("#result").val("unlike");
+					$("#su").val(data.like);
 				} else if(data=="0"){
 					alert("실패하였습니다.");
-				}
+				} 
 		 	})
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 수정 실패');
@@ -193,6 +193,7 @@ $(document).ready(function(){
 			  좋아요 취소
 			</button>
 			<input id="result" type="text" value="" />
+			<input id="su" type="text" value="" />
 			
 	</div>
     <!-- //main contents -->

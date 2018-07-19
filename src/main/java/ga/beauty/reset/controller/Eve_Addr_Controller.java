@@ -39,7 +39,6 @@ public class Eve_Addr_Controller {
 	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req) throws SQLException {
 		Eve_addr_Vo bean=new Eve_addr_Vo();
 		bean.setEve_no(eve_no);
-		
 		service.listPage(model, bean);
 		return "eve_addr/eve_addr_detail";
 	}

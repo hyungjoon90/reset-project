@@ -1,12 +1,12 @@
 package ga.beauty.reset.utils.runner;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 public interface Common_Listener {
 
-	void addLog() throws Exception;
-	<T> List<T> getLogsAll() throws Exception;
-	<T> List<T> getLogsWithCount (int recentIdx, int counts) throws Exception;
+	<T> Future<String> addLog(T bean, String type, int chNum) throws Exception;
+	<T> List<T> getList() throws Exception;
 	void saveLogOneday() throws Exception;
-	void finalize() throws Throwable;
+	void saveTmp() throws Exception;
 }

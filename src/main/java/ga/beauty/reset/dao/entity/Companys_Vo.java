@@ -11,7 +11,6 @@ public class Companys_Vo {
 	private String	phone;
 	
 	public Companys_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Companys_Vo(String email, String company, int bisnum, String manager, int postcode, String address,

@@ -19,7 +19,6 @@ public class Reviews_Vo {
 	private int open;
 	
 	public Reviews_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Reviews_Vo(int rev_no, int item, String img, String writer, int age, String skin, String gender, String good,

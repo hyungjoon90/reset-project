@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class Mypage_ADV_Service {
 
+	
+	// 이벤트의 관한 정보만 보여준다.
 	public Map<String, Object> getInfo(String command, HttpSession session, HttpServletRequest req) {
 		return null;
 	}

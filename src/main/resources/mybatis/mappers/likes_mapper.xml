@@ -12,6 +12,10 @@
   		INSERT INTO LIKES (email,type,p_no) VALUES(#{email},#{type},#{p_no})
   	</insert>
   	
+  	<select id="likescheck" resultType="int">
+  		SELECT POP FROM ${type} WHERE ${type_no}=#{p_no}
+  	</select>
+  	
   	<update id="likesUp">
   		UPDATE ${type} SET POP=POP+1 WHERE ${type_no}=#{p_no}
   	</update>

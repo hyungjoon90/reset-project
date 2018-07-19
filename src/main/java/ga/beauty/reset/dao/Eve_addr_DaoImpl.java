@@ -16,43 +16,36 @@ public class Eve_addr_DaoImpl implements Common_Dao<Eve_addr_Vo>{
 	
 	@Override
 	public List<Eve_addr_Vo> selectAll() throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void insertOne(Eve_addr_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		sqlSession.insert("eveAddr.insertOne", bean);
 	}
 
 	@Override
 	public Eve_addr_Vo selectOne(Eve_addr_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int updateOne(Eve_addr_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int deleteOne(Eve_addr_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int updateView(Eve_addr_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public List<Eve_addr_Vo> selectAll(Eve_addr_Vo bean) throws SQLException {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("eveAddr.selectAll",bean);
 	}
 
