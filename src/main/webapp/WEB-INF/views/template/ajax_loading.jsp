@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script>
 $(function(){
 	$(document).ajaxStart(function() {$('.wrap-loading').removeClass('display-none');});
@@ -6,6 +7,7 @@ $(function(){
 </script>
 <style type="text/css" >
 .wrap-loading{
+
 	z-index:9999;
     position: fixed;
     left:0;	right:0; top:0; bottom:0;

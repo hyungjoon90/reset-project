@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <script src="../../js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-
 	$(document).ready(function() {
 		var answerSave = $('#answerSave'); // 답변저장
 		var answerWrite = $('#answerWrite'); //답변작성하기

@@ -7,7 +7,7 @@ function onlyNumber(event){
 	event = event || window.event;
     $(event.target).val($(event.target).val().replace(/[^0-9]/g,""));
 }
-
+// XXX : 테스트
 function inputSuccess($target){
 	  $target.parent().find(".errM").remove();
 	  $target.css("color","green");

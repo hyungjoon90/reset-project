@@ -11,7 +11,6 @@ public class Comment_Vo {
 	private String co_type; //ENUM('�Ű���','����','�̺�Ʈ')
 	private int p_no;
 	public Comment_Vo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Comment_Vo(int co_no, String writer, String email, Date nalja, String content, String co_type, int p_no) {

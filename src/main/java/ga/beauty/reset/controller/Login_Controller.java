@@ -63,7 +63,10 @@ public class Login_Controller {
 	
 	@RequestMapping(value="/logout/", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
-		if((boolean) session.getAttribute("login_on"))session.invalidate(); // TODO 세션초기화
+		if((boolean) session.getAttribute("login_on")){
+				session.invalidate(); // TODO 세션초기화
+				session.setAttribute("login_on", false);
+			}
 		return "index";
 	}
 	
@@ -171,7 +174,7 @@ public class Login_Controller {
 			// TODO 이메일보내기 서비스 해야됨
 			String setfrom ="resetbeauty@gmail.com";
 			String toemail = req.getParameter("emailFind");
-			String title = "Reset 비밀번호 메일";
+			String title = "Reset : 비밀번호 메일";
 			String contents = req.getParameter("tmp1")+"\n\n\n 입니다.";
 			MimeMessage msg = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true, "UTF-8");

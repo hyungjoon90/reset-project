@@ -62,8 +62,15 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	}
 	
 	@Override
-	public int reviewUpdate(Reviews_Vo bean) throws SQLException {
-		
+	public int reviewUpdate(int option,Reviews_Vo bean) throws SQLException {
+		if(option==1) {
+			log.debug("확인"+bean.getImg());
+			StringBuffer sb=new StringBuffer(bean.getImg());
+			sb.insert(26,"s_");
+			log.debug("재확인: "+sb);
+			String temp=sb.toString();
+			bean.setImg(temp);
+		}
 		return sqlSession.update("reviews.reviewUpdate",bean);
 	}
 
