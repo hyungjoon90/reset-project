@@ -1,13 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../../js/jquery-1.12.4.js"></script>
-<script type="text/javascript">
+<script src="../../js/bootstrap.min.js"></script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/main.css" rel="stylesheet">
+	<title>Home</title>
+
+	
+	<style type="text/css">
+	
+	.redbtn {
+background-color:#d00b01;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #D00B01;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+}
+
+.redbtn:active {
+	position:relative;
+	top:1px;
+}
+
+
+	.greybtn {
+background-color:#D1D1D1;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #D1D1D1;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+}
+
+.greybtn:active {
+	position:relative;
+	top:1px;
+}
+
+	.blackbtn {
+background-color:#313131;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #313131;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	
+	position: relative;
+	
+}
+
+.blackbtn:active {
+	position:relative;
+	top:1px;
+}
+
+.blackbtn{
+left-margin: 300px;
+}
+
+.btncontainer{
+top_margin: 100px;
+}
+
+
+	</style>
+	
+	
+	
+	<script type="text/javascript">
 
 	$(document).ready(function() {
 		var answerSave = $('#answerSave'); // 답변저장
@@ -22,7 +110,7 @@
 		answerWrite.show(); //답변 작성하기 보여줌
 		mailSend.hide();
 		saveCancelBtns.hide();
-		//TODO
+		
 		
 		answerWrite.click(function() {
 			answerWrite.hide();
@@ -43,6 +131,8 @@
 					type : 'post',
 					enctype : 'multipart/form-data',
 					url : '/reset/admin/qnaDetail/${bean.qa_no }',
+					//TODO reset
+					
 					dataype : 'text',
 					headers : {
 						//"Context-Type" : "application/json",
@@ -70,6 +160,7 @@
 			$.ajax({ // ajax 이메일전송
 				type:"post",
 				url : '/reset/mail/qna/${bean.qa_no }',
+				//TODO reset
 				success : function(data){
 					if(data ==456){
 						conform
@@ -80,33 +171,40 @@
 		});//이메일전송 버튼 클릭 이벤트
 	}); //document ready end
 </script>
-
+	
+	
 </head>
+
 <body>
-	<h4>글번호 ${bean.qa_no} 상세페이지</h4>
+ 
+	<h3>글번호 ${bean.qa_no} 상세페이지</h3>
 
 
 		<form action="${bean.qa_no }" method="post">
-	<div>
-		<label for="qa_no">글번호</label> &nbsp; &nbsp; &nbsp; &nbsp; <span>${bean.qa_no }</span>
-		<input type="hidden" value="${bean.qa_no }" class="form-control"
-			name="qa_no" id="qa_no" placeholder="사번" />
+			<div class="form-group row" >
+				<label for="qa_no" class="col-sm-2 col-form-label">글번호</label>
+				<input class="form-control" type="text" placeholder="${bean.qa_no }" readonly>
+		
+				<div class="col-sm-10">${bean.qa_no }</div>
+			</div>
+			<div class="form-group row" >
+				<label for="nalja" class="col-sm-2 col-form-label">날짜</label>
+				<div class="col-sm-10">${bean.nalja }</div>
+			</div>
+			<div class="form-group row" >
+				<label for="" class="col-sm-2 col-form-label">이메일</label>
+		<div class="col-sm-10">${bean.email }</div>
 	</div>
-	<div>
-		<label>날짜</label>&nbsp; &nbsp; &nbsp; &nbsp; <span>${bean.nalja }</span>
+	<div class="form-group row" >
+		<label for="qa_type" class="col-sm-2 col-form-label">질문유형</label>
+		<div class="col-sm-10">${bean.qa_type }</div>
 	</div>
-	<div>
-		<label>이메일</label>
-		<span>${bean.email }</span>
+	<div class="form-group row" >
+		<label for="con" class="col-sm-2 col-form-label">내용</label>
+		<div class="col-sm-10">${bean.con }</div>
 	</div>
-	<div>
-		<label>질문유형</label>&nbsp; &nbsp; &nbsp; &nbsp; <span>${bean.qa_type }</span>
-	</div>
-	<div>
-		<label>내용</label>&nbsp; &nbsp; &nbsp; &nbsp; <span>${bean.con }</span>
-	</div>
-	<div>
-		<label>답변</label>&nbsp; &nbsp; &nbsp; &nbsp;
+	<div class="form-group row" >
+		<label for="answer" class="col-sm-2 col-form-label">답변</label>
 		<c:choose>
 			<c:when test="${empty bean.answer}">
 				<span id="target">등록된 답변이 없습니다. 답변을 입력해주세요</span>
@@ -115,24 +213,23 @@
 						<span id="target">${bean.answer }</span>
 				</c:otherwise>
 		</c:choose>
-			<span id="target"><button type="button" id="mailSend"
-					name="mailSend" style="display: none">메일전송</button></span>
+			<div class="col-sm-10"id="target"><button type="button" id="mailSend"
+					name="mailSend" style="display: none">메일전송</button></div>
 	</div>
-	<!-- TODO 야호 -->
+
 	<div>
-		<input type="text" name="answer" id="answer" class="answer-input"
-			placeholder="답변을 작성하세요" />
+		<textarea name="answer" id="answer" class="answer-input"
+			placeholder="답변을 작성하세요"></textarea>
 	</div>
-
-
-​
-
-	<button type="button">목록</button>
-	<button type="button" id="answerWrite">답변</button>
+<div class="btncontainer">
+	<button type="button" class="blackbtn">목록</button>
+	<button type="button" id="answerWrite" class="redbtn">답변</button>
 	<span class="saveCancelBtns">
-	<button type="button" id="answerSave">저장</button>
-	<button type="button" id="answerCancel">취소</button>
+	<button type="button" id="answerSave" class="redbtn">저장</button>
+	<button type="button" id="answerCancel" class="greybtn">취소</button>
 	</span>
+</div>
+	
 	</form>
 </body>
 </html>

@@ -51,11 +51,16 @@
 	});
 	
 </script>
+<style>
+
+</style>
+
 </head>
 <body>
 <h1>공지사항입니다</h1>
     	
     		<!-- 입력하기 -->
+    	
 		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 		  <div class="modal-dialog modal-lg" role="document">
 		    <div class="modal-content">
@@ -63,7 +68,7 @@
 		      	<h4>입력페이지</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<form action="notice/${bean.no_no }" method="post">
+		      	<form action="/reset/notice/${bean.no_no }" method="post">
 		      		<div class="form-group">
 		      			<label for="name">제목</label>
 		      			<input type="text" class="form-control" name="title" id="title" placeholder="제목" />
@@ -72,27 +77,32 @@
 		      			<label for="content">내용</label>
 		      			<input type="text" class="form-control" name="content" id="content" placeholder="공지사항 내용" />
 		      		</div>
+		   
 			        <button type="submit" class="btn btn-primary">입력</button>
+			 
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      	</form>
 		      </div>
 		      
 		    </div>
 		  </div>
-		</div> <!-- 입력페이지 끝-->
+		</div> 
+		
+		<!-- 입력페이지 끝-->
 
 
+<!-- list 시작 -->
 
-<div class="list-group"> <!-- list 시작 -->
+<div class="list-group"> 
 	<c:forEach items="${alist }" var="bean">
-	  <button type="button" class="list-group-item btn btn-default btn-lg" data-toggle="modal" data-target="#myModal-${bean.no_no }">
+  		
+  		<div data-toggle="modal" data-target="#myModal-${bean.no_no }"> 
+<!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
+		<span class="badge pull-right">New</span>
+	  	<span class="list-group-item-heading">${bean.no_no }</span>
+	    <p class="list-group-item-text">[${bean.nalja }]${bean.content }</p></div>
 
-<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것 -->
-		<span class="badge">New</span>
-	  	<h4 class="list-group-item-heading">${bean.no_no }</h4>
-	    <p class="list-group-item-text">[${bean.nalja }]${bean.content }</p></button>
-
-<!-- Modal -->
+		<!-- Modal -->
 		<div class="modal fade yourModal" id="myModal-${bean.no_no }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-${bean.no_no }">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
@@ -101,7 +111,7 @@
 		        <h4 class="modal-title" id="myModalLabel-${bean.no_no }">${bean.no_no }번 공지사항</h4>
 		      </div>
 		      <div class="modal-body">
-		        <form action="notice/${bean.no_no }" method="POST" class="detailForm"  accept-charset="UTF-8">
+		        <form action="/reset/notice/${bean.no_no }" method="POST" class="detailForm"  accept-charset="UTF-8">
 		        	<input type="hidden" name="_method" value="put">
 		      		<div class="form-group">
 		      			<label for="no_no">글번호</label>
@@ -132,17 +142,21 @@
 		       
 		        <button type="button" class="btn btn-default" data-dismiss="modal">목록보기</button>
 		        <button type="button" class="btn btn-primary edit">수정</button>
-		      
-		       <form action="notice/${bean.no_no }" method="POST" >
-		        <input type="hidden" name="_method" value="delete">
+			 	<form action="/reset/notice/${bean.no_no }" method="POST" >
+		        <input type="hidden" name="_method" value="delete"/> 
 		        <button type="submit" class="btn btn-danger delete">삭제</button>
 		        </form>
-		      </div>
+		     
+		      </div><!-- modal footer end  -->
 		    </div>
 		  </div>
 		</div>
 	</c:forEach>
+	
+	<!-- TODO 관리자 로그인시 보이게 되는 입력버튼 -->
+	<%-- <c:if test="${login_on==true && !(login_user_type='일반')}"> --%>
 	   <button type="button" class="addNotice btn pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" >입력하기</button>
+	<%-- </c:if> --%>
 </div>
 	
 
