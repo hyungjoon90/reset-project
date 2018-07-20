@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -28,6 +29,7 @@ import ga.beauty.reset.dao.entity.stat.Log_C_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
+@Component("login_Listener")
 public class Login_Listener implements Common_Listener{
 
 	Logger logger = Logger.getLogger(Login_Listener.class);
@@ -35,24 +37,23 @@ public class Login_Listener implements Common_Listener{
 	//{"data":[{"name":"로그인","num":int},{"name":"접속자","num":int}]}
 	
 	private String defaultFP = "c:/reset/report/login/";
-
+	// 했는데 시점이 애매함 다시 봐야됨 이놈은 인터셉터 - linter 봐야됨
+	
 	// addLog 할때 user 넣으면 로그인숫자 올리기
 	// 접속자는 null 
 	// 일마다 로그인 한 사람들 총수
-	// XXX 추가작업-월마다 다 더해서 하나 만들기
-	
 	// session lsn가 잘 작동하니까 이걸 이용해서 전체 접속숫자는 저장한다.
-	
 	
 	private List<Log_C_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;	
 	
-	static Login_Listener self; // TODO 임시용
+	static Login_Listener self;
 
 	public Login_Listener() {
 		init();
 		self = this; // TODO 임시용
+		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
 	}
 	
 	public static Login_Listener getThis() {
@@ -105,7 +106,6 @@ public class Login_Listener implements Common_Listener{
 			// 어떤거 값 변화 
 			if(type.equals("num")) { // 사실 안써도 됨.
 				checkVo.setNum(checkVo.getNum()+chNum);
-				logger.info("되냐?");
 			}
 	}//changeValue()
 
@@ -142,7 +142,6 @@ public class Login_Listener implements Common_Listener{
 	@Override
 	@PreDestroy
 	public void saveTmp() throws Exception {
-		System.out.println("로그인"); // TODO 안됨 해결해야됨.
 		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Date date = new Date();

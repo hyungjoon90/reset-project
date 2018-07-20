@@ -114,6 +114,7 @@ public class Login_Controller {
 					Companys_Vo bean = new Companys_Vo();
 					bean.setEmail((String)session.getAttribute("login_email"));
 					session.setAttribute("login_nick" ,companys_Dao.selectOne(bean).getManager());
+					session.setAttribute("login_comName" ,companys_Dao.selectOne(bean).getCompany());
 				}
 		}
 		if(req.getAttribute("login_err")==null) return (String) req.getAttribute("login_result");
@@ -149,17 +150,17 @@ public class Login_Controller {
 			}
 		}else if(command.equals("adds_no")){
 			String swap = (String)session.getAttribute("old_url");
-			session.invalidate(); // TODO 세션초기화
+			session.invalidate(); // TODO [kss]세션초기화
 			session.setAttribute("old_url",swap);
 			resultMap.put("result", 300);
-			resultMap.put("redirect", "/reset/login/"); // TODO reset 지워야됨.
+			resultMap.put("redirect", "/reset/login/"); // TODO [kss]reset 지워야됨.
 			return resultMap;
 		}else {
 			// adds_back
 			String swap = (String)session.getAttribute("old_url");
-			session.invalidate(); // TODO 세션초기화
+			session.invalidate(); // TODO [kss]세션초기화
 			resultMap.put("result", 300);
-			resultMap.put("redirect", swap); // TODO reset 지워야됨.
+			resultMap.put("redirect", swap);
 			return resultMap;
 		}
 	}

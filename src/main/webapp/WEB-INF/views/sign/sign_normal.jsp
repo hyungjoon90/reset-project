@@ -13,6 +13,7 @@
 <script src="${goRoot}js/sign.js"></script>
 <title>Normol LoginView</title>
 <script type="text/javascript">
+<!-- TODO: [kss] -비밀번호 / 성별 에러- 에러 발생 고쳐야됨 -->
 $(function(){
     addFormEvent();
     
@@ -20,19 +21,20 @@ $(function(){
          e.preventDefault();
     	var result = submitCheck();
 		if(result){
-			if($("#password").legnth>0){
+			if($("#password").length>0){
 				var pw= $("#password").val();
-				$("#password").val(SHA256(pw));
+				pw = $("#password").val(SHA256(pw));
+				console.log(pw);
 			}
 			var data =$('#form').serialize();
 			console.log(data);
-			$.post(".",data,function(output){
+/* 			$.post(".",data,function(output){
 				if(output.result==200){
 					window.location.href=ouput.url;
 				}else{
 					alert("알수 없는 이유로 회원가입이 실패하였습니다. 잠시후 다시 이용해주세요");
 				}
-			});// end $.post
+			});// end $.post */
 		}// end if
 	});// end submit event
 });
@@ -90,12 +92,18 @@ $(function(){
         </div>    
     </div>
     <!--//header-->    
-     
+     <style type="text/css">
+     .form-size{
+     	max-width: 85%;
+     	margin :10px auto; 
+     }
+     </style>
+     	
     <!-- main contents -->
     <div class="page_container">
-	<form action="./" method="post" id="form">
+	<form action="./" method="post" id="form" class="form-size">
 		<div class="form-group"> 
-			<label for="email">이메일</label>		
+			<label for="email" class="">이메일</label>		
 			<input type="email" name="email" id="email" class="form-control" value="${login_email }" placeholder="이메일입력"/>
 		</div>
 		<div class="form-group">
@@ -118,8 +126,8 @@ $(function(){
 		</div>
 		<div class="form-group">
 			<label for="gender">성별</label>		
- 			<input type="radio" name="gender" id="gender_1"  class="form-control" value="남성" checked/><label for="gender_1">남성</label><br>
- 			<input type="radio" name="gender" id="gender_2"  class="form-control" value="여성" /><label for="gender_2">여성</label><br>
+ 			<input type="radio" name="gender" id="gender_1" class="form-control" value="남성" /><label for="gender_1">남성</label><br>
+ 			<input type="radio" name="gender" id="gender_2" class="form-control" value="여성" checked/><label for="gender_2">여성</label><br>
 		</div>
 		<div class="form-group">
 			<label for="age">age</label>		

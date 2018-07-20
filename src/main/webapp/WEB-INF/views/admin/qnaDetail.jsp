@@ -125,7 +125,6 @@ top_margin: 100px;
 					type : 'post',
 					enctype : 'multipart/form-data',
 					url : '/reset/admin/qnaDetail/${bean.qa_no }',
-					//TODO reset
 					
 					dataype : 'text',
 					headers : {

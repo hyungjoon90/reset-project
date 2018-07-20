@@ -7,11 +7,16 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ga.beauty.reset.dao.Likes_Dao;
+import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Likes_Vo;
+import ga.beauty.reset.dao.entity.Magazine_Vo;
+import ga.beauty.reset.dao.entity.Reviews_Vo;
+import ga.beauty.reset.utils.runner.Common_Listener;
 
 
 @Service
@@ -24,6 +29,19 @@ public class Likes_Service {
 	@Autowired
 	SqlSession sqlSession;
 	
+	@Autowired	@Qualifier("like_Listener")
+	Common_Listener like_Listener;
+
+	@Autowired	@Qualifier("magzine_Listener")
+	Common_Listener magzine_Listener;
+	
+	@Autowired @Qualifier("event_Listener")
+	Common_Listener event_Listener;
+
+	@Autowired @Qualifier("review_Listener")
+	Common_Listener review_Listener;
+	
+	
 	public Likes_Vo check(Likes_Vo bean) throws SQLException {
 		log.debug("likes_dao param: "+bean);
 		bean.setType(convert_Type(bean.getType()));
@@ -31,7 +49,7 @@ public class Likes_Service {
 	}
 	
 	@Transactional
-	public Map up(Likes_Vo bean) throws SQLException {
+	public Map up(Likes_Vo bean) throws Exception {
 		log.debug("bean"+bean);
 		bean.setType(convert_Type(bean.getType()));
 		Likes_Dao.likesAdd(bean);//insert하고
@@ -55,14 +73,16 @@ public class Likes_Service {
 		map.put("p_no", bean.getP_no());
 		int result=Likes_Dao.up(map);//1을 추가시킴
 		int like=Likes_Dao.likesCheck(map);//좋아요 수를 확인
-		
+		// XXX:[kss] 좋아요 로그쌓기 
+			addLogToListener(bean, 1);
+		//
 		map2.put("result", result);
 		map2.put("like",like);
 		return map2;
 	}
 	
 	@Transactional
-	public Map down(Likes_Vo bean) throws SQLException {
+	public Map down(Likes_Vo bean) throws Exception {
 		log.debug("bean"+bean);
 		bean.setType(convert_Type(bean.getType()));
 		Likes_Dao.likesDel(bean);//Del하고
@@ -84,9 +104,11 @@ public class Likes_Service {
 		map.put("type", bean.getType());
 		map.put("type_no", type_no);
 		map.put("p_no", bean.getP_no());
-		int result=Likes_Dao.down(map);//1을 추가시킴
+		int result=Likes_Dao.down(map);//1을 내림
 		int like=Likes_Dao.likesCheck(map);//좋아요 수를 확인
-		
+		// XXX:[kss] 좋아요 로그쌓기 
+			addLogToListener(bean, -1);
+		//
 		map2.put("result", result);
 		map2.put("like",like);
 		return map2;
@@ -105,4 +127,22 @@ public class Likes_Service {
 			return type="에러";
 		}
 	}
-}
+	
+	private <T> void addLogToListener(Likes_Vo bean, int chValue) throws Exception {
+		like_Listener.addLog(bean, "num", chValue);
+		String type = bean.getType();
+		if(type.equals("이벤트")){
+			Event_Vo target = new Event_Vo();
+			target.setEve_no(bean.getP_no());
+			event_Listener.addLog(target, "like", chValue);
+		} else if(type.equals("매거진")){
+			Magazine_Vo target = new Magazine_Vo();
+			target.setMag_no(bean.getP_no());
+			magzine_Listener.addLog(target, "like", chValue);
+		} else if(type.equals("리뷰")){
+			Reviews_Vo target = new Reviews_Vo();
+			target.setRev_no(bean.getP_no());
+			review_Listener.addLog(target, "num", chValue);
+		}
+	};
+}//Like_Service

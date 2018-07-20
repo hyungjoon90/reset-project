@@ -9,40 +9,41 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import ga.beauty.reset.utils.LogEnum;
+
 public class Auth_Interceptor extends HandlerInterceptorAdapter{
 
 	Logger logger = Logger.getLogger(Auth_Interceptor.class);
 	
 	public Auth_Interceptor() {
+		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
 	}
-	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
         String ip = request.getHeader("X-FORWARDED-FOR");
         Locale locale = request.getLocale();
-        if (ip == null) ip = request.getRemoteAddr();		
-/*		if(session.getAttribute("login_on")==null) {
+        // TODO [kss] 마무리작업시
+        // System.out.println(request.getRequestURI()); // /reset/admin/
+        /*if (ip == null) ip = request.getRemoteAddr();		
+		if(session.getAttribute("login_on")==null) {
         	logger.info("@비정상접속@"+"{ip:"+ip+", locale:"+locale+"}");
 			response.sendRedirect("/login/");
 			return false;
-		}*/ // TODO 이거 나중에 살려야됨.
+		}else if(request.getRequestURI().equals("/admin/")){
+			session.getAttribute("login_")//
+		}*/
 		return super.preHandle(request, response, handler);
 	}
-	
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		super.afterCompletion(request, response, handler, ex);
 	}
-	
 	@Override
 	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-        // XXX 여기에 login-listener 올리자
 		super.afterConcurrentHandlingStarted(request, response, handler);
 	}
-	 
-	
 }

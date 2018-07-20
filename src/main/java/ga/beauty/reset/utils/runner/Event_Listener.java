@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,6 +31,7 @@ import ga.beauty.reset.dao.entity.stat.Log_EM_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
+@Component("event_Listener")
 public class Event_Listener implements Common_Listener{
 
 	Logger logger = Logger.getLogger(Event_Listener.class);
@@ -38,16 +40,16 @@ public class Event_Listener implements Common_Listener{
 	//{"data":[{"no":eveno,"like":,"view":,"num":},....]}
 	private String defaultFP = "c:/reset/report/event/";
 
-	// 좋아요 총량-은 기록안함 		/ 일별 증가량
-	// 조회수 총량-은 기록안함 		/ 일별 증가량
-	// 신청자수 총량-은 기록안함 	/ 일별 증가량
-	// XXX 야호
+	// 좋아요 총량-은 기록안함 		/ 일별 증가량 // DONE
+	// 조회수 총량-은 기록안함 		/ 일별 증가량 // DONE
+	// 신청자수 총량-은 기록안함 	/ 일별 증가량 // DONE
 	private List<Log_EM_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
 	public Event_Listener() {
 		init();
+		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
 	}
 	
 	private void init() {
@@ -92,13 +94,13 @@ public class Event_Listener implements Common_Listener{
 			else list.add(checkVo);
 			// 어떤거 값 변화 
 			if(type.equals("like")) {
-				logger.info("@이벤트@ No."+checkNo+" 번 이벤트의 좋아요가 ["+chNum+"] 만큼 변했습니다.");
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 이벤트의 좋아요가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setLike(checkVo.getLike()+chNum);
 			}else if(type.equals("view")) {
-				logger.info("@이벤트@ No."+checkNo+" 번 이벤트의 조회수가 ["+chNum+"] 만큼 변했습니다.");
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 이벤트의 조회수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setView(checkVo.getView()+chNum);
 			}else if(type.equals("num")) {
-				logger.info("@이벤트@ No."+checkNo+" 번 이벤트의 참여자수가 ["+chNum+"] 만큼 변했습니다.");
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 이벤트의 참여자수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setNum(checkVo.getNum()+chNum);
 			}
 		}
@@ -141,7 +143,6 @@ public class Event_Listener implements Common_Listener{
 	@Override
 	@PreDestroy
 	public void saveTmp() throws Exception {
-		System.out.println("이벤트"); // TODO 안됨 해결해야됨.
 		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Date date = new Date();

@@ -55,7 +55,7 @@ public class Magazine_Controller {
 	}
 	
 	@RequestMapping(value="/magazine/{mag_no}", method=RequestMethod.GET)
-	public String detail(@PathVariable("mag_no") int mag_no,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException{
+	public String detail(@PathVariable("mag_no") int mag_no,Model model,HttpServletRequest req,HttpServletResponse resp) throws Exception{
 		model.addAttribute("goRoot",goRoot);
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(mag_no);

@@ -78,7 +78,6 @@ public class Sign_Service {
 	
 	@Transactional
 	public int findPw(HttpServletRequest req) throws SQLException, NoSuchAlgorithmException {
-		// TODO 비밀번호찾기 해야됨
 		String emailFind = req.getParameter("emailFind");
 		String phoneFind = req.getParameter("phoneFind");
 		String bisnumFind = req.getParameter("bisnumFind");

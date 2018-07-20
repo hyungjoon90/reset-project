@@ -1,6 +1,5 @@
 package ga.beauty.reset.dao;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -53,11 +52,9 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	@Override
 	public Reviews_Vo reviewOne(int item,int rev_no) throws SQLException {
 		log.debug("param: "+item+" "+rev_no);
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("item", item);
 		map.put("rev_no", rev_no);
-		
 		return sqlSession.selectOne("reviews.reviewOne", map);
 	}
 	

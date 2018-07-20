@@ -238,8 +238,8 @@ if($("#password").length>0){
 	$("#pwchk").on("blur",function(e){checkRePW(e.target)});
 }
 $("#phone").on("blur",function(e){checkPhone(e.target)});
-$("#phone").on("keydown",function(e){onlyNumber(e.target)});
-$("#phone").on("keyup",function(e){onlyNumber(e.target)});
+$("#phone").on("keydown",function(e){onlyNumber(e)});
+$("#phone").on("keyup",function(e){onlyNumber(e)});
 
 }// addFormEvent();
 

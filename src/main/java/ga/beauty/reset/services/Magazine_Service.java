@@ -13,6 +13,7 @@ import ga.beauty.reset.dao.entity.Magazine_Vo;
 
 @Service
 public class Magazine_Service {
+	
 	@Autowired
 	Common_Dao<Magazine_Vo> commonDao;
 	

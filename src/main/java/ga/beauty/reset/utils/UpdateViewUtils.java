@@ -1,6 +1,5 @@
 package ga.beauty.reset.utils;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,18 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.mysql.cj.util.StringUtils;
 
 import ga.beauty.reset.dao.Common_Dao;
-import ga.beauty.reset.dao.Event_DaoImpl;
-import ga.beauty.reset.dao.Magazine_DaoImpl;
 import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
+import ga.beauty.reset.utils.runner.Common_Listener;
 
 @Service
 public class UpdateViewUtils {
@@ -31,13 +29,22 @@ public class UpdateViewUtils {
 	@Autowired
 	Common_Dao<Magazine_Vo> magazine_Dao;
 	
+	@Autowired
+	@Qualifier ("event_Listener")
+	Common_Listener event_Listener;
+	
+	@Autowired
+	@Qualifier("magzine_Listener")
+	Common_Listener magzine_Listener;
+	
+	
 	public UpdateViewUtils() {
 	}
 	
 	public void UpdateView(HttpServletResponse resp,HttpServletRequest req
-			,String type, int no,Model model ) throws SQLException{
+			,String type, int no,Model model ) throws Exception{
 		Cookie cookies[] = req.getCookies();
-		Map mapCookie = new HashMap();
+		Map<String, String> mapCookie = new HashMap<String, String>();
 		if(req.getCookies()!=null) {
 			for(int i=0; i<cookies.length;i++) {
 				Cookie obj= cookies[i];
@@ -61,25 +68,29 @@ public class UpdateViewUtils {
 			
 			//조회수 업데이트
 			if(type.equals("event")) {
-				updateEventView(no); // XXX 실제로 조회수 업데이트
+				updateEventView(no);
 			}else if(type.equals("magazine")) {
-				updateMagazineView(no); // XXX 실제로 조회수 업데이트
+				updateMagazineView(no);
 			}
 		}
 	}
 	
-	public void updateEventView(int no) throws SQLException {
+	@Transactional
+	public void updateEventView(int no) throws Exception {
 		//조회수 업데이트
 		Event_Vo bean =new Event_Vo();
 		bean.setEve_no(no);
 		event_Dao.updateView(bean);
+		event_Listener.addLog(bean, "view", 1); // XXX [kss] 뷰증가시 로그 쌓기
 	}
 	
-	public void updateMagazineView(int no) throws SQLException {
+	@Transactional
+	public void updateMagazineView(int no) throws Exception {
 		//조회수 업데이트
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(no);
 		magazine_Dao.updateView(bean); 
+		magzine_Listener.addLog(bean, "view", 1); // XXX [kss] 뷰증가시 로그 쌓기
 	}
 	
 	

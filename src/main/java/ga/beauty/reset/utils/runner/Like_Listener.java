@@ -29,6 +29,7 @@ import ga.beauty.reset.dao.entity.stat.Log_C_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
+@Component("like_Listener")
 public class Like_Listener implements Common_Listener{
 
 	Logger logger = Logger.getLogger(Like_Listener.class);
@@ -36,7 +37,7 @@ public class Like_Listener implements Common_Listener{
 	// like/yyyy/MM/dd.json
 	//{"data":[{"name":String,"num":int}]}
 	private String defaultFP = "c:/reset/report/like/";
-	// 좋아요 총량 / 일별 증가량
+	// 좋아요 총량 / 일별 증가량 : DONE
 
 	private List<Log_C_Vo> list;
 	private ObjectMapper objectMapper;
@@ -44,6 +45,7 @@ public class Like_Listener implements Common_Listener{
 
 	public Like_Listener() {
 		init();
+		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
 	}
 	
 	private void init() {
@@ -128,7 +130,6 @@ public class Like_Listener implements Common_Listener{
 	@Override
 	@PreDestroy
 	public void saveTmp() throws Exception {
-		System.out.println("좋아요"); // TODO 안됨 해결해야됨.
 		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Date date = new Date();

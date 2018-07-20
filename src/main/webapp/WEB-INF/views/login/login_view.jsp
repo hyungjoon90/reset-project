@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- TODO 경로 넣어줘야됨 -->
+<!-- TODO [kss]경로 넣어줘야됨 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../../js/jquery-1.12.4.js"></script>
 <script src="../../js/bootstrap.min.js"></script>
@@ -98,7 +98,7 @@ $(function(){
 });
 
 
-
+/*
 $(document).on({
     'show.bs.modal': function() {
       var zIndex = 1040 + (10 * $('.modal:visible').length);
@@ -114,7 +114,7 @@ $(document).on({
         }, 0);
       }
     }
-  }, '.modal');
+  }, '.modal');*/
 </script>
 
 <body>

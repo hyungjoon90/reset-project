@@ -31,7 +31,7 @@ import ga.beauty.reset.dao.entity.stat.Log_EM_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
-@Component(value="mag_Lsn")
+@Component("magzine_Listener")
 public class Magzine_Listener implements Common_Listener{
 
 	Logger logger = Logger.getLogger(Magzine_Listener.class);
@@ -41,9 +41,9 @@ public class Magzine_Listener implements Common_Listener{
 	private String defaultFP = "c:/reset/report/magzine/";
 	
 	// 어떤 글이냐?
-	// 좋아요 총량 / 일별 증가량
-	// 조회수 총량 / 일별 증가량
-	// 댓글 총량 / 일별 증가량
+	// 좋아요 총량 / 일별 증가량 -- DONE
+	// 조회수 총량 / 일별 증가량 -- DONE
+	// 댓글 총량 / 일별 증가량   -- DONE
 	
 	private List<Log_EM_Vo> list;
 	private ObjectMapper objectMapper;
@@ -51,6 +51,7 @@ public class Magzine_Listener implements Common_Listener{
 	
 	public Magzine_Listener() throws IOException {
 		init();
+		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
 	}
 
 	private void init() throws IOException {
@@ -145,7 +146,6 @@ public class Magzine_Listener implements Common_Listener{
 	@Override
 	@PreDestroy
 	public void saveTmp() throws Exception {
-		System.out.println("매거진"); // TODO 안됨 해결해야됨.
 		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Date date = new Date();

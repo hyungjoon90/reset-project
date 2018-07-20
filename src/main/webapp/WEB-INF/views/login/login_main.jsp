@@ -17,6 +17,12 @@
 <script src="${goRoot}js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="${goRoot }css/login.css">
+<link rel="stylesheet" href="${goRoot }js/jquery.bxslider.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="${goRoot }js/jquery.bxslider.js"></script>
 <script>
 	// 전부 login.js 로 넣을거임
 	// 구글용
@@ -57,6 +63,7 @@
 	// 그외 일반
   $(function(){
 	startGoogleApp();
+	$('.slider').bxSlider();
   })
   </script>
 </head>
@@ -80,111 +87,51 @@
     //kakao_apiURL += "&state=" + state;
 %>
 <body>
-	<!--header-->
-	<div class="header">
-		<div class="wrap">
-			<nav class="main_menu container">
-				<div class="menu_img">
-					<img src="imgs/header_logo.png">
-				</div>
-				<div class="menu_login">
-					<form class="form-inline">
-						<div class="form-group">
-							<label class="sr-only" for="search">검색</label> <input type="text"
-								class="form-control input_box" placeholder="검색">
-						</div>
-						<button type="submit" class="btn send_btn">
-							<span class="main_font">검색</span>
-						</button>
-						<button type="submit" class="btn send_btn">
-							<span class="main_font">로그인</span>
-						</button>
-						<button type="submit" class="btn send_btn">
-							<span class="main_font">회원가입</span>
-						</button>
-					</form>
-				</div>
-				<div class="menu_bar">
-					<ul class="nav">
-						<li class="current"><a href="index.html">홈</a></li>
-						<li><a href="about.html">랭킹</a></li>
-						<li class="top-menu"><a href="javascript:{}">화플</a>
-							<ul class="sub-menu">
-								<li><a href="scaffolding.html">Scaffolding</a></li>
-								<li><a href="typography.html">Typography</a></li>
-								<li><a href="shortcodes.html">Shortcodes</a></li>
-								<li><a href="tables.html">Tables</a></li>
-							</ul></li>
-						<li class="top-menu"><a href="javascript:{}">이벤트</a>
-							<ul class="sub-menu">
-								<li><a href="portfolio_2columns.html">2 Columns</a></li>
-								<li><a href="portfolio_3columns.html">3 Columns</a></li>
-								<li><a href="portfolio_4columns.html">4 Columns</a></li>
-							</ul></li>
-						<li class="top-menu"><a href="javascript:{}">리뷰</a>
-							<ul class="sub-menu">
-								<li><a href="blog.html">Blog with right sidebar</a></li>
-								<li><a href="blog_post.html">Blog post</a></li>
-							</ul></li>
-						<li><a href="contacts.html">문의</a></li>
-					</ul>
-				</div>
-			</nav>
+<!------ Include the above in your HEAD tag ---------->
 
-		</div>
-	</div>
-	<!--//header-->
-
-	<!-- main contents -->
-	<div class="page_container">
-		<!--  네이버 -->
-		<a href="<%=naver_apiURL%>"><img height="50"
-			src="http://static.nid.naver.com/oauth/small_g_in.PNG" /></a>
-		<!-- REST API 카카오 -->
-		<a href="<%=kakao_apiURL%>">카카오로그인</a>
-		<!-- google sign- -->
-		<button id="google">구글로그인</button>
-		<a href = "./normal/" id="normal">이메일로 로그인</a>
-		
-	</div>
-	<!-- //main contents -->
-
-	<!--footer-->
-	<div class="footer">
-		<div class="wrap">
-			<div class="container">
-				<div class="row">
-					<div class="footer_L">
-						<div class="foot_logo">
-							<a href="index.html"><img src="imgs/footer_logo.png" alt="" /></a>
-						</div>
-						<div class="copyright">&copy; 2020 Jessica White.
-							Professional Fashion Photography. All Rights Reserved.</div>
-					</div>
-					<div class="footer_R">
-						<div class="fright">
-							<form action="#" method="post">
-								<input class="inp_search" name="name" type="text"
-									value="   Search the Site"
-									onfocus="if (this.value == 'Search the Site') this.value = '';"
-									onblur="if (this.value == '') this.value = 'Search the Site';" />
-							</form>
-						</div>
-						<div class="footer_menu">
-							<ul class="nav">
-								<li><a href="index.html" class="current">홈</a></li>
-								<li><a href="about.html">랭킹</a></li>
-								<li><a href="scaffolding.html">화플</a></li>
-								<li><a href="portfolio_2columns.html">이벤트</a></li>
-								<li><a href="blog.html">리뷰</a></li>
-								<li><a href="contacts.html">문의</a></li>
-							</ul>
-						</div>
-					</div>
+<section class="login-block">
+	<div class="container">
+		<div class="row">
+		<div class="col-md-4 login-sec">
+		    <h2 class="text-center">Login Now</h2>
+		    <form class="login-form">
+		    
+				<div class="form-group">
+				  <label for="exampleInputEmail1" class="text-uppercase">Username</label>
+				  <input type="text" class="form-control" placeholder="">
 				</div>
-			</div>
-		</div>
-	</div>
-	<!--//footer-->
+				
+				<div class="form-group">
+				  <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+				  <input type="password" class="form-control" placeholder="">
+				</div>
+    			<div class="loginBtn">
+    				<span class="loginA">
+	    				<a href=""><strong class="loginB">비밀번호 찾기</strong></a>
+	    				&nbsp;
+	    				<a href=""><strong class="loginB">회원가입</strong></a>
+    				</span>
+					<a href="./normal/" id="normal" class="btn btn-login float-right">로그인</a>
+    			</div>
+    			
+    			<hr class="line"/>
+    			<div class="webBtn">
+    				<a href="<%=kakao_apiURL%>"><img alt="" src="resources/kakao.png" class="webicon"></a>
+    				<a href="<%=naver_apiURL%>"><img alt="" src="resources/naver.png" class="webicon"></a>
+    				<button id="google"><img alt="" src="resources/google.png" class="webicon"></button>
+    			</div>
+    			
+			</form>
+		</div><!-- <div class="col-md-4 login-sec"> end -->
+		<div class="col-md-8 banner-sec">
+           <div class="slider">
+  			<div><img alt="" src="resources/1.jpg"> </div>
+ 			 <div><img alt="" src="resources/2.jpg"></div>
+</div>
+	</div><!-- banner-sec end -->
+</div>
+</div><!-- container end -->
+</section>
+	<!-- footer 들어가야됨 -->
 </body>
 </html>

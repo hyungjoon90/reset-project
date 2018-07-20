@@ -51,7 +51,7 @@ public class Eve_Addr_Controller {
 	
 	
 	@RequestMapping(value="/event/{eve_no}/addr", method=RequestMethod.POST)
-	public String add(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws SQLException{
+	public String add(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws Exception{
 		Eve_addr_Vo bean = new Eve_addr_Vo();
 		bean.setEve_no(eve_no);
 		bean.setEmail(req.getParameter("email"));
