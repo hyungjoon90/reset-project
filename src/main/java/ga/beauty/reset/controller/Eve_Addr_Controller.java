@@ -45,6 +45,8 @@ public class Eve_Addr_Controller {
 	
 	@RequestMapping(value="/event/{eve_no}/addr", method=RequestMethod.GET)
 	public String addForm(@PathVariable("eve_no") int eve_no,Model model) throws SQLException{
+		String goRoot="../../";
+		model.addAttribute("goRoot",goRoot);
 		model.addAttribute("event",eve_no);
 		return "event/event_addr";
 	}

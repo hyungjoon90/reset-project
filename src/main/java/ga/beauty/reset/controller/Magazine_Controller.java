@@ -33,8 +33,6 @@ public class Magazine_Controller {
 	@Autowired
 	UpdateViewUtils viewUtils;
 	
-	String view="redirect:/magazine";
-	
 	String goRoot="../";
 	
 	@RequestMapping(value="/magazine", method=RequestMethod.GET)
@@ -91,17 +89,20 @@ public class Magazine_Controller {
 	@RequestMapping(value="/admin/magazine/{mag_no}/update",method=RequestMethod.POST)
 	public String update(@PathVariable("mag_no") int mag_no, @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		//TODO : 썸네일 사진 저장 장소 입니다.
-		String filePath="C:\\Users\\hb\\Desktop\\3차 프로젝트\\코딩\\reset_pro\\src\\main\\webapp\\resources\\thumbnail";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/imgs/mag_imgs";
 		Magazine_Vo bean=new Magazine_Vo();
 		bean.setMag_no(mag_no);
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setCate(Integer.parseInt(req.getParameter("cate")));
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
+		if(!(file.getOriginalFilename().equals(""))) {
+			bean.setImg("/imgs/mag_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
+			Thread.sleep(5000);
+		};
 		bean.setTags(req.getParameter("tags"));
 		service.updatePage(bean);
-		return view;
+		return "redirect:/magazine";
 	}
 	
 	
@@ -116,16 +117,18 @@ public class Magazine_Controller {
 	@RequestMapping(value="/admin/magazine", method=RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception{
 		//TODO : 썸네일 사진 저장 장소 입니다.
-		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/reset_pro/src/main/webapp/resources/thumbnail";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/imgs/mag_imgs";
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setCate(Integer.parseInt((req.getParameter("cate"))));
 		bean.setTags(req.getParameter("tags"));
+		bean.setWriter(req.getParameter("writer"));
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
-		bean.setImg("/thumbnail"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
+		bean.setImg("/imgs/mag_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
+		Thread.sleep(3000);
 		service.addPage(bean);
-		return "view";
+		return "redirect:/magazine";
 	}
 	
 	@RequestMapping(value="/admin/magazine/{mag_no}", method=RequestMethod.DELETE)
@@ -151,7 +154,7 @@ public class Magazine_Controller {
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(mag_no);
 		service.deletePage(bean);
-		return view;
+		return "redirect:/magazine";
 	}
 	
 	

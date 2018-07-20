@@ -12,6 +12,7 @@
 <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
 <link href="css/selectric.css" rel="stylesheet">
+<link href="css/btn/btn.css" rel="stylesheet">
 	<title>Home</title>
 	
 <script type="text/javascript">
@@ -49,24 +50,13 @@ $(function() {
 	margin-top: 5%;
 }
 
-.headCon{
-	display: block;
-	width: 1080px;
-	line-height: 50px;
-	vertical-align: middle;
-}
-
 .addBtn{
-	display: inline-block;
-	margin-left: 0%;
+	display: block;
+	margin-left: 90%;
 	vertical-align: middle;
+	height: 30px;
 }
 
-.selCate{
-	display: inline-block;
-	margin-left: 74%;
-	vertical-align: middle;
-}
 .icon{
 	width:3%;
 }
@@ -145,9 +135,8 @@ $(function() {
         	<!-- 내용 입력 -->
             <!-- Magazine list-page 입니다. -->
             <!-- 여기에는 카테고리를 선택해서 검색할수 있는 곳을 추가할 곳입니다. -->
-           	<div class="headCon">
            	<div class="addBtn">
-           		<a href="/reset/admin/magazine/add" class="btn btn-primary">글쓰기</a>
+           		<a href="/reset/admin/magazine/add" class="redBtn">글쓰기</a>
            	</div>
            	<div class="selCate">
 	            <select name="cate" id="select">
@@ -157,7 +146,6 @@ $(function() {
 	            	<option value="3">인기템 리뷰</option>
 	            	<option value="4">다이어트&amp;운동</option>
 	            </select>
-            </div>
             </div>
             <script type="text/javascript">
             $("#select").change(function(){

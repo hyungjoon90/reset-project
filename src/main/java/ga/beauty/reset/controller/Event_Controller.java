@@ -42,8 +42,6 @@ public class Event_Controller {
 	@Autowired
 	UpdateViewUtils viewUtils;
 	
-	String view="redirect:/event";
-
 	String goRoot="../";
 	
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
@@ -91,17 +89,19 @@ public class Event_Controller {
 	@RequestMapping(value="/admin/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
-		String filePath="/Users/hb/Desktop/3차 프로젝트/new master/src/main/webapp/resources/imgs/event_imgs";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/imgs/event_imgs";
 		Event_Vo bean= new Event_Vo();
 		bean.setEve_no(eve_no);
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
-		bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
-		Thread.sleep(3000);
+		if(!(file.getOriginalFilename().equals(""))) {
+			bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
+			Thread.sleep(3000);
+		};
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setTags(req.getParameter("tags"));
-		service.updatePage(bean);
-		return view;
+		//service.updatePage(bean);
+		return "redirect:/event";
 	}
 	
 	@RequestMapping("/admin/event/add")
@@ -114,18 +114,18 @@ public class Event_Controller {
 	@RequestMapping(value = "/admin/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
-		String filePath="/Users/hb/Desktop/3차 프로젝트/new master/src/main/webapp/resources/imgs/event_imgs";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/imgs/event_imgs";
 		Event_Vo bean= new Event_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setTags(req.getParameter("tags"));
 		// 파일업로드 start
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
-	    bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),285));
+	    bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
 	    Thread.sleep(3000);
 	    // 파일업로드 end
 		service.addPage(bean);
-		return view;
+		return "redirect:/event";
 	}
 	
 	@RequestMapping(value = "/admin/event/{eve_no}", method = RequestMethod.DELETE)
@@ -149,7 +149,7 @@ public class Event_Controller {
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		service.deletePage(bean);
-		return view;
+		return "redirect:/event";
 	}
 	
 	//ckeditor 서버로 이미지 업로드하고 다시 보여주는 메소드 입니다.
@@ -166,8 +166,7 @@ public class Event_Controller {
             String fileName = now+upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
             //TODO: CKeditor 이미지 저장 장소
-            String uploadPath = "/Users/hb/Desktop/3차 프로젝트/new master/src/main/webapp/resources/imgs/ckeditor_imgs/" + fileName;
- 
+            String uploadPath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/imgs/ckeditor_imgs/" + fileName;
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             out.flush();
@@ -186,7 +185,7 @@ public class Event_Controller {
                     + ",'"
                     + fileUrl
                     + "','이미지를 업로드 하였습니다.'"
-                    + ")},2000"
+                    + ")},4000"
                     + ")</script>");
             printWriter.flush();
  

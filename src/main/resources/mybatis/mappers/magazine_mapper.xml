@@ -8,7 +8,7 @@
 		<if test="cate!=null">
 		 AND CATE=#{cate}
 		</if>
-		ORDER BY MAG_NO
+		ORDER BY MAG_NO DESC
   	</select>
   	
   	<select id="selectOne" resultType="Magazine_Vo">
