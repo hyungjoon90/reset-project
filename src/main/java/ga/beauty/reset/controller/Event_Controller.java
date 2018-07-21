@@ -27,6 +27,7 @@ import com.google.common.io.Files;
 
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
+import ga.beauty.reset.dao.entity.Paging_Vo;
 import ga.beauty.reset.services.Event_Service;
 import ga.beauty.reset.utils.UpdateViewUtils;
 import ga.beauty.reset.utils.UploadFileUtils;
@@ -44,10 +45,33 @@ public class Event_Controller {
 	
 	String goRoot="../";
 	
-	@RequestMapping(value = "/event", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
 		model.addAttribute("goRoot",goRoot);
 		service.listPage(model);
+		return "event/event_list";
+	}*/
+	
+	@RequestMapping(value = "/event", method = RequestMethod.GET)
+	public String list(Model model,HttpServletRequest req) throws SQLException {
+		int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
+		int maxPost = 10;	// 페이지당 표시될 게시물  최대 갯수
+		
+		if(req.getParameter("pages") != null)								//게시물이 1개도없으면(=페이지가 생성이 안되었으면)이 아니라면 == 페이징이 생성되었다면							 
+			currentPageNo = Integer.parseInt(req.getParameter("pages")); 	//pages에있는 string 타입 변수를 int형으로 바꾸어서 currentPageNo에 담는다.
+		
+		Paging_Vo paging = new Paging_Vo(currentPageNo, maxPost); //Paging.java에있는 currentPAgeNo, maxPost를 paging변수에 담는다.
+		
+		int offset = (paging.getCurrentPageNo() -1) * paging.getmaxPost(); // query.xml에서 select를 할때 사용하기위한 offset 변수의 선언. 
+		// 현재 3페이지 이고, 그 페이지에 게시물이 10개가 있다면 offset값은 (3-1) * 10 = 20이 된다. 
+		
+		paging.setNumberOfRecords(service.getCount()); // 페이지를 표시하기 위해 전체 게시물 수를 파악하기 위한것
+		
+		paging.makePaging(); //
+		
+		model.addAttribute("paging",paging);
+		model.addAttribute("goRoot",goRoot);
+		service.listPage(model, offset, paging.getmaxPost());
 		return "event/event_list";
 	}
 	

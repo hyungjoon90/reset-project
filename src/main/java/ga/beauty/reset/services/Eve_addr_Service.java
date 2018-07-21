@@ -27,7 +27,15 @@ public class Eve_addr_Service {
 		model.addAttribute("detail",commonDao.selectAll(bean));
 	}
 	
+	public void listPage(Model model,int eve_no,int offset, int noOfRecords) throws SQLException{
+		model.addAttribute("detail",commonDao.selectAll(eve_no,offset,noOfRecords));
+	}
+	
 	public void addPage(Eve_addr_Vo bean) throws SQLException{
 		commonDao.insertOne(bean); // XXX 이벤트주소 추가시점
+	}
+
+	public int getCount(int eve_no) throws SQLException{
+		return commonDao.getCount(eve_no);
 	}
 }

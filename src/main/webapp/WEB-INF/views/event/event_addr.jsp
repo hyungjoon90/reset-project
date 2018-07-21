@@ -81,6 +81,14 @@ $(function(){
 });// end document.onload
 </script>
 <style type="text/css">
+.page_container{
+	max-width: 1080px;
+	margin: 0px auto;
+}
+.contents_container{
+	display: inline-block;
+	margin: 0px auto;
+}
 body {
     background: #fff;
 	font-family: 'Roboto', sans-serif;
@@ -176,6 +184,7 @@ input.upload {
     <div class="page_container">
         <hr>
             <!-- 내용 입력 시작-->
+            <div class="contents_container">
 	       	<div class="row">
    			<div class="col-md-8">
    			<h1 class="entry-title"><span>이벤트 참가 주소입력</span></h1>
@@ -189,45 +198,68 @@ input.upload {
 		          <div class="col-md-8 col-sm-9">
 		              <div class="input-group">
 			              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-			              <input type="email" class="form-control" name="email" id="email" placeholder="Enter your Email ID" value="">
+			              <input type="email" class="form-control" name="email" id="email" placeholder="연락 받으실  Email 주소를 적어주세요." value="">
 		              </div>
-		            	<small> Your Email Id is being used for ensuring the security of your account, authorization and access recovery. </small> 
+		            	<small><br></small> 
 		          </div>
 		        </div>
 				<div class="form-group">
 		          <label class="control-label col-sm-3">참가하시는분 성함 <span class="text-danger">*</span></label>
 		          <div class="col-md-8 col-sm-9">
-		            <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name here" value="">
+		            <input type="text" class="form-control" name="name" id="name" placeholder="성함을 적어주세요." value="">
+		          	<small><br></small>
 		          </div>
 		        </div>
-				<div class="form-group">
+		        
+		        <div class="form-group">
+		          <label class="control-label col-sm-3">주소 <span class="text-danger">*</span></label>
+		          <div class="col-md-8 col-sm-9">
+		            <input type="text" style="width:70px;" class="form-control" id="zipNo"  name="zipNo" readonly="readonly"/>
+		          	<small><br></small>
+		          </div>
+		          <label class="control-label col-sm-3"></label>
+		          <div class="col-md-8 col-sm-9">
+		            <input type="text" class="form-control" id="roadAddrPart1"  name="roadAddrPart1" readonly="readonly"/>
+		          	<small><br></small>
+		          </div>
+		          <label class="control-label col-sm-3"></label>
+		          <div class="col-md-8 col-sm-9">
+		            <input type="text" class="form-control" id="addrDetail"  name="addrDetail" placeholder="상세주소를 입력해 주세요."/>
+		          	<small><br></small>
+		          </div>
+		          <label class="control-label col-sm-3"></label>
+		          <div class="col-md-8 col-sm-9">
+		          	<a href=""  class="redBtn"  data-toggle="modal" data-target=".bs-example-modal-sm">주소검색</a>
+		          	<small><br><br></small>
+		          </div>
+		        </div>
+		        
+
+		        <div class="form-group">
 		          <label class="control-label col-sm-3">전화번호 <span class="text-danger">*</span></label>
-		          <div class="col-md-5 col-sm-8">
+		          <div class="col-md-8 col-sm-9">
 		          	<div class="input-group">
 		              <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-		            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter your Primary contact no." value="">
+		              <input type="text" class="form-control" name="phone" id="phone" placeholder="연락받으실 전화번호를 적어주세요." value="">
 		            </div>
+		            <small><br></small>
 		          </div>
 		        </div>
-				<div>
-					<label for="">주소</label>
-					<input type="text"  style="width:100px;" id="zipNo"  name="zipNo" />
-					<input type="text"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" />
-					<a href=""  class="btn btn-primary"  data-toggle="modal" data-target=".bs-example-modal-sm">주소검색</a>
-					<input type="text"  style="width:500px;" id="addrDetail"  name="addrDetail" />
-				</div>
-				<div>
-					<button type="submit" class="darkBtn">이벤트 참가</button>
+		       
+		        <div class="form-group">
+		          <div class="col-xs-offset-3 col-xs-10">
+   					<button type="submit" class="darkBtn">이벤트 참가</button>
 					<button type="reset" class="redBtn">취소</button>
-				</div>
+		          </div>
+		        </div>
 			</form>
 			</div><!-- col-md-8 end -->
 			</div><!-- row end -->
+			</div>
 			<div id="address_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 			  <div class="modal-dialog modal-sm" role="document">
 			    <div id="layer" class="modal-content"></div>
 			  </div>
-			</div>
 			</div>
            	<!-- 내용 입력 끝 -->
         <hr>
