@@ -13,16 +13,15 @@
 <link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
 <link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot}css/main.css" rel="stylesheet">
+<link href="${goRoot }css/login.css" rel="stylesheet" >
+<link href="${goRoot }js/jquery.bxslider.css" rel="stylesheet" >
 <script src="${goRoot}js/jquery-1.12.4.js"></script>
 <script src="${goRoot}js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
+<script type="text/javascript" src="${goRoot }js/jquery.bxslider.js"></script>
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="${goRoot }css/login.css">
-<link rel="stylesheet" href="${goRoot }js/jquery.bxslider.css">
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script type="text/javascript" src="${goRoot }js/jquery.bxslider.js"></script>
 <script>
 	// 전부 login.js 로 넣을거임
 	// 구글용
@@ -116,17 +115,17 @@
     			
     			<hr class="line"/>
     			<div class="webBtn">
-    				<a href="<%=kakao_apiURL%>"><img alt="" src="resources/kakao.png" class="webicon"></a>
-    				<a href="<%=naver_apiURL%>"><img alt="" src="resources/naver.png" class="webicon"></a>
-    				<button id="google"><img alt="" src="resources/google.png" class="webicon"></button>
+    				<a href="<%=kakao_apiURL%>"><img alt="" src="${goRoot }imgs/login_imgs/kakao.png" class="webicon"></a>
+    				<a href="<%=naver_apiURL%>"><img alt="" src="${goRoot }imgs/login_imgs/naver.png" class="webicon"></a>
+    				<button id="google"><img alt="" src="${goRoot }imgs/login_imgs/google.png" class="webicon"></button>
     			</div>
     			
 			</form>
 		</div><!-- <div class="col-md-4 login-sec"> end -->
 		<div class="col-md-8 banner-sec">
            <div class="slider">
-  			<div><img alt="" src="resources/1.jpg"> </div>
- 			 <div><img alt="" src="resources/2.jpg"></div>
+  			<div><img alt="" src="${goRoot }imgs/login_imgs/1.jpg"> </div>
+ 			 <div><img alt="" src="${goRoot }imgs/login_imgs/2.jpg"></div>
 </div>
 	</div><!-- banner-sec end -->
 </div>
