@@ -18,25 +18,25 @@ import ga.beauty.reset.dao.entity.Items_Vo;
 
 @Service
 public class Items_Service {
-	Logger log=Logger.getLogger(getClass());
+	Logger logger=Logger.getLogger(getClass());
 	
 	@Autowired
 	Items_Dao<Items_Vo> Items_Dao;
 
 	// 아이템 검색
 	public 	List<Items_Vo> item_search(String condition, String type) throws SQLException {
-		log.debug("items_servic param: "+condition+"/"+type);
+		logger.debug("items_servic param: "+condition+"/"+type);
 		return Items_Dao.itemSearch(condition,type);
 	}
 	
 	// 아이템 상세
 	public void item_detailPage(Model model, int item) throws SQLException {
-		log.debug("param: "+item);
+		logger.debug("param: "+item);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//tag.start
 		Items_Vo bean = Items_Dao.selectOne(item);
-		log.debug(bean.getTags());
+		logger.debug(bean.getTags());
 		String tempStr="";
 		tempStr=bean.getTags().toString();
 		
@@ -45,14 +45,14 @@ public class Items_Service {
 		while(tokens.hasMoreTokens()) {
 			list.add(tokens.nextToken());
 		}
-		log.debug(list.size());
+		logger.debug(list.size());
 		//tag.end
 		
-		log.debug(bean);
+		logger.debug(bean);
 		if(!bean.getImg().equals("")) {
-			log.debug("확인"+bean.getImg());
+			logger.debug("확인"+bean.getImg());
 			String temp=bean.getImg();
-			log.debug(temp);
+			logger.debug(temp);
 			String[] temp2=temp.split("_s_");
 			bean.setImg(temp2[0]+temp2[1]);
 		}
@@ -76,13 +76,21 @@ public class Items_Service {
 	
 	// 아이템 수정
 	public int item_update(int option,Items_Vo bean) throws SQLException, IOException {
-		log.debug("updatePage param: "+option+" "+bean);
-		return Items_Dao.itemUpdate(option, bean);
+		logger.debug("updatePage param: "+option+" "+bean);
+		if(option==1) {
+			logger.debug("확인"+bean.getImg());
+			StringBuffer sb=new StringBuffer(bean.getImg());
+			sb.insert(26,"_s_");
+			logger.debug("재확인: "+sb);
+			String temp=sb.toString();
+			bean.setImg(temp);
+		}
+		return Items_Dao.itemUpdate(bean);
 	}
 		
 	// 아이템 삭제
 	public int item_delete(int item) throws SQLException, IOException {
-		log.debug("deletePage param: "+item);
+		logger.debug("deletePage param: "+item);
 		return Items_Dao.itemDelete(item);
 	}
 }

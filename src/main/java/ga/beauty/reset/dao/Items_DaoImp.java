@@ -13,47 +13,46 @@ import ga.beauty.reset.dao.entity.Items_Vo;
 
 @Repository
 public class Items_DaoImp implements Items_Dao<Items_Vo> {
-	Logger log=Logger.getLogger(getClass());
+	Logger logger=Logger.getLogger(getClass());
 	
 	@Autowired
 	SqlSession sqlSession;
 	
 	@Override
 	public List<Items_Vo> itemAll() throws SQLException {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("items.itemAll");
 	}
 	
 	@Override
 	public List<Items_Vo> rankAll(int cate) throws SQLException {
 		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
-		log.debug("DaoImp-rankAll-param: "+cate);
+		logger.debug("DaoImp-rankAll-param: "+cate);
 		return sqlSession.selectList("items.rankAll",cate);
 	}
 	
 	@Override
 	public List<Items_Vo> rankListAdd(int cate) throws SQLException {
 		// type { 1: 스킨 ,2: 로션 ,3: 에센스 }
-		log.debug("DaoImp-rankAdd-param: "+cate);
+		logger.debug("DaoImp-rankAdd-param: "+cate);
 		return sqlSession.selectList("items.rankListAdd", cate);
 	} 
 	
 	@Override
 	public Items_Vo selectOne(int item) throws SQLException {
-		log.debug("DaoImp-selectOne-param: "+item);
+		logger.debug("DaoImp-selectOne-param: "+item);
 		return sqlSession.selectOne("items.selectOne", item);
 	}
 
 	@Override
 	public List<Items_Vo> itemSearch(String condition,String type) throws SQLException {
-		log.debug("DaoImp-itemSearch-param: "+condition+"/"+type);
+		logger.debug("DaoImp-itemSearch-param: "+condition+"/"+type);
 		if(type.equals("brand")) {
-			log.debug("브랜드 검색");
+			logger.debug("브랜드 검색");
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("brand", condition);
 			return sqlSession.selectList("items.itemBrand", map);
 		}else if(type.equals("name")) {
-			log.debug("이름 검색");
+			logger.debug("이름 검색");
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("name", condition);
 			return sqlSession.selectList("items.itemName", map);
@@ -64,7 +63,7 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	
 	@Override
 	public int itemAdd(Items_Vo bean) throws SQLException {
-		log.debug("DaoImp-itemAdd:"+bean);
+		logger.debug("DaoImp-itemAdd:"+bean);
 		return sqlSession.insert("items.itemAdd", bean);
 	}
 	
@@ -75,21 +74,13 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 
 
 	@Override
-	public int itemUpdate(int option, Items_Vo bean) throws SQLException {
-		if(option==1) {
-			log.debug("확인"+bean.getImg());
-			StringBuffer sb=new StringBuffer(bean.getImg());
-			sb.insert(26,"_s_");
-			log.debug("재확인: "+sb);
-			String temp=sb.toString();
-			bean.setImg(temp);
-		}
+	public int itemUpdate(Items_Vo bean) throws SQLException {
 		return sqlSession.update("items.itemUpdate",bean);
 	}
 	
 	@Override
 	public int itemDelete(int item) throws SQLException {
-		log.debug("DaoImp-itemDel: "+item);
+		logger.debug("DaoImp-itemDel: "+item);
 		return sqlSession.delete("items.itemDel",item);
 	}
 
