@@ -21,7 +21,7 @@ import ga.beauty.reset.utils.runner.Common_Listener;
 
 @Service
 public class Likes_Service {
-	Logger log=Logger.getLogger(getClass());
+	Logger logger=Logger.getLogger(getClass());
 	
 	@Autowired
 	Likes_Dao<Likes_Vo> Likes_Dao;
@@ -43,14 +43,14 @@ public class Likes_Service {
 	
 	
 	public Likes_Vo check(Likes_Vo bean) throws SQLException {
-		log.debug("likes_dao param: "+bean);
+		logger.debug("likes_dao param: "+bean);
 		bean.setType(convert_Type(bean.getType()));
 		return Likes_Dao.check(bean);
 	}
 	
 	@Transactional
 	public Map up(Likes_Vo bean) throws Exception {
-		log.debug("bean"+bean);
+		logger.debug("bean"+bean);
 		bean.setType(convert_Type(bean.getType()));
 		Likes_Dao.likesAdd(bean);//insert하고
 
@@ -83,7 +83,7 @@ public class Likes_Service {
 	
 	@Transactional
 	public Map down(Likes_Vo bean) throws Exception {
-		log.debug("bean"+bean);
+		logger.debug("bean"+bean);
 		bean.setType(convert_Type(bean.getType()));
 		Likes_Dao.likesDel(bean);//Del하고
 		

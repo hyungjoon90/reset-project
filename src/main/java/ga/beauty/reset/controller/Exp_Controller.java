@@ -13,13 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ga.beauty.reset.services.Exp_Service;
 
 @Controller
 public class Exp_Controller {
-	Logger log=Logger.getLogger(getClass());
+	Logger logger=Logger.getLogger(getClass());
 	
 	@Autowired
 	Exp_Service exp_Service;
@@ -32,7 +31,7 @@ public class Exp_Controller {
 	
 	@RequestMapping(value="/exp", method=RequestMethod.POST)
 	public void expUp(@RequestBody Map map,HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
-		log.debug("param: "+map.get("email")+"/"+map.get("type"));
+		logger.debug("param: "+map.get("email")+"/"+map.get("type"));
 		String email=map.get("email").toString();
 		String type=map.get("type").toString();
 		resp.getWriter().print(exp_Service.up(email,type));
@@ -41,7 +40,7 @@ public class Exp_Controller {
 	
 	@RequestMapping(value="/exp", method=RequestMethod.DELETE)
 	public void expdown(@RequestBody Map map,HttpServletRequest req,HttpServletResponse resp) throws IOException, SQLException {
-		log.debug("param: "+map.get("email")+"/"+map.get("type"));
+		logger.debug("param: "+map.get("email")+"/"+map.get("type"));
 		String email=map.get("email").toString();
 		String type=map.get("type").toString();
 		resp.getWriter().print(exp_Service.down(email,type));

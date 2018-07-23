@@ -29,6 +29,14 @@ public class Eve_addr_Service {
 		model.addAttribute("detail",commonDao.selectAll(bean));
 	}
 	
+	public void listPage(Model model,int eve_no,int offset, int noOfRecords) throws SQLException{
+		model.addAttribute("detail",commonDao.selectAll(eve_no,offset,noOfRecords));
+	}
+	
+	public List listPage(int eve_no) throws SQLException{
+		return commonDao.selectAll(eve_no);
+	}
+
 	@Transactional
 	public void addPage(Eve_addr_Vo bean) throws Exception{
 		commonDao.insertOne(bean); 
@@ -36,5 +44,9 @@ public class Eve_addr_Service {
 		Event_Vo target = new Event_Vo();
 		target.setEve_no(bean.getEve_no());
 		event_Listener.addLog(target, "num", 1);
+	}
+
+	public int getCount(int eve_no) throws SQLException{
+		return commonDao.getCount(eve_no);
 	}
 }

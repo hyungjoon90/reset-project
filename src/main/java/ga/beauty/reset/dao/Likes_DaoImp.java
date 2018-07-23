@@ -13,26 +13,26 @@ import ga.beauty.reset.dao.entity.Likes_Vo;
 
 @Repository
 public class Likes_DaoImp implements Likes_Dao<Likes_Vo> {
-	Logger log=Logger.getLogger(getClass());
+	Logger logger=Logger.getLogger(getClass());
 	
 	@Autowired
 	SqlSession sqlSession;
 	
 	@Override
 	public Likes_Vo check(Likes_Vo bean) throws SQLException {
-		log.debug("like_dao_param: "+bean);
+		logger.debug("like_dao_param: "+bean);
 		return sqlSession.selectOne("likes.likes", bean);
 	}
 
 	@Override
 	public int likesAdd(Likes_Vo bean) throws SQLException {
-		log.debug("like_dao_param: "+bean);
+		logger.debug("like_dao_param: "+bean);
 		return sqlSession.insert("likes.likesAdd", bean);
 	}
 	
 	@Override
 	public int likesDel(Likes_Vo bean) throws SQLException {
-		log.debug("like_dao_param: "+bean);
+		logger.debug("like_dao_param: "+bean);
 		return sqlSession.delete("likes.likesDel", bean);
 	}
 	
