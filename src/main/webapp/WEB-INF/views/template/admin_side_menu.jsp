@@ -6,6 +6,46 @@
 	color: #999;
 }
 </style>
+<!-- 테스트 
+<script>
+	var getCountSession = function(){
+		var $target = $("#nowSession");
+		var sendData = "resultType=int";
+		$.post("${goRoot}admin/ajax/session-cnt",sendData)
+		.done(function(data){
+			if(data.result==200){
+				$target.text(data.result_data);
+			}
+		});
+
+	}
+	
+	var getCountLogin = function(){
+		var $target = $("#nowLogin");
+		var sendData = "resultType=int";
+		$.post("${goRoot}admin/ajax/login-cnt",sendData)
+		.done(function(data){
+			if(data.result==200){
+				$target.text(data.result_data);
+			}
+		});
+	}
+	
+	$(function(){
+		// 30초 watch
+		getCountSession();
+		getCountLogin();
+		
+		// 30초 watch
+		setInterval(function(){
+			getCountSession();
+			getCountLogin();
+		},30000);
+		
+	})
+
+</script>
+-->
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<!-- Brand and toggle get grouped for better mobile display -->

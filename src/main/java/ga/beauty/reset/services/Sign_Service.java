@@ -28,6 +28,9 @@ public class Sign_Service {
 	@Autowired
 	Companys_Dao companys_Dao;
 	
+	@Autowired
+	PasswordUtil passwordUtil;
+	
 	public Sign_Service() {
 	}
 	
@@ -40,7 +43,7 @@ public class Sign_Service {
 			if(userBean.getUser_type().equals("일반")) {
 			// salt 값으로 닉네임
 			// 뒤에 붙임	
-				newPw = PasswordUtil.getEncryptSHA256(userBean.getPassword()+memberBean.getNick());
+				newPw = passwordUtil.getEncryptSHA256(userBean.getPassword()+memberBean.getNick());
 				userBean.setPassword(newPw);
 			}
 			resultUser = user_Dao.insertOne(userBean);
@@ -51,7 +54,7 @@ public class Sign_Service {
 			if(userBean.getUser_type().equals("일반")) {
 			// salt 값으로 사업자번호
 			// 뒤에 붙임.
-				newPw = PasswordUtil.getEncryptSHA256(userBean.getPassword()+companyBean.getBisnum());
+				newPw = passwordUtil.getEncryptSHA256(userBean.getPassword()+companyBean.getBisnum());
 				userBean.setPassword(newPw);
 			}
 			resultUser = user_Dao.insertOne(userBean);
@@ -98,7 +101,7 @@ public class Sign_Service {
 				System.out.println(newPwTmpForDB);
 				User_Vo chBean = new User_Vo();
 				chBean.setEmail(emailFind);
-				chBean.setPassword(PasswordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getNick()));
+				chBean.setPassword(passwordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getNick()));
 				return user_Dao.updateOne(chBean);
 			}
 		}else {
@@ -110,7 +113,7 @@ public class Sign_Service {
 			if(resultBean.getPhone().equals(phoneFind)) {
 				User_Vo chBean = new User_Vo();
 				chBean.setEmail(emailFind);
-				chBean.setPassword(PasswordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getBisnum()));
+				chBean.setPassword(passwordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getBisnum()));
 				return user_Dao.updateOne(chBean);
 			}
 		}
@@ -131,7 +134,7 @@ public class Sign_Service {
 			target.setEmail(email);
 			target.setJoin_route((String)session.getAttribute("join_route")+","+(String)session.getAttribute("login_route"));
 			if(session.getAttribute("tmp")!=null) 
-				target.setPassword( PasswordUtil.getEncryptSHA256((String)session.getAttribute("tmp")+nick));
+				target.setPassword( passwordUtil.getEncryptSHA256((String)session.getAttribute("tmp")+nick));
 			if(user_Dao.updateOne(target) ==1) {
 				session.setAttribute("login_nick" ,nick);
 				return 1;

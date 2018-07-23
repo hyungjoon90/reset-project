@@ -53,4 +53,7 @@
 		</property>
 	</bean>
 	
+	<bean id="passwordUtil" class="ga.beauty.reset.utils.PasswordUtil"/>
+	<bean id="regexLogFile" class="ga.beauty.reset.utils.RegexLogFile"/>
+	
 </beans>

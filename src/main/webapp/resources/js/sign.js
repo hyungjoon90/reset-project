@@ -127,13 +127,18 @@ function checkEmail(ele) {
 function checkNick(ele){
     var $errM = $("<div/>",{"class":"errM"});
     var $target = $(ele);
-     var $postM = $.post( "check_nick", "target="+$target.val() );
-     $postM.done(function( data ) {
+    if($target.val()==""||$target.val==null){
+    	inputFail($target,$errM,"빈 닉네임은 사용할 수 없습니다.");
+    	return false;
+    }
+    var $postM = $.post( "check_nick", "target="+$target.val() );
+    $postM.done(function( data ) {
           if(data.result==0){
        	   // TODO ok 처리
               inputSucces($target);
         	  return true
           }else{
+        	  console.log("이거되냐?");
               inputFail($target,$errM,"이미 사용중인 닉네임입니다.")
               return false;
           }
@@ -209,7 +214,7 @@ function isPhone(phoneNum)   {
 }
 
 function inputSucces($target){
-  $target.parent().find(".errM").remove();
+  $target.parent().parent().find(".errM").remove();
   $target.css("color","green");
   $target.css("border","1px solid #ccc");
 }
@@ -218,7 +223,7 @@ function inputFail($target,$errM,msg){
     $errM.text(msg);
     $errM.css("color", "red");
     $target.css("color", "red");
-    $errM.appendTo($target.parent());
+    $errM.appendTo($target.parent().parent());
 }
 
 function addFormEvent(){
@@ -227,7 +232,7 @@ $("#form input").each(function(){
 	$(this).on("focus",function(){
         $(this).val('');
         $(this).css("color","black");
-        $(this).parent().find(".errM").remove();
+        $(this).parent().parent().find(".errM").remove();
     });
 });
 
@@ -246,21 +251,26 @@ $("#phone").on("keyup",function(e){onlyNumber(e)});
 function submitCheck(){
   var errTest;
   var nullCheck;
+  var trueCheck = true;
   $("#form input").each(function(){
     errTest = $(this).parent().find(".err");
     if(errTest.length>0){
       $(this).focus();
       $(this).css("border","2px soild red");
-      return false;
+      trueCheck = false;
     }
+    
     nullCheck = $(this).val();
-    if(nullCheck == null){
-    	consolo.log("널오류");
+    console.log(nullCheck);
+    if(nullCheck == null || nullCheck==""){
+    	console.log("널오류");
       $(this).focus();
       var $errM = $("<div/>",{"class":"errM"});
-      inputFail(this,$errM,"값이 비었습니다.");
-      return false;
+      inputFail($(this),$errM,"값이 비었습니다.");
+      trueCheck = false;
     }
   });// err 체크
-  return true
+  return trueCheck;
 }
+
+

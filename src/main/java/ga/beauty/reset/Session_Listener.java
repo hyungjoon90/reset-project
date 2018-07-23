@@ -23,9 +23,11 @@ import ga.beauty.reset.utils.runner.Login_Listener;
 public class Session_Listener implements HttpSessionListener{
 
 	Logger logger = Logger.getLogger(Session_Listener.class);
+	
 	private static final Map<String, HttpSession> SESSIONS = new HashMap<>();
+	
 	// 현재 접속자수 / 로그인수 만 보여주는 놈
-
+	// see
 	// TODO 임시용
 	Login_Listener login_Lsn;
 	
@@ -55,15 +57,14 @@ public class Session_Listener implements HttpSessionListener{
         }
     }
 
-    public int getActiveSessionNumber() {
+    public static int getActiveSessionNumber() {
         return SESSIONS.size();
     }
     
-    public int getLoginSessionNumber() {
+    public static int getLoginSessionNumber() {
     	Set<String> keySet = SESSIONS.keySet();
     	Iterator<String> iteS = keySet.iterator();
     	int count = 0;
-        synchronized(this){
 	    	while(iteS.hasNext()) {
 	    		HttpSession session = SESSIONS.get(iteS.next());
 	    		if(session.getAttribute("login_on")!=null) {
@@ -72,7 +73,6 @@ public class Session_Listener implements HttpSessionListener{
 		    		else if(loginChk== false)count--;
 	    		}
 	    	}
-        }
     	return count;
     }
 }// Session_Linstener

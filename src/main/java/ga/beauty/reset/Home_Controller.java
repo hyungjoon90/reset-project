@@ -29,5 +29,4 @@ public class Home_Controller {
         logger.info(LogEnum.INTER+"메인페이지에 {ip:"+ip+", locale:"+locale+"} 가 들어왔습니다. ");
 		return "index";
 	}
-
 }

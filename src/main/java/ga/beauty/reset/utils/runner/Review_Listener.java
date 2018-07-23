@@ -61,6 +61,7 @@ public class Review_Listener implements Common_Listener {
 		if(!file.exists()) {
 			new File(file.getParent()).mkdirs();
 		}else {
+			if(file.length()!=0) {
 			try {
 				node = objectMapper.readTree(file);
 			} catch (IOException e) {
@@ -68,6 +69,7 @@ public class Review_Listener implements Common_Listener {
 				e.printStackTrace();
 			}
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_C_Vo>>(){});
+			}
 		}		
 	}// init()
 
@@ -105,7 +107,6 @@ public class Review_Listener implements Common_Listener {
 	@Async("threadPoolTaskExecutor")
 	@Scheduled(cron=" 0 2 0 * * *\r\n" )
 	public void saveLogOneday() throws Exception {
-		if(list.size()==0) {return ;}
 			synchronized (this) {
 				Calendar cal = new GregorianCalendar();
 				cal.add(Calendar.DATE, -1);

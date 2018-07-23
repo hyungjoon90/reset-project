@@ -103,7 +103,6 @@ public class Like_Listener implements Common_Listener{
 	@Async("threadPoolTaskExecutor")
 	@Scheduled(cron=" 0 4 0 * * *\r\n" )
 	public void saveLogOneday() throws Exception {
-		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Calendar cal = new GregorianCalendar();
 			cal.add(Calendar.DATE, -1);

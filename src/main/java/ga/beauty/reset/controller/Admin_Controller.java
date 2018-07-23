@@ -1,5 +1,12 @@
 package ga.beauty.reset.controller;
 
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -10,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ga.beauty.reset.dao.entity.stat.Log_Chart;
+import ga.beauty.reset.dao.entity.stat.Log_File;
 import ga.beauty.reset.services.mypage.Mypage_Admin_Service;
 import ga.beauty.reset.utils.LogEnum;
 
@@ -33,10 +42,66 @@ public class Admin_Controller {
 		return "admin/admin_main";
 	}
 	
-	@RequestMapping(name="/admin/{path}/",method=RequestMethod.GET)
+	@RequestMapping(value="/admin/{path}/",method=RequestMethod.GET)
 	public String showPage(Model model, @PathVariable("path") String path) {
 		model.addAttribute("goRoot", "../../");
 		return "admin/"+path;
+	}
+	
+	@RequestMapping(value="/admin/ajax/{command}", method=RequestMethod.POST)
+	public String ajaxCalling(Model model,@PathVariable("command") String command
+			,HttpSession session ,HttpServletRequest req) {
+		model.addAttribute("goRoot", "../../../");
+		if(req.getParameter("resultType")==null) {
+			return "admin/admin_ajax";
+		}
+		if(req.getParameter("resultType").equals("int")) {
+			int result = mypage_Admin_Service.getInfoAsInt(command, session, req);
+			if(result!=0) {
+				model.addAttribute("result",200);
+				model.addAttribute("result_data",result);
+			}
+		}else if(req.getParameter("resultType").equals("map")) {
+			Map<String, Object> result = mypage_Admin_Service.getInfoAsMap(command, session, req);
+			if(result!=null) {
+				model.addAttribute("result",200);
+				model.addAttribute("result_data",result);
+			}
+		}
+		return "admin/admin_ajax";
+	}
+	
+	@RequestMapping(value="/admin/log/{command}", method=RequestMethod.POST)
+	public String logCalling(Model model,@PathVariable("command") String command
+			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
+		List<Log_File> result = mypage_Admin_Service.getLog(command, session, req);
+		if(result!=null && result.size()>0) {
+			model.addAttribute("result",200);
+			req.setAttribute("log_list", result);
+			logger.debug("log조회 잘되니?"+"command:"+command+result);
+		}
+		return "admin/admin_log";
+	}
+	
+	@RequestMapping(value="/admin/chart/{command}", method=RequestMethod.POST)
+	public String chartCalling(Model model,@PathVariable("command") String command
+			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
+
+		Map<String,List<Log_Chart>> result = mypage_Admin_Service.getChart(command, session, req);
+		if(result!=null && result.size()>0) {
+			Set<String> keySets = result.keySet();
+			Iterator<String> ite = keySets.iterator();
+			while(ite.hasNext()) {
+				List<Log_Chart> list = result.get(ite.next());
+				System.out.println(list);
+			}
+			
+			req.setAttribute("dataset", result);
+			req.setAttribute("chartSort", command);
+			logger.debug("chart 잘되니?"+"command:"+command+result);
+		}
+		//return "index";
+		return "admin/admin_chart";
 	}
 	
 //	@RequestMapping(name="/admin/{path}/{option}",method=RequestMethod.GET)
