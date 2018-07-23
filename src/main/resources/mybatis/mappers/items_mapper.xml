@@ -23,9 +23,10 @@
   	<select id="cartAll" resultType="members_Vo">
   		SELECT CART FROM `MYDB`.`MEMBERS` WHERE EMAIL=#{email}
   	</select>
-  	<update id="cartAdd">
+  	<update id="cartUpdate">
   		UPDATE `MYDB`.`MEMBERS` SET CART=#{cart} WHERE email=#{email}
   	</update>
+  	
 	<select id="itemBrand" resultType="items_Vo">
   		SELECT * FROM ITEMS WHERE brand LIKE CONCAT('%',#{brand},'%') AND OPEN=1
   	</select>

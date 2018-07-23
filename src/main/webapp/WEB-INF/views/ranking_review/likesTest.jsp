@@ -193,7 +193,8 @@ $(document).ready(function(){
 			  좋아요 취소
 			</button>
 			<input id="result" type="text" value="" />
-			<input id="su" type="text" value="" />
+			<span id="su"></span>
+			
 			
 	</div>
     <!-- //main contents -->
