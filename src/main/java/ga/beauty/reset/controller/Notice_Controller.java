@@ -25,12 +25,15 @@ public class Notice_Controller {
 	public Notice_Controller() {
 	}
 		
+	//공지사항 리스트 보여주기
 	@RequestMapping(value="/notice")
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
 		System.out.println("리스트 보여주기");
 		return "admin/notice";
 	}	
+	
+	//공지사항 입력
 	@RequestMapping(value="/notice",method=RequestMethod.POST)
 	public String add(@ModelAttribute Notice_Vo bean) throws SQLException {
 		System.out.println("입력페이지, 입력전");
@@ -38,11 +41,15 @@ public class Notice_Controller {
 		System.out.println("입력후");
 		return view;
 	}
+	
+	//공지사항 수정
 	@RequestMapping(value="/notice/{no_no}", method=RequestMethod.PUT)
 	public String edit(@PathVariable("no_no") int no_no, @ModelAttribute Notice_Vo bean, Model model) throws SQLException {
 		service.updatePage(bean);
 		return view;
 	}
+	
+	//공지사항 삭제
 	@RequestMapping(value="/notice/{no_no}",method=RequestMethod.DELETE)
 	public String delete(@PathVariable("no_no") int no_no) throws SQLException {
 		System.out.println("삭제시도");
@@ -50,6 +57,4 @@ public class Notice_Controller {
 		System.out.println("삭제완료");                                                                                                                                                                                                                                                                                                                                                                                           
 		return view;
 	}
-
-	
 }//class end

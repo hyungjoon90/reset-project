@@ -51,13 +51,75 @@
 	});
 	
 </script>
-<style>
+<style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+body {
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 18px;
+}
 
+.nodiv{
+border : 1px solid black;
+display: inline-block;
+width: 10%;
+float:left;
+margin :  none;
+}
+
+.naljadiv{
+border : 1px solid black;
+display: inline-block;
+width: 40%;
+float:left;
+margin :  none;
+}
+
+
+.titlediv{
+border : 1px solid black;
+display: inline-block;
+width: 50%;
+float:left;
+margin :  none;
+}
+
+.nohead{
+border : 1px solid black;
+display: inline-block;
+border : 1px solid black;
+width: 10%;
+float:left;
+margin :  none;
+}
+
+.naljahead{
+border : 1px solid black;
+display: inline-block;
+width: 40%;
+float:left;
+margin :  none;
+}
+
+
+.titlehead{
+border : 1px solid black;
+display: inline-block;
+width: 50%;
+float:left;
+margin :  none;
+  border-collapse : collapse;
+}
+
+div{
+   border-collapse: collapse;
+   height : 50px;
+}
 </style>
 
 </head>
 <body>
-<h1>공지사항입니다</h1>
+
+    	<!-- TODO css end-->
     	
     		<!-- 입력하기 -->
     	
@@ -69,6 +131,7 @@
 		      </div>
 		      <div class="modal-body">
 		      	<form action="/reset/notice/${bean.no_no }" method="post">
+		      	<!-- TODO [jihyun] reset -->
 		      		<div class="form-group">
 		      			<label for="name">제목</label>
 		      			<input type="text" class="form-control" name="title" id="title" placeholder="제목" />
@@ -92,15 +155,20 @@
 
 
 <!-- list 시작 -->
-
-<div class="list-group"> 
+<div class="container">
+<h1>공지사항입니다</h1>
+<div class="nohead">글번호</div>
+<div class="naljahead">날짜</div>
+<div class="titlehead">제목</div>
 	<c:forEach items="${alist }" var="bean">
   		
-  		<div data-toggle="modal" data-target="#myModal-${bean.no_no }"> 
+  		<div data-toggle="modal" data-target="#myModal-${bean.no_no }">
 <!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
-		<span class="badge pull-right">New</span>
-	  	<span class="list-group-item-heading">${bean.no_no }</span>
-	    <p class="list-group-item-text">[${bean.nalja }]${bean.content }</p></div>
+		<!-- <div class="badge pull-right">New</div> -->
+	  	<div class="nodiv">${bean.no_no }</div>
+	   <div class="naljadiv">${bean.nalja }</div>
+	  	<div class="titlediv">${bean.title }</div> 
+	    </div>
 
 		<!-- Modal -->
 		<div class="modal fade yourModal" id="myModal-${bean.no_no }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-${bean.no_no }">
@@ -153,7 +221,7 @@
 		</div>
 	</c:forEach>
 	
-	<!-- TODO 관리자 로그인시 보이게 되는 입력버튼 -->
+	<!-- TODO [jihyun]notice - 관리자 로그인시 보이게 되는 입력버튼 -->
 	<%-- <c:if test="${login_on==true && !(login_user_type='일반')}"> --%>
 	   <button type="button" class="addNotice btn pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" >입력하기</button>
 	<%-- </c:if> --%>
