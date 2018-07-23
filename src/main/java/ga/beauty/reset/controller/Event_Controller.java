@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Paging_Vo;
 import ga.beauty.reset.services.Event_Service;
+import ga.beauty.reset.utils.CrudEnum;
 import ga.beauty.reset.utils.UpdateViewUtils;
 import ga.beauty.reset.utils.UploadFileUtils;
 
@@ -52,8 +54,10 @@ public class Event_Controller {
 		return "event/event_list";
 	}*/
 	
+	//리스트를 보여줍니다.
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model,HttpServletRequest req) throws SQLException {
+		//페이징관련 입니다.
 		int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
 		int maxPost = 10;	// 페이지당 표시될 게시물  최대 갯수
 		
@@ -71,7 +75,16 @@ public class Event_Controller {
 		
 		model.addAttribute("paging",paging);
 		model.addAttribute("goRoot",goRoot);
+		
 		service.listPage(model, offset, paging.getmaxPost());
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.LIST + "이벤트에서 {ip:"+ip+"}가 이벤트 목록을 불러옵니다.");
+		
 		return "event/event_list";
 	}
 	
@@ -91,11 +104,19 @@ public class Event_Controller {
 		model.addAttribute("no",eve_no);
 		model.addAttribute("type","event");
 		service.detailPage(model, bean, comment);
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+        String ip = req.getHeader("X-FORWARDED-FOR");
+        if (ip == null) ip = req.getRemoteAddr();
+        
+		logger.info(CrudEnum.DETAIL + "이벤트에서 {ip:"+ip+"}가 상세페이지를 불러옵니다.");
+		
 		return "event/event_detail";
 	}
 	
 	@RequestMapping(value="/admin/event/{eve_no}", method = RequestMethod.POST)
-	public String updateForm(@PathVariable int eve_no ,Model model) throws SQLException {
+	public String updateForm(@PathVariable int eve_no ,Model model,HttpServletRequest req) throws SQLException {
 		String goRoot="../../";
 		model.addAttribute("goRoot",goRoot);
 		Event_Vo bean=new Event_Vo();
@@ -106,6 +127,7 @@ public class Event_Controller {
 		comment.setP_no(eve_no);
 		
 		service.detailPage(model, bean, comment);
+		
 		return "event/event_update";
 	}
 	
@@ -124,14 +146,23 @@ public class Event_Controller {
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setTags(req.getParameter("tags"));
-		//service.updatePage(bean);
+		service.updatePage(bean);
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+        String ip = req.getHeader("X-FORWARDED-FOR");
+        if (ip == null) ip = req.getRemoteAddr();
+        
+		logger.info(CrudEnum.UPDATE + "이벤트에서  {ip:"+ip+"}가 글을 수정 합니다.");
+		
 		return "redirect:/event";
 	}
 	
 	@RequestMapping("/admin/event/add")
-	public String addForm(Model model) {
+	public String addForm(Model model,HttpServletRequest req) {
 		String goRoot="../../";
 		model.addAttribute("goRoot",goRoot);
+		
 		return "event/event_add";
 	}
 	
@@ -149,6 +180,14 @@ public class Event_Controller {
 	    Thread.sleep(3000);
 	    // 파일업로드 end
 		service.addPage(bean);
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+        String ip = req.getHeader("X-FORWARDED-FOR");
+        if (ip == null) ip = req.getRemoteAddr();
+        
+		logger.info(CrudEnum.ADD + "이벤트에서  {ip:"+ip+"}가 글을 작성하였습니다.");
+		
 		return "redirect:/event";
 	}
 	
@@ -173,6 +212,14 @@ public class Event_Controller {
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		service.deletePage(bean);
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+        String ip = req.getHeader("X-FORWARDED-FOR");
+        if (ip == null) ip = req.getRemoteAddr();
+        
+		logger.info(CrudEnum.DELETE + "이벤트에서  {ip:"+ip+"}가 글을 삭제하였습니다.");
+		
 		return "redirect:/event";
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 public interface Common_Dao<C> {
 
 	List<C> selectAll() throws SQLException;
+	List<C> selectAll(int num) throws SQLException;
 	List<C> selectAll(C bean) throws SQLException;
 	List<C> selectAll(int cate,int offset, int noOfRecords) throws SQLException;
 	List<C> selectAll(int offset, int noOfRecords) throws SQLException;

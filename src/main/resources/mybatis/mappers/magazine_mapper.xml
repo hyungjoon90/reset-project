@@ -16,7 +16,7 @@
 		SELECT COUNT(*) FROM MAGAZINE WHERE OPEN=1
 		<if test="cate!=null">
 		 AND CATE=#{cate}
-		</if>;
+		</if>
 	</select>
 
 <!-- 게시글 목록을 조회하기 위한 쿼리(일반, 공지사항)-->

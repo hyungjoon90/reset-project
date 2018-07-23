@@ -31,6 +31,10 @@ public class Eve_addr_Service {
 		model.addAttribute("detail",commonDao.selectAll(eve_no,offset,noOfRecords));
 	}
 	
+	public List listPage(int eve_no) throws SQLException{
+		return commonDao.selectAll(eve_no);
+	}
+	
 	public void addPage(Eve_addr_Vo bean) throws SQLException{
 		commonDao.insertOne(bean); // XXX 이벤트주소 추가시점
 	}

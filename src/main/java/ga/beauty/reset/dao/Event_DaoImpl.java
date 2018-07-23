@@ -70,8 +70,12 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 
 	@Override
 	public int getCount(int cate) throws SQLException {
-		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Event_Vo> selectAll(int num) throws SQLException {
+		return null;
 	}
 
 

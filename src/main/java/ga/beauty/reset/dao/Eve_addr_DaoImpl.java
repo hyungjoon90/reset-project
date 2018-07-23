@@ -74,4 +74,9 @@ public class Eve_addr_DaoImpl implements Common_Dao<Eve_addr_Vo>{
 		return sqlSession.selectOne("eveAddr.listCount",eve_no);
 	}
 
+	@Override
+	public List<Eve_addr_Vo> selectAll(int eve_no) throws SQLException {
+		return sqlSession.selectList("eveAddr.selectAll",eve_no);
+	}
+
 }

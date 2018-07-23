@@ -1,8 +1,11 @@
 package ga.beauty.reset.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import ga.beauty.reset.dao.entity.Eve_addr_Vo;
 import ga.beauty.reset.dao.entity.Paging_Vo;
 import ga.beauty.reset.services.Eve_addr_Service;
 import ga.beauty.reset.services.Event_Service;
+import ga.beauty.reset.utils.CrudEnum;
 
 @Controller
 public class Eve_Addr_Controller {
@@ -50,6 +54,14 @@ public class Eve_Addr_Controller {
 		model.addAttribute("paging",paging);
 		model.addAttribute("goRoot",goRoot);
 		eventService.listPage(model, offset, paging.getmaxPost());
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.LIST + "이벤트참가에서 {ip:"+ip+"}가 이벤트 목록을 불러옵니다.");
+		
 		return "eve_addr/eve_addr_list";
 	}
 	
@@ -74,11 +86,63 @@ public class Eve_Addr_Controller {
 		Eve_addr_Vo bean=new Eve_addr_Vo();
 		bean.setEve_no(eve_no);
 		
+		model.addAttribute("tot",service.getCount(eve_no));
+		model.addAttribute("eve_no",eve_no);
 		model.addAttribute("paging",paging);
 		model.addAttribute("goRoot",goRoot);
 		service.listPage(model, eve_no, offset, paging.getmaxPost());
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.DETAIL + "이벤트참가에서 {ip:"+ip+"}가 참가자 목록을 불러옵니다.");
+		
 		return "eve_addr/eve_addr_detail";
 	}
+	
+	@RequestMapping(value = "/admin/eveaddr/{eve_no}", method = RequestMethod.POST)
+	public String eventNum(@PathVariable int eve_no ,Model model,HttpServletRequest req) throws SQLException {
+		
+		String goRoot="../../";
+		
+		//총인원
+		int tot = service.getCount(eve_no);
+		
+		//당첨자를 뽑을 인원수
+		int eventNum=Integer.parseInt(req.getParameter("eventNum"));
+		
+		int lucky[] = new int[eventNum];
+		
+		for(int i=0; i<lucky.length; i++) {
+			lucky[i] = (int)(Math.random()*tot);
+			
+			for(int j=0; j<i; j++) {
+				if(lucky[i] == lucky[j]) {
+					i--;
+					break;
+				}
+			}
+		};
+		List allList = service.listPage(eve_no);
+		List result = new ArrayList();
+		for(int i=0; i<lucky.length; i++) {
+			result.add(allList.get(lucky[i]));
+		}
+		model.addAttribute("detail",result);
+		model.addAttribute("goRoot",goRoot);
+		
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		logger.info(CrudEnum.DETAIL + "이벤트참가에서 {ip:"+ip+"}가 당첨자 목록을 불러옵니다.");
+		
+		return "eve_addr/eve_addr_eventNum";
+	}
+	
 	
 	@RequestMapping(value="/event/{eve_no}/addr", method=RequestMethod.GET)
 	public String addForm(@PathVariable("eve_no") int eve_no,Model model) throws SQLException{

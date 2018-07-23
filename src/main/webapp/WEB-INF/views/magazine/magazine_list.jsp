@@ -258,7 +258,7 @@ $(function() {
     <!--//footer-->    
 <script>
 function goPage(pages, lines) {
-    location.href = '?' + "pages=" + pages;
+    location.href = '?'+"pages=" + pages;
 }
 </script>
 </body>

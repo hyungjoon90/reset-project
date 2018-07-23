@@ -80,5 +80,10 @@ public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 		return sqlSession.selectOne("magazine.listCount",params);
 	}
 
+	@Override
+	public List<Magazine_Vo> selectAll(int num) throws SQLException {
+		return null;
+	}
+
 
 }
