@@ -4,15 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${goRoot }js/jquery-1.12.4.js"></script>
-<script src="${goRoot }js/bootstrap.min.js"></script>
-<link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
-<link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${goRoot }css/main.css" rel="stylesheet">
-<link href="${goRoot }css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
-<script src=".${goRoot }js/star-rating.js" type="text/javascript"></script>
+<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 	<title>Home</title>
 <style type="text/css">
     /* 전체 container */
@@ -308,13 +300,16 @@ $(document).ready(function(){
 			</c:choose>
             <label>${review_bean.writer }</label>
             <label>${review_bean.age }</label>/<label>${review_bean.skin }</label>/<label>${review_bean.gender }</label>/
-            <label>${review_bean.star }점</label>/<label>${review_bean.nalja }</label>
+            <label>${review_bean.star} }</label>
+			/<label>${review_bean.nalja }</label>
             <p>${review_bean.good }</p>
             <p>${review_bean.bad }</p>
             <p>${review_bean.tip }</p>
             <p>${review_bean.pop }</p>
-        </div>
-        
+            
+            
+
+
         <!-- 댓글입력(comment) 시작 -->
 			<div>
 				<div class="box box-success">
@@ -460,35 +455,7 @@ $(document).ready(function(){
 	</div><!-- /.modal -->
 
     <!--footer-->
-    <div class="footer">
-        <div class="wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="${goRoot }imgs/footer_logo.png" alt="" /></a></div>
-                        <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
-                    </div>
-                    <div class="footer_R">
-                        <div class="fright">
-                            <form action="#" method="post">
-                                <input class="inp_search" name="name" type="text" value="   Search the Site" onfocus="if (this.value == 'Search the Site') this.value = '';" onblur="if (this.value == '') this.value = 'Search the Site';" />
-                            </form>
-                        </div>
-                        <div class="footer_menu">
-                            <ul class="nav">
-                                <li><a href="index.html" class="current">홈</a></li>
-                                <li><a href="about.html">랭킹</a></li>
-                                <li><a href="scaffolding.html">화플</a></li>
-                                <li><a href="portfolio_2columns.html">이벤트</a></li>
-                                <li><a href="blog.html">리뷰</a></li>
-                                <li><a href="contacts.html">문의</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
     <%@include file="/WEB-INF/views/template/ajax_loading.jsp"%>
     <!--//footer--> 
       
