@@ -1,7 +1,7 @@
 <script>
 $(function(){
 	$(document).ajaxStart(function() {$('.wrap-loading').removeClass('display-none');});
-	$(document).ajaxStop(function() {$('.wrap-loading').addClass('display-none'););
+	$(document).ajaxStop(function() {$('.wrap-loading').addClass('display-none');});
 });
 </script>
 <style type="text/css" >
@@ -21,6 +21,7 @@ $(function(){
 	display:none;
 }
 </style>
+
 <div class="wrap-loading display-none">
-	<div><img src="${goRoot }img/loading1.gif" /></div>
+	<div><img src="${goRoot }img/Eclipse-1s-200px_red.gif" /></div>
 </div>  

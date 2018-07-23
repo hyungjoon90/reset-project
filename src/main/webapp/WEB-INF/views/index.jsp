@@ -52,7 +52,6 @@
                       <li><a href="./qna/qnaEmail">문의</a></li>
                       <li><a href="./admin/qnaList">admin</a></li>
                       </ul>
-                    </ul>
                 </div>
              </nav>                
         </div>    
