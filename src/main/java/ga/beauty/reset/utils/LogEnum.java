@@ -9,6 +9,7 @@ public class LogEnum {
 	public static final String LOGIN = "@로그인@-"; // 로그인 됬을때
 	public static final String LOGOUT = "@로그아웃@-"; // 로그아웃 
 	public static final String SIGNUP = "@회원가입@-"; // 로그아웃 
+	public static final String PROFILE ="@회원정보@-"; // 회원정보 변경시
 	
 	public static final String ITM = "@아이템@-";
 	public static final String REV = "@리뷰@-"; // 

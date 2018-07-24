@@ -68,7 +68,7 @@
 		var log_err = $("#log_err");
 		var login_chart = $("#chart-target");
 		getLogForMain(log_normal,"normal",10);
-		getLogForMain(log_err,"err",10);
+		getLogForMain(log_err,"error",10);
 		getCountSession();
 		getCountLogin();
 		getChart(login_chart,"login",7,-1);
@@ -83,7 +83,7 @@
 		setInterval(function(){
 			getLogForMain(log_normal,"normal",10);
 			getLogForMain(log_err,"error",10);
-			getChart(login-chart,"login",7);
+			getChart(login_chart,"login",7,-1);
 		},45000);
 		
 	});
@@ -103,11 +103,6 @@
                         <h1 class="page-header">
                             Dashboard <small>Overview</small>
                         </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
                     </div>
                 </div>
                 <!-- /.row -->

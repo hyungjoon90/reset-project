@@ -3,10 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="companys">
-	<select id="selectAll" resultType="Members_Vo">
-  		SELECT * FROM COMPANYS
+	<select id="totCount"  parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM COMPANYS
+ 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="company != null">COMPANY=#{company},</if>
+		</trim>
+	</select>
+	<select id="selectAllLimit"  parameterType="hashmap" resultType="Companys_Vo">
+  		SELECT * FROM COMPANYS ORDER BY EMAIL
+ 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+		</trim>
   	</select>
-	<select id="selectOne" resultType="Members_Vo">
+	<select id="selectAll" resultType="Companys_Vo">
+  		SELECT * FROM COMPANYS ORDER BY EMAIL
+  	</select>
+	<select id="selectOne" resultType="Companys_Vo">
   		SELECT * FROM COMPANYS WHERE EMAIL =#{email}
   	</select>
 	<insert id="insertone" parameterType="int">

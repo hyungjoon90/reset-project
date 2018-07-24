@@ -4,8 +4,7 @@
 	xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
-	<appender name="console"
-		class="org.apache.log4j.ConsoleAppender">
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
@@ -14,28 +13,26 @@
 	</appender>
 
 	<!-- 날짜별 로그 파일 생성 -->
-	<appender name="dayFile"
-		class="org.apache.log4j.RollingFileAppender">
+	<appender name="dayFile" class="org.apache.log4j.RollingFileAppender">
 		<!-- The active file to log to -->
 		<param name="file" value="c:/reset/applogs/weblog.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="UTF-8" />
 		<param name="Threshold" value="INFO" />
-		<param name="DatePattern" value="'.'yyyy-MM-dd-a"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%d][%p]-%m%n" />
 		</layout>
 	</appender>
 	<!-- 경고로그 -->
-	<appender name="errorFile"
-		class="org.apache.log4j.RollingFileAppender">
+	<appender name="errorFile" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="c:/reset/applogs/errlog.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="UTF-8" />
 		<param name="Threshold" value="ERROR" />
-		<param name="DatePattern" value="'.'yyyy-MM-dd-a"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d][%p]-%m(%c)%n" />
+			<param name="ConversionPattern" value="[%d][%p]-%m($c)%n" />
 		</layout>
 	</appender>
 
