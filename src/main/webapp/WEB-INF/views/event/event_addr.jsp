@@ -79,6 +79,32 @@ $(function(){
 	    $('#addrDetail').focus();
 	});
 });// end document.onload
+
+function event_addrCheck(){
+	var email =$("#email").val();
+	var name =$("#name").val();
+	var phone =$("#phone").val();
+	var postcode =$("#zipNo");
+	var address = $("#roadAddrPart1");
+	
+	function validateEmail(email) {
+		var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		return re.test(email);
+	}
+	
+	if (email == "" || !validateEmail(email)) {
+		alert("올바른 이메일 주소를 입력하세요");
+		 $("#email").val("");
+		 $("#email").focus();
+		return false;
+	}
+	
+	if(name==""){
+		alert("이름을 입력해 주세요");
+		$("#name").focus();
+	}
+}
+
 </script>
 <style type="text/css">
 .page_container{
@@ -189,7 +215,7 @@ input.upload {
    			<div class="col-md-8">
    			<h1 class="entry-title"><span>이벤트 참가 주소입력</span></h1>
    			<hr>
-			<form method="post" action="/reset/event/${event}/addr">
+			<form method="post" action="/reset/event/${event}/addr" onsubmit="return event_addrCheck()">
 				<div>
 					<input type="hidden" name="eve_no" id="eve_no" value="${event}">
 				</div>

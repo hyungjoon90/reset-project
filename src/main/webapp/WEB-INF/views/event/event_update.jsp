@@ -52,6 +52,26 @@
 	    }
 	  
  });
+ 
+ function eventCheck(){
+	 var img= $("#img");
+	 var title = $("#title");
+	 if(img.val()== ""){
+		 alert("썸네일을 올려 주세요");
+		 return false;
+	 }
+	 if(title.val() == ""){
+		 alert("제목을 입력해 주세요");
+		 $("#title").focus();
+		 return false;
+	 }
+	 if(CKEDITOR.instances.con.getData()==""){
+		 alert("내용을 입력해 주세요");
+		 CKEDITOR.instances.con.focus();
+		 return false;
+	 }
+	 
+ };
 </script>
 <style type="text/css">
 	/* 미리보기 이미지 사이즈 */
@@ -150,7 +170,7 @@
             <!-- 내용 입력 -->
             <!-- TODO:이벤트 업데이트 페이지 입니다. -->
             <!-- update-page 입니다. -->
-            <form method="post"  action="/reset/admin/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm">
+            <form method="post"  action="/reset/admin/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm" onsubmit="return eventCheck()">
            		<!-- <input type="hidden" name="_method" value="put"/> -->
 	            <div>
 	            	<label for="eve_no"></label>

@@ -39,6 +39,10 @@ public class Event_Service {
 		model.addAttribute("comment",commentDao.list(comment));
 	}
 	
+	public void detailPage(Model model, Event_Vo bean) throws SQLException{
+		model.addAttribute("event_detail",commonDao.selectOne(bean));
+	}
+	
 	public void addPage(Event_Vo bean) throws SQLException{
 		commonDao.insertOne(bean);
 	}

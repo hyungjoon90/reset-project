@@ -51,6 +51,31 @@
 	    }
 	  
  });
+ 
+ function magazineCheck(){
+	 var img= $("#img");
+	 var title = $("#title");
+	 var cate = $("#cate option:selected");
+	 if(img.val()== ""){
+		 alert("썸네일을 올려 주세요");
+		 return false;
+	 }
+	 if(title.val() == ""){
+		 alert("제목을 입력해 주세요");
+		 $("#title").focus();
+		 return false;
+	 }
+	 if(CKEDITOR.instances.con.getData()==""){
+		 alert("내용을 입력해 주세요");
+		 CKEDITOR.instances.con.focus();
+		 return false;
+	 }
+	 if(cate.val()==99){
+		 alert("카테고리를 골라주세요");
+		 $("#cate").focus();
+		 return false;
+	 }
+ };
 </script>
 <style type="text/css">
 	#control_img { /* div에 주는것도 좋은 방법임. */
@@ -149,7 +174,7 @@
         	<!-- 내용 입력 -->
             <!-- TODO: 김형준 magazine 내용입력 -->
             <!-- magazine add-page 입니다. -->
-            <form action="/reset/admin/magazine" method="post" enctype="multipart/form-data" id="magazine_addForm">
+            <form action="/reset/admin/magazine" method="post" enctype="multipart/form-data" id="magazine_addForm"  onsubmit="return magazineCheck()">
             	<div class="imgDiv">
 	            	<label for="img">대표이미지</label>
 	            	<input type="file" name="img" id="img" class="darkBtn">
@@ -195,6 +220,7 @@
             	<div>
             		<label for="cate">카테고리</label>
             		<select name="cate" id="cate">
+            			<option value=99>카테고리 선택</option>
             			<option value=1>신상&amp;트렌드</option>
             			<option value=2>화장품 펙트체크</option>
             			<option value=3>인기템 리뷰</option>

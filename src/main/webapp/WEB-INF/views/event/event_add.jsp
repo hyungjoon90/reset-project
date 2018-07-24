@@ -51,6 +51,26 @@
 	    }
 	  
  });
+ 
+ function eventCheck(){
+	 var img= $("#img");
+	 var title = $("#title");
+	 if(img.val()== ""){
+		 alert("썸네일을 올려 주세요");
+		 return false;
+	 }
+	 if(title.val() == ""){
+		 alert("제목을 입력해 주세요");
+		 $("#title").focus();
+		 return false;
+	 }
+	 if(CKEDITOR.instances.con.getData()==""){
+		 alert("내용을 입력해 주세요");
+		 CKEDITOR.instances.con.focus();
+		 return false;
+	 }
+	 
+ };
 </script>
 <style type="text/css">
 	#control_img { /* div에 주는것도 좋은 방법임. */
@@ -150,7 +170,7 @@
             <!-- 내용 입력 -->
             <!-- TODO: 내용입력 -->
             <!-- add-page 입니다. -->
-            <form action="/reset/admin/event" method="post" enctype="multipart/form-data" id="event_addForm">
+            <form action="/reset/admin/event" method="post" enctype="multipart/form-data" id="event_addForm" onsubmit="return eventCheck()">
             	<div class="imgDiv">
 	            	<label for="img">대표이미지</label>
 	            	<input type="file" name="img" id="img" class="darkBtn">
@@ -161,11 +181,11 @@
             	</div>
             	<div>
 	            	<label for="title">제목</label>
-	            	<input type="text" name="title" id="title" class="form-control">
+	            	<input type="text" name="title" id="title" class="form-control" placeholder="">
             	</div>
             	<div>
 	            	<label for="con">내용</label>
-			        <textarea name="con" id="con" style="width: 700px; height: 400px;"></textarea>
+			        <textarea name="con" id="con" style="width: 700px; height: 400px;" placeholder=""></textarea>
 			        <!-- ckeditor를 사용하여 서버로 이미지를 올리고 다시 불러오는 설정입니다. -->
 			        <script>
 				    $(function(){
