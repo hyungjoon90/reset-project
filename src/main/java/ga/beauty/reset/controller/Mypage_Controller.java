@@ -1,5 +1,6 @@
 package ga.beauty.reset.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.services.mypage.Mypage_ADV_Service;
 import ga.beauty.reset.services.mypage.Mypage_NOR_Service;
 
@@ -28,11 +33,12 @@ public class Mypage_Controller {
 	Mypage_NOR_Service mypage_NOR_Service;
 	@Autowired
 	Mypage_ADV_Service mypage_ADV_Service; 
+	ObjectMapper mapper=new ObjectMapper();
 	
 	public Mypage_Controller() {
 	}
 	
-	@RequestMapping(value = "/mypage/", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/mypage/", method = RequestMethod.GET)
 	public String showMain(@SessionAttribute(name="user_type") String user_type, Model model) {
 		model.addAttribute("goRoot","../");
 		if("CEO".equals(user_type) || "직원".equals(user_type)) {
@@ -47,10 +53,29 @@ public class Mypage_Controller {
 			return "errPage";
 		}
 	}// showMain()
+*/	
+	@RequestMapping(value = "/mypage/", method = RequestMethod.GET)
+	public String showMain(Model model, HttpSession session, HttpServletRequest req) throws SQLException, JsonProcessingException {
+		model.addAttribute("goRoot","../");
+		/*if("CEO".equals(user_type) || "직원".equals(user_type)) {
+			return "redirect:/admin/";
+		}else if("광고주".equals(user_type)) {
+			return "mypage/mypage_Adv_main";
+		}else if("일반".equals(user_type)) {
+			return "mypage/mypage_nor_main";
+		}else {
+			// TODO 에러
+			model.addAttribute("goRoot","./");
+			return "errPage";
+		}*/
+		model.addAttribute("goRoot","../");
+		model.addAttribute("alist", mapper.writeValueAsString(mypage_NOR_Service.getInfo("", session, req)));
+		return "mypage/mypage_test";
+	}// showMain()
 	
 	@RequestMapping(value= "/mypage/{command}/", method=RequestMethod.POST) // ajax
 	@ResponseBody
-	public Map<String, Object> showInfoForCommand(@PathVariable String command, HttpSession session, HttpServletRequest req) {
+	public Map<String, Object> showInfoForCommand(@PathVariable String command, HttpSession session, HttpServletRequest req) throws SQLException {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		String userType = (String)session.getAttribute("login_user_type");
 		

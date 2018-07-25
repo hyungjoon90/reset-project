@@ -11,6 +11,7 @@ public class Exception_ControllerAdvice {
 	@ExceptionHandler(Exception.class)
 	@RequestMapping(value="/error")
 	public String exception(Exception e) {
+		e.printStackTrace();
 		return "error/error";
 	}
 }

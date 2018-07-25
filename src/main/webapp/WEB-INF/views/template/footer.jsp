@@ -19,4 +19,5 @@
             </div>
         </div>
     </div>
+    <%@include file="/WEB-INF/views/template/ajax_loading.jsp"%>
     <!--//footer-->    

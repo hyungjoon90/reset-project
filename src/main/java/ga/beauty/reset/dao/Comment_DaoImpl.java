@@ -49,5 +49,9 @@ public class Comment_DaoImpl implements Comment_Dao<Comment_Vo> {
 		
 	}
 
+	@Override
+	public List<Comment_Vo> mypage_list(Comment_Vo bean) throws SQLException {
+		return sqlSession.selectList("comment.mypage_list",bean);
+	}
 
 }

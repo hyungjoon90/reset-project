@@ -5,56 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+<%@include file="/WEB-INF/views/template/head.jsp"%>
+<link rel="stylesheet" href="${goRoot }css/ranking_review/ranking_list.css" type="text/css">
 	<title>Home</title>
-<style type="text/css">
-    /* 컨텐츠 contatiner */
-	.page_container{
-		width: 80%;
-	}
-    .page_container>a{
-        text-decoration: none;
-        color: black;
-    }
-    .page_container>a:hover{
-    	text-decoration: none;
-    	color: black;
-    }
-    .contentsbox{
-        width: 85%;
-        margin: 0px auto;
-        display: flex;
-        border-bottom: 0.5px solid rgb(217, 222, 232);
-        padding: 5px 0px;
-    }   
-    .numbox{
-        width: 20%;
-        margin: auto 0px;
-        font-size: 30pt;
-        text-align: center;
-    }
-    .imgbox{
-        width: 30%;
-        text-align: center;
-        height: 160.5px;
-    }
-    .imgbox>img{
-    	width: 160px;
-    	height: 160px;
-    }
-    .conbox{
-        width: 50%;
-        margin: auto 0px;
-    }
-    .conbox>p{
-        margin: 6px 0px;
-    }
-    .conbox>p:first-child,.conbox>p:last-child{
-        color: #84868e;
-    }
-</style>
 <script type="text/javascript">
-
 $(function(){
 	var su=0;
         $(window).scroll(function(){
@@ -90,7 +44,7 @@ function add(){
 </head>
 <body>
 	<!--header-->
-    <jsp:include page="/WEB-INF/views/template/menu.jsp"></jsp:include>
+    <%@include file="/WEB-INF/views/template/menu.jsp"%>
     <div class="breadcrumb">
     	<div>
    		<a href="/reset/">HOME</a>
@@ -125,7 +79,6 @@ function add(){
 
     <!--footer-->
     <%@include file="/WEB-INF/views/template/footer.jsp"%>
-    <%@include file="/WEB-INF/views/template/ajax_loading.jsp"%>
     <!--//footer-->    
 
 </body>

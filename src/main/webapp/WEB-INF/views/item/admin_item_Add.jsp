@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+<%@include file="/WEB-INF/views/template/head.jsp"%>
 	<title>Home</title>
 <style type="text/css">
     /* 전체 container */
@@ -96,6 +96,30 @@
 	#img_preview {
    		display:none;
 	}
+	.imgDiv label {
+		display: inline-block;
+		padding: .5em .75em;
+		font-size: inherit;
+		line-height: normal;
+		color: #ffffff;
+		vertical-align: middle;
+		background-color: #313131;
+		cursor: pointer;
+		border: 1px solid #313131;
+		border-bottom-color: #313131;
+		border-radius: .25em;
+	}
+	
+	.imgDiv input[type="file"] { /* 파일 필드 숨기기 */
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
 </style>
 <script type="text/javascript">
 
@@ -133,61 +157,30 @@ $(document).ready(function(){
 </head>
 <body>
 	<!--header-->
-    <div class="header">
-    	<div class="wrap">
-            <nav class="main_menu container">
-                <div class="menu_img">
-                <a href="/reset/">
-                    <img src="${goRoot }imgs/header_logo.png">
-                    </a>
-                </div>
-                <div class="menu_login">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="search">검색</label>
-                            <input type="text" class="form-control input_box" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
-                    </form>
-                </div>
-                <div class="menu_bar">
-                    <ul class="nav">
-                      <li class="current"><a href="/reset/">홈</a></li>
-                      <li class="top-menu"><a href="/reset/">랭킹</a>
-                      	<div class="space">
-						  <ul class="sub-menu">
-						      <li><a href="../ranking?id=1">스킨</a></li>
-							  <li><a href="../ranking?id=2">로션</a></li>
-							  <li><a href="../ranking?id=3">에센스</a></li>
-						  </ul>
-						</div>
-					  </li>
-                      <li><a href="#">화플</a></li>
-                      <li><a href="#">이벤트</a>
-                      </li>                                  
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
-                </div>
-             </nav>                
-        </div>    
+    <%@include file="/WEB-INF/views/template/menu.jsp"%>
+    <div class="breadcrumb">
+    	<div>
+   		<a href="/reset/">HOME</a>
+   		<span class="slash">/</span>
+   		ADMIN
+   		</div>
     </div>
-    <!--//header-->    
+    <!--//header--> 
      
     <!-- main contents -->
    <div class="page_container">
    	 <form id="item">
         <div class="contentsBox">
             <div class="ImgBox">
-                <label for="img">이미지 업로드</label>
-		        <input type="file" name="img" id="img" />
-			    
-			    <div id="img_preview">
-			        <img src="#" />
-			        <br />
-			        <a href="#">Remove</a>
-			    </div>
+			    <div class="imgDiv">
+							<label for="img">대표이미지</label>
+							<input type="file" name="img"
+								id="img" class="darkBtn">
+						</div>
+					</form>
+					<div id="img_preview">
+						<img src="#" /> <br /> <a href="#">Remove</a>
+					</div>
             </div>
             <div class="InfoBox">
                 <table class="table">
@@ -250,7 +243,7 @@ $(document).ready(function(){
     <!-- //main contents -->
    
     <!--footer-->
-    <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+    <%@include file="/WEB-INF/views/template/footer.jsp"%>
     <!--//footer-->   
     
     <script type="text/javascript">

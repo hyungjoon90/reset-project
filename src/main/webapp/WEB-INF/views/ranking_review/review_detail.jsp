@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+<%@include file="/WEB-INF/views/template/head.jsp"%>
 	<title>Home</title>
-<style type="text/css">
-    /* 전체 container */
+	<style type="text/css">
+	/* 전체 container */
     .page_container{
     	width: 80%;
         border: 1px solid rgb(217, 222, 232);
@@ -21,28 +21,39 @@
     	width: 10%;
     	text-align: center;
     }
-    .bar1{
-    	background-image: -webkit-linear-gradient(top,#FDEB71 0,#F8D800 100%);
-    }
-    .bar2{
-    	background-image: -webkit-linear-gradient(top,#ABDCFF 0,#0396FF 100%);
-    }
-    .bar3{
-    	background-image: -webkit-linear-gradient(top,#FEB692 0,#EA5455 100%);
-    }
-    .bar4{
-    	background-image: -webkit-linear-gradient(top,#CE9FFC 0,#7367F0 100%);
-    }
-    .bar5{
-    	background-image: -webkit-linear-gradient(top,#90F7EC 0,#32CCBC 100%);
-    }
+    .bar1 {
+		background-image: -webkit-linear-gradient(top, #bd0026 0, #bd0026 100%);
+	}
+	
+	.bar2 {
+		background-image: -webkit-linear-gradient(top, #f03b20 0, #f03b20 100%);
+	}
+	
+	.bar3 {
+		background-image: -webkit-linear-gradient(top, #fd8d3c 0, #fd8d3c 100%);
+	}
+	
+	.bar4 {
+		background-image: -webkit-linear-gradient(top, #fecc5c 0, #fecc5c 100%);
+	}
+	
+	.bar5 {
+		background-image: -webkit-linear-gradient(top, #fee0d2 0, #fee0d2 100%);
+	}
     .reviewBox{
     	width: 95%;
     	border: 1px solid #e5e5e5;
     	margin: 0px auto;
     }
-    .reviewBox img{
+    .reviewBox>img{
     	width: 100%;
+    }
+    .reviewBox>p{
+    	display: inline-block;
+    	margin: 20px 0px 0px 20px;
+    }
+    .reviewBox>label{
+    	margin: 0px 0px 0px 20px;
     }
     .icon{
    	    text-align: center;
@@ -78,11 +89,164 @@
 	#img_preview img{
 		width: 100%;
 	}
-</style>
-<script type="text/javascript">
+	.RedBtn {
+		background-color: #dd2d25;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		border: 1px solid #dd2d25;
+	    display: inline-block;
+	    cursor: pointer;
+	    color: #ffffff;
+	    font-family: Arial;
+	    font-size: 15px;
+	    font-weight: bold;
+	    padding: 5px 15px;
+	    margin: 5px 5px;
+	    text-decoration: none;
+	}
 	
-
-
+	.RedBtn:hover {
+		color: #fff;
+		background-color: #d00b01;
+	}
+	
+	.RedBtn:active {
+		position: relative;
+		top: 1px;
+	}
+	
+	.darkBtn {
+		background-color: #313131;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		border: 1px solid #313131;
+	    display: inline-block;
+	    cursor: pointer;
+	    color: #ffffff;
+	    font-family: Arial;
+	    font-size: 15px;
+	    font-weight: bold;
+	    padding: 5px 15px;
+	    margin: 5px 5px;
+	    text-decoration: none;
+	}
+	
+	.darkBtn:hover {
+		color: #fff;
+		background-color: #313131;
+	}
+	
+	.darkBtn:active {
+		position: relative;
+		top: 1px;
+	}
+	.sub-title {
+		color: #84868e;
+	}
+	.star {
+		width: 80px;
+	}
+	
+	.starRating1 {
+		display: inline-block;
+		overflow: hidden;
+		width: 16px;
+		margin: 0px 0px -3px 0px;
+	}
+	
+	.starRating2 {
+		display: inline-block;
+		overflow: hidden;
+		width: 32px;
+		margin: 0px 0px -3px 0px;
+	}
+	
+	.starRating3 {
+		display: inline-block;
+		overflow: hidden;
+		width: 48x;
+		margin: 0px 0px -3px 0px;
+	}
+	
+	.starRating4 {
+		display: inline-block;
+		overflow: hidden;
+		width: 64px;
+		margin: 0px 0px -3px 0px;
+	}
+	
+	.starRating5 {
+		display: inline-block;
+		overflow: hidden;
+		width: 80px;
+		margin: 0px 0px -3px 0px;
+	}
+	.btn.focus, .btn:focus, .btn:hover{
+		color: #fff;
+	}
+	.btimg{/* 좋아요 아이콘 */
+		margin: 2% 1%;
+		width: 4.7%;
+	}
+	.popDiv{
+	    text-align: center;
+	}
+	/* modal */
+	.form-group {
+		height: 90px;
+	}
+	.form-group>label {
+		text-align: center;
+	}
+	
+	.imgDiv label {
+		display: inline-block;
+		padding: .5em .75em;
+		font-size: inherit;
+		line-height: normal;
+		color: #ffffff;
+		vertical-align: middle;
+		background-color: #313131;
+		cursor: pointer;
+		border: 1px solid #313131;
+		border-bottom-color: #313131;
+		border-radius: .25em;
+	}
+	
+	.imgDiv input[type="file"] { /* 파일 필드 숨기기 */
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+	.textbox{
+		width:100%;
+	}
+	/* 댓글 스타일 */
+	.com_div{
+		display: inline-block;
+		margin-bottom: 10px;
+	}
+	
+	.com_nalja{
+		margin-left: 85%;
+	}
+	.com_hr{
+		width: 100%;
+		margin-bottom: 1%;
+	}
+	.comBtn{
+		margin-left: 90%;
+	}
+	
+	</style>
+<script type="text/javascript">
 $(document).ready(function(){
 	var option=1;
 	$('#review_update').on('shown.bs.modal', function () {
@@ -152,6 +316,7 @@ $(document).ready(function(){
 				dataType: "text"
 			}) 
 			.done(function(data){
+				expDown("review");
 				console.log(data);
 				if(data=="1"){
 					console.log("성공");
@@ -164,51 +329,212 @@ $(document).ready(function(){
 				console.error('데이터 삭제 실패');
 			}) 
 		})
+		
+		/* 좋아요 시작 */
+		
+		var email=$("#email").val();
+	    /* var email=${email}; */
+	    var p_no=$("#p_no").val();
+	    /* var p_no=${p_no}; */
+		var type="review";	    
+		/* var type=${type}; */		    
+	    $.ajax({
+	    	type:'post',
+			url: '/reset/like/'+type+'/'+p_no,
+			data : JSON.stringify({
+				email : email,
+				type : type,
+				p_no : p_no
+			}),
+			headers:{
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType: "text"
+		}) 
+		.done(function(data){
+			$("#result").val(data);
+			if($('#result').val()=="unlike"){
+				$('#unLikes').hide();
+			}else if($('#result').val()=="like"){
+				$('#Likes').hide();
+			}
+	 	})
+		.fail(function () { // 실패했을때 불러질 함수
+			console.error('데이터 수정 실패');
+		})     
+		
+		
+		if($('#result').val()=="like"){
+			console.log("좋아요를 이미 누르셨습니다");
+		}else{
+		$("#Likes").on("click",function(){
+			    var email=$("#email").val();
+			    /* var email=${email}; */
+			    var p_no=$("#p_no").val();
+			    /* var p_no=${p_no}; */
+				var type="review";	    
+				/* var type=${type}; */		    
+			    $.ajax({
+			    	type:'PUT',
+					url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+					data : JSON.stringify({
+						email : email,
+						type : type,
+						p_no : p_no
+					}),
+					headers:{
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "PUT"
+					}
+				}) 
+				.done(function(data){
+					expUp("like");
+					console.log(data);
+				 	if(data.result=="1"){
+						console.log("성공");
+						$("#Likes").hide();
+						$("#unLikes").show();
+						$("#result").val("like");
+						$("#su").text(data.like);
+					} else if(data=="0"){
+						alert("실패하였습니다.");
+					} 
+			 	})
+				.fail(function () { // 실패했을때 불러질 함수
+					console.error('데이터 수정 실패');
+				})     
+			})
+		}
+			
+	    if($('#result').val()=="unlike"){
+	    	console.log("좋아요를 누르지 않았습니다");
+	    }else{
+		$("#unLikes").on("click",function(){
+			    var email=$("#email").val();
+			    /* var email=${email}; */
+			    var p_no=$("#p_no").val();
+			    /* var p_no=${p_no}; */
+				var type="review";   
+				/* var type=${type}; */		    
+			    $.ajax({
+			    	type:'DELETE',
+					url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+					data : JSON.stringify({
+						email : email,
+						type : type,
+						p_no : p_no
+					}),
+					headers:{
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "DELETE"
+					}
+				}) 
+				.done(function(data){
+					expDown("like");
+					console.log(data);
+					if(data.result=="1"){
+						console.log("성공");
+						$("#Likes").show();
+						$("#unLikes").hide();
+						$("#result").val("unlike");
+						$("#su").text(data.like);
+					} else if(data=="0"){
+						alert("실패하였습니다.");
+					} 
+			 	})
+				.fail(function () { // 실패했을때 불러질 함수
+					console.error('데이터 수정 실패');
+				})     
+			})
+	    }
+	    /* 좋아요 끝 */
+		
 });
-
+	function expUp(type){
+	/* var email =${login_email}; */
+		var type = type;//review,comment,like
+		$.ajax({
+			type : 'POST',
+			url : '/reset/exp',
+			data : JSON.stringify({
+				email : email,
+				type : type
+			}),
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType : "text"
+		}).done(function(data) {
+			console.log(data);
+		}).fail(function() { // 실패했을때 불러질 함수
+			console.error('데이터 수정 실패');
+		})
+	}
+	function expDown(type){
+	/* 	var email = ${login_email}; */
+		var type = type;//review,comment,like
+		$.ajax({
+			type : 'DELETE',
+			url : '/reset/exp',
+			data : JSON.stringify({
+				email : email,
+				type : type
+			}),
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			dataType : "text"
+		}).done(function(data) {
+			console.log(data);
+		}).fail(function() { // 실패했을때 불러질 함수
+			console.error('데이터 수정 실패');
+		})
+	}
+	function reviewCheck(){
+		 var star = $(':input[name=star]:radio:checked').val();
+		 var good = $("#good");
+		 var bad = $("#bad");
+		 var tip = $("#tip");
+	     
+	     if(star){
+	    	 return true;
+	     } else{
+	         alert("별점을 선택해주세요.");
+	         $(".star").focus();
+	         return false;
+	     }
+	     
+		 if(good.val() == ""){
+			 alert("좋은점을 입력해 주세요.");
+			 $("#good").focus();
+			 return false;
+		 }
+		 if(bad.val() == ""){
+			 alert("나쁜점을 입력해 주세요.");
+			 $("#bad").focus();
+			 return false;
+		 }
+		 if(tip.val() == ""){
+			 alert("팁을 입력해 주세요.");
+			 $("#tip").focus();
+			 return false;
+		 }
+		 
+	};
 </script>
 </head>
 <body>
 	<!--header-->
-    <div class="header">
-    	<div class="wrap">
-            <nav class="main_menu container">
-                <div class="menu_img">
-                <a href="/reset/">
-                    <img src="${goRoot }imgs/header_logo.png">
-                    </a>
-                </div>
-                <div class="menu_login">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="search">검색</label>
-                            <input type="text" class="form-control input_box" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
-                    </form>
-                </div>
-                <div class="menu_bar">
-                    <ul class="nav">
-                      <li class="current"><a href="/reset/">홈</a></li>
-                      <li class="top-menu"><a href="/reset/">랭킹</a>
-                      	<div class="space">
-						  <ul class="sub-menu">
-						      <li><a href="${goRoot}ranking?id=1">스킨</a></li>
-							  <li><a href="${goRoot}ranking?id=2">로션</a></li>
-							  <li><a href="${goRoot}ranking?id=3">에센스</a></li>
-						  </ul>
-						</div>
-					  </li>
-                      <li><a href="#">화플</a></li>
-                      <li><a href="#">이벤트</a>
-                      </li>                                  
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
-                </div>
-             </nav>                
-        </div>    
+    <%@include file="/WEB-INF/views/template/menu.jsp"%>
+    <div class="breadcrumb">
+    	<div>
+   		<a href="/reset/">HOME</a>
+   		<span class="slash">/</span>
+   		랭킹
+   		</div>
     </div>
     <!--//header-->    
      
@@ -282,15 +608,17 @@ $(document).ready(function(){
 			
         </div>
 		
+		<c:if test="${login_on=='true' && (login_nick==review_bean.writer)}">
 		<div class="btn-position">
 	        <!-- Button trigger modal -->
-			<button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#review_update" >
+			<button type="button" class="btn-lg darkBtn" data-toggle="modal" data-target="#review_update" >
 			  수정
 			</button>
-			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#review_delete" >
+			<button type="button" class="btn-lg RedBtn" data-toggle="modal" data-target="#review_delete" >
 			  삭제
 			</button>
 		</div>
+		</c:if>
 		
        <div class="reviewBox">
       		<c:choose>
@@ -298,78 +626,111 @@ $(document).ready(function(){
             		<img src="${goRoot}${review_bean.img }"/>
 				</c:when>
 			</c:choose>
-            <label>${review_bean.writer }</label>
-            <label>${review_bean.age }</label>/<label>${review_bean.skin }</label>/<label>${review_bean.gender }</label>/
-            <label>${review_bean.star} }</label>
-			/<label>${review_bean.nalja }</label>
-            <p>${review_bean.good }</p>
-            <p>${review_bean.bad }</p>
-            <p>${review_bean.tip }</p>
-            <p>${review_bean.pop }</p>
-            
-            
-
-
-        <!-- 댓글입력(comment) 시작 -->
+			<br>
+            <p>${review_bean.writer }<br> 
+            <span class="sub-title">${review_bean.age }세 / ${review_bean.skin } / ${review_bean.gender } / </span>
+			</p>
+			<c:choose>
+				<c:when test="${review_bean.star == 1}">
+					<div class="starRating1">
+						<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+					</div>
+				</c:when>
+				<c:when test="${review_bean.star == 2}">
+					<div class="starRating2">
+						<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+					</div>
+				</c:when>
+				<c:when test="${review_bean.star == 3}">
+					<div class="starRating3">
+						<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+					</div>
+				</c:when>
+				<c:when test="${review_bean.star == 4}">
+					<div class="starRating4">
+						<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+					</div>
+				</c:when>
+				<c:when test="${review_bean.star == 5}">
+					<div class="starRating5">
+						<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+					</div>
+				</c:when>
+			</c:choose>
+			<span class="sub-title">${review_bean.nalja }</span>
+			<br> <br>
+			<label>좋은점</label><br>
+			<p>${review_bean.good }</p>
+			<br><br>
+			<label>나쁜점</label><br>
+			<p>${review_bean.bad }</p>
+			<br><br>
+			<label>꿀팁</label><br>
+			<p>${review_bean.tip }</p>
+			
+			<!-- 좋아요. -->
+			<c:if test="${login_on=='true'}">
+            <div class="popDiv dis">
+				<input id="p_no" type="hidden" value="${review_bean.rev_no }" />
+				<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
+				<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn btimg">
+				<input id="result" type="hidden" value="" />
+				<span><strong id="su">${review_bean.pop }</strong></span>
+            </div>
+        	</c:if>
+            <!-- 좋아요 끝 -->
+			
+			<!-- TODO: event 댓글입력(comment) 시작 -->
 			<div>
 				<div class="box box-success">
 					<div class="box-header">
-						<h3 class="box-title">ADD NEW Comment</h3>
+						<h3 class="box-title">댓글</h3>
 					</div>
 					<div class="box-body">
-						<label for="writer">writer</label>
-						<input class="form-control" type="text" name="writer" id="writer">
-						<label for="content">content</label>
-						<input class="form-control" type="text" name="content" id="content">
-						
 						<!-- 고정값 및 임의값 -->
-						<input type="text" name="email" id="email" value="test@gmail.com">
+						<!-- TODO: event_댓글 로그인 세션에서 받아와야함 -->
+						<input class="form-control" type="hidden" name="writer"
+							id="writer" value="${login_nick }">
+						<!-- 댓글 글쓰는곳 -->
+						<textarea rows="5" class="form-control" type="text" name="content"
+							id="content"></textarea>
+						<!-- 고정값 및 임의값 -->
+						<!-- TODO: event_댓글 로그인 세션에서 받아와야함 -->
+						<input class="form-control" type="hidden" name="email" id="email"
+							value="${login_email }">
 					</div>
-					<div class="box-footer">
-						<button type="submit" class="btn btn-primary" id="comment_addBtn">add comment</button>
-					</div>
-				</div>
-			</div>
-			<!-- 댓글입력 끝 -->
-			<!-- MOD 버튼 클릭시 모달 시작 -->
-			<div id="modDiv" style="display : none;">
-				<div class="modal-title">
-					<input type="hidden" id="commentnum" >
-					댓글 수정
-				</div>
-				<div>
-					<input type="text" id="commenttext">
-				</div>
-				<div>
-					<button type="button" id="commentModBtn">수정</button>
-					<button type="button" id="commentDelBtn">삭제</button>
-					<button type="button" id="closeBtn">닫기</button>
-				</div>
-			</div>
-			<!-- MOD 버튼 클릭시 모달 끝 -->
-			<!-- 댓글 리스트 시작 -->
-			<div>
-				<ul class="timeline">
-					<li class="time-label" id="comment_div"><span class="bg-green">Comment List</span></li>
-				</ul>
-				<%-- <c:forEach items="${comment }" var="com">
-					<div>
-						<hr/>
-						<div id="writer_${co_no}">${com.writer }</div>
-						<div id="conetent_${co_no}">${com.content }</div>
-						<div id="nalja_${co_no}">${com.nalja }</div>
-						<div>
-							<button>MOD</button>
+					<!-- TODO: event 댓글 입력버튼 -->
+					<c:if test="${login_on=='true'}">
+						<div class="box-footer">
+							<button type="submit" class="redBtn" id="comment_addBtn">댓글입력</button>
 						</div>
-					</div>
-				</c:forEach> --%>
-		   	 	<div id="comment">
-				
+					</c:if>
 				</div>
 			</div>
-			<!-- 댓글 리스트 끝 -->
-        
-	</div>
+			<!-- TODO: event 댓글입력 끝 -->
+			<!-- TODO: event 댓글수정 버튼 클릭시 모달 시작 -->
+			<div id="modDiv" style="display: none;">
+				<div class="modal-title">
+					<input type="hidden" id="commentnum"> 댓글 수정
+				</div>
+				<div>
+					<textarea rows="5" class="form-control" type="text"
+						id="commenttext"></textarea>
+				</div>
+				<div>
+					<button type="button" id="commentModBtn" class="redBtn">수정</button>
+					<button type="button" id="commentDelBtn" class="redBtn">삭제</button>
+					<button type="button" id="closeBtn" class="darkBtn">닫기</button>
+				</div>
+			</div>
+			<!-- TODO: event 댓글수정 버튼 클릭시 모달 끝 -->
+			<!-- TODO: event 댓글 리스트 시작 -->
+			<div>
+				<div id="comment"></div>
+			</div>
+			<!-- TODO: event 댓글 리스트 끝 -->
+
+		</div>
     <!-- //main contents -->
     
     		<!-- Modal -->
@@ -381,34 +742,41 @@ $(document).ready(function(){
 		        <h4 class="modal-title" id="myModalLabel">리뷰 수정</h4>
 		      </div>
 		      <div class="modal-body">
-		      <form id="review" action="/reset/item/${item_bean.item}" name="review" enctype="multipart/form-data">
+		      <form id="review" action="/reset/item/${item_bean.item}" name="review" enctype="multipart/form-data" onsubmit="return reviewCheck()">
 	        	<input type="hidden" id="option" name="option" value="1"/>
 	        	<input type="hidden" id="rev_no" name="rev_no" value="${review_bean.rev_no}"/>
 	        	<input type="hidden" id="preimg" name="preimg" value="${review_bean.img }"/>
 			    <input type="hidden" name="writer" value="${review_bean.writer }"/>
 			    <input type="hidden" name="pop" value="${review_bean.pop }"/>
-			    
-		      	<label>좋은점</label>
-		        <textarea class="form-control" rows="3" name="good" id="good">${review_bean.good }</textarea>
-		      	<label>나쁜점</label>
-		        <textarea class="form-control" rows="3" name="bad" id="bad">${review_bean.bad }</textarea>
-		      	<label>꿀팁</label>
-		        <textarea class="form-control" rows="3" name="tip" id="tip">${review_bean.tip }</textarea>
+
+		        <div class="form-group">
+					<label>좋은점</label>
+					<textarea class="form-control textbox" rows="3" name="good" id="good">${review_bean.good }</textarea>
+				</div>
+				<div class="form-group">
+					<label>나쁜점</label>
+					<textarea class="form-control textbox" rows="3" name="bad" id="bad">${review_bean.bad }</textarea>
+				</div>
+				<div class="form-group">
+					<label>꿀팁</label>
+					<textarea class="form-control textbox" rows="3" name="tip" id="tip">${review_bean.tip }</textarea>
+				</div>
 		        
-		       
-				<label class="radio-inline" for="star">1</label>점
-   				<input type="radio" name="star" value="1"/> 
-				<label class="radio-inline" for="star">2</label>점
-				<input type="radio" name="star" value="2"/> 
-				<label class="radio-inline" for="star">3</label>점
-				<input type="radio" name="star" value="3"/>
-				<label class="radio-inline" for="star">4</label>점
-				<input type="radio" name="star" value="4"/>
-				<label class="radio-inline" for="star">5</label>점
-				<input type="radio" name="star" value="5"/><br>
-			   
-				<label for="img">이미지 업로드</label>
-		        <input type="file" name="img" id="img" />
+				<div class="radi">
+					<label>별점</label> <label class="radio-inline" for="star">1</label>점
+					<input type="radio" name="star" value="1" /> <label
+						class="radio-inline" for="star">2</label>점 <input type="radio"
+						name="star" value="2" /> <label class="radio-inline" for="star">3</label>점
+					<input type="radio" name="star" value="3" /> <label
+						class="radio-inline" for="star">4</label>점 <input type="radio"
+						name="star" value="4" /> <label class="radio-inline" for="star">5</label>점
+					<input type="radio" name="star" value="5" /><br>
+				</div>
+			   	<br>
+				<div class="imgDiv">
+					<label for="img">대표이미지</label> <input type="file" name="img"
+						id="img" class="darkBtn">
+				</div>
 			    </form>
 			    
 				<c:choose>
@@ -429,8 +797,8 @@ $(document).ready(function(){
 			  
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">닫기</button>
-		        <button type="button" id="reivewUpdate" class="btn btn-primary">글쓰기</button>
+		        <button type="button" id="close" class="btn-lg darkBtn" data-dismiss="modal">닫기</button>
+		        <button type="button" id="reivewUpdate" class="btn-lg RedBtn">등록</button>
 		      </div>
 		    </div>
 		  </div>
@@ -447,16 +815,15 @@ $(document).ready(function(){
 	        <p>리뷰를 삭제하시겠습니까?&hellip;</p>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-	        <button type="button" class="btn btn-danger" id="reivewDelete">리뷰 삭제</button>
+	        <button type="button" class="btn-lg darkBtn" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn-lg RedBtn" id="reivewDelete">삭제</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-
+	</div>
     <!--footer-->
-    <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-    <%@include file="/WEB-INF/views/template/ajax_loading.jsp"%>
+    <%@include file="/WEB-INF/views/template/footer.jsp"%>
     <!--//footer--> 
       
 <script type="text/javascript">
@@ -511,117 +878,131 @@ $(document).ready(function(){
 	var p_no=${review_bean.rev_no };
 	var co_type="review";
 	
-	<%//TODO url 경로 변경해야함.%>
-	//댓글 리스트 받아오기.
-	function getAllList(){
-		$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){
-			var str="";
+	<!-- TODO: event 댓글 제이쿼리 -->
+		/* 댓글  */
+		function settingModifyBtn(){
+			var email = "${login_email}";
+			$(".comBtn").each(function(){
+			 	checkEmail=$(this).attr("email");
+				if(email != checkEmail){
+					$(this).css("display","none")
+				};
+			});
+		};
+		<%//TODO 댓글 리스트%>
+		//댓글 리스트 받아오기.
+		function getAllList(){
+			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){
+				var str="";
+				/*//TODO: 댓글 수정 버튼을 세션에 맞게 보여야함.  */
+				$(data).each(
+					function(){
+					str+=
+						"<div class='commentLi'>"
+						+"<hr class='com_hr'/>"
+						+"<div class='com_writer com_div'><strong>"+this.writer+"</strong></div>"
+						+"<div  class='com_nalja com_div'>"+this.nalja+"</div>"
+						+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
+						+"<div class='com_btn'><button class='comBtn redBtn' email="+this.email+">댓글수정</button></div>"
+						+"</div>";
+					});
+				$("#comment").html(str);
+				settingModifyBtn();
+			});// AJAX
+		};//getAllList end
+		
+		$(function(){
+			getAllList();
+		}); // 최초로드 end
+	 
+		//댓글 추가 버튼
+		$("#comment_addBtn").on("click",function(){
+			var writer =$("#writer").val();
+			var content =$("#content").val().replace(/(?:\r\n|\r|\n)/g,"<br/>");
+			var email =$("#email").val();
+			<%//TODO url 경로 변경해야함.%>
+			$.ajax({
+				type:'post',
+				url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method_Override" : "POST"		
+				},
+				dataType:'text',
+				data : JSON.stringify({
+					writer : writer,
+					email : email,
+					content : content,
+					co_type : co_type,
+					p_no : p_no
+				}),
+				success : function(result){
+					if(result == 'SUCCESS'){
+						alert("등록 되었습니다.");
+						$("#content").val("");
+						getAllList();
+					}
+				}
+			});
+		}); //comment add end
+	
+		//댓글수정 버튼 클릭시 모달이 나옴.
+		$("#comment").on("click",".commentLi button",function(){
+			var comment=$(this).parent().parent().find(".textCo");
+			var co_no = comment.attr("data-co_no");
 			
-		$(data).each(
-			function(){
-			str+=
-				"<div class='commentLi'>"
-				+"<div>"+this.writer+"</div>"
-				+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
-				+"<div>"+this.nalja+"</div>"
-				+"<div><button class='comBtn'>MOD</button></div>"
-				+"</div>";
+			var replytext=comment.text();
+			$("#commentnum").val(co_no);
+			$("#commenttext").val(replytext);
+			$("#modDiv").show("slow");
 		});
 		
-		$("#comment").html(str);
+		//댓글 수정 버튼 클릭시
+		$("#commentModBtn").on("click",function(){
+			var co_no=$("#commentnum").val();
+			//var content=$("#commenttext").val();
+			var content =$("#commenttext").val().replace(/(?:\r\n|\r|\n)/g,"<br/>");
+			$.ajax({
+				type: 'put',
+				url:'/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
+				headers:{
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "PUT"
+				},
+				data:JSON.stringify({content:content}),
+				dataType:'text',
+				success:function(result){
+					console.log("result:"+result);
+					if(result=='SUCCESS'){
+						$("#modDiv").hide("slow");
+						getAllList();
+					}
+				}
+			});
+		});
 		
-		});
-	};//getAllList end
-	
-	$(function(){
-		getAllList();
-	}); // 최초로드 end
- 
-	//댓글 추가 버튼
-	$("#comment_addBtn").on("click",function(){
-		var writer =$("#writer").val();
-		var content =$("#content").val();
-		var email =$("#email").val();
-		<%//TODO url 경로 변경해야함.%>
-		$.ajax({
-			type:'post',
-			url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method_Override" : "POST"		
-			},
-			dataType:'text',
-			data : JSON.stringify({
-				writer : writer,
-				email : email,
-				content : content,
-				co_type : co_type,
-				p_no : p_no
-			}),
-			success : function(result){
-				if(result == 'SUCCESS'){
-					alert("등록 되었습니다.");
-					getAllList();
+		//댓글 삭제 버튼 클릭시
+		$("#commentDelBtn").on("click",function(){
+			var co_no=$("#commentnum").val();
+			$.ajax({
+				type: 'delete',
+				url: '/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType : 'text',
+				success : function(result){
+					console.log("result:"+result);
+					if(result=='SUCCESS'){
+						alert("삭제되었습니다");
+						$("#modDiv").hide("slow");
+						getAllList();
+					}
 				}
-			}
+			});
 		});
-	}); //comment add end
-
-	//MOD버튼 클릭시 모달이 나옴.
-	$("#comment").on("click",".commentLi button",function(){
-		var comment=$(this).parent().parent().find(".textCo");
-		var co_no = comment.attr("data-co_no");
 		
-		var replytext=comment.text();
-		$("#commentnum").val(co_no);
-		$("#commenttext").val(replytext);
-		$("#modDiv").show("slow");
-	});
-	
-	//댓글 수정 버튼 클릭시
-	$("#commentModBtn").on("click",function(){
-		var co_no=$("#commentnum").val();
-		var content=$("#commenttext").val();
-		$.ajax({
-			type: 'put',
-			url:'/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
-			headers:{
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "PUT"
-			},
-			data:JSON.stringify({content:content}),
-			dataType:'text',
-			success:function(result){
-				console.log("result:"+result);
-				if(result=='SUCCESS'){
-					$("#modDiv").hide("slow");
-					getAllList();
-				}
-			}
-		});
-	});
-	
-	//댓글 삭제 버튼 클릭시
-	$("#commentDelBtn").on("click",function(){
-		var co_no=$("#commentnum").val();
-		$.ajax({
-			type: 'delete',
-			url: '/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "DELETE"
-			},
-			dataType : 'text',
-			success : function(result){
-				console.log("result:"+result);
-				if(result=='SUCCESS'){
-					alert("삭제되었습니다");
-					$("#modDiv").hide("slow");
-					getAllList();
-				}
-			}
-		});
-	});	
 </script> 
 </body>
 </html>
