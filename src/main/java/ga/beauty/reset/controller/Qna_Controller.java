@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,45 +23,43 @@ public class Qna_Controller {
 	@Autowired
 	Qna_Service service;
 
-	String view = "redirect:/qna";
-	String view2 = "redirect:/admin/admin_qna_list";
+	String view = "redirect:/qna/";
+	String view2 = "redirect:/admin/qnaList";
 
 	//고객의 문의사항
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
 	public String show(Model model) {
-		log.debug("show form" );
+		System.out.println("입력폼");
 		model.addAttribute("goRoot", "../");
-		return "qna/qna";
+		return "qna/qnaEmail";
 	}
 	
 	//고객이 문의 내용을 입력하고 전송
-	@RequestMapping(value = "/qna", method = RequestMethod.POST)
-	public String add(Qna_Vo bean,HttpServletRequest req) throws SQLException {
+	@RequestMapping(value = "/qna/", method = RequestMethod.POST)
+	public String add(Qna_Vo bean) throws SQLException {
+		System.out.println("전송");
 		service.addPage(bean);
-		log.debug("고객 - qna send : " + bean);
+		System.out.println("전송됨.");
 		return view;	
 	}
 	
-	//TODO admin qna list / "admin/admin_qna_list" / 이지현
+	//admin의 qna
 	@RequestMapping(value = "/admin/qna")
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
-		log.debug("Admin qna - show List");
 		System.out.println("리스트 보여주기");
-		model.addAttribute("goRoot", "../");
-		return "admin/admin_qna_list";
+		return "admin/qnaList";
 	}
 
-	//TODO admin qna detail / "admin/admin_qna_detail" / 이지현
+	//admin qna detail
 	@RequestMapping(value = "/admin/qna/{qa_no}", method=RequestMethod.GET)
 	public String detail(@PathVariable int qa_no, Model model) throws SQLException {
-	log.debug("qna detail : "+ qa_no);
+	System.out.println("qa_no:"+qa_no);
 	model.addAttribute("bean", service.selectOnePage(qa_no));
-	model.addAttribute("goRoot", "../../");
-	return "admin/admin_qna_detail";
+	return "admin/qnaDetail";
 	}
 
-	//TODO admin qna answer ajax / "admin/admin_qna_detail" / 이지현
+	//admin qna answer ajax
 	@RequestMapping(value="/admin/qna/{qa_no}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> json(@PathVariable int qa_no, Model model,Qna_Vo bean) throws SQLException {
@@ -76,7 +72,7 @@ public class Qna_Controller {
 			result.put("result", resultNum);
 			result.put("new_answer",bean.getAnswer());
 		}
-		log.debug(bean);
+
 		return result;
 	}
 
