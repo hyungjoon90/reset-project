@@ -314,7 +314,7 @@ $(document).ready(function(){
 	            	<span><strong>${detail.nalja }</strong></span>
 	            </div>
 	            <div class="view">
-	            	<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}<strong></span>
+	            	<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}</strong></span>
 	            </div>
 	            <div>
 	            	<span class="title"><strong>${detail.title }</strong></span>
