@@ -5,8 +5,8 @@
   <mapper namespace="magazine">
   	<select id="selectAll" resultType="Magazine_Vo">
   		SELECT * FROM MAGAZINE WHERE OPEN=1
-		<if test="cate!=null">
-		 AND CATE=#{cate}
+		<if test="com_email!=null">
+		 AND COM_EMAIL=#{com_email}
 		</if>
 		ORDER BY MAG_NO DESC
   	</select>
@@ -33,7 +33,7 @@
   	</select>
   	
   	<insert id="insertOne" parameterType="Magazine_Vo">
-  		INSERT INTO MAGAZINE (IMG,TITLE,CON,CATE,TAGS,WRITER) values (#{img},#{title},#{con},#{cate},#{tags},#{writer})
+  		INSERT INTO MAGAZINE (IMG,TITLE,CON,CATE,COM_EMAIL,WRITER) values (#{img},#{title},#{con},#{cate},#{com_email},#{writer})
   	</insert>
   	
   	<update id="updateOne" parameterType="Magazine_Vo">

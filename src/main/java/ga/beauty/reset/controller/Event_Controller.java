@@ -145,7 +145,7 @@ public class Event_Controller {
 		};
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
-		bean.setTags(req.getParameter("tags"));
+		bean.setCom_email(req.getParameter("com_email"));
 		service.updatePage(bean);
 		
 		//접속대상의 IP를 받아옵니다.
@@ -173,7 +173,7 @@ public class Event_Controller {
 		Event_Vo bean= new Event_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
-		bean.setTags(req.getParameter("tags"));
+		bean.setCom_email(req.getParameter("com_email"));
 		// 파일업로드 start
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
 	    bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));

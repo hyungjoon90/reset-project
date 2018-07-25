@@ -220,7 +220,8 @@
 				</script>
             	</div>
 	            <div>
-	            	<input type="hidden" name="tags" id="tags" value="${detail.tags }">
+            		<label for="com_email">광고주 Email</label>
+	            	<input type="text" name="com_email" id="com_email" class="form-control" value="${detail.com_email }" placeholder="광고주 Email을 적어주세요">
             	</div>
 
 			<button type="reset" class="darkBtn">목록</button>

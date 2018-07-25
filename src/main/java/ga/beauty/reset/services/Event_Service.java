@@ -1,6 +1,7 @@
 package ga.beauty.reset.services;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class Event_Service {
 	
 	public void listPage(Model model) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll());
+	}
+	
+	public void listPage(Model model, Event_Vo bean) throws SQLException{
+		model.addAttribute("alist",commonDao.selectAll(bean));
 	}
 	
 	public void listPage(Model model,int offset, int noOfRecords) throws SQLException{

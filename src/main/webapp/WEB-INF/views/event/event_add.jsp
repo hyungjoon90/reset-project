@@ -214,7 +214,8 @@
 				</script>
             	</div>
             	<div>
-	            	<input type="hidden" name="tags" id="tags">
+            		<label for="com_email">광고주 Email</label>
+	            	<input type="text" name="com_email" id="com_email" class="form-control" placeholder="광고주 Email을 적어주세요">
             	</div>
             	<div>
             		<button type="submit" id="addBtn" class="redBtn">등록</button>

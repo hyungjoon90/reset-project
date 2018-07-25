@@ -193,7 +193,7 @@ public class Magazine_Controller {
 			bean.setImg("/imgs/mag_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));
 			Thread.sleep(5000);
 		};
-		bean.setTags(req.getParameter("tags"));
+		bean.setCom_email(req.getParameter("com_email"));
 		service.updatePage(bean);
 		
 		//접속대상의 IP를 받아옵니다.
@@ -223,7 +223,7 @@ public class Magazine_Controller {
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setCate(Integer.parseInt((req.getParameter("cate"))));
-		bean.setTags(req.getParameter("tags"));
+		bean.setCom_email(req.getParameter("com_email"));
 		bean.setWriter(req.getParameter("writer"));
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
 		bean.setImg("/imgs/mag_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));

@@ -4,7 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="event">
  	<select id="selectAll" resultType="Event_Vo">
-  		SELECT * FROM EVENT WHERE OPEN=1 ORDER BY EVE_NO DESC
+  		SELECT * FROM EVENT WHERE OPEN=1 
+  		<if test="com_email!=null">
+		 AND COM_EMAIL=#{com_email}
+		</if>
+  		ORDER BY EVE_NO DESC
   	</select>
   	
 <!-- 페이징 및 전체 레코드 갯수 조회 쿼리 -->
@@ -22,11 +26,11 @@
   	</select>
   	
   	<insert id="insertOne" parameterType="Event_Vo">
-  		INSERT INTO EVENT (IMG, TITLE, CON, TAGS) VALUES (#{img},#{title},#{con},#{tags})
+  		INSERT INTO EVENT (IMG, TITLE, CON, COM_EMAIL) VALUES (#{img},#{title},#{con},#{com_email})
   	</insert>
   	
   	<update id="updateOne" parameterType="Event_Vo">
-  		UPDATE EVENT SET IMG=#{img},TITLE=#{title},CON=#{con},TAGS=#{tags} WHERE EVE_NO=#{eve_no}
+  		UPDATE EVENT SET IMG=#{img},TITLE=#{title},CON=#{con},COM_EMAIL=#{com_email} WHERE EVE_NO=#{eve_no}
   	</update>
   	
   	<update id="updatePop" parameterType="Event_Vo">
