@@ -1,0 +1,13 @@
+<html>
+
+<head></head>
+<body>
+ Dear ${email}
+title : ${title}
+******
+${con}
+******
+Thanks
+
+</body>
+</html>

@@ -52,6 +52,16 @@
 		</props>
 		</property>
 	</bean>
+	  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="velocityProperties">
+        <props>
+            <prop key="resource.loader">class</prop>
+            <prop key="class.resource.loader.class">
+                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </prop>
+        </props>
+    </property>
+</bean>
 	
 	<bean id="login_Listener" class="ga.beauty.reset.utils.runner.Login_Listener"/>
 	<bean id="event_Listener" class="ga.beauty.reset.utils.runner.Event_Listener"/>
