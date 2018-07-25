@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,16 +37,22 @@ public class Review_Listener implements Common_Listener {
 	
 	// like/yyyy/MM/dd.json
 	//{"data":[{"name":String,"num":int}]}
-	private String defaultFP = "c:/reset/report/review/";
+	private String defaultFP = "/reset/report/review/";
 	// 좋아요 총량 / 일별 증가량 : DONE
 
 	private List<Log_C_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
-	public Review_Listener() throws IOException {
-		init();
-		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+	public Review_Listener(){
+		try {
+			init();
+			logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+		} catch (JsonProcessingException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		} catch (IOException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		}
 	}
 	
 	private void init() throws IOException {
@@ -62,12 +69,7 @@ public class Review_Listener implements Common_Listener {
 			new File(file.getParent()).mkdirs();
 		}else {
 			if(file.length()!=0) {
-			try {
-				node = objectMapper.readTree(file);
-			} catch (IOException e) {
-				logger.error(LogEnum.ERROR+":"+e.getMessage());
-				e.printStackTrace();
-			}
+			node = objectMapper.readTree(file);
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_C_Vo>>(){});
 			}
 		}		

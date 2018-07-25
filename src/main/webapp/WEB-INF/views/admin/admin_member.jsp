@@ -4,26 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link href="${goRoot}css/admin/sb-admin.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
-    <link href="${goRoot}css/admin/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="${goRoot}css/admin/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="${goRoot}js/jquery-1.12.4.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 	<script>
-	
+	// 이문서의 필드
 	var totNum;
 	var nowlistNum;
+	var saveType;
+	var saveTxt;
+	
 	var getList = function(ele,type,start,cnt,searchType,txt){
 		var $target = $(ele);
 		var data;
@@ -48,7 +36,7 @@
 		// 여기서 더보기 만들어야됨.
 	}
 
-	var addEventForDetail = function(){
+	var addEventForSearBar = function(){
 	    $('.search-panel .dropdown-menu').find('a').click(function(e) {
 			e.preventDefault();
 			var param = $(this).attr("href").replace("#","");
@@ -56,8 +44,22 @@
 			$('.search-panel span#search_concept').text(concept);
 			$('.input-group #search_param').val(param);
 		});
-	    
-	    
+	    $("#ajax-search").on("click",function(){
+	    	var searchType = $('.input-group #search_param').val();
+	    	var txt = $("#search_txt").val();
+	       	saveType = searchType // 더보기를 위해서 저장
+	    	saveTxt = txt // 더보기를 위해서 저장
+	    	clearList($("#list_target"))
+	    	getList($("#list_target"),"${command}",0,1000,searchType,txt); // 우선 더보기 생략
+	    });
+	}
+	
+	var clearList = function(ele){
+		var $target = $(ele);
+		$target.empty();
+	}	
+	
+	var addEventForDetail = function(){
 	    var panels = $('.user-infos');
 	    var panelsButton = $('.dropdown-user');
 	    panels.hide();
@@ -65,7 +67,8 @@
 	    //Click dropdown
 	    panelsButton.click(function() {
 	        //get data-for attribute
-	        var dataFor = $(this).attr('data-for');
+	        var dataFor ="#"
+	        dataFor += $(this).attr('data-for');
 	        var idFor = $(dataFor);
 	        //current button
 	        var currentButton = $(this);
@@ -78,8 +81,11 @@
 	    $('[data-toggle="tooltip"]').tooltip();
 	}
 
+	
+	// 문서 온로드 시점
 	$(function(){
-		getList($("#list_target"),"${command}",0,25);
+		addEventForSearBar();
+		getList($("#list_target"),"${command}",0,1000); // 페이징 나중에
 	});
 	
 	
@@ -106,24 +112,28 @@
 			                    	<span id="search_concept">검색조건</span> <span class="caret"></span>
 			                    </button>
 			                    <ul class="dropdown-menu" role="menu">
-			                    <c:if test="${command} eq 'normal'">
+			                    <c:if test="${command eq 'normal'}">
 			                      <li><a href="#email">이메일</a></li>
 			                      <li><a href="#nick">닉네임</a></li>
 			                      <li><a href="#pointUp">포인트 ? 이상</a></li>
 			                      <li><a href="#pointDown">포인트 ? 이하</a></li>
 			                    </c:if>
-			                    <c:if test="${command} eq 'company' || ${command} eq 'emp'">
+			                    <c:if test="${command eq 'company'}">
 			                      <li><a href="#email">이메일</a></li>
 			                      <li><a href="#manager">담당자</a></li>
 			                      <li><a href="#bisnum">사업자번호</a></li>
 			                      <li><a href="#company">기업이름</a></li>
 			                    </c:if>
+			                    <c:if test="${command eq 'emp'}">
+			                      <li><a href="#email">이메일</a></li>
+			                      <li><a href="#manager">담당자</a></li>
+			                    </c:if>
 			                    </ul>
 			                </div>
-			                <input type="hidden" name="search_param" value="all" id="search_param">         
-			                <input type="text" class="form-control" name="x" placeholder="검색조건 ...">
+			                <input type="hidden" name="searchType" value="all" id="search_param"><!-- 검색조건 -->       
+			                <input type="text" class="form-control" name="txt" id="search_txt" placeholder="검색조건 ...">
 			                <span class="input-group-btn">
-			                    <button class="btn btn-default" serType="" type="button"><span class="glyphicon glyphicon-search"></span></button>
+			                    <button class="btn btn-default" id="ajax-search" type="button"><span class="glyphicon glyphicon-search"></span></button>
 			                </span>
 			            </div>
 			        </div>

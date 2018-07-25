@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
    	<div id="tmps" data-cnt="${totNum}" list-size="${listSize}"></div>
     <c:forEach items="${result_data }" var="bean">
     			        <div class="row user-row">
@@ -11,11 +12,11 @@
 			                 	<strong>[${bean.manager }]</strong><small>[${bean.email }]</small><br>
 			                	<span class="text-muted">소속: ${bean.company }</span>
 			            </div>
-			            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".user${bean.email}">
+			            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for="<c:out value="${fn:replace(fn:replace(bean.email, '@', ''),'.','')}"></c:out>">
 			                <i class="glyphicon glyphicon-chevron-down text-muted"></i>
 			            </div>
 			        </div>
-			        <div class="row user-infos user${bean.email}">
+			        <div class="row user-infos" id="<c:out value="${fn:replace(fn:replace(bean.email, '@', ''),'.','')}"></c:out>">
 			            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
 			                <div class="panel panel-primary">
 			                    <div class="panel-heading">

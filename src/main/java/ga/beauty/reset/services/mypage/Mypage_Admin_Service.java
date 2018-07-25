@@ -87,6 +87,7 @@ public class Mypage_Admin_Service {
 			if(txt!=null && !txt.equals("")&& !txt.equals("undefined"))map.put("txt", txt);
 			if(searchType.equals("pointUp"))map.put("pointUp","pointUp");
 			if(searchType.equals("#pointDown"))map.put("#pointDown","#pointDown");
+			if(type.equals("emp"))map.put("company","reset");
 			
 			
 			if(type.equals("normal")) {

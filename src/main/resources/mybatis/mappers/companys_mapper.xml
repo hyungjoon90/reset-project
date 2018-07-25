@@ -6,13 +6,26 @@
 	<select id="totCount"  parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) FROM COMPANYS
  		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<if test="company != null">COMPANY=#{company},</if>
+			<if test="searchType != null and txt != null">${searchType} LIKE CONCAT('%',#{txt},'%')</if>
+			<if test="company != null">AND COMPANY=#{company}</if>
+		</trim>
+		<trim>
+		<if test="start != null">
+			LIMIT #{start}, #{cnt}
+		</if>
 		</trim>
 	</select>
 	<select id="selectAllLimit"  parameterType="hashmap" resultType="Companys_Vo">
-  		SELECT * FROM COMPANYS ORDER BY EMAIL
+  		SELECT * FROM COMPANYS
  		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-			
+			<if test="searchType != null and txt != null">${searchType} LIKE 'CONCAT('%',#{txt},'%')'</if>
+			<if test="company != null">AND COMPANY=#{company}</if>
+		</trim>
+		ORDER BY EMAIL
+		<trim>
+		<if test="start != null">
+			LIMIT #{start}, #{cnt}
+		</if>
 		</trim>
   	</select>
 	<select id="selectAll" resultType="Companys_Vo">

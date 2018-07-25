@@ -11,10 +11,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link href="${goRoot}css/admin/sb-admin.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
-    <link href="${goRoot}css/admin/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="${goRoot}css/admin/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="${goRoot}js/jquery-1.12.4.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -111,19 +107,18 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
+                                    <div class="col-xs-9">
+                                        <div class="huge">리뷰</div>
                                     </div>
-                                    <div class="col-xs-9 text-right">
+                                    <div class="col-xs-3 text-right">
                                         <div class="huge">26</div>
-                                        <div>New Comments!</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <span class="pull-left">리스트 보기</span>
+                                    <span class="pull-right"></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -133,19 +128,18 @@
                         <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
+                                    <div class="col-xs-8">
+                                        <div class="huge">매거진</div>
                                     </div>
-                                    <div class="col-xs-9 text-right">
+                                    <div class="col-xs-4 text-right">
                                         <div class="huge">12</div>
-                                        <div>New Tasks!</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <span class="pull-left">리스트 보기</span>
+                                    <span class="pull-right"></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -155,19 +149,18 @@
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <div class="col-xs-8">
+                                        <div class="huge">이벤트</div>
                                     </div>
-                                    <div class="col-xs-9 text-right">
+                                    <div class="col-xs-4 text-right">
                                         <div class="huge">124</div>
-                                        <div>New Orders!</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <span class="pull-left">리스트 보기</span>
+                                    <span class="pull-right"></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -177,18 +170,17 @@
                         <div class="panel panel-red">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
+                                    <div class="col-xs-8">
+                                        <div class="huge">화장품</div>
                                     </div>
-                                    <div class="col-xs-9 text-right">
+                                    <div class="col-xs-4 text-right">
                                         <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
                                     </div>
                                 </div>
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">리스트보기</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>

@@ -26,7 +26,7 @@ import ga.beauty.reset.dao.entity.stat.Log_Chart;
 @Component
 public class ChartFile {
 	
-	private String defaultFP = "c:/reset/report/";
+	private String defaultFP = "/reset/report/";
 	
 	public ChartFile() {
 	}

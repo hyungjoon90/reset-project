@@ -6,7 +6,6 @@
 	color: #999;
 }
 </style>
-<!-- 테스트 
 <script>
 	var getCountSession = function(){
 		var $target = $("#nowSession");
@@ -43,10 +42,7 @@
 		},30000);
 		
 	})
-
 </script>
--->
-
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">

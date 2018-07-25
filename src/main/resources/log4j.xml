@@ -15,7 +15,7 @@
 	<!-- 날짜별 로그 파일 생성 -->
 	<appender name="dayFile" class="org.apache.log4j.RollingFileAppender">
 		<!-- The active file to log to -->
-		<param name="file" value="c:/reset/applogs/weblog.log" />
+		<param name="file" value="/reset/applogs/weblog.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="UTF-8" />
 		<param name="Threshold" value="INFO" />
@@ -26,7 +26,7 @@
 	</appender>
 	<!-- 경고로그 -->
 	<appender name="errorFile" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="c:/reset/applogs/errlog.log" />
+		<param name="file" value="/reset/applogs/errlog.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="UTF-8" />
 		<param name="Threshold" value="ERROR" />

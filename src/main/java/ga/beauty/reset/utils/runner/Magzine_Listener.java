@@ -22,6 +22,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,7 +39,7 @@ public class Magzine_Listener implements Common_Listener{
 	
 	// magzine/yyyy/MM/dd.json
 	//{"data":[{"no":magzine_no,"like":,"view":,"num":},....]}
-	private String defaultFP = "c:/reset/report/magzine/";
+	private String defaultFP = "/reset/report/magzine/";
 	
 	// 어떤 글이냐?
 	// 좋아요 총량 / 일별 증가량 -- DONE
@@ -49,9 +50,15 @@ public class Magzine_Listener implements Common_Listener{
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
-	public Magzine_Listener() throws IOException {
-		init();
-		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+	public Magzine_Listener() {
+		try {
+			init();
+			logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+		} catch (JsonProcessingException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		} catch (IOException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		}
 	}
 
 	private void init() throws IOException {
@@ -67,11 +74,7 @@ public class Magzine_Listener implements Common_Listener{
 		if(!file.exists()) {
 			new File(file.getParent()).mkdirs();
 		}else {
-			try {
-				node = objectMapper.readTree(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			node = objectMapper.readTree(file);
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_EM_Vo>>(){});
 		}		
 	}

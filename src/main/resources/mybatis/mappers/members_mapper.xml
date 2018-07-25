@@ -6,18 +6,19 @@
 	<select id="totCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) FROM MEMBERS
 		 <trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<if test="searchType != null and txt != null and pointUp == null and pointDown == null">#{searchType} CONCAT('%',#{txt},'%')</if>
-			<if test="searchType != null and txt != null and pointUp == null and pointDown != null">#{searchType} <![CDATA[ <= ]]> #{txt}</if>
-			<if test="searchType != null and txt != null and pointUp !=null and pointDown == null">#{searchType} <![CDATA[ >= ]]> #{txt}</if>
+			<if test="searchType != null and txt != null and pointUp == null and pointDown == null">${searchType} LIKE CONCAT("%",#{txt},"%")</if>
+			<if test="searchType != null and txt != null and pointUp == null and pointDown != null">${searchType} <![CDATA[ <= ]]> #{txt}</if>
+			<if test="searchType != null and txt != null and pointUp !=null and pointDown == null">${searchType} <![CDATA[ >= ]]> #{txt}</if>
 		</trim>
 	</select>
 	<select id="selectAllLimit"  parameterType="hashmap" resultType="Members_Vo">
-  		SELECT * FROM MEMBERS ORDER BY EMAIL
+  		SELECT * FROM MEMBERS 
  		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<if test="searchType != null and txt != null and pointUp == null and pointDown == null">#{searchType} CONCAT('%',#{txt},'%')</if>
-			<if test="searchType != null and txt != null and pointUp == null and pointDown != null">#{searchType} <![CDATA[ <= ]]> #{txt}</if>
-			<if test="searchType != null and txt != null and pointUp !=null and pointDown == null">#{searchType} <![CDATA[ >= ]]> #{txt}</if>
+			<if test="searchType != null and txt != null and pointUp == null and pointDown == null">${searchType} LIKE CONCAT("%",#{txt},"%")</if>
+			<if test="searchType != null and txt != null and pointUp == null and pointDown != null">${searchType} <![CDATA[ <= ]]> #{txt}</if>
+			<if test="searchType != null and txt != null and pointUp !=null and pointDown == null">${searchType} <![CDATA[ >= ]]> #{txt}</if>
 		</trim>
+		ORDER BY EMAIL
 		<trim>
 		<if test="start != null">
 			LIMIT #{start}, #{cnt}

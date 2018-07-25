@@ -40,7 +40,7 @@ public class Admin_Controller {
 		return "admin/admin_main";
 	}
 	
-	@RequestMapping(value="/admin/{path}/{command}",method=RequestMethod.GET)
+	@RequestMapping(value="/admin/{path}/{command}",method=RequestMethod.GET) // 페이지 이동
 	public String showPage(Model model, @PathVariable("path") String path, @PathVariable("command") String command) {
 		model.addAttribute("goRoot", "../../../");
 		model.addAttribute("command",command);
@@ -68,10 +68,10 @@ public class Admin_Controller {
 			}
 		}else if(req.getParameter("resultType").equals("list")) {
 			List<? super Object> result = mypage_Admin_Service.getInfoAslist(command, session, req);
-			if(result!=null) {
+			if(result!=null && result.size()>0) {
 				if(command.equals("member") && req.getAttribute("go").equals("1")) {
 					return "admin/admin_userlist";
-				}else {
+				}else {// company 있는 사람들 용
 					return "admin/admin_userlist2";
 				}
 			}else {
@@ -81,7 +81,7 @@ public class Admin_Controller {
 		return "admin/admin_ajax";
 	}
 	
-	@RequestMapping(value="/admin/log/{command}", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/log/{command}", method=RequestMethod.POST) // ajax
 	public String logCalling(Model model,@PathVariable("command") String command
 			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
 		List<Log_File> result = mypage_Admin_Service.getLog(command, session, req);
@@ -92,7 +92,7 @@ public class Admin_Controller {
 		return "admin/admin_log";
 	}
 	
-	@RequestMapping(value="/admin/chart/{command}", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/chart/{command}", method=RequestMethod.POST) // ajax
 	public String chartCalling(Model model,@PathVariable("command") String command
 			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
 
