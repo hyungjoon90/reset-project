@@ -9,8 +9,6 @@ public class Log_Chart {
 	public Log_Chart() {
 		// TODO Auto-generated constructor stub
 	}
-
-	
 	
 	public Log_Chart(String label, String valueX, int valueY) {
 		super();
@@ -19,21 +17,13 @@ public class Log_Chart {
 		this.valueY = valueY;
 	}
 
-
-	
-	
-
 	public String getLabel() {
 		return label;
 	}
 
-
-
 	public void setLabel(String label) {
 		this.label = label;
 	}
-
-
 
 	public String getValueX() {
 		return valueX;

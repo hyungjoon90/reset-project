@@ -194,6 +194,18 @@ function checkPhone(ele){
     }
 }
 
+function checkBisNum(ele){
+    var $errM = $("<div/>",{"class":"errM"});
+    var $target = $(ele);
+    var testNum = isBisNum($target.val());
+    if(testNum){
+        inputSucces($target);
+        return true;
+      }else{
+        inputFail($target,$errM,"유효한 번호를 넣어주세요");
+        return false;
+      }
+}
 
 // http://webskills.kr/archives/310
 function onlyNumber(event){
@@ -213,6 +225,20 @@ function isPhone(phoneNum)   {
   return regExp.test(phoneNum); 
 }
 
+//
+function isBisNum(bisNo){
+		if ((bisNo = (bisNo+'').match(/\d{1}/g)).length != 10) { return false; }
+		// 합 / 체크키
+		var sum = 0, key = [1, 3, 7, 1, 3, 7, 1, 3, 5];
+		// 0 ~ 8 까지 9개의 숫자를 체크키와 곱하여 합에더합니다.
+		for (var i = 0 ; i < 9 ; i++) { sum += (key[i] * Number(bisNo[i])); }
+		// 각 8번배열의 값을 곱한 후 10으로 나누고 내림하여 기존 합에 더합니다.
+		// 다시 10의 나머지를 구한후 그 값을 10에서 빼면 이것이 검증번호 이며 기존 검증번호와 비교하면됩니다.
+		return (10 - ((sum + Math.floor(key[8] * Number(bisNo[8]) / 10)) % 10)) == Number(bisNo[9]);
+	}
+////////
+
+
 function inputSucces($target){
   $target.parent().parent().find(".errM").remove();
   $target.css("color","green");
@@ -225,6 +251,8 @@ function inputFail($target,$errM,msg){
     $target.css("color", "red");
     $errM.appendTo($target.parent().parent());
 }
+
+
 
 function addFormEvent(){
      //

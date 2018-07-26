@@ -2,6 +2,7 @@ package ga.beauty.reset.utils.runner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.concurrent.Callable;
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.io.Files;
 
 import ga.beauty.reset.utils.LogEnum;
@@ -37,7 +39,7 @@ public class AsyncScheduleConfig {
 		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
 	}
 	
-	String crashPath = "c:/reset/applogs/crash/";
+	String crashPath = "/reset/applogs/crash/";
 	
 	
     @Bean(name = "threadPoolTaskExecutor")
@@ -100,9 +102,9 @@ public class AsyncScheduleConfig {
                     }
                 }
             };
-        }
+        }		
         private void handle(Exception ex) throws FileNotFoundException {
-            logger.error(LogEnum.ERROR_ASYNC+ex,ex);
+            logger.error(LogEnum.ERROR_ASYNC+ex.getMessage().replace( System.getProperty( "line.separator" ), ""),ex);
             Date date = new Date();
             String fileDate = MySDF.SDF_ALL.format(date);
             File file = new File(crashPath+"/"+fileDate+"-crash.log");

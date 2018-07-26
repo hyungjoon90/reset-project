@@ -5,24 +5,24 @@
 		<div class="chart-container" style="display: block; width: 800px; height: 385px;">
 		    <canvas id="chart-${chartSort }" ></canvas>
 		</div>
-		<script>
-		console.log(chartData.data1);
-		console.log(chartData.data2);
+		<script type="text/javascript">
 		var ctx = document.getElementById("chart-${chartSort}").getContext('2d');
 		var myChart = new Chart(ctx, {
 		    type: 'line',
-		    data: {
-		        datasets: [{
-		        	data: [20, 50, 100, 75, 25, 0],
-		            label: '접속자',
-		            // This binds the dataset to the left y axis
-		        }, {
-		            data: [21, 5, 10, 20, 15, 30],
-		            label: '로그인',
-		            // This binds the dataset to the right y axis
-		        }],
-		        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+		    data: { 
+		    	datasets: ${dataSet},
+		    	labels : ${labels}
 		    },
-		    options: {}
+		    options: {
+				scales: {
+			            yAxes: [{
+	                		distribution: 'series'
+			                ,ticks: {
+			                    beginAtZero:true
+			                }
+			            }]
+			    }
+		    }
 		});
+		
 		</script>
