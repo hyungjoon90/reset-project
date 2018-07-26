@@ -5,5 +5,3 @@
 .settings/org.eclipse.core.resources.prefs
 .classpath
 *.class
-
-bin/
