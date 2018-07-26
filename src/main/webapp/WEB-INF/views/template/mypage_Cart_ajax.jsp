@@ -42,7 +42,7 @@
 				<label>${num}</label>
 			</div>
 			<div class="imgbox box">
-				<img src="${bean.img }">
+				<img src="../${bean.img }">
 			</div>
 			<div class="conbox box">
 				<p>${bean.brand }</p>
