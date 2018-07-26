@@ -52,7 +52,7 @@ public class Eve_Addr_Controller {
 
 	String goRoot = "../";
 	
-	//TODO: 이벤트 목록 출력 / eve_addr_list.jsp / 김형준
+	//TODO: admin 이벤트 목록 출력 / eve_addr_list.jsp / 김형준
 	@RequestMapping(value = "/admin/eveaddr", method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest req) throws SQLException {
 		int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
@@ -88,7 +88,7 @@ public class Eve_Addr_Controller {
 		return "eve_addr/eve_addr_list";
 	}
 
-	//TODO: 이벤트 참가자 목록 출력 / eve_addr_detail.jsp / 김형준
+	//TODO: admin 이벤트 참가자 목록 출력 / eve_addr_detail.jsp / 김형준
 	@RequestMapping(value = "/admin/eveaddr/{eve_no}", method = RequestMethod.GET)
 	public String detail(@PathVariable int eve_no, Model model, HttpServletRequest req) throws SQLException {
 		int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
@@ -134,7 +134,7 @@ public class Eve_Addr_Controller {
 		return "eve_addr/eve_addr_detail";
 	}
 	
-	//TODO: 이벤트 참가자 랜덤 추출 / eve_addr_eventNum.jsp / 김형준
+	//TODO: admin 이벤트 참가자 랜덤 추출 / eve_addr_eventNum.jsp / 김형준
 	@RequestMapping(value = "/admin/eveaddr/{eve_no}", method = RequestMethod.POST)
 	public String eventNum(@PathVariable("eve_no") int eve_no, Model model, HttpServletRequest req)
 			throws SQLException {
@@ -221,7 +221,7 @@ public class Eve_Addr_Controller {
 		return "redirect:/event/" + eve_no;
 	}
 
-	//TODO: 이벤트 랜덤 추출 후 txt로 저장 / / 김형준
+	//TODO: admin 이벤트 랜덤 추출 후 txt로 저장 / / 김형준
 	@RequestMapping(value = "/admin/eveaddr/{eve_no}/print", method = RequestMethod.POST)
 	public void print(@PathVariable("eve_no") int eve_no, HttpServletRequest req, @RequestBody String paramData,
 			 HttpServletResponse resp) throws IOException {
@@ -265,7 +265,7 @@ public class Eve_Addr_Controller {
 		resp.flushBuffer();
 	}
 	
-	//TODO: 이벤트 랜덤 추출 후 txt 다운로드 / / 김형준
+	//TODO: admin 이벤트 랜덤 추출 후 txt 다운로드 / / 김형준
 	@RequestMapping(value = "/admin/eveaddr/download", method = RequestMethod.GET)
 	public void download(String text, HttpServletResponse resp) throws IOException {
 		String filePath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/lucky/";
