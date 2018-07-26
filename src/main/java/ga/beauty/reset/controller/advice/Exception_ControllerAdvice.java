@@ -20,7 +20,8 @@ public class Exception_ControllerAdvice {
 	@ExceptionHandler(Exception.class)
 	@RequestMapping(value="/error")
 	public String exception(Exception e) {
-		logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		e.printStackTrace();
+		//logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
 		return "error/error";
 	}
 }

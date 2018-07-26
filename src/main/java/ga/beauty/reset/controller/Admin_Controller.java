@@ -40,14 +40,14 @@ public class Admin_Controller {
 		return "admin/admin_main";
 	}
 	
-	@RequestMapping(value="/admin/{path}/{command}",method=RequestMethod.GET) // 페이지 이동
+	@RequestMapping(value="/admin/{path}/{command}/",method=RequestMethod.GET) // 페이지 이동
 	public String showPage(Model model, @PathVariable("path") String path, @PathVariable("command") String command) {
 		model.addAttribute("goRoot", "../../../");
 		model.addAttribute("command",command);
 		return "admin/admin_"+path;
 	}
 	
-	@RequestMapping(value="/admin/ajax/{command}", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/ajax/{command}/", method=RequestMethod.POST)
 	public String ajaxCalling(Model model,@PathVariable("command") String command
 			,HttpSession session ,HttpServletRequest req) throws SQLException {
 		model.addAttribute("goRoot", "../../../");

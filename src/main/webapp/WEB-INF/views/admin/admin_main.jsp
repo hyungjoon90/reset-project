@@ -3,19 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link href="${goRoot}css/admin/sb-admin.css" rel="stylesheet">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="${goRoot}js/jquery-1.12.4.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 	<script>
+	
+	var getNums = function() {
+		var $targets = $(".getNum");
+		var sendData = "resultType=int";
+		$target.each(function(){
+			
+			$.post(); // TODO :[KSS] 지금 하고 있는 부분.
+		});
+	};
+	
+	
 	var getCountSession = function(){
 		var $target = $("#nowSession");
 		var sendData = "resultType=int";
@@ -86,8 +86,6 @@
 	</script>
 <title>Insert title here</title>
 </head>
-
-
 <body>
     <div id="wrapper">
 	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
@@ -111,11 +109,11 @@
                                         <div class="huge">리뷰</div>
                                     </div>
                                     <div class="col-xs-3 text-right">
-                                        <div class="huge">26</div>
+                                        <div class="huge getNum" id="review_num"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="./reviews/list/">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
                                     <span class="pull-right"></span>
@@ -132,11 +130,11 @@
                                         <div class="huge">매거진</div>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <div class="huge">12</div>
+                                        <div class="huge getNum" id="mag_num"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="./magzines/list/">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
                                     <span class="pull-right"></span>
@@ -153,11 +151,11 @@
                                         <div class="huge">이벤트</div>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <div class="huge">124</div>
+                                        <div class="huge getNum" id="eve_num"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="./events/list/">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
                                     <span class="pull-right"></span>
@@ -174,11 +172,11 @@
                                         <div class="huge">화장품</div>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <div class="huge">13</div>
+                                        <div class="huge getNum" id="itm_num">13</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="./items/list/">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트보기</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
