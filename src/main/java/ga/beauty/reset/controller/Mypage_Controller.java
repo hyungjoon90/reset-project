@@ -60,7 +60,7 @@ public class Mypage_Controller {
 			// TODO 에러
 			model.addAttribute("goRoot","./");
 			return "errPage";
-		}*/
+		}
 		model.addAttribute("alist",mapper.writeValueAsString(mypage_ADV_Service.getInfo("", session, req)));
 		return ""; 
 	}// showMain()
