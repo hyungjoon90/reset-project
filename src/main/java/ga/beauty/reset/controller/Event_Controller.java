@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.io.Files;
 
+import ga.beauty.reset.dao.Companys_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
+import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Paging_Vo;
 import ga.beauty.reset.services.Event_Service;
@@ -44,6 +47,9 @@ public class Event_Controller {
 	
 	@Autowired
 	UpdateViewUtils viewUtils;
+	
+	@Autowired
+	Companys_Dao companys_Dao;
 	
 	String goRoot="../";
 
@@ -119,7 +125,7 @@ public class Event_Controller {
 		return "event/event_detail";
 	}
 	
-	//TODO: event 수정 페이지로 이동 / event_update.jsp / 김형준
+	//TODO: admin event 수정 페이지로 이동 / event_update.jsp / 김형준
 	@RequestMapping(value="/admin/event/{eve_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable int eve_no ,Model model,HttpServletRequest req) throws SQLException {
 		String goRoot="../../";
@@ -136,7 +142,7 @@ public class Event_Controller {
 		return "event/event_update";
 	}
 	
-	//TODO: event 수정합니다. / / 김형준
+	//TODO: admin event 수정합니다. / / 김형준
 	@RequestMapping(value="/admin/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
@@ -163,16 +169,20 @@ public class Event_Controller {
 		return "redirect:/event";
 	}
 	
-	//TODO: event 입력 페이지로 이동 / event_add.jsp / 김형준
+	//TODO: admin event 입력 페이지로 이동 / event_add.jsp / 김형준
 	@RequestMapping("/admin/event/add")
-	public String addForm(Model model,HttpServletRequest req) {
+	public String addForm(Model model,HttpServletRequest req) throws SQLException {
 		String goRoot="../../";
+		
+		List<Companys_Vo> companyList = companys_Dao.selectAll();
+		
+		model.addAttribute("companyList",companyList);
 		model.addAttribute("goRoot",goRoot);
 		
 		return "event/event_add";
 	}
 	
-	//TODO: event 입력합니다. / / 김형준
+	//TODO: admin event 입력합니다. / / 김형준
 	@RequestMapping(value = "/admin/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
@@ -198,7 +208,7 @@ public class Event_Controller {
 		return "redirect:/event";
 	}
 	
-	//TODO: event 삭제합니다.(open을 0으로 전환) / / 김형준
+	//TODO: admin event 삭제합니다.(open을 0으로 전환) / / 김형준
 	@RequestMapping(value = "/admin/event/{eve_no}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws SQLException {
 		/*

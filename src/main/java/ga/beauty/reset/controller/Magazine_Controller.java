@@ -166,7 +166,7 @@ public class Magazine_Controller {
 		return "magazine/magazine_detail";
 	}
 	
-	//TODO: Magazine 수정페이지로 이동 / magazine_update.jsp / 김형준
+	//TODO: admin Magazine 수정페이지로 이동 / magazine_update.jsp / 김형준
 	@RequestMapping(value="/admin/magazine/{mag_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable("mag_no") int mag_no, Model model,HttpServletRequest req) throws SQLException{
 		String goRoot="../../";
@@ -183,7 +183,7 @@ public class Magazine_Controller {
 		return "magazine/magazine_update";
 	}
 	
-	//TODO: Magazine 수정합니다 / / 김형준
+	//TODO: admin Magazine 수정합니다 / / 김형준
 	@RequestMapping(value="/admin/magazine/{mag_no}/update",method=RequestMethod.POST)
 	public String update(@PathVariable("mag_no") int mag_no, @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		//TODO : 썸네일 사진 저장 장소 입니다.
@@ -212,7 +212,7 @@ public class Magazine_Controller {
 	}
 	
 	
-	//TODO: Magazine 입력페이지로 이동합니다. /magazine_add.jsp / 김형준
+	//TODO: admin Magazine 입력페이지로 이동합니다. /magazine_add.jsp / 김형준
 	@RequestMapping("/admin/magazine/add")
 	public String addForm(Model model) throws SQLException{
 		String goRoot="../../";
@@ -220,7 +220,7 @@ public class Magazine_Controller {
 		return "magazine/magazine_add";
 	}
 	
-	//TODO: Magazine 입력합니다. / / 김형준
+	//TODO: admin Magazine 입력합니다. / / 김형준
 	@RequestMapping(value="/admin/magazine", method=RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception{
 		//TODO : 썸네일 사진 저장 장소 입니다.
@@ -246,7 +246,7 @@ public class Magazine_Controller {
 		return "redirect:/magazine";
 	}
 	
-	//TODO: Magazine 삭제(open을 0으로 변경)합니다. / / 김형준
+	//TODO: admin Magazine 삭제(open을 0으로 변경)합니다. / / 김형준
 	@RequestMapping(value="/admin/magazine/{mag_no}", method=RequestMethod.DELETE)
 	public String delete(@PathVariable("mag_no") int mag_no,HttpServletRequest req) throws SQLException{
 		/*
