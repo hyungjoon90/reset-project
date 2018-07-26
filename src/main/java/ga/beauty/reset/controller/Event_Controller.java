@@ -54,6 +54,7 @@ public class Event_Controller {
 		return "event/event_list";
 	}*/
 	
+	//TODO: event 리스트를 출력합니다. / event_list.jsp / 김형준
 	//리스트를 보여줍니다.
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model,HttpServletRequest req) throws SQLException {
@@ -88,6 +89,7 @@ public class Event_Controller {
 		return "event/event_list";
 	}
 	
+	//TODO: event 상세페이지를 출력합니다. / event_detail.jsp / 김형준
 	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.GET)
 	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException {
 		model.addAttribute("goRoot",goRoot);
@@ -115,6 +117,7 @@ public class Event_Controller {
 		return "event/event_detail";
 	}
 	
+	//TODO: event 수정 페이지로 이동 / event_update.jsp / 김형준
 	@RequestMapping(value="/admin/event/{eve_no}", method = RequestMethod.POST)
 	public String updateForm(@PathVariable int eve_no ,Model model,HttpServletRequest req) throws SQLException {
 		String goRoot="../../";
@@ -131,7 +134,7 @@ public class Event_Controller {
 		return "event/event_update";
 	}
 	
-	
+	//TODO: event 수정합니다. / / 김형준
 	@RequestMapping(value="/admin/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
@@ -158,6 +161,7 @@ public class Event_Controller {
 		return "redirect:/event";
 	}
 	
+	//TODO: event 입력 페이지로 이동 / event_add.jsp / 김형준
 	@RequestMapping("/admin/event/add")
 	public String addForm(Model model,HttpServletRequest req) {
 		String goRoot="../../";
@@ -166,6 +170,7 @@ public class Event_Controller {
 		return "event/event_add";
 	}
 	
+	//TODO: event 입력합니다. / / 김형준
 	@RequestMapping(value = "/admin/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
@@ -191,6 +196,7 @@ public class Event_Controller {
 		return "redirect:/event";
 	}
 	
+	//TODO: event 삭제합니다.(open을 0으로 전환) / / 김형준
 	@RequestMapping(value = "/admin/event/{eve_no}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("eve_no") int eve_no,HttpServletRequest req) throws SQLException {
 		/*
@@ -223,7 +229,7 @@ public class Event_Controller {
 		return "redirect:/event";
 	}
 	
-	//ckeditor 서버로 이미지 업로드하고 다시 보여주는 메소드 입니다.
+	//TODO: ckeditor 서버로 이미지 업로드하고 다시 보여주는 메소드 입니다.
 	@RequestMapping(value = "/add/img", method=RequestMethod.POST)
     public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) {
  

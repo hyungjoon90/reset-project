@@ -32,24 +32,24 @@ public class Mypage_ADV_Service {
 	
 	// 이벤트의 관한 정보만 보여준다.
 	public Map<String, Object> getInfo(String command, HttpSession session, HttpServletRequest req) throws SQLException {
-		//session에 있는 이메일을 잡아서 대입해줘야함.
 		HashMap<String, Object> map =new HashMap<String, Object>();
-		String com_email=(String) session.getAttribute("login_email");
 		
+		//session에 있는 이메일을 잡아서 대입해줘야함.
+		String com_email=(String) session.getAttribute("login_email");
+
+		//이벤트 리스트
 		Event_Vo evebean = new Event_Vo();
 		evebean.setCom_email(com_email);
-		//이벤트 리스트
 		map.put("EventList", eveDao.selectAll(evebean));
 		
+		//매거진 리스트
 		Magazine_Vo magbean = new Magazine_Vo();
 		magbean.setCom_email(com_email);
-		
-		//매거진 리스트
 		map.put("MagList", magDao.selectAll(magbean));
 		
+		//이벤트 참가자 리스트
 		Eve_addr_Vo eveaddrbean = new Eve_addr_Vo();
 		eveaddrbean.setEve_no(evebean.getEve_no());
-		//이벤트 참가자 리스트
 		map.put("Eveaddr", eveaddrDao.selectAll(eveaddrbean));
 		
 		//이벤트 참가자 숫자
@@ -58,11 +58,4 @@ public class Mypage_ADV_Service {
 		return map;
 	}
 	
-	public List<Magazine_Vo> Maglist(Model model, Magazine_Vo bean) throws SQLException{
-		return magDao.selectAll(bean);
-	}
-	public List<Event_Vo> Eventlist(Model model, Event_Vo bean) throws SQLException{
-		return eveDao.selectAll(bean);
-	}
-
 }

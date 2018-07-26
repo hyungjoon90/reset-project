@@ -54,7 +54,6 @@ public class Mypage_Controller {
 			model.addAttribute("goRoot","./");
 			return "errPage";
 		}*/
-		
 		model.addAttribute("alist",mapper.writeValueAsString(mypage_ADV_Service.getInfo("", session, req)));
 		return ""; 
 	}// showMain()
