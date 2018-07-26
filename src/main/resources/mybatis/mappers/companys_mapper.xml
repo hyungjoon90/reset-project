@@ -34,7 +34,7 @@
 	<select id="selectOne" resultType="Companys_Vo">
   		SELECT * FROM COMPANYS WHERE EMAIL =#{email}
   	</select>
-	<insert id="insertone" parameterType="int">
+	<insert id="insertOne" parameterType="int">
   		INSERT INTO COMPANYS
 		(`EMAIL`, `COMPANY`, `BISNUM`, 
 		`MANAGER`, `POSTCODE`, `ADDRESS`, 'PHONE') 

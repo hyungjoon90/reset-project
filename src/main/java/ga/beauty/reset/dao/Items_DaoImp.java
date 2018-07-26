@@ -83,5 +83,10 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 		logger.debug("DaoImp-itemDel: "+item);
 		return sqlSession.delete("items.itemDel",item);
 	}
+	
+	// XXX:[kss] 추가 전체카운트용
+	public int getCount() {
+		return sqlSession.selectOne("items.itemCont");
+	}
 
 }

@@ -30,4 +30,7 @@
   	<select id="reviewTot" resultType="int">
   		SELECT COUNT(*) FROM REVIEW WHERE ITEM=#{item}
   	</select>
+  	<select id="reviewTotAll" resultType="int">
+  		SELECT COUNT(*) FROM REVIEW
+  	</select>
   </mapper>

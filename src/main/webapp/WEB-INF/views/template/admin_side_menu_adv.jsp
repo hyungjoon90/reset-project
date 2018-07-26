@@ -10,13 +10,10 @@
 <script>
 	$(function(){
 		// 30초 watch
-		getCountSession();
-		getCountLogin();
 		
 		// 30초 watch
 		setInterval(function(){
-			getCountSession();
-			getCountLogin();
+			
 		},30000);
 		
 	})
@@ -33,7 +30,7 @@
 	</div>
          <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li><a href="#">LOGOUT</a></li>
+                <li><a href="${goRoot }logout/">LOGOUT</a></li>
         	</ul>
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -46,10 +43,10 @@
 					<li><a href="${goRoot}admin/notice/">공지사항</a></li>
 				</ul>
 			</li>
-			<li><a href="${goRoot}admin/reviews/">리뷰</a></li>
-			<li><a href="${goRoot}admin/magazines/">매거진</a></li>
-			<li><a href="${goRoot}admin/events/">이벤트</a></li>
-			<li><a href="${goRoot}admin/items/">상품관리</a></li>
+			<li><a href="${goRoot}admin/reviews/list/">리뷰</a></li>
+			<li><a href="${goRoot}admin/magazines/list/">매거진</a></li>
+			<li><a href="${goRoot}admin/events/list/">이벤트</a></li>
+			<li><a href="${goRoot}admin/items/list/">상품관리</a></li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu3">통계</a>
 				<ul id="menu3" class="collapse">
 					<li><a href="${goRoot}admin/chart/review/">리뷰</a></li>

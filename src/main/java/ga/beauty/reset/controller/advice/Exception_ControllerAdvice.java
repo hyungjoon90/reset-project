@@ -21,7 +21,7 @@ public class Exception_ControllerAdvice {
 	@RequestMapping(value="/error")
 	public String exception(Exception e) {
 		e.printStackTrace();
-		//logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
 		return "error/error";
 	}
 }

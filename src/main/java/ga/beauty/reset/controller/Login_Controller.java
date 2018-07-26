@@ -74,6 +74,7 @@ public class Login_Controller {
 	public String showLoginMain(HttpServletRequest req, Model model, HttpSession session) {
 		model.addAttribute("goRoot", "../");
 		if(session.getAttribute("old_url")==null) session.setAttribute("old_url", req.getHeader("referer"));
+		System.out.println((String)session.getAttribute("old_url"));
 		return "login/login_main";
 	}
 	
@@ -110,11 +111,14 @@ public class Login_Controller {
 					Members_Vo bean = new Members_Vo();
 					bean.setEmail((String)session.getAttribute("login_email"));
 					session.setAttribute("login_nick" ,members_Dao.selectOne(bean).getNick());
+					logger.debug("로그인성공:"+bean);
 				}else {
 					Companys_Vo bean = new Companys_Vo();
 					bean.setEmail((String)session.getAttribute("login_email"));
 					session.setAttribute("login_nick" ,companys_Dao.selectOne(bean).getManager());
 					session.setAttribute("login_comName" ,companys_Dao.selectOne(bean).getCompany());
+
+					logger.debug("로그인성공:"+bean);
 				}
 		}
 		if(req.getAttribute("login_err")==null) return (String) req.getAttribute("login_result");
@@ -143,6 +147,7 @@ public class Login_Controller {
 				session.setAttribute("login_on", true);
 				resultMap.put("result", 200);
 				resultMap.put("redirect", (String)session.getAttribute("old_url"));
+				logger.debug("로그인성공:"+memGetNick);
 				return resultMap;
 			}else {
 				resultMap.put("result", 9999);

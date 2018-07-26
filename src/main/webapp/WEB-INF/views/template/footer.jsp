@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 	<!--footer-->
+
+	<!-- AJAX -->
+	<%@ include file="./ajax_loading.jsp" %>
+	<!--  end loading AJAX -->
     <div class="footer">
         <div class="wrap">
             <div class="container">

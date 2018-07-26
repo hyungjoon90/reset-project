@@ -53,25 +53,22 @@ public class RegexLogFile {
 		if(!tmp.exists()) {
 			return 0;
 		}
-		int tmpCnt = start;
-		try(BufferedReader in = new BufferedReader 
-				(new InputStreamReader 
-						(new ReverseLineInputStream(new File(filename))
-								))){// try-resource
-			while(true) {
-				if(tmpCnt<=start+cnt) {
-				String line = in.readLine();
-			    if (line == null) {
-			        break;
-			    }else {
-					list.add(getLogForString(line));
-			    }
-			    	tmpCnt++;
-				}else {
+		int i=1;
+		System.out.println(i);
+		try(BufferedReader in = new BufferedReader (new InputStreamReader (new ReverseLineInputStream(new File(filename))))){// try-resource
+			String line = in.readLine();
+			while(i<start+cnt) {
+				if (line == null) {
 					break;
+				}else {
+					if (i>start)list.add(getLogForString(line));
+					else { break; }
 				}
+				i++;
 			}
-		}
-		return tmpCnt;
+			int result = i-start;
+			if(result<0) result=0;
+			return result;
+		}// try-resource
 	}
 }//

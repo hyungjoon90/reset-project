@@ -108,7 +108,7 @@ function checkEmail(ele) {
     var $errM = $("<div/>",{"class":"errM"});
      var $target = $(ele);
      if (validateEmail($target.val())) {
-          var $postM = $.post( "check_mail", "target="+$target.val() );
+          var $postM = $.post( "/reset/sign/check_mail", "target="+$target.val() ); // TODO:[kss]나중에 reset 지워야됨
           $postM.done(function( data ) {
                if(data.result==0){
                   inputSucces($target);
@@ -287,9 +287,7 @@ function submitCheck(){
       $(this).css("border","2px soild red");
       trueCheck = false;
     }
-    
     nullCheck = $(this).val();
-    console.log(nullCheck);
     if(nullCheck == null || nullCheck==""){
     	console.log("널오류");
       $(this).focus();

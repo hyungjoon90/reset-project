@@ -1,46 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:forEach items="${alist }" var="bean">
-<script src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript">
-$(function() {
-	  $(".strong").each(function(){
-		  var target = $(this).text();
-	  		if(target==1){
-	  			$(this).text("신상&트렌드");
-	  		} else if(target==2){
-	  			$(this).text("화장품 펙트체크");
-	  		}else if(target==3){
-	  			$(this).text("인기템 리뷰");
-	  		}else if(target==4){
-	  			$(this).text("다이어트&운동");
-	  		}
-	  });  
-	});
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
+<link href="${goRoot}css/main.css" rel="stylesheet">
+<link href="${goRoot}css/btn/btn.css" rel="stylesheet">
+	<title>${login_comName}-Admin-Event</title>
+<style type="text/css">
+.page_container{
+	max-width: 1080px;
+	margin: 0px auto;
+}
+.contents_container{
+	display: inline-block;
+    text-align: center;
+}
+.contentsBox{
+	width: 50%;
+	float: left;
+	margin-top: 5%;
+}
+.icon{
+	width:3%;
+}
 
-</script>
-<div class="contentsBox" class="span6 element category01" data-category="category01">
-    <div class="hover_img">
-        <a href="magazine/${bean.mag_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
-    </div> 
-    <div class="item_description">
-        <h6><a href="magazine/${bean.mag_no}">${bean.title}</a></h6>
-        <div><strong class="strong">${bean.cate}</strong></div>
-        <div>
-        	<span class="pop">
-        		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
-        	</span>
-        	&emsp;&emsp;&emsp;&emsp;
-        	<span class="view">
-         	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
-        	</span>
+.redBtn{
+	margin-left: 90%;
+	text-decoration: none;
+}
+
+@media (max-width: 991px) {
+ 
+ .contentsBox {
+    width: 100%;
+	}
+} 
+</style>
+</head>
+<body>
+	<!--header-->
+<div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="page_container">
+            <!-- 내용 입력 -->
+            <!-- Event list-page 입니다. -->
+				<a href="/reset/admin/event/add" class="redBtn">글쓰기</a>
+    	<div class="contents_container">
+            <c:forEach items="${alist }" var="bean">
+            <div class="contentsBox" class="span6 element category01" data-category="category01">
+                <div class="hover_img">
+                	<!-- //TODO : [김형준] img 주소 변경 필요 -->
+                    <a href="event/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+                </div> 
+                <div class="item_description">
+                    <h6><a href="event/${bean.eve_no}"><strong>${bean.title}</strong></a></h6>
+                    <div>
+                    	<span class="pop">
+                    		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
+                    	</span>
+                    	&emsp;&emsp;&emsp;&emsp;
+                    	<span class="view">
+	                    	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
+                    	</span>
+                    </div>
+                </div>                                    
+            </div>
+			</c:forEach>
         </div>
-    </div>                                   
-</div>
-</c:forEach>
-<div>
-<!-- 페이징 시작 -->
+			<!-- 내용 끝 -->
+		<div>
 		<!-- 페이징  -->
 		<c:choose>
 		<c:when test="${paging.numberOfRecords ne NULL and paging.numberOfRecords ne '' and paging.numberOfRecords ne 0}">
@@ -76,4 +109,24 @@ $(function() {
 		</div>
 		</c:when>
 		</c:choose>
-		</div><!-- 페이징 끝 -->
+		</div>
+        <hr>
+    </div>
+    <!-- //main contents -->
+	<%@include file="../../views/template/ajax_loading.jsp" %>
+
+<script>
+function goPage(pages, lines) {
+    location.href = '?' + "pages=" + pages;
+}
+</script>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->     
+</body>
+</html>

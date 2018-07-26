@@ -120,5 +120,10 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		return sqlSession.selectOne("reviews.reviewTot", item);
 	}
 
+	// XXX:[kss] 추가 전체카운트용
+	public int getCount() {
+		return sqlSession.selectOne("reviewTotAll");
+	}
+
 
 }

@@ -35,7 +35,7 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 		}else if((boolean)session.getAttribute("login_on") == true){
 			login_Listener.addLog(new User_Vo(), "num", 1);
 		}else if((boolean)session.getAttribute("login_on") ==false){
-			login_Listener.addLog(new User_Vo(), "num", -1);
+			//login_Listener.addLog(new User_Vo(), "num", -1);
 		}
 		super.afterCompletion(request, response, handler, ex);
 	}
@@ -50,7 +50,7 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 		}else if((boolean)session.getAttribute("login_on") == true){
 			login_Listener.addLog(new User_Vo(), "num", 1);
 		}else if((boolean)session.getAttribute("login_on") ==false){
-			login_Listener.addLog(new User_Vo(), "num", -1);
+			//login_Listener.addLog(new User_Vo(), "num", -1);
 		}
 		super.afterConcurrentHandlingStarted(request, response, handler);
 	}

@@ -40,14 +40,15 @@ public class Admin_Controller {
 		return "admin/admin_main";
 	}
 	
-	@RequestMapping(value="/admin/{path}/{command}/",method=RequestMethod.GET) // 페이지 이동
+	@RequestMapping(value="/admin/{path}/{command}/",method=RequestMethod.GET)
 	public String showPage(Model model, @PathVariable("path") String path, @PathVariable("command") String command) {
 		model.addAttribute("goRoot", "../../../");
 		model.addAttribute("command",command);
 		return "admin/admin_"+path;
 	}
 	
-	@RequestMapping(value="/admin/ajax/{command}/", method=RequestMethod.POST)
+	
+	@RequestMapping(value="/admin/ajax/{command}", method=RequestMethod.POST) // AJAX
 	public String ajaxCalling(Model model,@PathVariable("command") String command
 			,HttpSession session ,HttpServletRequest req) throws SQLException {
 		model.addAttribute("goRoot", "../../../");
@@ -71,8 +72,11 @@ public class Admin_Controller {
 			if(result!=null && result.size()>0) {
 				if(command.equals("member") && req.getAttribute("go").equals("1")) {
 					return "admin/admin_userlist";
-				}else {// company 있는 사람들 용
+				}else if(command.equals("member") && req.getAttribute("go").equals("2")){// company 있는 사람들 용
 					return "admin/admin_userlist2";
+				}else if(req.getParameter("itemList")!=null) {
+					req.setAttribute("itemList",result);
+					return "admin/admin_listItem_ajax";
 				}
 			}else {
 				return "admin/admin_empty";
@@ -89,7 +93,7 @@ public class Admin_Controller {
 			model.addAttribute("result",200);
 			req.setAttribute("log_list", result);
 		}
-		return "admin/admin_log";
+		return "admin/admin_log_ajax";
 	}
 	
 	@RequestMapping(value="/admin/chart/{command}", method=RequestMethod.POST) // ajax
@@ -100,6 +104,6 @@ public class Admin_Controller {
 		if(result!=null && result.size()>0) {
 			req.setAttribute("chartSort", command);
 		}
-		return "admin/admin_chart";
+		return "admin/admin_chart_ajax";
 	}
 }

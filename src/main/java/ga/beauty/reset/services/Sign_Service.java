@@ -62,6 +62,8 @@ public class Sign_Service {
 				userBean.setPassword(newPw);
 			}
 			resultUser = user_Dao.insertOne(userBean);
+			logger.debug(userBean);
+			logger.debug(companyBean);
 			resultOther = companys_Dao.insertOne( (Companys_Vo) companyBean);
 		}
 		if(resultUser==1 && resultOther ==1) {
@@ -144,7 +146,7 @@ public class Sign_Service {
 				target.setPassword( passwordUtil.getEncryptSHA256((String)session.getAttribute("tmp")+nick));
 			if(user_Dao.updateOne(target) ==1) {
 				session.setAttribute("login_nick" ,nick);
-				logger.info(LogEnum.PROFILE+"["+email+"] 회원님이 로그인연동-["+(String)session.getAttribute("join_route")+"]을 추가 하였습니다.");
+				logger.info(LogEnum.PROFILE+"["+email+"] 회원님이 로그인연동-["+(String)session.getAttribute("login_route")+"]을 추가 하였습니다.");
 				return 1;
 			}
 		}else if(command.equals("pw_change")) {
