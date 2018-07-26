@@ -55,6 +55,8 @@ public class Items_Reviews_Controller {
 	public String ranking_list(@RequestParam("id") int cate,Model model) throws SQLException {
 		logger.debug("list-param: "+cate);
 		Items_Reviews_service.ranking_listPage(model, cate);
+		goRoot="";
+		model.addAttribute("goRoot", goRoot);
 		return "ranking_review/ranking_list";
 	}
 	

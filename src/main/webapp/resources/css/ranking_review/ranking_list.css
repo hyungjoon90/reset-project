@@ -1,7 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<style type="text/css">
+@charset "utf-8";
+/* 컨텐츠 contatiner */
+	.page_container{
+		width: 80%;
+	}
+    .page_container>a{
+        text-decoration: none;
+        color: black;
+    }
+    .page_container>a:hover{
+    	text-decoration: none;
+    	color: black;
+    }
     .contentsbox{
         width: 85%;
         margin: 0px auto;
@@ -34,21 +43,3 @@
     .conbox>p:first-child,.conbox>p:last-child{
         color: #84868e;
     }
-</style>
-	<c:forEach items="${alist }" var="bean">
-	<a href="../item/${bean.item }">
-		<div class="contentsbox">
-			<div class="numbox box">
-				<label>${num}</label>
-			</div>
-			<div class="imgbox box">
-				<img src="../${bean.img }">
-			</div>
-			<div class="conbox box">
-				<p>${bean.brand }</p>
-				<p>${bean.name }</p>
-				<p>${bean.vol }&nbsp;${bean.price }원</p>
-			</div>
-		</div>
-	</a>
-	</c:forEach>

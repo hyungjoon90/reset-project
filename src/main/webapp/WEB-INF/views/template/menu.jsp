@@ -11,7 +11,7 @@
                 <div class="menu_empty"></div>
                 <div class="menu_login_bar">
                     <div class="login-group" >
-                    	<a href="${goRoot}mypage"><img class="loginAndOut" src="${goRoot}imgs/icon/grey-19.png" onmouseover="this.src='${goRoot}imgs/icon/red-19.png'"
+                    	<a href="${goRoot}mypage/"><img class="loginAndOut" src="${goRoot}imgs/icon/grey-19.png" onmouseover="this.src='${goRoot}imgs/icon/red-19.png'"
 onmouseout="this.src='${goRoot}imgs/icon/grey-19.png'"></a>
                         <label class="sr-only" for="search">검색</label>
                         <a href="${goRoot}item"><input type="text" class="form-control input_box" placeholder="검색" readonly="readonly"></a>
