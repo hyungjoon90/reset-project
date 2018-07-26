@@ -10,7 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="google-signin-client_id"
 	content="1051220480905-p8890ral8a45q8c1q6201a57oqg75k7f.apps.googleusercontent.com">
-<!-- TODO 경로 넣어줘야됨 -->
 <link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
 <link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot }css/main.css" rel="stylesheet">

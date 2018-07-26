@@ -15,9 +15,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	/* 좋아요 시작 */
-
-	
 	
 	$("#Likes").on("click",function(){
 			 var email=$("#email").val();

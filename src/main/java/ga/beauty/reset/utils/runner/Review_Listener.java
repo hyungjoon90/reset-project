@@ -18,7 +18,9 @@ import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,21 +30,29 @@ import ga.beauty.reset.dao.entity.stat.Log_C_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
+@Component("review_Listener")
 public class Review_Listener implements Common_Listener {
 
 	Logger logger = Logger.getLogger(Review_Listener.class);
 	
 	// like/yyyy/MM/dd.json
 	//{"data":[{"name":String,"num":int}]}
-	private String defaultFP = "c:/reset/report/review/";
-	// 좋아요 총량 / 일별 증가량
+	private String defaultFP = "/reset/report/review/";
+	// 좋아요 총량 / 일별 증가량 : DONE
 
 	private List<Log_C_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
-	public Review_Listener() throws IOException {
-		init();
+	public Review_Listener(){
+		try {
+			init();
+			logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+		} catch (JsonProcessingException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		} catch (IOException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		}
 	}
 	
 	private void init() throws IOException {
@@ -58,12 +68,10 @@ public class Review_Listener implements Common_Listener {
 		if(!file.exists()) {
 			new File(file.getParent()).mkdirs();
 		}else {
-			try {
-				node = objectMapper.readTree(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			if(file.length()!=0) {
+			node = objectMapper.readTree(file);
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_C_Vo>>(){});
+			}
 		}		
 	}// init()
 
@@ -87,6 +95,7 @@ public class Review_Listener implements Common_Listener {
 			// 어떤거 값 변화 
 			if(type.equals("num")) { // 사실 안써도 됨.
 				checkVo.setNum(checkVo.getNum()+chNum);
+				logger.info(LogEnum.REV+" [NO."+target.getRev_no()+"] 리뷰의 좋아요가 ["+chNum+"]만큼 변하였습니다.");
 			}
 		}
 	}//changeValue()
@@ -100,7 +109,6 @@ public class Review_Listener implements Common_Listener {
 	@Async("threadPoolTaskExecutor")
 	@Scheduled(cron=" 0 2 0 * * *\r\n" )
 	public void saveLogOneday() throws Exception {
-		if(list.size()==0) {return ;}
 			synchronized (this) {
 				Calendar cal = new GregorianCalendar();
 				cal.add(Calendar.DATE, -1);
@@ -118,7 +126,7 @@ public class Review_Listener implements Common_Listener {
 				try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 					buffOut.write(sbr.toString());
 					buffOut.flush();
-					logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 리뷰수치가 저장되었습니다.");
+					logger.info(LogEnum.SAVA_LOG+"["+MySDF.SDF_ALL.format(date)+"]일의 리뷰-좋아요 수치가 저장되었습니다.");
 				}
 				init();
 			}
@@ -127,7 +135,6 @@ public class Review_Listener implements Common_Listener {
 	@Override
 	@PreDestroy
 	public void saveTmp() throws Exception {
-		System.out.println("리뷰"); // TODO 안됨 해결해야됨.
 		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Date date = new Date();
@@ -144,7 +151,7 @@ public class Review_Listener implements Common_Listener {
 			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 				buffOut.write(sbr.toString());
 				buffOut.flush();
-				logger.warn(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 리뷰 로그가 임시저장 되었습니다.");
+				logger.warn(LogEnum.SAVA_LOG+"["+MySDF.SDF_ALL.format(date)+"]일의 리뷰-좋아요 로그가 임시저장 되었습니다.");
 			}
 		}
 	}

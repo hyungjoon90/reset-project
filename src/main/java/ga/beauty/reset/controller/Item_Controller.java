@@ -26,7 +26,7 @@ import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Item_Controller {
-	//TODD 이미지 저장 경로 설정 해야함
+	//TODD:[sch] 이미지 저장 경로 설정 해야함
  	String filePath="/Users/11/git/reset-project/src/main/webapp/resources/imgs/item_imgs";
 	String essence="/essence";
 	String lotion="/lotion";
@@ -35,7 +35,7 @@ public class Item_Controller {
 	String dry="/dry";
 	String sen="/sen";
 	String subPath="";
-	Logger log=Logger.getLogger(getClass());
+	Logger logger=Logger.getLogger(getClass());
 	ObjectMapper mapper = new ObjectMapper();
 	
 	String goRoot="../";
@@ -66,7 +66,7 @@ public class Item_Controller {
 	// 아이템 검색
 	@RequestMapping("/itemSearch")
 	public void item_search_page(@RequestParam("search") String condition,@RequestParam("type") String type,HttpServletResponse resp) throws JsonProcessingException, IOException, SQLException {
-		log.debug("itemSearch param: "+condition+"/"+type);
+		logger.debug("itemSearch param: "+condition+"/"+type);
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(mapper.writeValueAsString(items_service.item_search(condition, type)));
 	}
@@ -74,7 +74,7 @@ public class Item_Controller {
 	// admin item 상세
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.GET)
 	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
-		log.debug("detail-param: "+item);
+		logger.debug("detail-param: "+item);
 		items_service.item_detailPage(model,item);
 		
 		goRoot="../../";
@@ -92,7 +92,7 @@ public class Item_Controller {
 	// 아이템 추가
 	@RequestMapping(value="/admin/item",method=RequestMethod.POST)
 	public void item_add(@RequestParam("img") MultipartFile file,HttpServletRequest req,HttpServletResponse resp) throws IOException, Exception {
-		log.debug(file.getOriginalFilename());
+		logger.debug(file.getOriginalFilename());
 
 		
 		Items_Vo bean=new Items_Vo();
@@ -129,9 +129,10 @@ public class Item_Controller {
 		bean.setTags(req.getParameter("tags"));
 		
 		if(!file.getOriginalFilename().equals("")) {
+			//TODO:[sch] 이미지 경로설정
 			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}
-		log.debug(bean);
+		logger.debug(bean);
 		
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(items_service.item_add(bean));
@@ -142,10 +143,10 @@ public class Item_Controller {
 	@RequestMapping(value="/admin/itemUpdate/{item}",method=RequestMethod.POST)
 	public void item_update(@PathVariable("item") int item,@RequestParam("img") MultipartFile file, HttpServletResponse resp,HttpServletRequest req) throws IOException, Exception {
 
-		log.debug("item_update: "+item);
-		log.debug("option: "+req.getParameter("option"));// 원래대로1,바꿈2
+		logger.debug("item_update: "+item);
+		logger.debug("option: "+req.getParameter("option"));// 원래대로1,바꿈2
 		int option=Integer.parseInt(req.getParameter("option"));
-		log.debug(option);
+		logger.debug(option);
 		// 공통
 		Items_Vo bean=new Items_Vo();
 		bean.setItem(item);
@@ -183,19 +184,20 @@ public class Item_Controller {
 		bean.setTot(Double.parseDouble(req.getParameter("tot")));
 		
 		if(!file.getOriginalFilename().equals("")) {
+			//TODO:[sch] 이미지 파일 경로 설정
 			bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}
-		log.debug(bean);
+		logger.debug(bean);
 		
 		if(req.getParameter("option").equals("1")) {
 			bean.setImg(req.getParameter("preimg"));
 		}else if(req.getParameter("option").equals("2")) {
-			bean.setImg("imgs/upload_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
+			//TODO:[sch] 이미지 파일 경로 설정
+			bean.setImg("imgs/item_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),100));
 		}else if(req.getParameter("option").equals("3")) {
 			bean.setImg("");
-			// bean.setImg("imgs/item_imgs"+subPath+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes()));
 		}
-		log.debug("item controller param: "+bean);
+		logger.debug("item controller param: "+bean);
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(items_service.item_update(option,bean));
 	}
@@ -203,7 +205,7 @@ public class Item_Controller {
 	// 아이템 삭제
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.DELETE)
 	public void item_delete(@PathVariable("item") int item,HttpServletResponse resp) throws IOException, SQLException {
-		log.debug("item del param: "+item);
+		logger.debug("item del param: "+item);
 		
 		resp.setCharacterEncoding("utf-8");
 		resp.getWriter().print(items_service.item_delete(item));

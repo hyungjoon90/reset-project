@@ -26,7 +26,7 @@ import ga.beauty.reset.services.Sign_Service;
 @Controller
 public class Sign_Controller {
 
-	private static final Logger logger = Logger.getLogger(Sign_Controller.class);
+	Logger logger = Logger.getLogger(Sign_Controller.class);
 
 	@Autowired
 	private Sign_Service sign_Service;

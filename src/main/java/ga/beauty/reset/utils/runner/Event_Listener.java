@@ -20,7 +20,9 @@ import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,27 +32,34 @@ import ga.beauty.reset.dao.entity.stat.Log_EM_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
+@Component("event_Listener")
 public class Event_Listener implements Common_Listener{
 
 	Logger logger = Logger.getLogger(Event_Listener.class);
 	
 	// event/yyyy/MM/dd.json
 	//{"data":[{"no":eveno,"like":,"view":,"num":},....]}
-	private String defaultFP = "c:/reset/report/event/";
+	private String defaultFP = "/reset/report/event/";
 
-	// 좋아요 총량-은 기록안함 		/ 일별 증가량
-	// 조회수 총량-은 기록안함 		/ 일별 증가량
-	// 신청자수 총량-은 기록안함 	/ 일별 증가량
-	// XXX 야호
+	// 좋아요 총량-은 기록안함 		/ 일별 증가량 // DONE
+	// 조회수 총량-은 기록안함 		/ 일별 증가량 // DONE
+	// 신청자수 총량-은 기록안함 	/ 일별 증가량 // DONE
 	private List<Log_EM_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
 	public Event_Listener() {
-		init();
+		try {
+			init();
+			logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+		} catch (JsonProcessingException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		} catch (IOException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		}
 	}
 	
-	private void init() {
+	private void init()  throws JsonProcessingException, IOException {
 		list = new ArrayList<Log_EM_Vo>();
 		objectMapper = new ObjectMapper();
 		Date date = new Date();
@@ -63,11 +72,7 @@ public class Event_Listener implements Common_Listener{
 		if(!file.exists()) {
 			new File(file.getParent()).mkdirs();
 		}else {
-			try {
-				node = objectMapper.readTree(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			node = objectMapper.readTree(file);
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_EM_Vo>>(){});
 		}
 	};
@@ -92,13 +97,13 @@ public class Event_Listener implements Common_Listener{
 			else list.add(checkVo);
 			// 어떤거 값 변화 
 			if(type.equals("like")) {
-				logger.info("@이벤트@ No."+checkNo+" 번 이벤트의 좋아요가 ["+chNum+"] 만큼 변했습니다.");
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 이벤트의 좋아요가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setLike(checkVo.getLike()+chNum);
 			}else if(type.equals("view")) {
-				logger.info("@이벤트@ No."+checkNo+" 번 이벤트의 조회수가 ["+chNum+"] 만큼 변했습니다.");
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 이벤트의 조회수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setView(checkVo.getView()+chNum);
 			}else if(type.equals("num")) {
-				logger.info("@이벤트@ No."+checkNo+" 번 이벤트의 참여자수가 ["+chNum+"] 만큼 변했습니다.");
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 이벤트의 참여자수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setNum(checkVo.getNum()+chNum);
 			}
 		}
@@ -114,7 +119,6 @@ public class Event_Listener implements Common_Listener{
 	@Async("threadPoolTaskExecutor")
 	@Scheduled(cron=" 0 5 0 * * *\r\n" )
 	public void saveLogOneday() throws Exception {
-		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Calendar cal = new GregorianCalendar();
 			cal.add(Calendar.DATE, -1);
@@ -141,7 +145,6 @@ public class Event_Listener implements Common_Listener{
 	@Override
 	@PreDestroy
 	public void saveTmp() throws Exception {
-		System.out.println("이벤트"); // TODO 안됨 해결해야됨.
 		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Date date = new Date();

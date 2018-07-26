@@ -34,6 +34,10 @@ public class Login_Normal implements Login_Service {
 	@Autowired
 	Companys_Dao companys_Dao;
 
+	@Autowired
+	PasswordUtil passwordUtil;
+	
+	
 	public Login_Normal() {
 	}
 	
@@ -83,7 +87,7 @@ public class Login_Normal implements Login_Service {
 				Members_Vo compare = members_Dao.selectOne(tmpM);
 				userSession.setAttribute("join_route", checkBean.getJoin_route());
 				userSession.setAttribute("login_email", email);
-				userSession.setAttribute("tmp", PasswordUtil.getEncryptSHA256(password+compare.getNick()));
+				userSession.setAttribute("tmp", passwordUtil.getEncryptSHA256(password+compare.getNick()));
 				userSession.setAttribute("login_route","normal");
 				req.setAttribute("result", 300);
 				req.setAttribute("msg", "다른 경로로 연결되어 있습니다.");
@@ -98,12 +102,12 @@ public class Login_Normal implements Login_Service {
 			Members_Vo tmpM = new Members_Vo();
 			if(!checkBean.getUser_type().equals("일반")) {
 				Companys_Vo compare = companys_Dao.selectOne(tmpC);
-				comparePw = PasswordUtil.getEncryptSHA256(password+compare.getBisnum());
+				comparePw = passwordUtil.getEncryptSHA256(password+compare.getBisnum());
 			}else {
 				tmpM.setEmail(email);
 				System.out.println("일반체크"+password);
 				Members_Vo compare = members_Dao.selectOne(tmpM);
-				comparePw = PasswordUtil.getEncryptSHA256(password+compare.getNick());
+				comparePw = passwordUtil.getEncryptSHA256(password+compare.getNick());
 			}
 			if(orginPW.equals(comparePw)) {
 				// 로그인완료
