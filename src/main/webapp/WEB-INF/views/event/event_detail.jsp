@@ -241,8 +241,8 @@ $(document).ready(function(){
 	margin-left: 90%;
 }
 
-/* tags 안보이게 */
-.tagsDiv{
+/* com_email 안보이게 */
+.com_emailDiv{
 	visibility: hidden;
 }
 </style>
@@ -323,8 +323,8 @@ $(document).ready(function(){
 	            <div>
 	            	<span>${detail.con }</span>
 	            </div>
-	            <div class="tagsDiv">
-	            	<span>${detail.tags }</span>
+	            <div class="com_emailDiv">
+	            	<span>${detail.com_email }</span>
 	            </div>
 	            <!-- TODO:이벤트 주소입력 으로 가는곳입니다. -->
 	            <div>

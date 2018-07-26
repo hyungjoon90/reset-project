@@ -22,6 +22,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,7 +39,7 @@ public class Event_Listener implements Common_Listener{
 	
 	// event/yyyy/MM/dd.json
 	//{"data":[{"no":eveno,"like":,"view":,"num":},....]}
-	private String defaultFP = "c:/reset/report/event/";
+	private String defaultFP = "/reset/report/event/";
 
 	// 좋아요 총량-은 기록안함 		/ 일별 증가량 // DONE
 	// 조회수 총량-은 기록안함 		/ 일별 증가량 // DONE
@@ -48,11 +49,17 @@ public class Event_Listener implements Common_Listener{
 	private JsonNode node;
 	
 	public Event_Listener() {
-		init();
-		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+		try {
+			init();
+			logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+		} catch (JsonProcessingException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		} catch (IOException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		}
 	}
 	
-	private void init() {
+	private void init()  throws JsonProcessingException, IOException {
 		list = new ArrayList<Log_EM_Vo>();
 		objectMapper = new ObjectMapper();
 		Date date = new Date();
@@ -65,11 +72,7 @@ public class Event_Listener implements Common_Listener{
 		if(!file.exists()) {
 			new File(file.getParent()).mkdirs();
 		}else {
-			try {
-				node = objectMapper.readTree(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			node = objectMapper.readTree(file);
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_EM_Vo>>(){});
 		}
 	};

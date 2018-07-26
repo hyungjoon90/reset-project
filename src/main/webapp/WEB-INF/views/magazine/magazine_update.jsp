@@ -50,6 +50,30 @@
 	    } 
 	 
  });
+ function magazineCheck(){
+	 var img= $("#img");
+	 var title = $("#title");
+	 var cate = $("#cate option:selected");
+	 if(img.val()== ""){
+		 alert("썸네일을 올려 주세요");
+		 return false;
+	 }
+	 if(title.val() == ""){
+		 alert("제목을 입력해 주세요");
+		 $("#title").focus();
+		 return false;
+	 }
+	 if(CKEDITOR.instances.con.getData()==""){
+		 alert("내용을 입력해 주세요");
+		 CKEDITOR.instances.con.focus();
+		 return false;
+	 }
+	 if(cate.val()==99){
+		 alert("카테고리를 골라주세요");
+		 $("#cate").focus();
+		 return false;
+	 }
+ };
 </script>
 <style type="text/css">
 	/* 미리보기 이미지 사이즈 */
@@ -147,7 +171,7 @@
         <hr>
         	<!-- 내용 입력 시작-->
             <!-- Magazine update-page 입니다. -->
-            <form method="post"  action="/reset/admin/magazine/${detail.mag_no}/update" enctype="multipart/form-data" id="magazine_updateForm">
+            <form method="post"  action="/reset/admin/magazine/${detail.mag_no}/update" enctype="multipart/form-data" id="magazine_updateForm" onsubmit="return magazineCheck()">
            		<!-- <input type="hidden" name="_method" value="put"/> -->
 	            <div>
 	            	<label for="mag_no"></label>
@@ -206,7 +230,8 @@
             		</select>
             	</div>
 	            <div>
-	            	<input type="hidden" name="tags" id="tags" value="${detail.tags }">
+            		<label for="com_email">광고주 Email</label>
+	            	<input type="text" name="com_email" id="com_email" class="form-control" value="${detail.com_email }" placeholder="광고주 Email을 적어주세요">
             	</div>
 
 			<button type="reset" class="darkBtn">목록</button>

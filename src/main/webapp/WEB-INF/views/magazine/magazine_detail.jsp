@@ -219,7 +219,7 @@ $(document).ready(function(){
 }
 
 /* tags 안보이게 */
-.tagsDiv{
+.com_emailDiv{
 	visibility: hidden;
 }
 .copy{

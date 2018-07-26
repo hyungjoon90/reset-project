@@ -47,7 +47,7 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 
 	@Override
 	public List<Event_Vo> selectAll(Event_Vo bean) throws SQLException {
-		return null;
+		return sqlSession.selectList("event.selectAll",bean);
 	}
 
 	@Override

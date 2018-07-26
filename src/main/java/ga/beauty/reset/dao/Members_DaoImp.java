@@ -1,7 +1,9 @@
 package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,16 @@ public class Members_DaoImp implements Members_Dao{
 	@Override
 	public List<Members_Vo> selectAll() throws SQLException {
 		return sqlSession.selectList("members.selectAll");
+	}
+	
+	@Override
+	public List<Members_Vo> selectAllLimit(HashMap<String,Object> map) throws SQLException {
+		return sqlSession.selectList("members.selectAllLimit", map);
+	}
+	
+	@Override
+	public int totCount(HashMap<String,Object> map) throws SQLException {
+		return sqlSession.selectOne("members.totCount",map);
 	}
 
 	@Override

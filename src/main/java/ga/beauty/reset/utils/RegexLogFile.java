@@ -19,7 +19,6 @@ public class RegexLogFile {
 	private Log_File getLogForString(String target){
 		Log_File bean = new Log_File();
   		Pattern p = Pattern.compile(regex);
-  	//	Pattern p = Pattern.compile("^\\[(.*)\\]\\[(.*)\\]-@(.*)@-(.*)");
   		Matcher m = p.matcher(target);
   	    if (m.find())
   	    {

@@ -17,5 +17,6 @@
 		<typeAlias type="ga.beauty.reset.dao.entity.Magazine_Vo"	alias="Magazine_Vo" />
 		<typeAlias type="ga.beauty.reset.dao.entity.User_Vo"	alias="User_Vo" />
 		<typeAlias type="ga.beauty.reset.dao.entity.Members_Vo"	alias="Members_Vo" />
+		<typeAlias type="ga.beauty.reset.dao.entity.Companys_Vo" alias="Companys_Vo" />
 	</typeAliases>
 </configuration>

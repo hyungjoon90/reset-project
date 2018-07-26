@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ import ga.beauty.reset.dao.Reviews_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
+
 import ga.beauty.reset.services.mypage.Mypage_ADV_Service;
 import ga.beauty.reset.services.mypage.Mypage_NOR_Service;
 
@@ -40,14 +42,15 @@ public class Mypage_Controller {
 	Reviews_Dao<Reviews_Vo> Reviews_Dao;
 	@Autowired
 	Comment_Dao<Comment_Vo> Comment_Dao;
-	
+
 	public Mypage_Controller() {
 	}
+	ObjectMapper mapper = new ObjectMapper();
 	
 /*	@RequestMapping(value = "/mypage/", method = RequestMethod.GET)
 	public String showMain(@SessionAttribute(name="user_type") String user_type, Model model) {
 		model.addAttribute("goRoot","../");
-		if("CEO".equals(user_type) || "직원".equals(user_type)) {
+		/*if("CEO".equals(user_type) || "직원".equals(user_type)) {
 			return "redirect:/admin/";
 		}else if("광고주".equals(user_type)) {
 			return "mypage/mypage_Adv_main";
@@ -57,7 +60,9 @@ public class Mypage_Controller {
 			// TODO 에러
 			model.addAttribute("goRoot","./");
 			return "errPage";
-		}
+		}*/
+		model.addAttribute("alist",mapper.writeValueAsString(mypage_ADV_Service.getInfo("", session, req)));
+		return ""; 
 	}// showMain()
 */	
 	//TODO: [sch] mypage sesstion 받아야함.
@@ -81,7 +86,6 @@ public class Mypage_Controller {
 		Members_Vo bean=new Members_Vo();
 		bean.setEmail(email);
 		bean=members_Dao.selectOne(bean);
-		
 		Comment_Vo bean2=new Comment_Vo();
 		bean2.setWriter("닉넴1");
 		
@@ -91,5 +95,6 @@ public class Mypage_Controller {
 		model.addAttribute("comment_alist",Comment_Dao.mypage_list(bean2));
 		return "mypage/mypage_nor_main";
 	}// showMain()
+
 	
 }// 순수 마이페이지 --> 정보조회용

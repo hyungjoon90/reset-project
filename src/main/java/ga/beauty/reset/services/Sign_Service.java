@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import ga.beauty.reset.dao.User_Dao;
 import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.PasswordUtil;
 
 @Service
@@ -30,6 +32,8 @@ public class Sign_Service {
 	
 	@Autowired
 	PasswordUtil passwordUtil;
+	
+	Logger logger = Logger.getLogger(getClass());
 	
 	public Sign_Service() {
 	}
@@ -60,7 +64,10 @@ public class Sign_Service {
 			resultUser = user_Dao.insertOne(userBean);
 			resultOther = companys_Dao.insertOne( (Companys_Vo) companyBean);
 		}
-		if(resultUser==1 && resultOther ==1) return 200;
+		if(resultUser==1 && resultOther ==1) {
+			logger.info(LogEnum.SIGNUP+"["+userBean.getUser_type()+"]유형의 계정("+userBean.getEmail()+")이 등록되었습니다.");
+			return 200;
+		} 
 		else return 9999;
 	}
 	
@@ -137,11 +144,12 @@ public class Sign_Service {
 				target.setPassword( passwordUtil.getEncryptSHA256((String)session.getAttribute("tmp")+nick));
 			if(user_Dao.updateOne(target) ==1) {
 				session.setAttribute("login_nick" ,nick);
+				logger.info(LogEnum.PROFILE+"["+email+"] 회원님이 로그인연동-["+(String)session.getAttribute("join_route")+"]을 추가 하였습니다.");
 				return 1;
-			}else if(command.equals("pw_change")) {
-				
-				
 			}
+		}else if(command.equals("pw_change")) {
+			
+			
 		}// adds_yes
 		return 999;
 	}

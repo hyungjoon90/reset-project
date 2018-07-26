@@ -79,6 +79,56 @@ $(function(){
 	    $('#addrDetail').focus();
 	});
 });// end document.onload
+
+function event_addrCheck(){
+	var email =$("#email").val();
+	var name =$("#name").val();
+	var phone =$("#phone").val();
+	var postcode =$("#zipNo").val();
+	var address = $("#roadAddrPart1").val();
+	var checkbox=$("input:checkbox[id='checkbox']");
+	
+	function validateEmail(email) {
+		var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		return re.test(email);
+	}
+
+	function isMobile(phoneNum)   { 
+	  var regExp =/^(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$/;  
+	  return regExp.test(phoneNum); 
+	}
+
+	function isPhone(phoneNum)   { 
+	  var regExp =/^(02|0[3-9]{1}[0-9]{1})[1-9]{1}[0-9]{2,3}[0-9]{4}$/;  
+	  return regExp.test(phoneNum); 
+	}
+	
+	if (email == "" || !validateEmail(email)) {
+		alert("올바른 이메일 주소를 입력하세요");
+		 $("#email").val("");
+		 $("#email").focus();
+		 return false;
+	}
+	
+	if(name==""){
+		alert("이름을 입력해 주세요");
+		$("#name").focus();
+		return false;
+	}
+	
+	if(phone="" || !isMobile(phone) ||!isMobile(phone)){
+		alert("유효한 번호를 넣어주세요");
+		$("#phone").val("");
+		$("#phone").focus();
+		return false;
+	}
+	if(!(checkbox.is(":checked"))){
+		alert("동의 해주셔야 이벤트 참가가 가능합니다");
+		$("#checkbox").focus();
+		return false;
+	}
+}
+
 </script>
 <style type="text/css">
 .page_container{
@@ -186,10 +236,10 @@ input.upload {
             <!-- 내용 입력 시작-->
             <div class="contents_container">
 	       	<div class="row">
-   			<div class="col-md-8">
+   			<div class="col-md-12">
    			<h1 class="entry-title"><span>이벤트 참가 주소입력</span></h1>
    			<hr>
-			<form method="post" action="/reset/event/${event}/addr">
+			<form method="post" action="/reset/event/${event}/addr" onsubmit="return event_addrCheck()">
 				<div>
 					<input type="hidden" name="eve_no" id="eve_no" value="${event}">
 				</div>
@@ -244,6 +294,18 @@ input.upload {
 		            </div>
 		            <small><br></small>
 		          </div>
+		        </div>
+		        
+		        <div class="form-group">
+		          <label class="control-label col-sm-3"></label>
+		          <div class="col-md-8 col-sm-9">
+		            <small>개인정보 수집·이용에 대한 안내 필수 수집·이용 항목 (문의접수와 처리,회신을 위한 최소한의 개인정보로 동의가 필요합니다.) 수집항목 목적 보유기간 이메일 주소, 휴대폰 번호
+                     고객문의 및 상담요청에 대한 회신, 상담을 위한 서비스 이용기록 조회 관련 법령 또는 회사 내부방침에 의해 보존 필요시 까지 보관, 그외 지체없이 파기합니다. 더 자세한 내용에 대해서는 리셋 개인정보처리방침을 참고하시기 바랍니다.</small>
+					<p><strong><input type="checkbox" id="checkbox" name="checkbox">위 내용에 동의합니다</strong></p>
+		          </div>
+		        </div>
+		        <div>
+		        	<span></span>
 		        </div>
 		       
 		        <div class="form-group">

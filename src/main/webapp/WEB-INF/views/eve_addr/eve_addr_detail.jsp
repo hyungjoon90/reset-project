@@ -10,7 +10,15 @@
 <link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
 <link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot }css/main.css" rel="stylesheet">
+<link href="${goRoot }css/btn/btn.css" rel="stylesheet">
 	<title>Home</title>
+<style type="text/css">
+#eventNum{
+	width: 20%;
+	display: inline-block;
+}
+
+</style>
 </head>
 <body>
 	<!--header-->
@@ -69,6 +77,7 @@
     <div class="page_container">
         <hr>
             <!-- 내용 입력 시작 -->
+            <div>이벤트 이름 : ${event_detail.title}</div>
             <div>총 참가인원 : ${tot }</div>
             <!-- 아코디언 시작 -->
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -111,8 +120,8 @@
 			</div><!-- 아코디언 끝 -->
 			<div>
 				<form action="/reset/admin/eveaddr/${eve_no }" method="post">
-					<span><input type="text" name="eventNum" id="eventNum"></span>
-					<span><button type="submit">당첨자 조회</button></span>
+					<span><input type="text" name="eventNum" id="eventNum" class="form-control" placeholder="당첨인원수를 적어주세요."></span>
+					<span><button type="submit" class="darkBtn">당첨자 조회</button></span>
 				</form>
 			</div>
 			
