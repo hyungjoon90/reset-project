@@ -23,23 +23,21 @@ public class Qna_Controller {
 	@Autowired
 	Qna_Service service;
 
-	String view = "redirect:/qna/";
-	String view2 = "redirect:/admin/qnaList";
+	String view = "redirect:/qna";
+	String view2 = "redirect:/admin/admin_qna_list";
 
 	//고객의 문의사항
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
 	public String show(Model model) {
-		System.out.println("입력폼");
+		log.debug("show form" );
 		model.addAttribute("goRoot", "../");
-		return "qna/qnaEmail";
+		return "qna/qna";
 	}
 	
 	//고객이 문의 내용을 입력하고 전송
-	@RequestMapping(value = "/qna/", method = RequestMethod.POST)
+	@RequestMapping(value = "/qna", method = RequestMethod.POST)
 	public String add(Qna_Vo bean) throws SQLException {
-		System.out.println("전송");
-		service.addPage(bean);
-		System.out.println("전송됨.");
+		log.debug("고객 - qna send : " + bean);
 		return view;	
 	}
 	
@@ -47,16 +45,19 @@ public class Qna_Controller {
 	@RequestMapping(value = "/admin/qna")
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
+		log.debug("Admin qna - show List");
 		System.out.println("리스트 보여주기");
-		return "admin/qnaList";
+		model.addAttribute("goRoot", "../");
+		return "admin/admin_qna_list";
 	}
 
 	//admin qna detail
 	@RequestMapping(value = "/admin/qna/{qa_no}", method=RequestMethod.GET)
 	public String detail(@PathVariable int qa_no, Model model) throws SQLException {
-	System.out.println("qa_no:"+qa_no);
+	log.debug("qna detail : "+ qa_no);
 	model.addAttribute("bean", service.selectOnePage(qa_no));
-	return "admin/qnaDetail";
+	model.addAttribute("goRoot", "../../");
+	return "admin/admin_qna_detail";
 	}
 
 	//admin qna answer ajax
@@ -72,7 +73,7 @@ public class Qna_Controller {
 			result.put("result", resultNum);
 			result.put("new_answer",bean.getAnswer());
 		}
-
+		log.debug(bean);
 		return result;
 	}
 

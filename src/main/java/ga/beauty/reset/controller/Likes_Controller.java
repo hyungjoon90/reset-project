@@ -43,14 +43,13 @@ public class Likes_Controller {
 	
 	@RequestMapping(value="/likes/{type}/{p_no}", method=RequestMethod.PUT)
 	@ResponseBody
-	public Map<String,Object> likesAddUp(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws IOException, SQLException {
-		log.debug("실행");
+	public Map<String,Object> likesAddUp(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws Exception {
 		return likes_Service.up(bean);
 	}
 	
 	@RequestMapping(value="/likes/{co_type}/{p_no}", method=RequestMethod.DELETE)
 	@ResponseBody
-	public Map<String,Object> likesDeldown(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws IOException, SQLException {
+	public Map<String,Object> likesDeldown(@RequestBody Likes_Vo bean,HttpServletResponse resp) throws Exception {
 		return likes_Service.down(bean);
 	}
 }

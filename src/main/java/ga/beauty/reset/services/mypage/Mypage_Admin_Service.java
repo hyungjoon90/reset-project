@@ -1,28 +1,199 @@
 package ga.beauty.reset.services.mypage;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import ga.beauty.reset.Session_Listener;
+import ga.beauty.reset.dao.Companys_Dao;
+import ga.beauty.reset.dao.Members_Dao;
+import ga.beauty.reset.dao.entity.Companys_Vo;
+import ga.beauty.reset.dao.entity.Members_Vo;
+import ga.beauty.reset.dao.entity.stat.Log_Chart;
+import ga.beauty.reset.dao.entity.stat.Log_File;
+import ga.beauty.reset.utils.ChartFile;
+import ga.beauty.reset.utils.RegexLogFile;
 
 @Service
 public class Mypage_Admin_Service {
+	
+	String logFile = "C:/reset/applogs/weblog.log";
+	String errFile = "C:/reset/applogs/errlog.log";
+	
 // 권한으로 CEO, 직원 구별한다
 
+	@Autowired
+	RegexLogFile regexLogFile;
+	@Autowired
+	ChartFile chartFile;
+	private String[] colorFile = {
+			"rgba(255,145,48,"
+			,"rgba(254,221,85,"
+			,"rgba(18,140,135,"
+			,"rgba(59,0,48,"
+	};
+	public Mypage_Admin_Service() {
+	}
+	
+	@Autowired
+	Members_Dao members_Dao;
+	
+	@Autowired
+	Companys_Dao companys_Dao;
+	
+	
 	// 접속자수 / 로그인 수 / 숫자 등등
 	public int getInfoAsInt(String command, HttpSession session, HttpServletRequest req) {
-
+		if(command.equals("login-cnt")) {
+			int data = Session_Listener.getLoginSessionNumber();
+			if(data!=0)	return data;
+		}else if(command.equals("session-cnt")) {
+			int data = Session_Listener.getActiveSessionNumber();
+			if(data!=0) return data;
+		}
 		return 0;
 	}
 	
-	
-	// 통계 객체로 필요한것들 18-01 18-02 등등
-	// 이때 맵은 data : List인데 이놈을 컨트롤러에서 objectMapper로 처리한다.
 	public Map<String, Object> getInfoAsMap(String command, HttpSession session, HttpServletRequest req) {
 		return null;
+	}
+
+	//
+	public List getInfoAslist(String command, HttpSession session,
+			HttpServletRequest req) throws SQLException {
+		if(command.equals("member")) {
+			String type= req.getParameter("type");
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			String start = req.getParameter("start");
+			String cnt = req.getParameter("cnt");
+			String searchType = req.getParameter("searchType");
+			String txt = req.getParameter("txt");
+			
+			if(start!=null && !start.equals("") && !start.equals("undefined"))map.put("start", Integer.parseInt(start));
+			if(cnt!=null && !cnt.equals("")&& !cnt.equals("undefined"))map.put("cnt", Integer.parseInt(cnt));
+			if(searchType!=null && !searchType.equals("")&& !searchType.equals("undefined"))map.put("searchType", searchType);
+			if(txt!=null && !txt.equals("")&& !txt.equals("undefined"))map.put("txt", txt);
+			if(searchType.equals("pointUp"))map.put("pointUp","pointUp");
+			if(searchType.equals("#pointDown"))map.put("#pointDown","#pointDown");
+			if(type.equals("emp"))map.put("company","reset");
+			
+			
+			if(type.equals("normal")) {
+				int tot = members_Dao.totCount(map);
+				List<Members_Vo> list = members_Dao.selectAllLimit(map);
+				req.setAttribute("totNum", tot);
+				req.setAttribute("listSize", list.size());
+				req.setAttribute("result_data", list);
+				req.setAttribute("go", "1");
+				return list;
+			}else if(type.equals("company")) {
+				int tot = companys_Dao.totCount(map);
+				List<Companys_Vo> list = companys_Dao.selectAllLimit(map);
+				req.setAttribute("totNum", tot);
+				req.setAttribute("listSize", list.size());
+				req.setAttribute("result_data", list);
+				req.setAttribute("go", "2");
+				return list;
+			}else if(type.equals("emp")) {
+				int tot = companys_Dao.totCount(map);
+				List<Companys_Vo> list = companys_Dao.selectAllLimit(map);
+				req.setAttribute("totNum", tot);
+				req.setAttribute("listSize", list.size());
+				req.setAttribute("result_data", list);
+				req.setAttribute("go", "2");
+				return list;
+			}
+		}
+		return null;
 	}	
+
 	
 	
+	public List<Log_File> getLog(String command, HttpSession session, HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
+		String startNum = req.getParameter("log_start_num");
+		List<Log_File> list = null;
+		if(command.equals("normal")) {
+			if(startNum!=null && !startNum.equals("")) {
+				list = regexLogFile.getListFromLog(logFile,1,Integer.parseInt(startNum));
+			}else {
+				list = regexLogFile.getListFromLog(logFile);
+			}
+		}else if(command.equals("error")) {
+			if(startNum!=null && !startNum.equals("")) {
+				list = regexLogFile.getListFromLog(errFile,1,Integer.parseInt(startNum));
+			}else {
+				list = regexLogFile.getListFromLog(errFile);
+			}		
+		}
+		return list;
+	}
+
+	public <T> Map<String, Object> getChart(String command, HttpSession session, HttpServletRequest req) throws JsonProcessingException, IOException {
+		Map<String,Object> listS = null;
+
+		String days = req.getParameter("log_day");
+		int daysInt = 1;
+		if(days!=null && !days.equals("")) daysInt = Integer.parseInt(days);		
+		String beanType = req.getParameter("no");
+		int no = -1;
+		if(beanType!=null && !beanType.equals(""))no = Integer.parseInt(beanType);		
+		if(no==-1){
+			listS = chartFile.getDataForC(command,daysInt);
+		}else{
+			listS = chartFile.getDataForEM(command,daysInt,no);
+		}
+		
+		if(listS.size()>0) {
+			StringBuffer sbr = new StringBuffer();
+			StringBuffer sbr2 = new StringBuffer(); // 라벨용
+			sbr.append("[");
+			Set<String> keySet = listS.keySet();
+			Iterator<String> ite = keySet.iterator();
+			int cnt = 0;
+			while(ite.hasNext()) {
+				String listName = ite.next();
+				if( listName.equals("라벨")) {
+					List<String> list = (List<String>) listS.get(listName);	
+					sbr2.append("[");
+					for(int i=0; i<list.size(); i++){
+						if(i!=0)sbr2.append(",");
+						sbr2.append("\""+list.get(list.size()-i-1)+"\"");
+					}
+					sbr2.append("]");
+				}else {
+					List<Log_Chart> list = (List<Log_Chart>) listS.get(listName);	
+					sbr.append("{label:'"+list.get(0).getLabel()+"',");
+		            sbr.append("borderColor: '"+getColor(cnt,"0.8")+"',");
+		            sbr.append("backgroundColor: '"+getColor(cnt++,"0.4")+"',");
+					sbr.append("data:[");
+					for(int i=0; i<list.size(); i++){
+						if(i!=0)sbr.append(",");
+						sbr.append(list.get(list.size()-i-1).getValueY());
+					}
+					sbr.append("]},");
+				}
+			}
+			sbr.append("]");
+			req.setAttribute("dataSet", sbr.toString());
+			req.setAttribute("labels", sbr2.toString());
+		}
+		return listS;
+	}
+
+	private String getColor(int i,String str) {
+		return colorFile [i]+str+")";
+	}
+
 }// Mypage_Admin_service

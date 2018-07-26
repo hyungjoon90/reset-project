@@ -46,6 +46,8 @@ public class Event_Controller {
 	UpdateViewUtils viewUtils;
 	
 	String goRoot="../";
+
+	
 	
 	/*@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
@@ -91,7 +93,7 @@ public class Event_Controller {
 	
 	//TODO: event 상세페이지를 출력합니다. / event_detail.jsp / 김형준
 	@RequestMapping(value = "/event/{eve_no}", method = RequestMethod.GET)
-	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req,HttpServletResponse resp) throws SQLException {
+	public String detail(@PathVariable int eve_no ,Model model,HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		model.addAttribute("goRoot",goRoot);
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
@@ -100,7 +102,7 @@ public class Event_Controller {
 		comment.setCo_type("이벤트");
 		comment.setP_no(eve_no);
 		
-		//쿠기를 사용한 조회수 증가 입니다(3번째 인자로 review,magazine,event 중에 골라서 넣어주세요)
+		//쿠키를 사용한 조회수 증가 입니다(3번째 인자로 review,magazine,event 중에 골라서 넣어주세요)
 		viewUtils.UpdateView(resp, req, "event", eve_no, model);
 		
 		model.addAttribute("no",eve_no);

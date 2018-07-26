@@ -1,13 +1,22 @@
 package ga.beauty.reset.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import ga.beauty.reset.dao.entity.stat.Log_File;
 import ga.beauty.reset.services.mypage.Mypage_Admin_Service;
 import ga.beauty.reset.utils.LogEnum;
 
@@ -31,5 +40,66 @@ public class Admin_Controller {
 		return "admin/admin_main";
 	}
 	
+	@RequestMapping(value="/admin/{path}/{command}/",method=RequestMethod.GET) // 페이지 이동
+	public String showPage(Model model, @PathVariable("path") String path, @PathVariable("command") String command) {
+		model.addAttribute("goRoot", "../../../");
+		model.addAttribute("command",command);
+		return "admin/admin_"+path;
+	}
 	
+	@RequestMapping(value="/admin/ajax/{command}/", method=RequestMethod.POST)
+	public String ajaxCalling(Model model,@PathVariable("command") String command
+			,HttpSession session ,HttpServletRequest req) throws SQLException {
+		model.addAttribute("goRoot", "../../../");
+		if(req.getParameter("resultType")==null) {
+			return "admin/admin_ajax";
+		}
+		if(req.getParameter("resultType").equals("int")) {
+			int result = mypage_Admin_Service.getInfoAsInt(command, session, req);
+			if(result!=0) {
+				model.addAttribute("result",200);
+				model.addAttribute("result_data",result);
+			}
+		}else if(req.getParameter("resultType").equals("map")) {
+			Map<String, Object> result = mypage_Admin_Service.getInfoAsMap(command, session, req);
+			if(result!=null) {
+				model.addAttribute("result",200);
+				model.addAttribute("result_data",result);
+			}
+		}else if(req.getParameter("resultType").equals("list")) {
+			List<? super Object> result = mypage_Admin_Service.getInfoAslist(command, session, req);
+			if(result!=null && result.size()>0) {
+				if(command.equals("member") && req.getAttribute("go").equals("1")) {
+					return "admin/admin_userlist";
+				}else {// company 있는 사람들 용
+					return "admin/admin_userlist2";
+				}
+			}else {
+				return "admin/admin_empty";
+			}
+		}
+		return "admin/admin_ajax";
+	}
+	
+	@RequestMapping(value="/admin/log/{command}", method=RequestMethod.POST) // ajax
+	public String logCalling(Model model,@PathVariable("command") String command
+			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
+		List<Log_File> result = mypage_Admin_Service.getLog(command, session, req);
+		if(result!=null && result.size()>0) {
+			model.addAttribute("result",200);
+			req.setAttribute("log_list", result);
+		}
+		return "admin/admin_log";
+	}
+	
+	@RequestMapping(value="/admin/chart/{command}", method=RequestMethod.POST) // ajax
+	public String chartCalling(Model model,@PathVariable("command") String command
+			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
+
+		Map<String,Object> result = mypage_Admin_Service.getChart(command, session, req);
+		if(result!=null && result.size()>0) {
+			req.setAttribute("chartSort", command);
+		}
+		return "admin/admin_chart";
+	}
 }

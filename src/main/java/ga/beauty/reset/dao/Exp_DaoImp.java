@@ -1,7 +1,7 @@
 package ga.beauty.reset.dao;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
@@ -15,37 +15,13 @@ public class Exp_DaoImp implements Exp_Dao {
 	@Autowired
 	SqlSession sqlSession;
 
-	
-	//TODO exp service 쪽으로 옮기기
 	@Override
-	public int up(String email, String type) throws SQLException {
-		int exp=0;
-		if(type.equals("review")) {
-			exp=10;
-		}else if(type.equals("comment")) {
-			exp=5;
-		}else if(type.equals("like")) {
-			exp=1;
-		}
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("email", email);
-		map.put("exp", exp);
+	public int up(Map map) throws SQLException {
 		return sqlSession.update("exp.expUp",map);
 	}
 
 	@Override
-	public int down(String email, String type) throws SQLException {
-		int exp=0;
-		if(type.equals("review")) {
-			exp=10;
-		}else if(type.equals("comment")) {
-			exp=5;
-		}else if(type.equals("like")) {
-			exp=1;
-		}
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("email", email);
-		map.put("exp", exp);
+	public int down(Map map) throws SQLException {
 		return sqlSession.update("exp.expDown",map);
 	}
 
