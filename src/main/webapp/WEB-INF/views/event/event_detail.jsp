@@ -14,20 +14,18 @@
 	<title>Home</title>
 <script type="text/javascript">
 $(document).ready(function(){
-
-	/* 좋아요 시작 */
 	//전 페이지로 이동
 	$("#listBack").click(function(){
 		window.history.back();
 	});
+	/* 좋아요 시작 */
 	
 	var email=$("#email").val();
     /* var email=${email}; */
     var p_no=$("#p_no").val();
     /* var p_no=${p_no}; */
 	var type=$("#type").val();	    
-	/* var type=${type}; */		
-	
+	/* var type=${type}; */		    
     $.ajax({
     	type:'post',
 		url: '/reset/like/'+type+'/'+p_no,
@@ -64,7 +62,7 @@ $(document).ready(function(){
 		    var p_no=$("#p_no").val();
 		    /* var p_no=${p_no}; */
 			var type=$("#type").val();	    
-			/* var type=${type}; */	
+			/* var type=${type}; */		    
 		    $.ajax({
 		    	type:'PUT',
 				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
@@ -76,19 +74,19 @@ $(document).ready(function(){
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "PUT"
-				},
-				dataType: "text"
+				}
 			}) 
 			.done(function(data){
 				console.log(data);
-				if(data=="1"){
+			 	if(data.result=="1"){
 					console.log("성공");
 					$("#Likes").hide();
 					$("#unLikes").show();
 					$("#result").val("like");
+					$("#su").text(data.like);
 				} else if(data=="0"){
 					alert("실패하였습니다.");
-				}
+				} 
 		 	})
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 수정 실패');
@@ -105,7 +103,7 @@ $(document).ready(function(){
 		    var p_no=$("#p_no").val();
 		    /* var p_no=${p_no}; */
 			var type=$("#type").val();	    
-			/* var type=${type}; */	
+			/* var type=${type}; */		    
 		    $.ajax({
 		    	type:'DELETE',
 				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
@@ -117,19 +115,19 @@ $(document).ready(function(){
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "DELETE"
-				},
-				dataType: "text"
+				}
 			}) 
 			.done(function(data){
 				console.log(data);
-				if(data=="1"){
+				if(data.result=="1"){
 					console.log("성공");
 					$("#Likes").show();
 					$("#unLikes").hide();
 					$("#result").val("unlike");
+					$("#su").text(data.like);
 				} else if(data=="0"){
 					alert("실패하였습니다.");
-				}
+				} 
 		 	})
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 수정 실패');
@@ -139,6 +137,7 @@ $(document).ready(function(){
     /* 좋아요 끝 */
     
 });
+	
 </script>
 <style type="text/css">
 .page_container{
@@ -161,7 +160,7 @@ $(document).ready(function(){
 	margin: 10px;
 	color: #b2b0b0;
 }
-#popNum{
+#su{
 	font-size: 1vmax;
 }
 .funBtn{/* 목록,삭제,추가 버튼 */
@@ -217,6 +216,7 @@ $(document).ready(function(){
 
 .alwaysBtn{
 	margin-left:75%;
+	bottom: 20px;
 	position: fixed;
 }
 .box-footer{/* 댓글 입력버튼 */
@@ -241,8 +241,8 @@ $(document).ready(function(){
 	margin-left: 90%;
 }
 
-/* tags 안보이게 */
-.tagsDiv{
+/* com_email 안보이게 */
+.com_emailDiv{
 	visibility: hidden;
 }
 </style>
@@ -308,13 +308,13 @@ $(document).ready(function(){
             <div class="contents_container">
             <form method="post" action="/reset/admin/event/${detail.eve_no}">
 	            <div>
-	            	<span><img src="..${detail.img }"></span>
+	            	<span><img src="${goRoot}${detail.img }"></span>
 	            </div>
 	            <div class="nalja">
 	            	<span><strong>${detail.nalja }</strong></span>
 	            </div>
 	            <div class="view">
-	            	<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}</strong></span>
+	            	<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}<strong></span>
 	            </div>
 	            <div>
 	            	<span class="title"><strong>${detail.title }</strong></span>
@@ -323,8 +323,8 @@ $(document).ready(function(){
 	            <div>
 	            	<span>${detail.con }</span>
 	            </div>
-	            <div class="tagsDiv">
-	            	<span>${detail.tags }</span>
+	            <div class="com_emailDiv">
+	            	<span>${detail.com_email }</span>
 	            </div>
 	            <!-- TODO:이벤트 주소입력 으로 가는곳입니다. -->
 	            <div>
@@ -333,6 +333,7 @@ $(document).ready(function(){
 					</a>
 				</div>
 				<!-- TODO:이벤트 주소입력 끝 -->
+				<!-- 좋아요. -->
 	            <div class="popDiv dis">
 	            	<input id="email" type="hidden" value="cus1@naver.com" />
 					<input id="p_no" type="hidden" value="${detail.eve_no }" />
@@ -340,8 +341,9 @@ $(document).ready(function(){
 					<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
 					<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn btimg">
 					<input id="result" type="hidden" value="" />
-					<span><strong id="popNum">${detail.pop }</strong></span>
+					<span><strong id="su">${detail.pop }</strong></span>
 	            </div>
+	            <!-- 좋아요 끝 -->
 	        <div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
 			</div>
@@ -359,6 +361,7 @@ $(document).ready(function(){
 			</form>
 			</c:if>
 			</div>
+			<!-- 항상 화면 위에 이동버튼 -->
 			<div class="alwaysBtn">
 				<a href="#content">
 					<img alt="goCom" class="topbtn comAlbtn" src="${goRoot}imgs/icon/grey-comment.png" onmouseover="this.src='${goRoot}imgs/icon/red-comment.png'" onmouseout="this.src='${goRoot}imgs/icon/grey-comment.png'">
@@ -419,7 +422,7 @@ $(document).ready(function(){
         <hr>
     </div>
     <!-- //main contents -->
-
+	<%@include file="../../views/template/ajax_loading.jsp" %>
     <!--footer-->
     <div class="footer">
         <div class="wrap">

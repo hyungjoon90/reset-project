@@ -1,7 +1,6 @@
 package ga.beauty.reset.controller;
 
 import java.sql.SQLException;
-import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -14,7 +13,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +43,8 @@ public class Mail_Controller {
 		String setfrom ="resetbeauty@gmail.com";
 		String toemail = bean.getEmail();
 		String title = "Re : " + bean.getCon();
-		String contents = "<html><head></head><body><h1>안녕하세요 리셋입니다</h1>"+"<p>문의주신 내용</p>"+"<blockquote>"+bean.getCon()+"</blockquote>"+"에 대한 답변입니다"+"<hr>"+ "<p>"+bean.getAnswer()+"</p></body></html>";
+		String contents = "<html><body><h1>안녕하세요 리셋입니다</h1>"+"<p>문의주신 내용</p>"+"<blockquote>"+bean.getCon()+"</blockquote>"+"에 대한 답변입니다"+"<hr>"+ "<p>"+bean.getAnswer()+"</p></body></html>";
+		
 		
 		
 		MimeMessage msg = mailSender.createMimeMessage();
@@ -56,18 +55,8 @@ public class Mail_Controller {
 		messageHelper.setSubject(title);
 		msg.setContent(contents, "text/html; charset=utf-8");
 	
-		mailSender.send(messageHelper.getMimeMessage());
+		mailSender.send(msg);
 	
 		return "456";
-	
-		
 	}
-	
-	public String goContentFromTemplate(Map<String, Object> model) {
-		StringBuffer content = new StringBuffer();
-		content.append(VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "/template/eamiltemplate.vm", model));
-		return content.toString();
-	}
-
-
-}// Controller class end
+}

@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,24 +30,32 @@ import ga.beauty.reset.dao.entity.stat.Log_C_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
+@Component("like_Listener")
 public class Like_Listener implements Common_Listener{
 
 	Logger logger = Logger.getLogger(Like_Listener.class);
 	
 	// like/yyyy/MM/dd.json
 	//{"data":[{"name":String,"num":int}]}
-	private String defaultFP = "c:/reset/report/like/";
-	// 좋아요 총량 / 일별 증가량
+	private String defaultFP = "/reset/report/like/";
+	// 좋아요 총량 / 일별 증가량 : DONE
 
 	private List<Log_C_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 
-	public Like_Listener() {
-		init();
+	public Like_Listener()  {
+		try {
+			init();
+			logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+		} catch (JsonProcessingException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		} catch (IOException e) {
+			logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		}
 	}
 	
-	private void init() {
+	private void init() throws JsonProcessingException, IOException {
 		list = new ArrayList<Log_C_Vo>();
 		objectMapper = new ObjectMapper();
 		Date date = new Date();
@@ -59,11 +68,7 @@ public class Like_Listener implements Common_Listener{
 		if(!file.exists()) {
 			new File(file.getParent()).mkdirs();
 		}else {
-			try {
-				node = objectMapper.readTree(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			node = objectMapper.readTree(file);
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_C_Vo>>(){});
 		}		
 	}// init()
@@ -101,7 +106,6 @@ public class Like_Listener implements Common_Listener{
 	@Async("threadPoolTaskExecutor")
 	@Scheduled(cron=" 0 4 0 * * *\r\n" )
 	public void saveLogOneday() throws Exception {
-		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Calendar cal = new GregorianCalendar();
 			cal.add(Calendar.DATE, -1);
@@ -113,7 +117,7 @@ public class Like_Listener implements Common_Listener{
 					+".json";
 			File file = new File(filename);
 			if(!file.exists()) {
-				file.mkdirs();
+				new File(file.getParent()).mkdirs();
 			}
 			StringBuilder sbr = createJsonString();
 			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
@@ -128,7 +132,6 @@ public class Like_Listener implements Common_Listener{
 	@Override
 	@PreDestroy
 	public void saveTmp() throws Exception {
-		System.out.println("좋아요"); // TODO 안됨 해결해야됨.
 		if(list.size()==0) {return ;}
 		synchronized (this) {
 			Date date = new Date();

@@ -1,5 +1,10 @@
 package ga.beauty.reset.utils.runner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
@@ -13,6 +18,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.io.Files;
+
+import ga.beauty.reset.utils.LogEnum;
+import ga.beauty.reset.utils.MySDF;
+
 @Configuration
 @EnableAsync
 @EnableScheduling
@@ -22,7 +33,15 @@ public class AsyncScheduleConfig {
 	 * 출처 : https://blog.outsider.ne.kr/1066
 	 * 공부해야됩니다.
 	 * */
-    Logger errorLogger = Logger.getLogger(AsyncScheduleConfig.class);
+	Logger logger = Logger.getLogger(AsyncScheduleConfig.class);
+
+	public AsyncScheduleConfig() {
+		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
+	}
+	
+	String crashPath = "/reset/applogs/crash/";
+	
+	
     @Bean(name = "threadPoolTaskExecutor")
     public Executor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
@@ -75,13 +94,23 @@ public class AsyncScheduleConfig {
                     try {
                         task.run();
                     } catch (Exception ex) {
-                        handle(ex);
+                        try {
+							handle(ex);
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
                     }
                 }
             };
-        }
-        private void handle(Exception ex) {
-            errorLogger.error("@비동기-스케쥴러에러@",ex);
+        }		
+        private void handle(Exception ex) throws FileNotFoundException {
+            logger.error(LogEnum.ERROR_ASYNC+ex.getMessage().replace( System.getProperty( "line.separator" ), ""),ex);
+            Date date = new Date();
+            String fileDate = MySDF.SDF_ALL.format(date);
+            File file = new File(crashPath+"/"+fileDate+"-crash.log");
+            if(!file.exists())new File(file.getParent()).mkdirs();
+            PrintStream test = new PrintStream(file);
+            ex.printStackTrace(test);
         }
 		@Override
 		public boolean prefersShortLivedTasks() {

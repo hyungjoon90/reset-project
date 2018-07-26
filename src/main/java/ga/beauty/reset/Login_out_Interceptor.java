@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import ga.beauty.reset.dao.entity.User_Vo;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.runner.Common_Listener;
 import ga.beauty.reset.utils.runner.Login_Listener;
 
@@ -21,13 +22,14 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 	Common_Listener login_Listener;
 	
 	public Login_out_Interceptor() {
-		login_Listener = Login_Listener.getThis();
+		logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
 	}
 	
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		HttpSession session = request.getSession();
+		if(login_Listener==null) login_Listener = Login_Listener.getThis();
 		if(session.getAttribute("login_on")==null) {
 			
 		}else if((boolean)session.getAttribute("login_on") == true){
@@ -42,6 +44,7 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
+		if(login_Listener==null) login_Listener = Login_Listener.getThis();
 		if(session.getAttribute("login_on")==null) {
 			
 		}else if((boolean)session.getAttribute("login_on") == true){

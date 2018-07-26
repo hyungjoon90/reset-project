@@ -8,7 +8,7 @@ public class Magazine_Vo {
 	private String title;
 	private String con;
 	private int cate;
-	private String tags;
+	private String com_email;
 	private String writer;
 	private Date nalja;
 	private int pop;
@@ -16,29 +16,6 @@ public class Magazine_Vo {
 	private int open;
 	
 	public Magazine_Vo() {
-	}
-
-	@Override
-	public String toString() {
-		return "Magazine_Vo [mag_no=" + mag_no + ", img=" + img + ", title=" + title + ", con=" + con + ", cate=" + cate
-				+ ", tags=" + tags + ", writer=" + writer + ", nalja=" + nalja + ", pop=" + pop + ", view=" + view
-				+ ", open=" + open + "]";
-	}
-
-	public Magazine_Vo(int mag_no, String img, String title, String con, int cate, String tags, String writer,
-			Date nalja, int pop, int view, int open) {
-		super();
-		this.mag_no = mag_no;
-		this.img = img;
-		this.title = title;
-		this.con = con;
-		this.cate = cate;
-		this.tags = tags;
-		this.writer = writer;
-		this.nalja = nalja;
-		this.pop = pop;
-		this.view = view;
-		this.open = open;
 	}
 
 	public int getMag_no() {
@@ -81,12 +58,12 @@ public class Magazine_Vo {
 		this.cate = cate;
 	}
 
-	public String getTags() {
-		return tags;
+	public String getCom_email() {
+		return com_email;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setCom_email(String com_email) {
+		this.com_email = com_email;
 	}
 
 	public String getWriter() {
@@ -130,16 +107,39 @@ public class Magazine_Vo {
 	}
 
 	@Override
+	public String toString() {
+		return "Magazine_Vo [mag_no=" + mag_no + ", img=" + img + ", title=" + title + ", con=" + con + ", cate=" + cate
+				+ ", com_email=" + com_email + ", writer=" + writer + ", nalja=" + nalja + ", pop=" + pop + ", view="
+				+ view + ", open=" + open + "]";
+	}
+
+	public Magazine_Vo(int mag_no, String img, String title, String con, int cate, String com_email, String writer,
+			Date nalja, int pop, int view, int open) {
+		super();
+		this.mag_no = mag_no;
+		this.img = img;
+		this.title = title;
+		this.con = con;
+		this.cate = cate;
+		this.com_email = com_email;
+		this.writer = writer;
+		this.nalja = nalja;
+		this.pop = pop;
+		this.view = view;
+		this.open = open;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + cate;
+		result = prime * result + ((com_email == null) ? 0 : com_email.hashCode());
 		result = prime * result + ((con == null) ? 0 : con.hashCode());
 		result = prime * result + ((img == null) ? 0 : img.hashCode());
 		result = prime * result + mag_no;
 		result = prime * result + open;
 		result = prime * result + pop;
-		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + view;
 		result = prime * result + ((writer == null) ? 0 : writer.hashCode());
@@ -157,6 +157,11 @@ public class Magazine_Vo {
 		Magazine_Vo other = (Magazine_Vo) obj;
 		if (cate != other.cate)
 			return false;
+		if (com_email == null) {
+			if (other.com_email != null)
+				return false;
+		} else if (!com_email.equals(other.com_email))
+			return false;
 		if (con == null) {
 			if (other.con != null)
 				return false;
@@ -173,11 +178,6 @@ public class Magazine_Vo {
 			return false;
 		if (pop != other.pop)
 			return false;
-		if (tags == null) {
-			if (other.tags != null)
-				return false;
-		} else if (!tags.equals(other.tags))
-			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -192,5 +192,5 @@ public class Magazine_Vo {
 			return false;
 		return true;
 	}
-	
+
 }

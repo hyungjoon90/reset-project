@@ -5,11 +5,11 @@
   
   <mapper namespace="reviews">
   	<select id="reviewAll" resultType="reviews_Vo">
-  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT 10;
+  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT 10
   	</select>
-  	<!-- TODO: 4.ajax 크롤링 -->
+  	<!-- TODO:[sch] 4.ajax 크롤링 -->
   	<select id="reviewListAdd" resultType="reviews_Vo">
-  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT #{review_num},5;
+  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT #{review_num},5
   	</select>
   	<insert id="reviewAdd" parameterType="reviews_Vo">
   		Insert into `mydb`.`review` (`item`, `img`, `writer`, `good`, `bad`, `tip`, `pop`, `star`,`open`) 
@@ -29,5 +29,9 @@
   	</update>
   	<select id="reviewTot" resultType="int">
   		SELECT COUNT(*) FROM REVIEW WHERE ITEM=#{item}
+  	</select>
+  	
+  	<select id="mypage_review" resultType="reviews_Vo" parameterType="String">
+  		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE NICK=#{nick} AND OPEN=1 ORDER BY REV_NO
   	</select>
   </mapper>

@@ -54,6 +54,7 @@ public class Comment_Controller {
 		return entity;
 	}*/
 	
+	//TODO: 댓글의 목록을 보여줍니다. / / 김형준
 	//댓글의 목록을 보여주는 컨트롤러
 	@RequestMapping(value="/{co_type}/{p_no}/comment", method=RequestMethod.GET)
 	public ResponseEntity<List<Comment_Vo>> list(@PathVariable("co_type") String co_type
@@ -73,6 +74,7 @@ public class Comment_Controller {
 		return entity;
 	}
 	
+	//TODO: 댓글의 입력합니다. / / 김형준
 	//댓글을 입력하는 컨트롤러
 	@RequestMapping(value="/{co_type}/{p_no}/comment/add", method=RequestMethod.POST)
 	public ResponseEntity<String> register(@PathVariable("co_type") String co_type, @RequestBody Comment_Vo bean){
@@ -90,6 +92,7 @@ public class Comment_Controller {
 		return entity;
 	}
 	
+	//TODO: 댓글의 수정합니다. / / 김형준
 	//댓글을 수정하는 컨트롤러
 	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}",method= {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> update(@PathVariable("co_type") String co_type
@@ -111,6 +114,7 @@ public class Comment_Controller {
 		return entity;
 	}
 	
+	//TODO: 댓글의 삭제합니다. / / 김형준
 	//댓글을 삭제하는 컨트롤러
 	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}", method=RequestMethod.DELETE)
 	public ResponseEntity<String> remove(@PathVariable("co_type") String co_type

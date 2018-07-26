@@ -11,6 +11,7 @@
 <link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
 <link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot}css/main.css" rel="stylesheet">
+<link href="${goRoot }css/btn/btn.css" rel="stylesheet">
 	<title>Home</title>
 <script type="text/javascript">
  $(function(){
@@ -49,14 +50,67 @@
 	    } 
 	 
  });
+ function magazineCheck(){
+	 var img= $("#img");
+	 var title = $("#title");
+	 var cate = $("#cate option:selected");
+	 if(img.val()== ""){
+		 alert("썸네일을 올려 주세요");
+		 return false;
+	 }
+	 if(title.val() == ""){
+		 alert("제목을 입력해 주세요");
+		 $("#title").focus();
+		 return false;
+	 }
+	 if(CKEDITOR.instances.con.getData()==""){
+		 alert("내용을 입력해 주세요");
+		 CKEDITOR.instances.con.focus();
+		 return false;
+	 }
+	 if(cate.val()==99){
+		 alert("카테고리를 골라주세요");
+		 $("#cate").focus();
+		 return false;
+	 }
+ };
 </script>
 <style type="text/css">
 	/* 미리보기 이미지 사이즈 */
 	#control_img { /* div에 주는것도 좋은 방법임. */
-		width: 570px;
-		height: 285px;
+		width: 300px;
 	}
-
+	#preview{
+		width: 570px;
+		height: 350px;
+	}
+	.delImgBtn{
+		display: block;
+	}
+	.imgDiv label { 
+		display: inline-block; 
+		padding: .5em .75em; 
+		font-size: inherit; 
+		line-height: normal;
+		color:#ffffff; 
+		vertical-align: middle; 
+		background-color: #313131; 
+		cursor: pointer; 
+		border: 1px solid #313131; 
+		border-bottom-color: #313131; 
+		border-radius: .25em; 
+		} 
+	
+	.imgDiv input[type="file"] { /* 파일 필드 숨기기 */ 
+		position: absolute; 
+		width: 1px; 
+		height: 1px; 
+		padding: 0; 
+		margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
+		}
 </style>
 </head>
 <body>
@@ -117,24 +171,24 @@
         <hr>
         	<!-- 내용 입력 시작-->
             <!-- Magazine update-page 입니다. -->
-            <form method="post"  action="/reset/admin/magazine/${detail.mag_no}/update" enctype="multipart/form-data" id="magazine_updateForm">
+            <form method="post"  action="/reset/admin/magazine/${detail.mag_no}/update" enctype="multipart/form-data" id="magazine_updateForm" onsubmit="return magazineCheck()">
            		<!-- <input type="hidden" name="_method" value="put"/> -->
 	            <div>
 	            	<label for="mag_no"></label>
-	            	<input type="text" name="mag_no" id="mag_no" value="${detail.mag_no }" >
+	            	<input type="hidden" name="mag_no" id="mag_no" value="${detail.mag_no }" >
 	            </div>
-	            <div>
-	            	<label for="img">대표이미지</label>
-	            	<div name="Existing_img" id="Existing_img"><img src="..${detail.img}"></div>
-	            	<input type="file" name="img" id="img">
+	            <div class="imgDiv">
+	            	<label for="img">대표이미지 수정</label>
+	            	<div name="Existing_img" id="Existing_img"><img src="${goRoot}${detail.img}"></div>
+	            	<input type="file" name="img" id="img" class="darkBtn">
             	</div>
             	<div id="preview">
             		<img src="#" id="control_img">
-            		<button type="button">대표이미지 삭제</button>
+            		<button type="button" class="redBtn delImgBtn">대표이미지 삭제</button>
             	</div>
 	            <div>
 	            	<label for="title">제목</label>
-	            	<input type="text" name="title" id="title" value="${detail.title }" >
+	            	<input type="text" name="title" id="title" value="${detail.title }" class="form-control">
 	            </div>
 	            <div>
 	            	<label for="con">내용</label>
@@ -176,12 +230,12 @@
             		</select>
             	</div>
 	            <div>
-	            	<label for="tags">해시태그</label>
-	            	<input type="text" name="tags" id="tags" value="${detail.tags }">
+            		<label for="com_email">광고주 Email</label>
+	            	<input type="text" name="com_email" id="com_email" class="form-control" value="${detail.com_email }" placeholder="광고주 Email을 적어주세요">
             	</div>
 
-			<button type="reset" class="btn btn-primary">목록</button>
-			<button type="submit" class="btn btn-warning" id="updateBtn">수정</button>
+			<button type="reset" class="darkBtn">목록</button>
+			<button type="submit" class="redBtn" id="updateBtn">수정</button>
 			</form>
 			<script type="text/javascript">
 	       	 $("#updateBtn").on('submit',function(event){
@@ -190,6 +244,16 @@
 	    		 console.log(eve_no);
 	    		 var formData = new FormData($("#magazine_updateForm")[0]);
 	    		 console.log(formData);
+	    		 
+	    		 /* TODO: [김형준] 썸네일 유효성 검사  */
+	       		 var file = $('#img').prop("files")[0];
+	    		 var blobURL = window.URL.createObjectURL(file);
+		         $('#preview img').attr('src', blobURL);
+		         
+	    		 if(file==null){
+	    			 $('#preview img').attr('src', '${detail.img}');
+	    		 }
+	    		 
 	    	     $.ajax({
 	    	       type:'post',
 	    	       enctype: 'multipart/form-data',

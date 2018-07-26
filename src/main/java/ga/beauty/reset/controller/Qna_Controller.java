@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,13 +36,12 @@ public class Qna_Controller {
 	
 	//고객이 문의 내용을 입력하고 전송
 	@RequestMapping(value = "/qna", method = RequestMethod.POST)
-	public String add(Qna_Vo bean,HttpServletRequest req) throws SQLException {
-		service.addPage(bean);
+	public String add(Qna_Vo bean) throws SQLException {
 		log.debug("고객 - qna send : " + bean);
 		return view;	
 	}
 	
-	//TODO admin qna list / "admin/admin_qna_list" / 이지현
+	//admin의 qna
 	@RequestMapping(value = "/admin/qna")
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
@@ -54,7 +51,7 @@ public class Qna_Controller {
 		return "admin/admin_qna_list";
 	}
 
-	//TODO admin qna detail / "admin/admin_qna_detail" / 이지현
+	//admin qna detail
 	@RequestMapping(value = "/admin/qna/{qa_no}", method=RequestMethod.GET)
 	public String detail(@PathVariable int qa_no, Model model) throws SQLException {
 	log.debug("qna detail : "+ qa_no);
@@ -63,7 +60,7 @@ public class Qna_Controller {
 	return "admin/admin_qna_detail";
 	}
 
-	//TODO admin qna answer ajax / "admin/admin_qna_detail" / 이지현
+	//admin qna answer ajax
 	@RequestMapping(value="/admin/qna/{qa_no}", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> json(@PathVariable int qa_no, Model model,Qna_Vo bean) throws SQLException {

@@ -1,205 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${goRoot }js/jquery-1.12.4.js"></script>
-<script src="${goRoot }js/bootstrap.min.js"></script>
-<link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
-<link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${goRoot }css/main.css" rel="stylesheet">
-	<title>Home</title>
-<style type="text/css">
-    /* 전체 container */
-    .page_container{
-    	width: 80%;
-    }
-    .page_container a{
-    	color: black;
-    }
-    .page_container a:hover{
-    	text-decoration: none;
-    }
-    .contentsBox{
-        width: 100%;
-        height: 500px;
-    }
-    .ImgBox{
-        width: 50%;
-        float: left;
-    }
-    .ImgBox>img{
-    	max-width: 100%;
-    }
-    .InfoBox{
-        width: 50%;
-        margin: 100px 0px;
-        float: left;
-    }
-    .table{
-    	border-top: 1px solid #e5e5e5;
-    }
-    .InfoBoxtable>tbody>tr>td{
-    	border: 0px;
-    }
-    .ImgBox>img{
-		max-height: 400px;
-		margin: 0px auto;
-    }
-    .avgBox{
-    	width: 95%;
-    	margin: 0px auto;
-   		border: 1px solid #e5e5e5;
-    }
-    .avgBox>p{
-    	margin-left: 20px;
-    }
-    .avgBox>p:first-child{
-    	font-size: 20px;
-    }
-   
-    .avgBox>table>tbody>tr>td:first-child{
-    	width: 10%;
-    	text-align: center;
-    	font-size: 20px;
-    }
-    .bar1{
-    	background-image: -webkit-linear-gradient(top,#F01A30 0,#F01A30 100%); 
-    }
-    .bar2{
-    	background-image: -webkit-linear-gradient(top,#F04A58 0,#F04A58 100%);
-    }
-    .bar3{
-    	background-image: -webkit-linear-gradient(top,#D7D8DB 0,#D7D8DB 100%);
-    }
-    .bar4{
-    	background-image: -webkit-linear-gradient(top,#71DDE3 0,#71DDE3 100%);
-    }
-    .bar5{
-    	background-image: -webkit-linear-gradient(top,#0396A6 0,#0396A6 100%);
-    }
-    .reviewBox{
-    	width: 95%;
-    	border: 1px solid #e5e5e5;
-    	margin: 0px auto;
-    }
-    .icon{
-   	    text-align: center;
-   	    margin: 5px 0px;
-    }
-    .btn-color{
-   		color: white;
-   		background-image: -webkit-gradient(linear,left top,left bottom,from(#F5515F),to(#A1051D));
-   	} 
-   	.btn-position{
-   	    text-align: center;
-   	    margin: 5px 0px;
-   	}
-   	.btn-file {
-	    position: relative;
-	    overflow: hidden;
-	}
-	.btn-file input[type=file] {
-	    position: absolute;
-	    top: 0;
-	    right: 0;
-	    min-width: 100%;
-	    min-height: 100%;
-	    font-size: 100px;
-	    text-align: right;
-	    filter: alpha(opacity=0);
-	    opacity: 0;
-	    outline: none;
-	    background: white;
-	    cursor: inherit;
-	    display: block;
-	}
-	#img_preview {
-   		display:none;
-	}
-	.img_preview img{
-		width: 400px;
-	}
-	
-	#cart{
-		margin-left:10px;
-	}
-	.listAddBtn{
-		width:7%;
-	}
-	.myRedBtn {
-		background-color:#dd2d25;
-		-moz-border-radius:3px;
-		-webkit-border-radius:3px;
-		border-radius:3px;
-		border:1px solid #dd2d25;
-		display:inline-block;
-		cursor:pointer;
-		color:#ffffff;
-		font-family:Arial;
-		font-size: 15px;
-	    font-weight: bold;
-	    padding: 5px 8px;
-		text-decoration:none;
-	}
-	.myRedBtn:hover {
-		color:#fff;
-		background-color:#d00b01; 
-		
-	}
-	.myRedBtn:active {
-		position:relative;
-		top:1px;
-	}
-	
-	/* reviewBox 위치 */
-	.emptyImg{
-		width: 133px;
-		height: 100px;
-	}
-	.reviewBox>img{
-		margin: 0px 0px 20px 25px;
-	}
-	.rightBox{
-        float: right;
-    }
-    .emtyspace{
-        margin-left: 40px; 
-        margin-top: 15px;       
-    }
-    .main_content{
-    	font-size: 20px;
-    }
-    .sub-content{
-		color: #84868e;
-		min-height: 20px;
-		line-height: 20px;
-    }
-    /* reviewBox 위치 */
-</style>
+<%@include file="/WEB-INF/views/template/head.jsp"%>
+<link rel="stylesheet" href="${goRoot }css/ranking_review/item_detail.css" type="text/css">
+<title>Home</title>
 <script type="text/javascript">
-<!-- //TODO: 1.ajax로 리스트 크롤링 -->
-var page=10;/* 해당 페이지 리스트 갯수 */
+<!-- TODO:[sch] 1.ajax로 리스트 크롤링 -->
+var page=${fn:length(review_bean) };/* 해당 페이지 리스트 갯수 */
 var	pageTot=${tot};/* 리스트 총 갯수 */
 $(document).ready(function(){
-
+	cartCheck(); 
+	if(page>=pageTot){
+		$("#listAdd>img").hide();
+	}
+	
 	$("#listAdd").click(function(){
-		reviewListadd();
-		if(page>pageTot){
-			$("#listAdd").hide();
+		if(page>=pageTot){
+			$("#listAdd>img").hide();
 		}
+		reviewListadd();
 	});
-	$("#cart").click(function(){
-		cart();
+	$("#cartAdd").click(function(){
+		cartAdd();
+	});
+	$("#cartDel").click(function(){
+		cartDel();
 	});
 	
 	$('#review_write').on('shown.bs.modal', function () {
-	})	
+	})	 
 	
-	/* 리스트 추가 버튼 클릭시 실행 */
+	
 	$("#reivewAdd").on("click",function(){
 		var item=${item_bean.item};
 		var formData = new FormData($('#review')[0]);
@@ -213,6 +49,7 @@ $(document).ready(function(){
 				dataType: "text"
 			}) 
 			.done(function(data){
+				expUp("review");
 				console.log(data);
 				if(data=="1"){
 					window.location.href=item;
@@ -227,11 +64,12 @@ $(document).ready(function(){
 		
 	
 });
-	
+
+/* 리스트 추가 버튼 클릭시 실행 */
 function reviewListadd(){
 	page+=5;
 	var item=${item_bean.item};
-	var Data= { "page": page};
+	var Data= {"page": page};
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
@@ -258,312 +96,387 @@ function reviewListadd(){
 	.fail(function () { // 실패했을때 불러질 함수
 		console.error('데이터 불러오기 실패');
 	})
-}
-function cart(){
+} 
+function cartCheck(){
 	var item=${item_bean.item};
-	/* var nick=${login_email}}; */
-	var email="cus1@naver.com";//TODO 찜목록저장시 아이디 수정
+	//var nick=${login_email}; // TODO:[sch] 찜목록저장시 아이디 수정
+	var email=${login_email};
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
-			url: "cartAdd?item="+item+"&email="+email, // 데이터를 불러오는 json-server 주소입니다 .
+			url: "cart?item="+item+"&email="+email // 데이터를 불러오는 json-server 주소입니다 .
 	})
 	.done(function(data){
-		if(data==3){
-			window.alert("이미 찜하셨습니다.");	
+		if(data==1){//이미 찜하기 하였음
+			console.log("찜함");
+			$('#cartAdd').hide();
+		}else if(data==0){//찜하기 안함.
+			console.log("찜하기 안함");
+			$('#cartDel').hide();	
+		}
+	})
+	.fail(function () { // 실패했을때 불러질 함수
+		console.log('실패');
+	}) 
+}
+
+function cartAdd(){
+	var item=${item_bean.item};
+	//var nick=${login_email};// TODO:[sch] 찜목록저장시 아이디 수정 
+ 	var email=${login_email};
+	$.ajax({
+	        type: 'GET', // get 방식으로 요청
+			dataType: 'json', // json 타입
+			url: "cartAdd?item="+item+"&email="+email // 데이터를 불러오는 json-server 주소입니다 .
+	})
+	.done(function(data){
+		if(data==1){
+			window.alert("찜하셨습니다.");	
+			$('#cartAdd').hide();
+			$('#cartDel').show();
 		}else{
- 			window.alert("찜하셨습니다.");
+ 			window.alert("실패하셨습니다.");
 		}
 	})
 	.fail(function () { // 실패했을때 불러질 함수
 		console.error('실패');
 	})
 }
-
+function cartDel(){
+	var item=${item_bean.item}; 
+	//var nick=${login_email}; // TODO:[sch] 찜목록저장시 아이디 수정 
+	var email=${login_email};
+	$.ajax({
+	        type: 'GET', // get 방식으로 요청
+			dataType: 'json', // json 타입
+			url: "cartDel?item="+item+"&email="+email // 데이터를 불러오는 json-server 주소입니다 .
+	})
+	.done(function(data){
+		if(data==1){
+			$('#cartAdd').show();
+			$('#cartDel').hide();
+			window.alert("찜하기를 취소하셨습니다.");
+		}else{
+ 			window.alert("실패하셨습니다.");
+		}
+	})
+	.fail(function () { // 실패했을때 불러질 함수
+		console.error('실패');
+	})
+}
+function expUp(type){
+	<!-- //TODO: [sch] 밑에 세션 이메일로 바꿀것 -->
+	var email = ${login_email};
+		var type = type;//review,comment,like
+		$.ajax({
+			type : 'POST',
+			url : '/reset/exp',
+			data : JSON.stringify({
+				email : email,
+				type : type
+			}),
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType : "text"
+		}).done(function(data) {
+			console.log(data);
+		}).fail(function() { // 실패했을때 불러질 함수
+			console.error('데이터 수정 실패');
+		})
+	}
+	
+function reviewCheck(){
+	 var star = $(':input[name=star]:radio:checked').val();
+	 var good = $("#good");
+	 var bad = $("#bad");
+	 var tip = $("#tip");
+     
+     if(star){
+    	 return true;
+     } else{
+         alert("별점을 선택해주세요.");
+         $(".star").focus();
+         return false;
+     }
+     
+	 if(good.val() == ""){
+		 alert("좋은점을 입력해 주세요.");
+		 $("#good").focus();
+		 return false;
+	 }
+	 if(bad.val() == ""){
+		 alert("나쁜점을 입력해 주세요.");
+		 $("#bad").focus();
+		 return false;
+	 }
+	 if(tip.val() == ""){
+		 alert("팁을 입력해 주세요.");
+		 $("#tip").focus();
+		 return false;
+	 }
+	 
+};
 </script>
 </head>
 <body>
 	<!--header-->
-    <div class="header">
-    	<div class="wrap">
-            <nav class="main_menu container">
-                <div class="menu_img">
-                <a href="/reset/">
-                    <img src="${goRoot }imgs/header_logo.png">
-                    </a>
-                </div>
-                <div class="menu_login">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="search">검색</label>
-                            <input type="text" class="form-control input_box" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
-                    </form>
-                </div>
-                <div class="menu_bar">
-                    <ul class="nav">
-                      <li class="current"><a href="/reset/">홈</a></li>
-                      <li class="top-menu"><a href="/reset/">랭킹</a>
-                      	<div class="space">
-						  <ul class="sub-menu">
-						      <li><a href="../ranking?id=1">스킨</a></li>
-							  <li><a href="../ranking?id=2">로션</a></li>
-							  <li><a href="../ranking?id=3">에센스</a></li>
-						  </ul>
-						</div>
-					  </li>
-                      <li><a href="#">화플</a></li>
-                      <li><a href="#">이벤트</a>
-                      </li>                                  
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
-                </div>
-             </nav>                
-        </div>    
-    </div>
-    <div class="breadcrumb">
-    	<div>
-   		<a href="/reset/">HOME</a>
-   		<span class="slash">/</span>
-   		로션
-   		</div>
-    </div>
-    <!--//header-->    
-     
-    <!-- main contents -->
-   <div class="page_container">
-        <div class="contentsBox">
-            <div class="ImgBox">
-                <img src="../${item_bean.img }" class="img-responsive" alt="Responsive image">
-            </div>
-            <div class="InfoBox">
-                <h2>${item_bean.name }</h2>
-                <table class="table">
-                    <tr>
-                    	<td>브랜드</td>
-                        <td>${item_bean.brand }</td>
-                    </tr>
-                    <tr>
-                        <td>용량</td>
-                        <td>${item_bean.vol }</td>
-                    </tr>
-                    <tr>
-                        <td>판매가격</td>
-                        <td>${item_bean.price }원</td>
-                    </tr>
-                    <tr>
-                        <td>평점</td>
-                        <td>${item_bean.tot }</td>
-                    </tr>
-                    <tr>
-                        <td>기능성 성분</td>
-                        <td>${item_bean.comp }</td>
-                    </tr>
-                    <tr>
-                    	<td>네이버 가격정보</td>
-                        <td><a href="https://search.shopping.naver.com/search/all.nhn?query=${item_bean.name}">바로가기</a></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="avgBox">
-        	
-            <p><span>총 ${map.total }</span>명 <span>${item_bean.tot }</span></p>
-            <table class="table">
-            	<tr>
-         			<td>
-         				<span>5점</span>
-            		</td>
-         			<td>
-         				<div class="progress">
-							<div class="progress-bar progress-bar bar1" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.five }%">
-						    	${map.five }%
-							</div>
-						</div>
-            		</td>
-            	</tr>
-            	<tr>
-         			<td>
-         				<span>4점</span>
-            		</td>
-         			<td>
-         				<div class="progress">
-						  <div class="progress-bar progress-bar bar2" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.four }%">
-						    ${map.four }%
-						  </div>
-						</div>
-            		</td>
-            	</tr>
-            	<tr>
-         			<td>
-         				<span>3점</span>
-            		</td>
-         			<td>
-         				<div class="progress">
-						  <div class="progress-bar progress-bar bar3" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.three }%">
-						    ${map.three }%
-						  </div>
-						</div>
-            		</td>
-            	</tr>
-            	<tr>
-         			<td>
-         				<span>2점</span>
-            		</td>
-         			<td>
-						<div class="progress">
-							<div class="progress-bar progress-bar bar4" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.two }%">
-						    	${map.two }%
-					    	</div>
-						</div>
-            		</td>
-            	</tr>
-            	<tr>
-         			<td>
-         				<span>1점</span>
-            		</td>
-         			<td>
-						<div class="progress">
-						  <div class="progress-bar progress-bar bar5" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: ${map.one }%">
-						    ${map.one }%
-						  </div>
-						</div>
-            		</td>
-            	</tr>
-            </table>
-			
-        </div>
-        
-        <div class="btn-position">
-	        <!-- Button trigger modal -->
-			<button type="button" class="btn btn-lg myRedBtn" data-toggle="modal" data-target="#review_write">
-			  글쓰기
-			</button>
-			<button type="button" class="btn btn-lg myRedBtn" id="cart" >
-			  찜하기
-			</button>
+	<%@include file="/WEB-INF/views/template/menu.jsp"%>
+	<div class="breadcrumb">
+		<div>
+			<a href="/reset/">HOME</a> <span class="slash">/</span> 로션
 		</div>
-        <c:forEach items="${review_bean }" var="review">
-        <a href="./${item_bean.item }/review/${review.rev_no}">
-       	<div class="reviewBox">
-            <span class="rightBox">
-                <label>좋아요 ${review.pop }</label>
-                <label>${review.nalja }</label>
-            </span>
-	    	<c:choose>
-				<c:when test="${review.img != ''}">
-					<img src="${goRoot}${review.img}"/>
-				</c:when>
-				<c:when test="${review.img == ''}">
-					<img class="emptyImg" src="${goRoot}imgs/thany.png"/>
-				</c:when>
-			</c:choose>
-			
-            <label class="emtyspace">
-            <span class="main_content">${review.writer }</span>
-            <br><span class="sub-content">${review.age }세<sapn>
-            </sapn>/<sapn></sapn>${review.skin }<sapn>
-            </sapn>/<sapn> </sapn>${review.gender }<sapn>
-            </sapn>/<sapn> </sapn>${review.star }점</span><br>
-           	<span>${review.good }</span><br>
-           	<span>${review.bad }</span>
-            </label>
-        </div>
-        </a>
-        </c:forEach>
-        <div id="listAdd" class="icon">
-			<img class="listAddBtn" src="${goRoot}imgs/icon/grey-bottom.png" onmouseover="this.src='${goRoot}imgs/icon/red-bottom.png'" onmouseout="this.src='${goRoot}imgs/icon/grey-bottom.png'">
-        </div>
 	</div>
-    <!-- //main contents -->
-    
-		<!-- Modal -->
-		<div class="modal fade" id="review_write" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">리뷰 쓰기</h4>
-		      </div>
-		      <div class="modal-body">
-		      <form id="review" action="/reset/item/${item_bean.item}" name="review" method="post" enctype="multipart/form-data">
-			    <input type="hidden" name="writer" value="닉넴1"/>
-		      	<label>좋은점</label>
-		        <textarea class="form-control" rows="3" name="good" id="good"></textarea>
-		      	<label>나쁜점</label>
-		        <textarea class="form-control" rows="3" name="bad" id="bad"></textarea>
-		      	<label>꿀팁</label>
-		        <textarea class="form-control" rows="3" name="tip" id="tip"></textarea>
-		        
-		       
-				<label class="radio-inline" for="star">1</label>점
-   				<input type="radio" name="star" value="1"/> 
-				<label class="radio-inline" for="star">2</label>점
-				<input type="radio" name="star" value="2"/> 
-				<label class="radio-inline" for="star">3</label>점
-				<input type="radio" name="star" value="3"/>
-				<label class="radio-inline" for="star">4</label>점
-				<input type="radio" name="star" value="4"/>
-				<label class="radio-inline" for="star">5</label>점
-				<input type="radio" name="star" value="5"/><br>
-			   
-				<label for="img">이미지 업로드</label>
-		        <input type="file" name="img" id="img" />
-			    </form>
-			    
-			    <div id="img_preview">
-			        <img src="#" />
-			        <br />
-			        <a href="#">Remove</a>
-			    </div>
-			  
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">닫기</button>
-		        <button type="button" id="reivewAdd" class="btn btn-primary">글쓰기</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-    <!-- //modal -->
+	<!--//header-->
 
-    <!--footer-->
-    <div class="footer">
-        <div class="wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="${goRoot }imgs/footer_logo.png" alt="" /></a></div>
-                        <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
-                    </div>
-                    <div class="footer_R">
-                        <div class="fright">
-                            <form action="#" method="post">
-                                <input class="inp_search" name="name" type="text" value="   Search the Site" onfocus="if (this.value == 'Search the Site') this.value = '';" onblur="if (this.value == '') this.value = 'Search the Site';" />
-                            </form>
-                        </div>
-                        <div class="footer_menu">
-                            <ul class="nav">
-                                <li><a href="index.html" class="current">홈</a></li>
-                                <li><a href="about.html">랭킹</a></li>
-                                <li><a href="scaffolding.html">화플</a></li>
-                                <li><a href="portfolio_2columns.html">이벤트</a></li>
-                                <li><a href="blog.html">리뷰</a></li>
-                                <li><a href="contacts.html">문의</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%@include file="/WEB-INF/views/template/ajax_loading.jsp"%>
-    <!--//footer-->   
-    
-    <script type="text/javascript">
+	<!-- main contents -->
+	<div class="page_container">
+		<div class="contentsBox">
+			<div class="ImgBox">
+				<img src="../${item_bean.img }" class="img-responsive"
+					alt="Responsive image">
+			</div>
+			<div class="InfoBox">
+				<h2>${item_bean.name }</h2>
+				<table class="table">
+					<tr>
+						<td>브랜드</td>
+						<td>${item_bean.brand }</td>
+					</tr>
+					<tr>
+						<td>용량</td>
+						<td>${item_bean.vol }</td>
+					</tr>
+					<tr>
+						<td>판매가격</td>
+						<td>${item_bean.price }원</td>
+					</tr>
+					<tr>
+						<td>평점</td>
+						<td>${item_bean.tot }</td>
+					</tr>
+					<tr>
+						<td>기능성 성분</td>
+						<td>${item_bean.comp }</td>
+					</tr>
+					<tr>
+						<td>네이버 가격정보</td>
+						<td><a
+							href="https://search.shopping.naver.com/search/all.nhn?query=${item_bean.name}">바로가기</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="avgBox">
+
+			<p>
+				<span>총 ${map.total }</span>명 <span>${item_bean.tot }</span>
+			</p>
+			<table class="table">
+				<tr>
+					<td><span>5점</span></td>
+					<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar bar1" role="progressbar"
+								aria-valuemin="0" aria-valuemax="100"
+								style="width: ${map.five }%">${map.five }%</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span>4점</span></td>
+					<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar bar2" role="progressbar"
+								aria-valuemin="0" aria-valuemax="100"
+								style="width: ${map.four }%">${map.four }%</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span>3점</span></td>
+					<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar bar3" role="progressbar"
+								aria-valuemin="0" aria-valuemax="100"
+								style="width: ${map.three }%">${map.three }%</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span>2점</span></td>
+					<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar bar4" role="progressbar"
+								aria-valuemin="0" aria-valuemax="100"
+								style="width: ${map.two }%">${map.two }%</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span>1점</span></td>
+					<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar bar5" role="progressbar"
+								aria-valuemin="0" aria-valuemax="100"
+								style="width: ${map.one }%">${map.one }%</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+		
+		<c:if test="${login_on=='true'}">
+		<div class="btn-position">
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-lg RedBtn" data-toggle="modal"
+				data-target="#review_write">글쓰기</button>
+			<button type="button" class="btn btn-lg RedBtn" id="cartAdd">
+				찜하기</button>
+			<button type="button" class="btn btn-lg RedBtn" id="cartDel">
+				찜취소</button>
+		</div>
+		</c:if>
+		
+		<c:forEach items="${review_bean }" var="review">
+			<a href="./${item_bean.item }/review/${review.rev_no}">
+				<div class="reviewBox">
+					<div class="left_img_box">
+						<c:choose>
+							<c:when test="${review.img != ''}">
+								<img src="${goRoot}${review.img}" />
+							</c:when>
+							<c:when test="${review.img == ''}">
+								<img class="emptyImg" src="${goRoot}imgs/thany.png" />
+							</c:when>
+						</c:choose>
+					</div>
+					<div class="right_content_box">
+						<div class="right_content_top">
+							<span class="rightBox"> <label><img
+									src="${goRoot}imgs/icon/like.png"> ${review.pop }</label> <label>/
+									${review.nalja }</label>
+							</span>
+						</div>
+						<div class="right_content_bottom">
+							<p>${review.writer }<br> <span class="sub-title">${review.age }세
+									/ ${review.skin } / ${review.gender } / </span>
+							</p>
+							<c:choose>
+								<c:when test="${review.star == 1}">
+									<div class="starRating1">
+										<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+									</div>
+								</c:when>
+								<c:when test="${review.star == 2}">
+									<div class="starRating2">
+										<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+									</div>
+								</c:when>
+								<c:when test="${review.star == 3}">
+									<div class="starRating3">
+										<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+									</div>
+								</c:when>
+								<c:when test="${review.star == 4}">
+									<div class="starRating4">
+										<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+									</div>
+								</c:when>
+								<c:when test="${review.star == 5}">
+									<div class="starRating5">
+										<img class="star" src="${goRoot}imgs/icon/grade_img.png">
+									</div>
+								</c:when>
+							</c:choose>
+							<br> <br>
+							<p>${review.good }</p>
+							<br>
+							<p>${review.bad }</p>
+						</div>
+					</div>
+				</div>
+			</a>
+		</c:forEach>
+		<div id="listAdd" class="icon">
+			<img class="listAddBtn" src="${goRoot}imgs/icon/grey-bottom.png"
+				onmouseover="this.src='${goRoot}imgs/icon/red-bottom.png'"
+				onmouseout="this.src='${goRoot}imgs/icon/grey-bottom.png'">
+		</div>
+	</div>
+	<!-- //main contents -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="review_write" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">리뷰 쓰기</h4>
+				</div>
+				<div class="modal-body">
+					<form id="review" action="/reset/item/${item_bean.item}"
+						name="review" method="post" enctype="multipart/form-data"  onsubmit="return reviewCheck()">
+						<input type="hidden" name="writer" value="${login_nick }" />
+
+						<div class="form-group">
+							<label>좋은점</label>
+							<textarea class="form-control textbox" rows="3" name="good" id="good"></textarea>
+						</div>
+						<div class="form-group">
+							<label>나쁜점</label>
+							<textarea class="form-control textbox" rows="3" name="bad" id="bad"></textarea>
+						</div>
+						<div class="form-group">
+							<label>꿀팁</label>
+							<textarea class="form-control textbox" rows="3" name="tip" id="tip"></textarea>
+						</div>
+
+						<div class="radi">
+							<label>별점</label> 
+							<label class="radio-inline" for="star">1</label>점
+							<input type="radio" name="star" value="1" /> 
+							<label class="radio-inline" for="star">2</label>점 
+							<input type="radio" name="star" value="2" /> 
+							<label class="radio-inline" for="star">3</label>점
+							<input type="radio" name="star" value="3" /> 
+							<label class="radio-inline" for="star">4</label>점 
+							<input type="radio"	name="star" value="4" /> 
+							<label class="radio-inline" for="star">5</label>점
+							<input type="radio" name="star" value="5" /><br>
+						</div>
+						<br>
+
+						<div class="imgDiv">
+							<label for="img">대표이미지</label> <input type="file" name="img"
+								id="img" class="darkBtn">
+						</div>
+					</form>
+					<div id="img_preview">
+						<img src="#" /> <br /> <a href="#">Remove</a>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="close" class="btn-lg darkBtn"	data-dismiss="modal">닫기</button>
+					<button type="button" id="reivewAdd" class="btn-lg RedBtn">등록</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //modal -->
+
+	<!--footer-->
+	<%@include file="/WEB-INF/views/template/footer.jsp"%>
+	<!--//footer-->
+
+	<script type="text/javascript">
 
     $('#img').on('change', function() {
         ext = $(this).val().split('.').pop().toLowerCase(); //확장자
@@ -606,6 +519,6 @@ function cart(){
         e.unwrap(); //감싼 <form> 태그를 제거
     }
         	
-    </script> 
+    </script>
 </body>
 </html>

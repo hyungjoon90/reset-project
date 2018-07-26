@@ -63,10 +63,7 @@
     </property>
 </bean>
 	
-	<bean id="login_Listener" class="ga.beauty.reset.utils.runner.Login_Listener"/>
-	<bean id="event_Listener" class="ga.beauty.reset.utils.runner.Event_Listener"/>
-	<bean id="like_Listener" class="ga.beauty.reset.utils.runner.Like_Listener"/>
-	<bean id="review_Listener" class="ga.beauty.reset.utils.runner.Review_Listener"/>
-	<bean id="magzine_Listener" class="ga.beauty.reset.utils.runner.Magzine_Listener"/>
+	<bean id="passwordUtil" class="ga.beauty.reset.utils.PasswordUtil"/>
+	<bean id="regexLogFile" class="ga.beauty.reset.utils.RegexLogFile"/>
 	
 </beans>

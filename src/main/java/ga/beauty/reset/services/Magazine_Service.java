@@ -13,6 +13,7 @@ import ga.beauty.reset.dao.entity.Magazine_Vo;
 
 @Service
 public class Magazine_Service {
+	
 	@Autowired
 	Common_Dao<Magazine_Vo> commonDao;
 	
@@ -28,6 +29,22 @@ public class Magazine_Service {
 
 	public void listPage(Model model, Magazine_Vo bean) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll(bean));
+	}
+	
+	public void listPage(Model model, int offset, int noOfRecords) throws SQLException{
+		model.addAttribute("alist",commonDao.selectAll(offset, noOfRecords));
+	}
+	
+	public void listPage(Model model, int cate, int offset, int noOfRecords) throws SQLException{
+		model.addAttribute("alist",commonDao.selectAll(cate, offset, noOfRecords));
+	}
+	
+	public int getCount() throws SQLException{
+		return commonDao.getCount();
+	}
+	
+	public int getCount(int cate) throws SQLException{
+		return commonDao.getCount(cate);
 	}
 	
 	public void detailPage(Model model,Magazine_Vo bean,Comment_Vo comment) throws SQLException{

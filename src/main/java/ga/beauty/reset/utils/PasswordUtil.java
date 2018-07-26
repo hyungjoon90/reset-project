@@ -5,9 +5,12 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.stereotype.Component;
+
+
 public class PasswordUtil {
 
-	public static String getEncryptSHA256(String orgin) throws NoSuchAlgorithmException {
+	public String getEncryptSHA256(String orgin) throws NoSuchAlgorithmException {
 		StringBuilder newStr = new StringBuilder();
 		
 		MessageDigest md = null;

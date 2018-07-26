@@ -52,6 +52,18 @@
 		</props>
 		</property>
 	</bean>
+	  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="velocityProperties">
+        <props>
+            <prop key="resource.loader">class</prop>
+            <prop key="class.resource.loader.class">
+                org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </prop>
+        </props>
+    </property>
+</bean>
 	
+	<bean id="passwordUtil" class="ga.beauty.reset.utils.PasswordUtil"/>
+	<bean id="regexLogFile" class="ga.beauty.reset.utils.RegexLogFile"/>
 	
 </beans>

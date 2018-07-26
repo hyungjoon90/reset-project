@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import ga.beauty.reset.dao.User_Dao;
 import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
+import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.PasswordUtil;
 
 @Service
@@ -27,6 +29,11 @@ public class Sign_Service {
 	Members_Dao members_Dao;
 	@Autowired
 	Companys_Dao companys_Dao;
+	
+	@Autowired
+	PasswordUtil passwordUtil;
+	
+	Logger logger = Logger.getLogger(getClass());
 	
 	public Sign_Service() {
 	}
@@ -40,7 +47,7 @@ public class Sign_Service {
 			if(userBean.getUser_type().equals("일반")) {
 			// salt 값으로 닉네임
 			// 뒤에 붙임	
-				newPw = PasswordUtil.getEncryptSHA256(userBean.getPassword()+memberBean.getNick());
+				newPw = passwordUtil.getEncryptSHA256(userBean.getPassword()+memberBean.getNick());
 				userBean.setPassword(newPw);
 			}
 			resultUser = user_Dao.insertOne(userBean);
@@ -51,13 +58,16 @@ public class Sign_Service {
 			if(userBean.getUser_type().equals("일반")) {
 			// salt 값으로 사업자번호
 			// 뒤에 붙임.
-				newPw = PasswordUtil.getEncryptSHA256(userBean.getPassword()+companyBean.getBisnum());
+				newPw = passwordUtil.getEncryptSHA256(userBean.getPassword()+companyBean.getBisnum());
 				userBean.setPassword(newPw);
 			}
 			resultUser = user_Dao.insertOne(userBean);
 			resultOther = companys_Dao.insertOne( (Companys_Vo) companyBean);
 		}
-		if(resultUser==1 && resultOther ==1) return 200;
+		if(resultUser==1 && resultOther ==1) {
+			logger.info(LogEnum.SIGNUP+"["+userBean.getUser_type()+"]유형의 계정("+userBean.getEmail()+")이 등록되었습니다.");
+			return 200;
+		} 
 		else return 9999;
 	}
 	
@@ -78,7 +88,6 @@ public class Sign_Service {
 	
 	@Transactional
 	public int findPw(HttpServletRequest req) throws SQLException, NoSuchAlgorithmException {
-		// TODO 비밀번호찾기 해야됨
 		String emailFind = req.getParameter("emailFind");
 		String phoneFind = req.getParameter("phoneFind");
 		String bisnumFind = req.getParameter("bisnumFind");
@@ -99,7 +108,7 @@ public class Sign_Service {
 				System.out.println(newPwTmpForDB);
 				User_Vo chBean = new User_Vo();
 				chBean.setEmail(emailFind);
-				chBean.setPassword(PasswordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getNick()));
+				chBean.setPassword(passwordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getNick()));
 				return user_Dao.updateOne(chBean);
 			}
 		}else {
@@ -111,7 +120,7 @@ public class Sign_Service {
 			if(resultBean.getPhone().equals(phoneFind)) {
 				User_Vo chBean = new User_Vo();
 				chBean.setEmail(emailFind);
-				chBean.setPassword(PasswordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getBisnum()));
+				chBean.setPassword(passwordUtil.getEncryptSHA256(newPwTmpForDB+resultBean.getBisnum()));
 				return user_Dao.updateOne(chBean);
 			}
 		}
@@ -132,14 +141,15 @@ public class Sign_Service {
 			target.setEmail(email);
 			target.setJoin_route((String)session.getAttribute("join_route")+","+(String)session.getAttribute("login_route"));
 			if(session.getAttribute("tmp")!=null) 
-				target.setPassword( PasswordUtil.getEncryptSHA256((String)session.getAttribute("tmp")+nick));
+				target.setPassword( passwordUtil.getEncryptSHA256((String)session.getAttribute("tmp")+nick));
 			if(user_Dao.updateOne(target) ==1) {
 				session.setAttribute("login_nick" ,nick);
+				logger.info(LogEnum.PROFILE+"["+email+"] 회원님이 로그인연동-["+(String)session.getAttribute("join_route")+"]을 추가 하였습니다.");
 				return 1;
-			}else if(command.equals("pw_change")) {
-				
-				
 			}
+		}else if(command.equals("pw_change")) {
+			
+			
 		}// adds_yes
 		return 999;
 	}

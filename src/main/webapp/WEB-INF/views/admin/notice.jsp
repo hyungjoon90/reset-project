@@ -29,7 +29,7 @@
 	crossorigin="anonymous" charset="utf-8"></script>
 	
 	
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	function detail() {
 		$('.detailForm input').hide();
 		$('.modal-title').html('상세페이지');
@@ -50,22 +50,16 @@
 		
 	});
 	
-</script> -->
+</script>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-
-h1{
-margin-botton : 50px;
-}
-
 body {
     font-family: "Nanum Gothic", sans-serif;
     font-size: 18px;
-    text
 }
 
 .nodiv{
-border-bottom : 1px solid #DDDDDD;
+border : 1px solid black;
 display: inline-block;
 width: 10%;
 float:left;
@@ -73,7 +67,7 @@ margin :  none;
 }
 
 .naljadiv{
-border-bottom : 1px solid #DDDDDD;
+border : 1px solid black;
 display: inline-block;
 width: 40%;
 float:left;
@@ -82,7 +76,7 @@ margin :  none;
 
 
 .titlediv{
-border-bottom : 1px solid #DDDDDD;
+border : 1px solid black;
 display: inline-block;
 width: 50%;
 float:left;
@@ -90,15 +84,16 @@ margin :  none;
 }
 
 .nohead{
-border-bottom : 1px solid #DDDDDD;
+border : 1px solid black;
 display: inline-block;
+border : 1px solid black;
 width: 10%;
 float:left;
 margin :  none;
 }
 
 .naljahead{
-border-bottom : 1px solid #DDDDDD;
+border : 1px solid black;
 display: inline-block;
 width: 40%;
 float:left;
@@ -107,106 +102,17 @@ margin :  none;
 
 
 .titlehead{
-border-bottom : 1px solid #DDDDDD;;
+border : 1px solid black;
 display: inline-block;
 width: 50%;
 float:left;
 margin :  none;
-border-collapse : collapse;
+  border-collapse : collapse;
 }
- 
-.mytable{
+
+div{
    border-collapse: collapse;
    height : 50px;
-} 
-
-
- .modal-footer button{
-display: inline-block;
-} 
-
-.deleteForm{
-display: inline-block;
-}
-
-.redbtn {
-	background-color: #d00b01;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	border: 1px solid #D00B01;
-	display: inline-block;
-	cursor: pointer;
-	color: #ffffff;
-	font-family: Arial;
-	font-size: 15px;
-	font-weight: bold;
-	padding: 11px 23px;
-	text-decoration: none;
-}
-
-.redbtn:active {
-	position: relative;
-	top: 1px;
-}
-
-.greybtn {
-	background-color: #D1D1D1;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	border: 1px solid #D1D1D1;
-	display: inline-block;
-	cursor: pointer;
-	color: #ffffff;
-	font-family: Arial;
-	font-size: 15px;
-	font-weight: bold;
-	padding: 11px 23px;
-	text-decoration: none;
-}
-
-.greybtn:active {
-	position: relative;
-	top: 1px;
-}
-
-.blackbtn {
-	background-color: #313131;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	border: 1px solid #313131;
-	display: inline-block;
-	cursor: pointer;
-	color: #ffffff;
-	font-family: Arial;
-	font-size: 15px;
-	font-weight: bold;
-	padding: 11px 23px;
-	text-decoration: none;
-	position: relative;
-	
-}
-
-.blackbtn:active {
-	position: relative;
-	top: 1px;
-}
-
-
-.addbtns{
-display: inline-block;
-float: right;
-}
-
-.hidebtn{
-display: block;
-float: right;
-}
-
-input{
-color : white;
 }
 </style>
 
@@ -234,12 +140,11 @@ color : white;
 		      			<label for="content">내용</label>
 		      			<input type="text" class="form-control" name="content" id="content" placeholder="공지사항 내용" />
 		      		</div>
-		   			<div class="addbtns">
-			        <button type="submit" class="redbtn">입력</button>
-			        <button type="button" class="greybtn" data-dismiss="modal">Close</button>
-			        </div>
+		   
+			        <button type="submit" class="btn btn-primary">입력</button>
+			 
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      	</form>
-		      	<br><br>
 		      </div>
 		      
 		    </div>
@@ -251,22 +156,20 @@ color : white;
 
 <!-- list 시작 -->
 <div class="container">
-
 <h1>공지사항입니다</h1>
-<hr>
-<div class="nohead mytable">글번호</div>
-<div class="naljahead mytable">날짜</div>
-<div class="titlehead mytable">제목</div>
+<div class="nohead">글번호</div>
+<div class="naljahead">날짜</div>
+<div class="titlehead">제목</div>
 	<c:forEach items="${alist }" var="bean">
   		
   		<div data-toggle="modal" data-target="#myModal-${bean.no_no }">
 <!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
 		<!-- <div class="badge pull-right">New</div> -->
-	  	<div class="nodiv mytable">${bean.no_no }</div>
-	   	<div class="naljadiv mytable">${bean.nalja }</div>
-	  	<div class="titlediv mytable">${bean.title }</div> 
+	  	<div class="nodiv">${bean.no_no }</div>
+	   <div class="naljadiv">${bean.nalja }</div>
+	  	<div class="titlediv">${bean.title }</div> 
 	    </div>
-	    
+
 		<!-- Modal -->
 		<div class="modal fade yourModal" id="myModal-${bean.no_no }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-${bean.no_no }">
 		  <div class="modal-dialog" role="document">
@@ -297,49 +200,22 @@ color : white;
 				        <div class="well well-sm well-input">${bean.content }</div>
 		      			<input type="text" value="${bean.content }" class="form-control" name="content" id="content" placeholder="내용" />
 		      		</div>
-		      		<div class="hidebtn">
-			        <input type="submit" class="blackbtn" value="수정"/>
-			        <input type="button" class="greybtn" data-dismiss="modal" value="Close" id="close"/><br/>
-			 		</div><br/>
+		      		
+			        <input type="submit" class="btn btn-danger" value="수정"/>
+			        <input type="button" class="btn btn-default" data-dismiss="modal" value="Close"/>
 		      </form>
-							<script type="text/javascript">
-								function detail() {
-									$('.detailForm input').hide();
-									$('.modal-title').html('상세페이지');
-									$('.well-input').show();
-									$('.modal-footer').show();
-								}
-								function edit() {
-									$('.detailForm input').show();
-									$('.modal-title').html('수정페이지');
-									$('.modal-footer').hide();
-								}
-
-								$(function() {
-									detail();
-									$('.edit').click(function() {
-										edit();
-									$('#close').click(function(){
-										detail();
-									});
-									});
-
-								});
-							</script>
 		      </div>
-		      <!-- TODO 수정하기 -->
-		   		      
+		      
 		      <div class="modal-footer">
-		        <button type="button" class="greybtn showlistbtn" data-dismiss="modal">목록보기</button>
-		        <button type="button" class="blackbtn edit">수정</button>
 		       
-			 	<form action="/reset/notice/${bean.no_no }" method="POST" class="deleteForm">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">목록보기</button>
+		        <button type="button" class="btn btn-primary edit">수정</button>
+			 	<form action="/reset/notice/${bean.no_no }" method="POST" >
 		        <input type="hidden" name="_method" value="delete"/> 
-		        <button type="submit" class="redbtn delete">삭제</button>
+		        <button type="submit" class="btn btn-danger delete">삭제</button>
 		        </form>
-		 
+		     
 		      </div><!-- modal footer end  -->
-		
 		    </div>
 		  </div>
 		</div>
@@ -347,7 +223,7 @@ color : white;
 	
 	<!-- TODO [jihyun]notice - 관리자 로그인시 보이게 되는 입력버튼 -->
 	<%-- <c:if test="${login_on==true && !(login_user_type='일반')}"> --%>
-	   <button type="button" class="addNotice redbtn pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" >입력하기</button>
+	   <button type="button" class="addNotice btn pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" >입력하기</button>
 	<%-- </c:if> --%>
 </div>
 	

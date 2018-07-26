@@ -4,12 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${goRoot}js/jquery-1.12.4.js"></script>
-<script src="${goRoot}js/bootstrap.min.js"></script>
-<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
-<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${goRoot}css/main.css" rel="stylesheet">
+<%@include file="/WEB-INF/views/template/head.jsp"%>
 	<title>Home</title>
 <style type="text/css">
     /* 컨텐츠 contatiner */
@@ -56,6 +51,37 @@
     .conbox>p:first-child,.conbox>p:last-child{
         color: #84868e;
     }
+    .searchBox{
+    	display: inline-block;
+    }
+    .RedBtn {
+		background-color: #dd2d25;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		border: 1px solid #dd2d25;
+	    display: inline-block;
+	    cursor: pointer;
+	    color: #ffffff;
+	    font-family: Arial;
+	    font-size: 15px;
+	    font-weight: bold;
+	    padding: 5px 15px;
+	    margin: 5px 5px;
+	    text-decoration: none;
+	    color: white !important;
+	    float: right;
+	}
+	
+	.RedBtn:hover {
+		color: #fff;
+		background-color: #d00b01;
+	}
+	
+	.RedBtn:active {
+		position: relative;
+		top: 1px;
+	}
 </style>
 <script type="text/javascript">
 
@@ -127,63 +153,39 @@ function search_name(){
 		console.error('데이터 불러오기 실패');
 	})
 }
-    	    	
+function searchCheck(){
+	 var search_input = $("#search_input");
+	 if(search_input.val() == ""){
+		 alert("검색어를 입력해 주세요.");
+		 $("#search_input").focus();
+		 return false;
+	 }
+	 
+}; 	
 </script>
 </head>
 <body>
 	<!--header-->
-    <div class="header">
-    	<div class="wrap">
-            <nav class="main_menu container">
-                <div class="menu_img">
-               	  <a href="/reset/">
-                    <img src="${goRoot }imgs/header_logo.png">
-                  </a>
-                </div>
-                <div class="menu_login">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="search">검색</label>
-                            <input type="text" class="form-control input_box" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
-                    </form>
-                </div>
-                <div class="menu_bar">
-                    <ul class="nav">
-                      <li class="current"><a href="/reset/">홈</a></li>
-                      <li class="top-menu"><a href="/reset/">랭킹</a>
-                      	<div class="space">
-						  <ul class="sub-menu">
-						      <li><a href="./ranking?id=1">스킨</a></li>
-							  <li><a href="./ranking?id=2">로션</a></li>
-							  <li><a href="./ranking?id=3">에센스</a></li>
-						  </ul>
-						</div>
-					  </li>
-                      <li><a href="#">화플</a></li>
-                      <li><a href="#">이벤트</a>
-                      </li>                                  
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
-                </div>
-             </nav>                
-        </div>    
+    <%@include file="/WEB-INF/views/template/menu.jsp"%>
+    <div class="breadcrumb">
+    	<div>
+   		<a href="/reset/">HOME</a>
+   		<span class="slash">/</span>
+   		검색
+   		</div>
     </div>
     <!--//header-->    
      
     <!-- main contents -->
     <div class="page_container">
-    <form class="form-inline">
+    <form class="form-inline searchBox">
         <div class="form-group">
             <label class="sr-only" for="search">검색</label>
             <input id="search_input"type="text" class="form-control input_box" placeholder="검색">
         </div>
         <button id="search" type="button" class="btn send_btn"><span class="main_font">검색</span></button>
     </form>
-    <a href="./itemAdd">아이템 추가</a>
+    <a class="btn-lg RedBtn" href="./itemAdd">아이템 추가</a>
     	<h1>브랜드</h1>
     	<div class="brand">
     	</div>
@@ -216,35 +218,7 @@ function search_name(){
     <!-- //main contents -->
 
     <!--footer-->
-    <div class="footer">
-        <div class="wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="${goRoot}imgs/footer_logo.png" alt="" /></a></div>
-                        <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
-                    </div>
-                    <div class="footer_R">
-                        <div class="fright">
-                            <form action="#" method="post">
-                                <input class="inp_search" name="name" type="text" value="   Search the Site" onfocus="if (this.value == 'Search the Site') this.value = '';" onblur="if (this.value == '') this.value = 'Search the Site';" />
-                            </form>
-                        </div>
-                        <div class="footer_menu">
-                            <ul class="nav">
-                                <li><a href="index.html" class="current">홈</a></li>
-                                <li><a href="about.html">랭킹</a></li>
-                                <li><a href="scaffolding.html">화플</a></li>
-                                <li><a href="portfolio_2columns.html">이벤트</a></li>
-                                <li><a href="blog.html">리뷰</a></li>
-                                <li><a href="contacts.html">문의</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  	<%@include file="/WEB-INF/views/template/footer.jsp"%>
     <!--//footer-->    
 
 </body>

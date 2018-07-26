@@ -16,4 +16,7 @@ public interface Reviews_Dao<C> {
 	int reviewDelete(String v,C C) throws SQLException;
 	int cartAdd(int c,String v) throws SQLException;
 	int reviewTot(int c) throws SQLException;
+	
+	//mypage
+	public List<Reviews_Vo> mypage_review(String email) throws SQLException;
 }

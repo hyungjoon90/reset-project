@@ -52,6 +52,26 @@
 	    }
 	  
  });
+ 
+ function eventCheck(){
+	 var img= $("#img");
+	 var title = $("#title");
+	 if(img.val()== ""){
+		 alert("썸네일을 올려 주세요");
+		 return false;
+	 }
+	 if(title.val() == ""){
+		 alert("제목을 입력해 주세요");
+		 $("#title").focus();
+		 return false;
+	 }
+	 if(CKEDITOR.instances.con.getData()==""){
+		 alert("내용을 입력해 주세요");
+		 CKEDITOR.instances.con.focus();
+		 return false;
+	 }
+	 
+ };
 </script>
 <style type="text/css">
 	/* 미리보기 이미지 사이즈 */
@@ -150,7 +170,7 @@
             <!-- 내용 입력 -->
             <!-- TODO:이벤트 업데이트 페이지 입니다. -->
             <!-- update-page 입니다. -->
-            <form method="post"  action="/reset/admin/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm">
+            <form method="post"  action="/reset/admin/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm" onsubmit="return eventCheck()">
            		<!-- <input type="hidden" name="_method" value="put"/> -->
 	            <div>
 	            	<label for="eve_no"></label>
@@ -158,7 +178,7 @@
 	            </div>
 	            <div class="imgDiv">
 	            	<label for="img">대표이미지 수정</label>
-	            	<div name="Existing_img" id="Existing_img"><img src="../..${detail.img}"></div>
+	            	<div name="Existing_img" id="Existing_img"><img src="${goRoot}${detail.img}"></div>
 	            	<input type="file" name="img" id="img" class="darkBtn">
             	</div>
             	<div id="preview">
@@ -200,7 +220,8 @@
 				</script>
             	</div>
 	            <div>
-	            	<input type="hidden" name="tags" id="tags" value="${detail.tags }">
+            		<label for="com_email">광고주 Email</label>
+	            	<input type="text" name="com_email" id="com_email" class="form-control" value="${detail.com_email }" placeholder="광고주 Email을 적어주세요">
             	</div>
 
 			<button type="reset" class="darkBtn">목록</button>
@@ -213,6 +234,16 @@
 	    		 console.log(eve_no);
 	    		 var formData = new FormData($("#event_updateForm")[0]);
 	    		 console.log(formData);
+	    		 
+	    		 /* TODO: [김형준] 썸네일 유효성 검사  */
+	       		 var file = $('#img').prop("files")[0];
+	    		 var blobURL = window.URL.createObjectURL(file);
+		         $('#preview img').attr('src', blobURL);
+		         
+	    		 if(file==null){
+	    			 $('#preview img').attr('src', '${detail.img}');
+	    		 }
+	    		 
 	    	     $.ajax({
 	    	       type:'post',
 	    	       enctype: 'multipart/form-data',
