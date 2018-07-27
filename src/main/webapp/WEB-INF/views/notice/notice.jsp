@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.Date"%>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE>
 <html>
 <head>
@@ -54,22 +56,37 @@
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-h1{
-margin-botton : 50px;
-}
-
-body {
+.container {
     font-family: "Nanum Gothic", sans-serif;
     font-size: 18px;
     text
 }
 
+h1{
+margin-botton : 50px;
+color : #D00B01;
+font-weight: bold;
+}
+
+h1:after {
+    content: " ";
+    width: 130px;
+    height: 5px;
+    background: #DDDDDD;
+    display: block;
+    margin-top: 20px;
+    border-radius: 3px;
+}
+
+.nodiv, .naljadiv, .nohead, .naljahead, .titlehead{
+text-align: center;
+}
 .nodiv{
 border-bottom : 1px solid #DDDDDD;
 display: inline-block;
 width: 10%;
 float:left;
-margin :  none;
+padding: 10px;
 }
 
 .naljadiv{
@@ -77,7 +94,7 @@ border-bottom : 1px solid #DDDDDD;
 display: inline-block;
 width: 40%;
 float:left;
-margin :  none;
+padding: 10px;
 }
 
 
@@ -86,7 +103,8 @@ border-bottom : 1px solid #DDDDDD;
 display: inline-block;
 width: 50%;
 float:left;
-margin :  none;
+
+padding: 10px;
 }
 
 .nohead{
@@ -94,7 +112,7 @@ border-bottom : 1px solid #DDDDDD;
 display: inline-block;
 width: 10%;
 float:left;
-margin :  none;
+padding: 10px;
 }
 
 .naljahead{
@@ -102,7 +120,7 @@ border-bottom : 1px solid #DDDDDD;
 display: inline-block;
 width: 40%;
 float:left;
-margin :  none;
+padding: 10px;
 }
 
 
@@ -111,7 +129,7 @@ border-bottom : 1px solid #DDDDDD;;
 display: inline-block;
 width: 50%;
 float:left;
-margin :  none;
+padding: 10px;
 border-collapse : collapse;
 }
  
@@ -211,23 +229,38 @@ color : white;
 </style>
 </head>
 <body>
-
+   <!--header-->
+    <%@include file="/WEB-INF/views/template/menu.jsp" %>
+    <div class="breadcrumb">
+       <div>
+         <a href="/reset/">HOME</a>
+         <span class="slash">/</span>
+         공지사항
+         </div>
+    </div>
+ 
 <!-- list 시작 -->
 <div class="container">
-
-<h1>공지사항입니다</h1>
-<hr>
+<h1>공지사항</h1>
+<br><br>
 <div class="nohead mytable">글번호</div>
 <div class="naljahead mytable">날짜</div>
 <div class="titlehead mytable">제목</div>
 	<c:forEach items="${alist }" var="bean">
-  		
+  		<jsp:useBean id="now" class="java.util.Date"/>
+<c:set var="nowdate" scope="request"><fmt:formatDate value="${now}"/></c:set>
+<c:set var="nalja" scope="request"><fmt:formatDate value="${bean.nalja}"/></c:set>
+
+
   		<div data-toggle="modal" data-target="#myModal-${bean.no_no }">
 <!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
 		<!-- <div class="badge pull-right">New</div> -->
 	  	<div class="nodiv mytable">${bean.no_no }</div>
 	   	<div class="naljadiv mytable">${bean.nalja }</div>
-	  	<div class="titlediv mytable">${bean.title }</div> 
+	  	<div class="titlediv mytable">${bean.title }
+<c:if test="${nalja == nowdate}">
+<font color="red">new</font>
+</c:if></div> 
 	    </div>
 	    
 		<!-- Modal -->

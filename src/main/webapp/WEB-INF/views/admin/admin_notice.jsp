@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.Date"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -29,7 +31,9 @@
 	crossorigin="anonymous" charset="utf-8"></script>
 	
 	
-<!-- <script type="text/javascript">
+<!-- 
+
+<script type="text/javascript">
 	function detail() {
 		$('.detailForm input').hide();
 		$('.modal-title').html('상세페이지');
@@ -58,66 +62,56 @@ h1{
 margin-botton : 50px;
 }
 
-body {
+.modal, .container {
     font-family: "Nanum Gothic", sans-serif;
     font-size: 18px;
-    text
 }
 
-.nodiv{
+h1{
+margin-botton : 50px;
+color : #D00B01;
+font-weight: bold;
+}
+
+h1:after {
+    content: " ";
+    width: 130px;
+    height: 5px;
+    background: #DDDDDD;
+    display: block;
+    margin-top: 20px;
+    border-radius: 3px;
+}
+
+.nodiv, .naljadiv, .nohead, .naljahead, .titlehead, .titlediv{
+text-align: center;
 border-bottom : 1px solid #DDDDDD;
 display: inline-block;
+float:left;
+margin : none;
+border-collapse : collapse;
+padding:10px;
+}
+
+.nodiv, .nohead{
 width: 10%;
-float:left;
-margin :  none;
 }
 
-.naljadiv{
-border-bottom : 1px solid #DDDDDD;
-display: inline-block;
+.naljadiv, .naljahead{
 width: 40%;
-float:left;
-margin :  none;
 }
 
+.titlehead, .titlediv{
+width: 50%;
+}
 
 .titlediv{
-border-bottom : 1px solid #DDDDDD;
-display: inline-block;
-width: 50%;
-float:left;
-margin :  none;
+text-align: left;
 }
 
-.nohead{
-border-bottom : 1px solid #DDDDDD;
-display: inline-block;
-width: 10%;
-float:left;
-margin :  none;
-}
-
-.naljahead{
-border-bottom : 1px solid #DDDDDD;
-display: inline-block;
-width: 40%;
-float:left;
-margin :  none;
-}
-
-
-.titlehead{
-border-bottom : 1px solid #DDDDDD;;
-display: inline-block;
-width: 50%;
-float:left;
-margin :  none;
-border-collapse : collapse;
-}
- 
 .mytable{
-   border-collapse: collapse;
    height : 50px;
+   padding: 
 } 
 
 
@@ -252,20 +246,29 @@ color : white;
 <!-- list 시작 -->
 <div class="container">
 
-<h1>공지사항입니다</h1>
-<hr>
+<h1>공지사항</h1>
+<br>
 <div class="nohead mytable">글번호</div>
 <div class="naljahead mytable">날짜</div>
 <div class="titlehead mytable">제목</div>
+
 	<c:forEach items="${alist }" var="bean">
-  		
+  			    <jsp:useBean id="now" class="java.util.Date"/>
+<c:set var="nowdate" scope="request"><fmt:formatDate value="${now}"/></c:set>
+<c:set var="nalja" scope="request"><fmt:formatDate value="${bean.nalja}"/></c:set>
+
+
   		<div data-toggle="modal" data-target="#myModal-${bean.no_no }">
 <!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
 		<!-- <div class="badge pull-right">New</div> -->
 	  	<div class="nodiv mytable">${bean.no_no }</div>
 	   	<div class="naljadiv mytable">${bean.nalja }</div>
-	  	<div class="titlediv mytable">${bean.title }</div> 
+	  	<div class="titlediv mytable">${bean.title }<c:if test="${nalja == nowdate}">
+<font color="red">new</font>
+</c:if></div> 
 	    </div>
+	  
+
 	    
 		<!-- Modal -->
 		<div class="modal fade yourModal" id="myModal-${bean.no_no }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-${bean.no_no }">
@@ -343,8 +346,9 @@ color : white;
 		    </div>
 		  </div>
 		</div>
+		
 	</c:forEach>
-	
+
 	<!-- TODO [jihyun]notice - 관리자 로그인시 보이게 되는 입력버튼 -->
 	<%-- <c:if test="${login_on==true && !(login_user_type='일반')}"> --%>
 	   <button type="button" class="addNotice redbtn pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" >입력하기</button>
