@@ -11,6 +11,15 @@
 	width: 20%;
 	display: inline-block;
 }
+.eve_addrTitle{
+	font-size: 3vmax;
+}
+.eve_addrTot{
+	font-size: 2vmax;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
 </style>
 </head>
 <body>
@@ -21,10 +30,9 @@
 				<!-- 컨탠츠 시작 -->
 				<!-- main contents -->
 				<div class="page_container">
-					<hr>
 					<!-- 내용 입력 시작 -->
-					<div>이벤트 이름 : ${event_detail.title}</div>
-					<div>총 참가인원 : ${tot }</div>
+					<div class="eve_addrTitle">${event_detail.title}</div>
+					<div class="eve_addrTot">총 참가인원 : ${tot }</div>
 					<!-- 아코디언 시작 -->
 					<div class="panel-group" id="accordion" role="tablist"
 						aria-multiselectable="true">
@@ -127,7 +135,6 @@
 							</c:when>
 						</c:choose>
 					</div>
-					<hr>
 				</div>
 				<!-- //main contents -->
 				<!-- 컨탠츠 끝 -->

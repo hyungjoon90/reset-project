@@ -56,7 +56,6 @@
  function eventCheck(){
 	 var img= $("#img");
 	 var title = $("#title");
-
 	 if(title.val() == ""){
 		 alert("제목을 입력해 주세요");
 		 $("#title").focus();
@@ -75,16 +74,13 @@
 #control_img { /* div에 주는것도 좋은 방법임. */
 	width: 300px;
 }
-
 #preview {
 	width: 570px;
 	height: 350px;
 }
-
 .delImgBtn {
 	display: block;
 }
-
 .imgDiv label {
 	display: inline-block;
 	padding: .5em .75em;
@@ -98,7 +94,6 @@
 	border-bottom-color: #313131;
 	border-radius: .25em;
 }
-
 .imgDiv input[type="file"] { /* 파일 필드 숨기기 */
 	position: absolute;
 	width: 1px;
@@ -137,7 +132,7 @@
 							<div name="Existing_img" id="Existing_img">
 								<img src="${goRoot}${detail.img}">
 							</div>
-							<input type="file" name="img" id="img" class="darkBtn">
+							<input type="file" name="img" id="img" class="darkBtn" value="${detail.img}">
 						</div>
 						<div id="preview">
 							<img src="#" id="control_img">
@@ -201,15 +196,6 @@
 	    		 console.log(eve_no);
 	    		 var formData = new FormData($("#event_updateForm")[0]);
 	    		 console.log(formData);
-	    		 
-	    		 /* TODO: [김형준] 썸네일 유효성 검사  */
-	       		 var file = $('#img').prop("files")[0];
-	    		 var blobURL = window.URL.createObjectURL(file);
-		         $('#preview img').attr('src', blobURL);
-		         
-	    		 if(file==null){
-	    			 $('#preview img').attr('src', '${detail.img}');
-	    		 }
 	    		 
 	    	     $.ajax({
 	    	       type:'post',

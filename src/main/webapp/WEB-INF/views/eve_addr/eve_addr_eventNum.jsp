@@ -74,8 +74,10 @@
 							</c:forEach>
 						</div>
 						<div>
-							<button type="button" id="extractionBtn">txt파일로 추출</button>
-							<div id="extractionText"></div>
+							<button type="button" id="extractionBtn" class="redBtn">txt파일로 추출</button>
+							<span id="extractionText">
+							
+							</span>
 						</div>
 					</form>
 					<script type="text/javascript">
@@ -97,7 +99,7 @@
 									console.log(data);
 								var str = "<a href='/reset/admin/eveaddr/download?text="
 										+ data
-										+ "'><span>"
+										+ "'><span class='darkBtn'>"
 										+ data
 										+ "</span></a>";
 								$("#extractionText").html(str);
