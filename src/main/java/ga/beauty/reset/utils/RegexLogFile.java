@@ -58,15 +58,18 @@ public class RegexLogFile {
 				(new InputStreamReader 
 						(new ReverseLineInputStream(new File(filename))
 								))){// try-resource
+			
+			int lineCnt = 1;
 			while(true) {
-				if(tmpCnt<=start+cnt) {
-				String line = in.readLine();
-			    if (line == null) {
-			        break;
-			    }else {
+				if(lineCnt<=start+cnt) {
+					String line = in.readLine();
+					if (line == null) {
+						break;
+					}else if(tmpCnt<=start+cnt) {
 					list.add(getLogForString(line));
-			    }
-			    	tmpCnt++;
+					tmpCnt++;
+					}
+					lineCnt++;
 				}else {
 					break;
 				}
