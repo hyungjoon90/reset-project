@@ -65,9 +65,9 @@ public class Login_Controller {
 	public String logout(HttpSession session) {
 		if((boolean) session.getAttribute("login_on")){
 				session.invalidate(); // TODO 세션초기화
-				session.setAttribute("login_on", false);
+				//session.setAttribute("login_on", false);
 			}
-		return "index";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value ="/login/", method=RequestMethod.GET)

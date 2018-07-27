@@ -142,7 +142,7 @@ public class Likes_Service {
 		} else if(type.equals("리뷰")){
 			Reviews_Vo target = new Reviews_Vo();
 			target.setRev_no(bean.getP_no());
-			review_Listener.addLog(target, "num", chValue);
+			review_Listener.addLog(target, "like", chValue);
 		}
 	};
 }//Like_Service

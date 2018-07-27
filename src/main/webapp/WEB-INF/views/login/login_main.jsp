@@ -172,15 +172,18 @@ $(function(){
 	$("#goLogin").on('click',function(){
 		if(submitCheck(document.getElementById("login_form"))){
 			var tmpPW = $("#password").val();
+			alert(tmpPW);
 			//$("#password").val(SHA256(tmpPW));
 			var form = document.getElementById("login_form");
 			var password = document.createElement("input");
 			password.setAttribute("type","hidden");
 			password.setAttribute("name","password");
 			password.setAttribute("value",SHA256(tmpPW));
-			form.appendChild(password);
+			console.log(password);
+			$(form).append(password);
 			
 			formData = $("#login_form").serialize();
+			console.log(formData);
 			$.post("./normal/",formData)
 				.done(function(data) {
 					if(data.result>=200 && data.result<400){
@@ -250,7 +253,7 @@ $(function(){
 		<div class="row">
 		<div class="col-md-4 login-sec">
 		    <h2 class="text-center">Login Now</h2>
-		    <form class="login_form">
+		    <form id="login_form">
 				<div class="form-group">
 				  <label for="exampleInputEmail1" class="text-uppercase">Email</label>
 				  <input type="email" name="email" id="email" class="form-control check-email" placeholder="">

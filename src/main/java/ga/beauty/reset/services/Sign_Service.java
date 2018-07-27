@@ -47,8 +47,11 @@ public class Sign_Service {
 			if(userBean.getUser_type().equals("일반")) {
 			// salt 값으로 닉네임
 			// 뒤에 붙임	
+				logger.debug("들어온 비밀번호:"+userBean.getPassword());
+				
 				newPw = passwordUtil.getEncryptSHA256(userBean.getPassword()+memberBean.getNick());
 				userBean.setPassword(newPw);
+				
 			}
 			resultUser = user_Dao.insertOne(userBean);
 			resultOther = members_Dao.insertOne(memberBean);
@@ -58,6 +61,7 @@ public class Sign_Service {
 			if(userBean.getUser_type().equals("일반")) {
 			// salt 값으로 사업자번호
 			// 뒤에 붙임.
+				logger.debug("들어온 비밀번호:"+userBean.getPassword());
 				newPw = passwordUtil.getEncryptSHA256(userBean.getPassword()+companyBean.getBisnum());
 				userBean.setPassword(newPw);
 			}

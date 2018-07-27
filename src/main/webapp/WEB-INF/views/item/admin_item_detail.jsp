@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="/WEB-INF/views/template/head.jsp"%>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <style type="text/css">
     /* 전체 container */
     .page_container{
@@ -157,15 +157,11 @@ $(document).ready(function(){
 </head>
 <body>
 	<!--header-->
-    <%@include file="/WEB-INF/views/template/menu.jsp"%>
-    <div class="breadcrumb">
-    	<div>
-   		<a href="/reset/">HOME</a>
-   		<span class="slash">/</span>
-   		ADMIN
-   		</div>
-    </div>
-    <!--//header--> 
+    <div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page Heading -->
      
     <!-- main contents -->
    <div class="page_container">
@@ -385,7 +381,10 @@ $(document).ready(function(){
 	</div><!-- /.modal -->
 	
     <!--footer-->
-    <%@include file="/WEB-INF/views/template/footer.jsp"%>
+            </div><!-- /.container-fluid -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+
     <!--//footer-->   
     
     <script type="text/javascript">

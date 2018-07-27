@@ -36,10 +36,8 @@
   	</select>
 	<insert id="insertOne" parameterType="int">
   		INSERT INTO COMPANYS
-		(`EMAIL`, `COMPANY`, `BISNUM`, 
-		`MANAGER`, `POSTCODE`, `ADDRESS`, 'PHONE') 
-		VALUES (#{email}, #{company}, #{bisnum}, 
-		#{manager}, #{postcode}, #{address}, #{phone});
+		(EMAIL, COMPANY, BISNUM, MANAGER, POSTCODE, ADDRESS, PHONE) 
+		VALUES (#{email}, #{company}, #{bisnum}, #{manager}, #{postcode}, #{address}, #{phone});
   	</insert>
   	<update id="updateOne" parameterType="int">
   		UPDATE COMPANYS

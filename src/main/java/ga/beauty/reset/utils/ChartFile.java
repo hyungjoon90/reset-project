@@ -59,8 +59,6 @@ public class ChartFile {
 			listS = getLoginData(files, command, days);
 		} else if (command.equals("like")) {
 			listS = getLikeData(files, command, days);
-		} else if (command.equals("review")) {
-			listS = getReviewData(files, command, days);
 		}
 		return listS;
 	}
@@ -73,6 +71,8 @@ public class ChartFile {
 			listS = getMagData(files, command, days, no);
 		} else if (command.equals("event")) {
 			listS = getEveData(files, command, days, no);
+		} else if (command.equals("review")) {
+			listS = getReviewData(files, command, days,no);
 		}
 		return listS;
 	}
@@ -155,15 +155,17 @@ public class ChartFile {
 				ObjectMapper mapper = new ObjectMapper();
 				final JsonNode arrNode = mapper.readTree(file).get("data");
 				if (arrNode.isArray()) {
-					boolean checklike = true;
+					boolean checkno = true;
 					for (final JsonNode objNode : arrNode) {
 						// 여기서도 혹시나 값이 없을땐 초기값 넣음
 						if (objNode.get("no").asInt() == no) {
-							listlikes.add(new Log_Chart("좋아요", daysName, objNode.get("num").asInt()));
-							checklike = true;
+							listlikes.add(new Log_Chart("좋아요", daysName, objNode.get("like").asInt()));
+							listviews.add(new Log_Chart("조회수", daysName, objNode.get("view").asInt()));
+							listcomms.add(new Log_Chart("댓글수", daysName, objNode.get("num").asInt()));
+							checkno = true;
 						}
 					} // nodesForEach
-					if (checklike)
+					if (checkno)
 						listlikes.add(new Log_Chart("좋아요", daysName, 0));
 				} // isArray
 			} else {
@@ -184,11 +186,12 @@ public class ChartFile {
 		return listS;
 	}
 
-	private Map<String, Object> getReviewData(Map<String, File> files, String command, int days)
+	private Map<String, Object> getReviewData(Map<String, File> files, String command, int days, int no)
 			throws JsonProcessingException, IOException {
 		Map<String, Object> listS = new HashMap<String, Object>();
 		List<String> listLabels = new ArrayList<String>();
 		List<Log_Chart> listlikes = new ArrayList<Log_Chart>();
+		List<Log_Chart> listcomms = new ArrayList<Log_Chart>();
 
 		for (int i = 0; i < days; i++) {
 			Calendar todayC = new GregorianCalendar();
@@ -204,23 +207,27 @@ public class ChartFile {
 				ObjectMapper mapper = new ObjectMapper();
 				final JsonNode arrNode = mapper.readTree(file).get("data");
 				if (arrNode.isArray()) {
-					boolean checklike = true;
+					boolean checkno = true;
 					for (final JsonNode objNode : arrNode) {
 						// 여기서도 혹시나 값이 없을땐 초기값 넣음
-						if (objNode.get("name").asText().equals("좋아요")) {
-							listlikes.add(new Log_Chart("좋아요", daysName, objNode.get("num").asInt()));
-							checklike = true;
+						if (objNode.get("no").asInt() == no) {
+							listlikes.add(new Log_Chart("좋아요", daysName, objNode.get("like").asInt()));
+							listcomms.add(new Log_Chart("댓글수", daysName, objNode.get("num").asInt()));
+							checkno = true;
 						}
 					} // nodesForEach
-					if (checklike)
+					if (checkno)
 						listlikes.add(new Log_Chart("좋아요", daysName, 0));
 				} // isArray
 			} else {
 				listlikes.add(new Log_Chart("좋아요", day, 0));
+				listcomms.add(new Log_Chart("댓글수", day, 0));
 			}
 		} // filesForEach
 		if (listlikes.size() > 0)
 			listS.put("좋아요", listlikes);
+		if (listcomms.size() > 0)
+			listS.put("댓글수", listcomms);
 		if (listLabels.size() > 0)
 			listS.put("라벨", listLabels);
 

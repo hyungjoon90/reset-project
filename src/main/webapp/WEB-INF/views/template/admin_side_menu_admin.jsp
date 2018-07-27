@@ -58,7 +58,7 @@
             <ul class="nav navbar-right top-nav">
                 <li><p class="top-text">방문객&nbsp; &nbsp;<span class="badge" id="nowSession">0</span></p></li>                   
 				<li><p class="top-text">로그인&nbsp; &nbsp;<span class="badge" id="nowLogin">0</span></p></li>
-                <li><a href="#">LOGOUT</a></li>
+                <li><a href="${goRoot}logout/">LOGOUT</a></li>
         	</ul>
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->

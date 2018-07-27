@@ -27,6 +27,12 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 	}
 
 	@Override
+	public List<Reviews_Vo> reviewToTAll() throws SQLException {
+		logger.debug("DaoImp-reviewToTAll-noParam");
+		return sqlSession.selectList("reviews.reviewToTAll");
+	}
+	
+	@Override
 	public List<Reviews_Vo> reviewAll(int item) throws SQLException {
 		logger.debug("DaoImp-reviewAll-param: "+item);
 		return sqlSession.selectList("reviews.reviewAll", item);

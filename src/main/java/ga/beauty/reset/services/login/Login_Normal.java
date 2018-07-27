@@ -58,7 +58,8 @@ public class Login_Normal implements Login_Service {
 		}else if(method.equals("POST")) { // ajax로 들어올꺼이
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			
+			logger.debug("들어온 비밀번호:"+password);
+
 			if(email==null || password == null) {
 				// 잘못된 값 들어온 상황
 				req.setAttribute("result", 400);

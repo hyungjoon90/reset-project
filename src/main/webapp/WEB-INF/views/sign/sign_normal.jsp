@@ -26,12 +26,12 @@
 					var pw = $("#password").val();
 					//$("#password").val(SHA256(pw));
 					password.setAttribute("value",SHA256(pw));
-					form.appendChild(password);
+					$(form).append(password);
 				var data = $('#form').serialize();
 				console.log(data);
 				$.post(".", data, function(output) {
 					if (output.result == 200) {
-						window.location.href = ouput.url;
+						window.location.href = output.url;
 					} else {
 						alert("알수 없는 이유로 회원가입이 실패하였습니다. 잠시후 다시 이용해주세요");
 					}
