@@ -8,17 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ga.beauty.reset.services.Event_Service;
-import ga.beauty.reset.services.Items_Reviews_Service;
 import ga.beauty.reset.services.Magazine_Service;
 import ga.beauty.reset.utils.LogEnum;
-import ga.beauty.reset.utils.runner.Common_Listener;
 
 @Controller
 public class Home_Controller {
@@ -28,8 +25,6 @@ public class Home_Controller {
 	Magazine_Service magazine_service;
 	@Autowired
 	Event_Service event_service;
-	@Autowired
-	Items_Reviews_Service Items_Reviews_service;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest req) throws Exception {
@@ -40,7 +35,6 @@ public class Home_Controller {
         
         magazine_service.main_listPage(model);
         event_service.main_listPage(model);
-        
 		return "index";
 	}
 	

@@ -148,10 +148,6 @@ h1{
 		  });
 		  // 매거진 캐러셀 끝
 		  
-		  
-		  
-		  
-		  
 		rankingLlist();
       });
 	  function rankingLlist(){
@@ -183,7 +179,7 @@ h1{
 	</script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/template/menu.jsp"></jsp:include>
+<%@include file="/WEB-INF/views/template/menu.jsp" %>
     
     <!-- main contents -->
     <div class="page_container">
@@ -246,13 +242,6 @@ h1{
 			  </ul>
 			</div>
     	</div>
-       	<h1>공지사항</h1>
-    	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
-    	<div class="notice">
-    	</div>
-       	<h1>문의</h1>
-    	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
-    	<div class="qna"></div>
        	
     </div>
     <!-- //main contents -->

@@ -1,8 +1,6 @@
 package ga.beauty.reset.controller;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,12 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,9 +21,6 @@ import ga.beauty.reset.dao.Reviews_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
-
-import ga.beauty.reset.services.mypage.Mypage_ADV_Service;
-import ga.beauty.reset.services.mypage.Mypage_NOR_Service;
 
 @Controller
 public class Mypage_Controller {

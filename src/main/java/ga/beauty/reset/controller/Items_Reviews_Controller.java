@@ -24,7 +24,6 @@ import ga.beauty.reset.dao.Comment_DaoImpl;
 import ga.beauty.reset.dao.Items_DaoImp;
 import ga.beauty.reset.dao.Reviews_DaoImp;
 import ga.beauty.reset.dao.entity.Comment_Vo;
-import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.services.Items_Reviews_Service;
 import ga.beauty.reset.utils.UploadFileUtils;
@@ -81,11 +80,14 @@ public class Items_Reviews_Controller {
 	
 	// TODO:[sch] 2. 크롤링 받는곳
 	// 리뷰 리스트 추가 ajax
-	@RequestMapping(value="/item/reviewadd", method=RequestMethod.GET)
-	public void reviews_list_add(@RequestParam("item") int item,@RequestParam("page") int review_num,HttpServletResponse resp) throws SQLException, IOException {
-		logger.debug("review-param: "+item);
-		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(mapper.writeValueAsString(reviews_DaoImp.reviewListAdd(item,review_num)));
+	@RequestMapping(value="/item/reviewListadd", method=RequestMethod.GET)
+	public String reviews_list_add(@RequestParam("item") int item,@RequestParam("page") int review_num,HttpServletResponse resp,Model model) throws SQLException, IOException {
+		logger.debug("review-param: "+item+"/"+review_num);
+		goRoot="../";
+		model.addAttribute("goRoot", goRoot);
+		model.addAttribute("item", item);
+		model.addAttribute("alist", reviews_DaoImp.reviewListAdd(item,review_num));
+		return "template/reviewList_ajax";
 	}
 	
 	// 리뷰 작성
