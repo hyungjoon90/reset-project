@@ -22,7 +22,7 @@ public class Notice_Controller {
 	Notice_Service service;
 	
 	String view = "redirect:/admin/notice";
-	String goRoot = "../";
+	
 	public Notice_Controller() {
 	}
 	
@@ -30,10 +30,8 @@ public class Notice_Controller {
 	//notice list / "notice/notice.jsp"  / 이지현	
 	@RequestMapping(value="/notice", method = RequestMethod.GET)
 	public String show(Model model) throws SQLException {
-		String goRoot = "./";
 		service.listPage(model);
 		log.debug("notice - show List");
-		model.addAttribute("goRoot", goRoot);
 		return "notice/notice";
 	}	
 

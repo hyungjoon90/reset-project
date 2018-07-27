@@ -22,7 +22,6 @@ body {
 	font-size: 17px;
 }
 
-
 .submitbtn {
 	background-color: #d00b01;
 	-moz-border-radius: 3px;
@@ -109,6 +108,7 @@ body {
 
 .qnatitle {
 	font-size: 30px;
+	
 }
 
 .well {
@@ -130,16 +130,14 @@ body {
 	margin-top: 50px;
 }
 
-input.invalid, textarea.invalid {
-	border: 2px solid red;
-}
+		input.invalid, textarea.invalid{
+			border: 2px solid red;
+		}
+		
+		input.valid, textarea.valid{
+			border: 2px solid green;
+		}
 
-input.valid, textarea.valid {
-	border: 2px solid green;
-}
-
-
-.form-control input[readonly] {background-color: white;}
 
 </style>
 
@@ -149,16 +147,7 @@ input.valid, textarea.valid {
 
 </head>
 <body>
-	   <!--header-->
-    <%@include file="/WEB-INF/views/template/menu.jsp" %>
-    <div class="breadcrumb">
-       <div>
-         <a href="/reset/">HOME</a>
-         <span class="slash">/</span>
-         공지사항
-         </div>
-    </div>
-    <!-- contents start -->
+	<!--header-->
 	<div class="header">
 		<div class="wrap">
 			<nav class="main_menu container">
@@ -323,17 +312,20 @@ input.valid, textarea.valid {
 				</div>
 			</div>
 		</div>
+
+
 		<!-- fna well end  -->
 
 		<!-- contend -->
 		<br /> <br /> <br />
+
 		<!-- qna container start -->
 		<div>
 			<span class="qnatitle">문의 내용</span><span class="pull-right"><sup
 				style="color: red">*</sup>는 필수항목입니다</span> <br>
 
 			<div class="well">
-				<form action="/reset/qna" method="post" id="form" onsubmit="return eventCheck()">
+				<form action="/reset/qna" method="post" id="form">
 					<!-- TODO reset -->
 					<div class="form-group row">
 						<label for="qa_type" id="qa_type" class="col-sm-2 form-label">문의분류</label>
@@ -348,6 +340,8 @@ input.valid, textarea.valid {
 								<option value="6">6. 제휴문의</option>
 							</select>
 						</div>
+		
+						
 					</div>
 					<div class="form-group row">
 						<label for="con" class="col-sm-2">문의내용<sup
@@ -362,8 +356,7 @@ input.valid, textarea.valid {
 							<label for="email" class="col-sm-2 form-label">답변 이메일<sup
 								style="color: red">*</sup></label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="email" id="email"
-									placeholder="이메일 ( email@example.com )">
+								<input type="text" class="form-control" name="email" id="email" placeholder="이메일 ( email@example.com )">
 							</div>
 						</div>
 					</div>
@@ -371,9 +364,9 @@ input.valid, textarea.valid {
 					<div class="agree">
 						<hr>
 						<div class="agreetxt">개인정보 수집·이용에 대한 안내 필수 수집·이용 항목 (문의접수와
-							처리,회신을 위한 최소한의 개인정보로 동의가 필요합니다) 수집항목 목적 보유기간 이메일 주소, 휴대폰 번호 고객문의
-							및 상담요청에 대한 회신, 상담을 위한 서비스 이용기록 조회 관련 법령 또는 회사 내부방침에 의해 보존 필요 시 까지
-							보관, 그외 지체없이 파기합니다. 더 자세한 내용에 대해서는 리셋 개인정보처리방침을 참고하시기 바랍니다.</div>
+							처리,회신을 위한 최소한의 개인정보로 동의가 필요합니다.) 수집항목 목적 보유기간 이메일 주소, 휴대폰 번호
+							고객문의 및 상담요청에 대한 회신, 상담을 위한 서비스 이용기록 조회 관련 법령 또는 회사 내부방침에 의해 보존 필요
+							시 까지 보관, 그외 지체없이 파기합니다. 더 자세한 내용에 대해서는 리셋 개인정보처리방침을 참고하시기 바랍니다.</div>
 						<br> <br>
 						<p class="agreeask">
 							<strong><input type="checkbox" id="agreebtn"> 위
@@ -381,104 +374,60 @@ input.valid, textarea.valid {
 						<p>
 						<hr>
 					</div>
-					
-					
+
 					<script type="text/javascript">
-					/* $(document).ready(function(){ */
-					
-					var qnaSave = $('#qnaSave');
-					var con = $('#con');
-					var email = $('#email');
-
-					/* var select = $("#select").attr("selected").val(); */
-					var checkbox = $('input[type="checkbox"]');
-					function eventCheck(){
-						var select = $("#select option:selected").val();
-								console.log(select);
-							if(select == 0){
-								console.log('문의 분류 미선택 : submit 불가능');
-								alert('문의 분류 미선택 : submit 불가능');
-								return false;
-							}
-							 if(con.val().length < 1){
-									console.log('내용 미입력 : submit 불가능');
-									alert('내용 미입력 : submit 불가능');
-									return false;
-								}
-								if(email.val().length < 1){
-									console.log('이메일 미입력 : submit 불가능'); 
-									$('#email').append("<span>오류</span>");
-									alert('이메일 입력 없음 : submit 불가능');
-									return false;
-								}
-							if (checkbox.is(':not(:checked)')){
-									console.log('checkbox : unchecked');
-									alert('동의해주세요 : submit 불가능');
-									return false;
-								};//if end
-						}; //function end
-					
+					$(document).ready(function() {
+							var qnaSave = $('#qnaSave');
+							var con = $('#con');
+							var email = $('#email');
+							var checkbox = $('input[type="checkbox"]');
+				
+							
+							qnaSave.click(function(event) {
+							var select = $("#select option:selected").val();
+									if(select == 0){
+										console.log('문의 분류 미선택 : submit 불가능');
+										/* event.preventDefault(); */
+									}else{
+										return true;
+									}
+									if(con.val().length < 1){
+										console.log('내용 미입력 : submit 불가능');
+										event.preventDefault();
+									}else{
+										return true;
+									}
+									if(email.val().length < 1){
+										console.log('이메일 미입력 : submit 불가능'); 
+										$('#email').append("<span>오류</span>");
+										event.preventDefault();
+									}else{
+										return true;
+									}
+									if(checkbox.is(':checked')){
+										console.log('checkbox : checked');
+										return true;
+									}else{
+										console.log('checkbox : unchecked');
+										event.preventDefault();
+									}
+								
+									
+							/* 		
+							    function validate_Email(email) {
+							        var expression = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+							        if (expression.test(email)) {
+							        return true;
+							        }
+							        else {
+							        alert('이메일 주소가 아님');
+							        return false;
+							        } 
+							    };*/
+							});
+						});
 						
-						/* });	//document ready end */
-						
-						/* if(con.val().length < 1){
-								console.log('내용 미입력 : submit 불가능');
-								alert('내용 미입력 : submit 불가능');
-							}
-								//con.attr("placeholder").text("입력하세요")
-							if(email.val().length < 1){
-								console.log('이메일 미입력 : submit 불가능'); 
-								$('#email').append("<span>오류</span>");
-								alert('이메일 입력 없음 : submit 불가능');
-							}
-						if (checkbox.is(':not(:checked)')){
-								console.log('checkbox : unchecked');
-								alert('동의해주세요 : submit 불가능');
-							};//if end
-						}; //function end
-					});	//document ready end			
-					 */
-			
 					</script>
-					
-
-<!-- 				<script type="text/javascript">
-					$(document).ready(function(){
-					
-					var qnaSave = $('#qnaSave');
-					var con = $('#con');
-					var email = $('#email');
-
-					/* var select = $("#select").attr("selected").val(); */
-					var checkbox = $('input[type="checkbox"]');
-					qnaSave.click(function(event){
-						var select = $("#select option:selected").val();
-						event.preventDefault();
-
-							if(select == 0){
-								console.log('문의 분류 미선택 : submit 불가능');
-								alert('문의 분류 미선택 : submit 불가능');
-							} 
-							if(con.val().length < 1){
-								console.log('내용 미입력 : submit 불가능');
-								alert('내용 미입력 : submit 불가능');
-							}
-								/* con.attr("placeholder").text("입력하세요") */
-							if(email.val().length < 1){
-								console.log('이메일 미입력 : submit 불가능'); 
-								$('#email').append("<span>오류</span>");
-								alert('이메일 입력 없음 : submit 불가능');
-							}
-						if (checkbox.is(':not(:checked)')){
-								console.log('checkbox : unchecked');
-								alert('동의해주세요 : submit 불가능');
-							};//if end
-						}); //qnaSave.click end
-					});	//document ready end			
-					
-			<!-- 		모두다 null일시에는 alert창 여러개 띄워짐
-					모두 조건을 만족해도 event.preventDefault가 풀리지 않는 문제점  
-					</script> -->
 
 					<div class="btns pull-right">
 						<!-- <button class="submitbtn" type="submit" onclick="verifyEmail();">전송</button> -->
@@ -493,6 +442,8 @@ input.valid, textarea.valid {
 		<br /> <br /> <br />
 	</div>
 	<!-- qna container end -->
+
+
 
 	<!--footer-->
 	<div class="footer">
