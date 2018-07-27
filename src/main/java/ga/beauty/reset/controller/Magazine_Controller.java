@@ -2,6 +2,7 @@ package ga.beauty.reset.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import ga.beauty.reset.dao.Companys_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
+import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Paging_Vo;
 import ga.beauty.reset.services.Magazine_Service;
@@ -35,6 +38,9 @@ public class Magazine_Controller {
 	
 	@Autowired
 	UpdateViewUtils viewUtils;
+	
+	@Autowired
+	Companys_Dao companys_Dao;
 	
 	String goRoot="../";
 	
@@ -58,7 +64,7 @@ public class Magazine_Controller {
 	//TODO: Magazine 처음(첫번째) 리스트를 불러옵니다. / magazine_list.jsp / 김형준
 	@RequestMapping(value="/magazine", method=RequestMethod.GET)
 	public String list(Model model,HttpServletRequest req) throws SQLException{
-		
+		String goRoot="./";
 		int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
 		int maxPost = 10;	// 페이지당 표시될 게시물  최대 갯수
 		
@@ -178,6 +184,10 @@ public class Magazine_Controller {
 		comment.setCo_type("매거진");
 		comment.setP_no(mag_no);
 		
+		List<Companys_Vo> companyList = companys_Dao.selectAll();
+		
+		model.addAttribute("companyList",companyList);
+		
 		service.detailPage(model, bean, comment);
 		
 		return "magazine/magazine_update";
@@ -216,6 +226,11 @@ public class Magazine_Controller {
 	@RequestMapping("/admin/magazine/add")
 	public String addForm(Model model) throws SQLException{
 		String goRoot="../../";
+		
+		List<Companys_Vo> companyList = companys_Dao.selectAll();
+		
+		model.addAttribute("companyList",companyList);
+		
 		model.addAttribute("goRoot",goRoot);
 		return "magazine/magazine_add";
 	}
