@@ -66,6 +66,7 @@ public class Event_Controller {
 	//리스트를 보여줍니다.
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String list(Model model,HttpServletRequest req) throws SQLException {
+		String goRoot="./";
 		//페이징관련 입니다.
 		int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
 		int maxPost = 10;	// 페이지당 표시될 게시물  최대 갯수
@@ -196,12 +197,15 @@ public class Event_Controller {
 		Event_Vo bean=new Event_Vo();
 		bean.setEve_no(eve_no);
 		
+		
 		Comment_Vo comment=new Comment_Vo();
 		comment.setCo_type("이벤트");
 		comment.setP_no(eve_no);
 		
+		List<Companys_Vo> companyList = companys_Dao.selectAll();
+		model.addAttribute("companyList",companyList);
 		service.detailPage(model, bean, comment);
-		
+		System.out.println(bean.getCom_email());
 		return "event/event_update";
 	}
 	
@@ -313,6 +317,7 @@ public class Event_Controller {
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));
 		bean.setCom_email(req.getParameter("com_email"));
+		System.out.println(req.getParameter("com_email"));
 		// 파일업로드 start
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
 	    bean.setImg("/imgs/event_imgs"+UploadFileUtils.uploadFile(filePath, file.getOriginalFilename(), file.getBytes(),300));

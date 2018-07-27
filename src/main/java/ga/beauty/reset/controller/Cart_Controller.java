@@ -29,6 +29,7 @@ import ga.beauty.reset.utils.UploadFileUtils;
 @Controller
 public class Cart_Controller {
 	Logger logger=Logger.getLogger(getClass());
+	String goRoot="";
 	
 	@Autowired
 	Cart_Service Cart_service;
@@ -45,6 +46,7 @@ public class Cart_Controller {
 	public String cart_List(@RequestParam("email") String email,Model model) throws SQLException, IOException {
 		logger.debug("param: "+email);
 		model.addAttribute("alist", Cart_service.Cart_List(email));
+		model.addAttribute(goRoot, "../../../");
 		return "template/mypage_Cart_ajax";
 	}
 	

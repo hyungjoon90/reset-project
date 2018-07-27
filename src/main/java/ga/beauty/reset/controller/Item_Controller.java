@@ -54,6 +54,7 @@ public class Item_Controller {
 		return "item/item_search";
 	}
 	
+	// TODO: [sch] admin / item/admin_item_search.jsp / 서충희
 	// admin 아이템 검색 페이지 이동
 	@RequestMapping(value="/admin/item",method=RequestMethod.GET)
 	public String admin_item_page(Model model) throws SQLException {
@@ -71,6 +72,7 @@ public class Item_Controller {
 		resp.getWriter().print(mapper.writeValueAsString(items_service.item_search(condition, type)));
 	}
 	
+	// TODO: [sch] admin / item/admin_item_detail.jsp / 서충희
 	// admin item 상세
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.GET)
 	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
@@ -82,6 +84,7 @@ public class Item_Controller {
 		return "item/admin_item_detail";
 	}
 	
+	// TODO: [sch] admin / item/admin_item_Add.jsp / 서충희
 	// 아이템 추가 페이지 이동
 	@RequestMapping(value="/admin/itemAdd",method=RequestMethod.GET)
 	public String item_add_page(Model model) {
@@ -89,6 +92,7 @@ public class Item_Controller {
 		return "item/admin_item_Add";
 	}
 	
+	// TODO: [sch] admin / ajax 아이템 추가 / 서충희
 	// 아이템 추가
 	@RequestMapping(value="/admin/item",method=RequestMethod.POST)
 	public void item_add(@RequestParam("img") MultipartFile file,HttpServletRequest req,HttpServletResponse resp) throws IOException, Exception {
@@ -138,7 +142,7 @@ public class Item_Controller {
 		resp.getWriter().print(items_service.item_add(bean));
 	}
 
-	
+	// TODO: [sch] admin / 아이템 수정 / 서충희
 	// 아이템 수정
 	@RequestMapping(value="/admin/itemUpdate/{item}",method=RequestMethod.POST)
 	public void item_update(@PathVariable("item") int item,@RequestParam("img") MultipartFile file, HttpServletResponse resp,HttpServletRequest req) throws IOException, Exception {
@@ -202,6 +206,8 @@ public class Item_Controller {
 		resp.getWriter().print(items_service.item_update(option,bean));
 	}
 	
+	
+	// TODO: [sch] admin / 아이템 삭제 / 서충희
 	// 아이템 삭제
 	@RequestMapping(value="/admin/item/{item}",method=RequestMethod.DELETE)
 	public void item_delete(@PathVariable("item") int item,HttpServletResponse resp) throws IOException, SQLException {

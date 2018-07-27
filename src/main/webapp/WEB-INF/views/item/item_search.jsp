@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+<%@include file="/WEB-INF/views/template/head.jsp"%>
 	<title>Home</title>
 <style type="text/css">
     /* 컨텐츠 contatiner */
 	.page_container{
 		width: 80%;
-        border: 0.5px solid rgb(217, 222, 232);
+		margin-bottom: 15px;
 	}
     .page_container>a{
         text-decoration: none;
@@ -19,6 +19,9 @@
     .page_container>a:hover{
     	text-decoration: none;
     	color: black;
+    }
+    .search{
+    	text-align: center;
     }
     .contentsbox{
         width: 85%;
@@ -54,126 +57,109 @@
 </style>
 <script type="text/javascript">
 
-$(document).ready(function(){
-	$("#search").on("click",function(){
-		$('.brand').empty();
-		$('.name').empty();
-		search_brand();
-		search_name();
-	})
-})
+	$(document).ready(function() {
+		$("#search").on("click", function() {
+			$('.brand').empty();
+			$('.name').empty();
+			search_brand();
+			search_name();
+		})
 
-function search_brand(){
-	var search=$('#search_input').val();
-	var type="brand";
-	$.ajax({
-	        type: 'GET', // get 방식으로 요청
-			dataType: 'json', // json 타입
-			url: "${goRoot}itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
+		$('#search_input').keydown(function(event) {
+			if (event.which == 13) {
+				console.log("실행");
+				$('.brand').empty();
+				$('.name').empty();
+				search_brand();
+				search_name();
+				return false;
+			}
+		});
 	})
-	.done(function(data){
- 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
-  			$('.brand').append(
-  					"<a href='./item/"+data.item+"'>"+
-  					"<div class='contentsbox'>"+
-  					"<div class='numbox box'>"+
-  					"<label>○</label></div>"+
-  					"<div class='imgbox box'>"+
-  					"<img src='${goRoot}"+data.img+"'>"+
-  					"</div>"+
-  					"<div class='conbox box'>"+
-  					"<p>"+data.brand+"</p>"+
-  					"<p>"+data.name+"</p>"+
-  					"<p>"+data.vol+"&nbsp;"+data.price+"원</p>"+
-					"</div></div></a>");
+
+	function search_brand() {
+		var search = $('#search_input').val();
+		var type = "brand";
+		$.ajax({
+			type : 'GET', // get 방식으로 요청
+			dataType : 'json', // json 타입
+			url : "${goRoot}itemSearch?search=" + search + "&type=" + type, // 데이터를 불러오는 json-server 주소입니다 .
+		}).done(
+				function(data) {
+					data.forEach(function(data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
+						$('.brand').append(
+								"<a href='./item/"+data.item+"'>"
+										+ "<div class='contentsbox'>"
+										+ "<div class='numbox box'>"
+										+ "<label>○</label></div>"
+										+ "<div class='imgbox box'>"
+										+ "<img src='${goRoot}"+data.img+"'>"
+										+ "</div>" + "<div class='conbox box'>"
+										+ "<p>" + data.brand + "</p>" + "<p>"
+										+ data.name + "</p>" + "<p>" + data.vol
+										+ "&nbsp;" + data.price + "원</p>"
+										+ "</div></div></a>");
+					})
+				}).fail(function() { // 실패했을때 불러질 함수
+			console.error('데이터 불러오기 실패');
 		})
-	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 불러오기 실패');
-	})
-}
-function search_name(){
-	var search=$('#search_input').val();
-	var type="name";
-	$.ajax({
-	        type: 'GET', // get 방식으로 요청
-			dataType: 'json', // json 타입
-			url: "${goRoot}itemSearch?search="+search+"&type="+type, // 데이터를 불러오는 json-server 주소입니다 .
-	})
-	.done(function(data){
- 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
-  			$('.name').append(
-  					"<a href='./item/"+data.item+"'>"+
-  					"<div class='contentsbox'>"+
-  					"<div class='numbox box'>"+
-  					"<label>○</label></div>"+
-  					"<div class='imgbox box'>"+
-  					"<img src='${goRoot}"+data.img+"'>"+
-  					"</div>"+
-  					"<div class='conbox box'>"+
-  					"<p>"+data.brand+"</p>"+
-  					"<p>"+data.name+"</p>"+
-  					"<p>"+data.vol+"&nbsp;"+data.price+"원</p>"+
-					"</div></div></a>");
+	}
+	function search_name() {
+		var search = $('#search_input').val();
+		var type = "name";
+		$.ajax({
+			type : 'GET', // get 방식으로 요청
+			dataType : 'json', // json 타입
+			url : "${goRoot}itemSearch?search=" + search + "&type=" + type, // 데이터를 불러오는 json-server 주소입니다 .
+		}).done(
+				function(data) {
+					data.forEach(function(data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
+						$('.name').append(
+								"<a href='./item/"+data.item+"'>"
+										+ "<div class='contentsbox'>"
+										+ "<div class='numbox box'>"
+										+ "<label>○</label></div>"
+										+ "<div class='imgbox box'>"
+										+ "<img src='${goRoot}"+data.img+"'>"
+										+ "</div>" + "<div class='conbox box'>"
+										+ "<p>" + data.brand + "</p>" + "<p>"
+										+ data.name + "</p>" + "<p>" + data.vol
+										+ "&nbsp;" + data.price + "원</p>"
+										+ "</div></div></a>");
+					})
+				}).fail(function() { // 실패했을때 불러질 함수
+			console.error('데이터 불러오기 실패');
 		})
-	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 불러오기 실패');
-	})
-}
-    	    	
+	}
+	function searchCheck(){
+		 var search_input = $("#search_input");
+		 if(search_input.val() == ""){
+			 alert("검색어를 입력해 주세요.");
+			 $("#search_input").focus();
+			 return false;
+		 }
+		 
+	};
 </script>
 </head>
 <body>
 	<!--header-->
-    <div class="header">
-    	<div class="wrap">
-            <nav class="main_menu container">
-                <div class="menu_img">
-               	  <a href="/reset/">
-                    <img src="${goRoot}imgs/header_logo.png">
-                  </a>
-                </div>
-                <div class="menu_login">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="search">검색</label>
-                            <input type="text" class="form-control input_box" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
-                    </form>
-                </div>
-                <div class="menu_bar">
-                    <ul class="nav">
-                      <li class="current"><a href="/reset/">홈</a></li>
-                      <li class="top-menu"><a href="/reset/">랭킹</a>
-                      	<div class="space">
-						  <ul class="sub-menu">
-						      <li><a href="./ranking?id=1">스킨</a></li>
-							  <li><a href="./ranking?id=2">로션</a></li>
-							  <li><a href="./ranking?id=3">에센스</a></li>
-						  </ul>
-						</div>
-					  </li>
-                      <li><a href="#">화플</a></li>
-                      <li><a href="#">이벤트</a>
-                      </li>                                  
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
-                </div>
-             </nav>                
-        </div>    
+    <%@include file="/WEB-INF/views/template/menu.jsp"%>
+    <div class="breadcrumb">
+    	<div>
+   		<a href="/reset/">HOME</a>
+   		<span class="slash">/</span>
+   		검색
+   		</div>
     </div>
     <!--//header-->    
      
     <!-- main contents -->
     <div class="page_container">
-    <form class="form-inline">
+    <form class="form-inline search" onsubmit="return searchCheck()">
         <div class="form-group">
             <label class="sr-only" for="search">검색</label>
-            <input id="search_input"type="text" class="form-control input_box" placeholder="검색">
+            <input id="search_input" type="text" class="form-control input_box" placeholder="브랜드 OR 이름">
         </div>
         <button id="search" type="button" class="btn send_btn"><span class="main_font">검색</span></button>
     </form>
@@ -188,7 +174,7 @@ function search_name(){
     <!-- //main contents -->
 
     <!--footer-->
-    <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+    <%@include file="/WEB-INF/views/template/footer.jsp"%>
     <!--//footer-->    
 
 </body>

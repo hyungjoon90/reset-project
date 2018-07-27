@@ -125,5 +125,8 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		return sqlSession.selectOne("reviewTotAll");
 	}
 
-
+	@Override
+	public List<Reviews_Vo> mypage_review(String nick) throws SQLException {
+		return sqlSession.selectList("reviews.mypage_review", nick);
+	}
 }

@@ -36,13 +36,13 @@
     }
 </style>
 	<c:forEach items="${alist }" var="bean">
-	<a href="${goRoot }item/${bean.item }">
+	<a href="../item/${bean.item }">
 		<div class="contentsbox">
 			<div class="numbox box">
 				<label>${num}</label>
 			</div>
 			<div class="imgbox box">
-				<img src="${bean.img }">
+				<img src="../${bean.img }">
 			</div>
 			<div class="conbox box">
 				<p>${bean.brand }</p>

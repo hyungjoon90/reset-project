@@ -39,7 +39,7 @@ $(function() {
     </div>                                   
 </div>
 </c:forEach>
-<div>
+<div class="pagenum_container">
 <!-- 페이징 시작 -->
 		<!-- 페이징  -->
 		<c:choose>

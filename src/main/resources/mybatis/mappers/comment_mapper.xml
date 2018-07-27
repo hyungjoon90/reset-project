@@ -26,4 +26,8 @@
  	<delete id="deleteAll">
  		DELETE FROM COMMENT WHERE CO_TYPE=#{co_type} AND P_NO={#p_no}
  	</delete>
+ 	
+ 	<select id="mypage_list" resultType="Comment_Vo">
+  		SELECT * FROM COMMENT WHERE WRITER=#{writer} ORDER BY CO_NO ASC
+  	</select>
   </mapper>
