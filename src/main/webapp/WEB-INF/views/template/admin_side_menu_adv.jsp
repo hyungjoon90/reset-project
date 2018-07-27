@@ -30,7 +30,7 @@
 	</div>
          <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li><a href="${goRoot }logout/">LOGOUT</a></li>
+                <li><a href="${goRoot}logout/">LOGOUT</a></li>
         	</ul>
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->

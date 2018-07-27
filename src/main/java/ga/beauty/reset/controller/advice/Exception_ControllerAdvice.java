@@ -22,7 +22,7 @@ public class Exception_ControllerAdvice {
 	public String exception(Exception e) {
 		e.printStackTrace();
 		String msg = e.getMessage();
-		msg.replaceAll("(\\r\\n|\\r|\\n|\\n\\r)"," ");
+		msg=msg.replace("\n", " ").replace("\r", "");
 		logger.error(LogEnum.ERROR+msg);
 		return "error/error";
 	}

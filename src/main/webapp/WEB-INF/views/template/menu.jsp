@@ -14,7 +14,7 @@
                     <div class="login-group" >
                     	<c:if test="${login_on eq true}">
 							<c:choose>
-	                    		<c:when test="${login_user_type eq '일반' }"><a href="${goRoot}mypage"></c:when>
+	                    		<c:when test="${login_user_type eq '일반' }"><a href="${goRoot}mypage/"></c:when>
 								<c:otherwise><a href="${goRoot}admin/"></c:otherwise>	                    	
 							</c:choose>
                     	</c:if>

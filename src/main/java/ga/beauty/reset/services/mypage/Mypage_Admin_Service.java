@@ -29,6 +29,7 @@ import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
+import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_Chart;
 import ga.beauty.reset.dao.entity.stat.Log_File;
 import ga.beauty.reset.dao.entity.stat.Simple_Vo;
@@ -173,6 +174,22 @@ public class Mypage_Admin_Service {
 			while(ite.hasNext()) {
 				Magazine_Vo bean = ite.next();
 				listitem.add(new Simple_Vo(bean.getMag_no(),bean.getTitle()));
+			}
+			return listitem;
+		}else if(command.equals("review")){
+			String where = (String) req.getParameter("where");
+			List<Reviews_Vo> lists  = null;
+			if(where !=null && !where.equals("") && !where.equals("undefined")) {
+				Magazine_Vo bean = new Magazine_Vo();
+				bean.setCom_email(where);
+				lists = reviews_Dao.reviewToTAll();
+			}
+			else lists = reviews_Dao.reviewToTAll();
+			List<Simple_Vo> listitem = new ArrayList<Simple_Vo>();
+			Iterator<Reviews_Vo> ite = lists.iterator();
+			while(ite.hasNext()) {
+				Reviews_Vo bean = ite.next();
+				listitem.add(new Simple_Vo(bean.getRev_no(),"[item:"+bean.getItem()+"/Writer:"+bean.getWriter()+"]"));
 			}
 			return listitem;
 		}

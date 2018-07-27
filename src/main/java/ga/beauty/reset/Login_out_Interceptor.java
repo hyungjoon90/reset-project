@@ -40,7 +40,7 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 		super.afterCompletion(request, response, handler, ex);
 	}
 	
-	@Override
+	/*@Override
 	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
@@ -54,6 +54,6 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 		}
 		super.afterConcurrentHandlingStarted(request, response, handler);
 	}
-	 
+	 */
 	
 }

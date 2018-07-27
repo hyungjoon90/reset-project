@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,7 @@ import ga.beauty.reset.dao.entity.Companys_Vo;
 @Repository
 public class Companys_DaoImp implements Companys_Dao {
 
+	Logger logger = Logger.getLogger(getClass());	
 	@Autowired
 	SqlSession sqlSession;
 	
@@ -39,6 +41,7 @@ public class Companys_DaoImp implements Companys_Dao {
 	
 	@Override
 	public int insertOne(Companys_Vo bean) throws SQLException {
+		logger.debug(bean);
 		return sqlSession.insert("companys.insertOne", bean);
 	}
 

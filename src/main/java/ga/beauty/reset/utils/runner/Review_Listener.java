@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -27,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_C_Vo;
+import ga.beauty.reset.dao.entity.stat.Log_EM_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
@@ -36,11 +39,12 @@ public class Review_Listener implements Common_Listener {
 	Logger logger = Logger.getLogger(Review_Listener.class);
 	
 	// like/yyyy/MM/dd.json
-	//{"data":[{"name":String,"num":int}]}
+	//{"data":[{"no":eveno,"like":,"view":,"num":},....]}
 	private String defaultFP = "/reset/report/review/";
 	// 좋아요 총량 / 일별 증가량 : DONE
+	// 댓글 총량 / 일별 증가량 : 해야됨
 
-	private List<Log_C_Vo> list;
+	private List<Log_EM_Vo> list;
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
@@ -56,7 +60,7 @@ public class Review_Listener implements Common_Listener {
 	}
 	
 	private void init() throws IOException {
-		list = new ArrayList<Log_C_Vo>();
+		list = new ArrayList<Log_EM_Vo>();
 		objectMapper = new ObjectMapper();
 		Date date = new Date();
 		String filename =  
@@ -86,18 +90,26 @@ public class Review_Listener implements Common_Listener {
 	}// addLog()
 	
 	private void changeValue(Reviews_Vo target, String type, int chNum) {
-		Log_C_Vo checkVo = new Log_C_Vo("리뷰",0);
+		int checkNo = target.getRev_no();
+		Log_EM_Vo checkVo = new Log_EM_Vo(checkNo,0,0,0);
 		synchronized(this){
 			// 기존에 있는건지 확인
 			int maybeIdx = list.indexOf(checkVo);
-			if(maybeIdx==0) checkVo = list.get(maybeIdx);
+			if(maybeIdx>=0) checkVo = list.get(maybeIdx);
 			else list.add(checkVo);
 			// 어떤거 값 변화 
-			if(type.equals("num")) { // 사실 안써도 됨.
+			if(type.equals("like")) {
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 리뷰의 좋아요가 ["+chNum+"] 만큼 변했습니다.");
+				checkVo.setLike(checkVo.getLike()+chNum);
+			}else if(type.equals("view")) {
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 리뷰의 조회수가 ["+chNum+"] 만큼 변했습니다.");
+				checkVo.setView(checkVo.getView()+chNum);
+			}else if(type.equals("num")) {
+				logger.info(LogEnum.EVE+"[No."+checkNo+"] 리뷰의 댓글수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setNum(checkVo.getNum()+chNum);
-				logger.info(LogEnum.REV+" [NO."+target.getRev_no()+"] 리뷰의 좋아요가 ["+chNum+"]만큼 변하였습니다.");
 			}
 		}
+		
 	}//changeValue()
 
 	@Override
@@ -126,7 +138,7 @@ public class Review_Listener implements Common_Listener {
 				try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 					buffOut.write(sbr.toString());
 					buffOut.flush();
-					logger.info(LogEnum.SAVA_LOG+"["+MySDF.SDF_ALL.format(date)+"]일의 리뷰-좋아요 수치가 저장되었습니다.");
+					logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 리뷰로그가 저장되었습니다.");
 				}
 				init();
 			}
@@ -151,7 +163,7 @@ public class Review_Listener implements Common_Listener {
 			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 				buffOut.write(sbr.toString());
 				buffOut.flush();
-				logger.warn(LogEnum.SAVA_LOG+"["+MySDF.SDF_ALL.format(date)+"]일의 리뷰-좋아요 로그가 임시저장 되었습니다.");
+				logger.warn(LogEnum.SAVA_LOG+"["+MySDF.SDF_ALL.format(date)+"]일의 리뷰로그가 임시저장 되었습니다.");
 			}
 		}
 	}
@@ -163,7 +175,15 @@ public class Review_Listener implements Common_Listener {
 
 	private StringBuilder createJsonString() {
 		StringBuilder sbr = new StringBuilder("{\"data\":[");
-		Iterator<Log_C_Vo> ite = list.iterator();
+		Collections.sort(list, new Comparator<Log_EM_Vo>() {
+			@Override
+			public int compare(Log_EM_Vo o1, Log_EM_Vo o2) {
+				if(o1.getNo()>o2.getNo()) return 1;
+				else if (o1.getNo()<o2.getNo()) return -1;
+				return 0;
+			}
+		});
+		Iterator<Log_EM_Vo> ite = list.iterator();
 		int i=0;
 		while(ite.hasNext()) {
 			if(i!=0)sbr.append(",");

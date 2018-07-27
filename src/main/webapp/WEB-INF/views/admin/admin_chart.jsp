@@ -65,7 +65,7 @@
             <div class="container-fluid">
             <!-- 컨탠츠 시작 -->
             	<c:choose>
-					<c:when test="${command eq 'event' || command eq 'magzine' }">
+					<c:when test="${command eq 'event' || command eq 'magzine' || command eq 'review' }">
 		           	<div class="row">    
 				        <div class="col-lg-12">
 							<div class="panel panel-default">
