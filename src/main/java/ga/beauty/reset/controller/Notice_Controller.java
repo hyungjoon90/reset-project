@@ -44,16 +44,18 @@ public class Notice_Controller {
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
 		log.debug("Admin notice - show List");
+		model.addAttribute("goRoot", "../");
 		return "admin/admin_notice";
 	}	
 	
 	//관리자 공지사항 입력
 	//TODO admin notice add / "admin/admin_notice.jsp"  / 이지현	
 	@RequestMapping(value="/admin/notice",method=RequestMethod.POST)
-	public String add(@ModelAttribute Notice_Vo bean) throws SQLException {
+	public String add(@ModelAttribute Notice_Vo bean, Model model) throws SQLException {
 		log.debug("Admin notice add - before");
 		service.addPage(bean);
 		log.debug("Admin notice add - after");
+		model.addAttribute("goRoot", "../");
 		return view;
 	}
 	

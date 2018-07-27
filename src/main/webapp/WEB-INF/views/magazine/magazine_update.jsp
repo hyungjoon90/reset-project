@@ -6,7 +6,6 @@
 <%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <script src="${goRoot}ckeditor/ckeditor.js"></script>
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
-	<title>매거진</title>
 <script type="text/javascript">
  $(function(){
 	 $("#listBack").click(function(){
@@ -132,7 +131,7 @@
 							<div name="Existing_img" id="Existing_img">
 								<img src="${goRoot}${detail.img}">
 							</div>
-							<input type="file" name="img" id="img" class="darkBtn">
+							<input type="file" name="img" id="img" class="darkBtn" value="${detail.img}">
 						</div>
 						<div id="preview">
 							<img src="#" id="control_img">
@@ -204,15 +203,6 @@
 	    		 console.log(eve_no);
 	    		 var formData = new FormData($("#magazine_updateForm")[0]);
 	    		 console.log(formData);
-	    		 
-	    		 /* TODO: [김형준] 썸네일 유효성 검사  */
-	       		 var file = $('#img').prop("files")[0];
-	    		 var blobURL = window.URL.createObjectURL(file);
-		         $('#preview img').attr('src', blobURL);
-		         
-	    		 if(file==null){
-	    			 $('#preview img').attr('src', '${detail.img}');
-	    		 }
 	    		 
 	    	     $.ajax({
 	    	       type:'post',

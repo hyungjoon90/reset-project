@@ -212,6 +212,35 @@ public class Magazine_Controller {
 			return "admin/admin_magazine";
 		}
 	
+		//TODO: Magazine 상세페이지 출력 / magazine_detail.jsp / 김형준
+		@RequestMapping(value="/admin/magazine/{mag_no}", method=RequestMethod.GET)
+		public String adminDetail(@PathVariable("mag_no") int mag_no,Model model,HttpServletRequest req,HttpServletResponse resp) throws Exception{
+			model.addAttribute("goRoot","../../");
+			Magazine_Vo bean =new Magazine_Vo();
+			bean.setMag_no(mag_no);
+			
+			Comment_Vo comment=new Comment_Vo();
+			comment.setCo_type("매거진");
+			comment.setP_no(mag_no);
+			
+			//쿠기를 사용한 조회수 증가 입니다(3번째 인자로 review,magazine,event 중에 골라서 넣어주세요)
+			//viewUtils.UpdateView(resp, req, "magazine", mag_no, model);
+			
+			model.addAttribute("no",mag_no);
+			model.addAttribute("type","magazine");
+			
+			service.detailPage(model, bean, comment);
+			
+			//접속대상의 IP를 받아옵니다.
+			HttpSession session = req.getSession();
+			String ip = req.getHeader("X-FORWARDED-FOR");
+			if (ip == null) ip = req.getRemoteAddr();
+			
+			logger.info(CrudEnum.DETAIL + "매거진에서 {ip:"+ip+"}가 매거진 상세페이지로 이동합니다.");
+			
+			return "admin/admin_mag_detail";
+		}
+		
 	
 	
 	//TODO: admin Magazine 수정페이지로 이동 / magazine_update.jsp / 김형준

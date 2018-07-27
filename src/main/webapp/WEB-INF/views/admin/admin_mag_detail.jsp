@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
+<link href="${goRoot}css/main.css" rel="stylesheet">
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -229,16 +230,11 @@ $(document).ready(function(){
 </head>
 <body>
 	<!--header-->
-    <%@include file="/WEB-INF/views/template/menu.jsp" %>
-    <div class="breadcrumb">
-    	<div>
-   		<a href="/reset/">HOME</a>
-   		<span class="slash">/</span>
-   		매거진
-   		</div>
-    </div>
-    <!--//header-->   
-     
+    <div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+            <!-- 컨탠츠 시작 -->
     <!-- main contents -->
     <div class="page_container">
         <hr>
@@ -294,7 +290,7 @@ $(document).ready(function(){
 						<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
 						<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn btimg">
 						<input id="result" type="hidden" value="" />
-						<span><strong id="su">${detail.pop }</strong></span>
+						<span><strong id="popNum">${detail.pop }</strong></span>
 		            </div>
 		            <!-- 좋아요 끝 -->
 
@@ -372,10 +368,10 @@ $(document).ready(function(){
         <hr>
     </div>
     <!-- //main contents -->
-
-    <!--footer-->
-    <%@include file="/WEB-INF/views/template/footer.jsp" %>
-    <!--//footer-->  
+            <!-- 컨탠츠 끝 -->
+            </div><!-- /.container-fluid -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
 <script type="text/javascript">
 	/* 댓글  */
 		//아래 두개의 변수만 바꿔주면 됩니다.

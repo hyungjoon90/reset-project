@@ -6,30 +6,8 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+<%@include file="/WEB-INF/views/template/head.jsp" %>
 
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" charset="utf-8"></script>
-
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous" charset="utf-8"></script>
-	
 	
 <!-- <script type="text/javascript">
 	function detail() {
@@ -231,14 +209,7 @@ color : white;
 <body>
    <!--header-->
     <%@include file="/WEB-INF/views/template/menu.jsp" %>
-    <div class="breadcrumb">
-       <div>
-         <a href="/reset/">HOME</a>
-         <span class="slash">/</span>
-         공지사항
-         </div>
-    </div>
- 
+	<!-- end header -->
 <!-- list 시작 -->
 <div class="container">
 <h1>공지사항</h1>
@@ -302,50 +273,17 @@ color : white;
 								function detail() {
 									$('.detailForm input').hide();
 									$('.modal-title').html('상세페이지');
-									/* $('.well-input').show();
-									$('.modal-footer').show(); */
 								}
-							 /* function edit() {
-									$('.detailForm input').show();
-									$('.modal-title').html('수정페이지');
-									$('.modal-footer').hide();
-								}
- */
 								$(function() {
 									detail();
-						/* 			$('.edit').click(function() {
-										edit();
-									$('#close').click(function(){
-										detail();
-									}); 
-									});
-									*/
 								}); 
 							</script>
 		      </div>
-		      <%-- !-- TODO 수정하기 -->
-		   		      
-		      <div class="modal-footer">
-		        <button type="button" class="greybtn showlistbtn" data-dismiss="modal">목록보기</button>
-		        <button type="button" class="blackbtn edit">수정</button>
-		       
-			 	<form action="/reset/notice/${bean.no_no }" method="POST" class="deleteForm">
-		        <input type="hidden" name="_method" value="delete"/> 
-		        <button type="submit" class="redbtn delete">삭제</button>
-		        </form>
-		 
-		      </div><!-- modal footer end  -->
-		 --%>
 		    </div>
 		  </div>
 		</div>
 	</c:forEach>
-	
-<%-- 	<!-- TODO [jihyun]notice - 관리자 로그인시 보이게 되는 입력버튼 -->
-	<c:if test="${login_on==true && !(login_user_type='일반')}">
-	   <button type="button" class="addNotice redbtn pull-right" data-toggle="modal" data-target=".bs-example-modal-lg" >입력하기</button>
-	</c:if> --%>
-</div>
-	
+</div><!-- 컨탠츠 끝 -->
+	    <%@include file="/WEB-INF/views/template/footer.jsp"%>
 </body>
 </html>

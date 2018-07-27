@@ -4,13 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${goRoot}js/jquery-1.12.4.js"></script>
-<script src="${goRoot}js/bootstrap.min.js"></script>
-<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
-<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${goRoot}css/main.css" rel="stylesheet">
-<title>Home</title>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <style type="text/css">
 
 .textareadiv{
@@ -244,6 +238,13 @@ display: hidden;
 </head>
 
 <body>
+    <div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+            <!-- 컨탠츠 시작 -->
+
+
 	<div class="container">
 	<div class="well">
 		<h3>글번호 ${bean.qa_no} 상세페이지</h3>
@@ -313,5 +314,11 @@ display: hidden;
 
 		</form>
 	</div>
+	
+	            <!-- 컨탠츠 끝 -->
+            </div><!-- /.container-fluid -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+	
 </body>
 </html>

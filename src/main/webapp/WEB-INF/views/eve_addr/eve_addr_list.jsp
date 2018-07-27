@@ -6,7 +6,6 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/admin_header.jsp"%>
-<title>이벤트 참가</title>
 <style>
 .page_container{
 	max-width: 1080px;

@@ -1,13 +1,11 @@
 <%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <link rel="stylesheet" href="${goRoot }css/ranking_review/ranking_list.css" type="text/css">
-	<title>Home</title>
 <script type="text/javascript">
 $(function(){
 	var su=0;
