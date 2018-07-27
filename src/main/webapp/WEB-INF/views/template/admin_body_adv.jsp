@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 	<title>${comName }-사이트</title>
+	<!-- 생각해봐야됨. -->
 	<script>
 	var getNums = function() {
 		var $targets = $(".getNum");
@@ -11,38 +12,6 @@
 			$.post(); // TODO :[KSS] 지금 하고 있는 부분.
 		});
 	};
-	
-	
-	var getCountSession = function(){
-		var $target = $("#nowSession");
-		var sendData = "resultType=int";
-		$.post("${goRoot}admin/ajax/session-cnt",sendData)
-		.done(function(data){
-			if(data.result==200){
-				$target.text(data.result_data);
-			}
-		});
-
-	}
-	var getCountLogin = function(){
-		var $target = $("#nowLogin");
-		var sendData = "resultType=int";
-		$.post("${goRoot}admin/ajax/login-cnt",sendData)
-		.done(function(data){
-			if(data.result==200){
-				$target.text(data.result_data);
-			}
-		});
-	}
-	var getLogForMain = function(ele,type,cnt){
-		var $target = $(ele);
-		var data;
-		var sendData = "log_start_num="+cnt+"&more_Log=false";
-		var test = $.post("${goRoot}admin/log/"+type,sendData);
-		test.done(function(data){
-			$target.html(data);
-		});
-	}
 	
 	var getChart = function(ele,type,day,no){
 		var $target = $(ele);
@@ -57,26 +26,16 @@
 	
 	
 	$(function(){
-		var log_normal = $("#log_normal");
-		var log_err = $("#log_err");
 		var login_chart = $("#chart-target");
-		getLogForMain(log_normal,"normal",10);
-		getLogForMain(log_err,"error",10);
-		getCountSession();
-		getCountLogin();
 		getChart(login_chart,"login",7,-1);
 		
 		// 30초 watch	
 		setInterval(function(){
-			getCountSession();
-			getCountLogin();
 		},30000);
 
 		// 45초 watch
 		setInterval(function(){
-			getLogForMain(log_normal,"normal",10);
-			getLogForMain(log_err,"error",10);
-			getChart(login_chart,"login",7,-1);
+			getChart(login_chart,"event",7,-1);
 		},45000);
 		
 	});
@@ -195,29 +154,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>실시간 활동</h3>
-                            </div>
-                            <div id="log_normal" class="panel-body">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>에러로그</h3>
-                            </div>
-                            <div id="log_err" class="panel-body">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-
             </div>
             <!-- /.container-fluid -->
 

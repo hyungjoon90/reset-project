@@ -36,10 +36,10 @@ public class RegexLogFile {
  	}
   	
   	public List<Log_File> getListFromLog(String filename) throws IOException, InterruptedException{
-  		return getListFromLog(filename,1,25);
+  		return getListFromLog(filename,1,10);
   	} 
   	public List<Log_File> getListFromLog(String filename, int start) throws IOException, InterruptedException{
-  		return getListFromLog(filename,start,25);
+  		return getListFromLog(filename,start,10);
   	} 
   	public List<Log_File> getListFromLog(String filename, int start ,int cnt) throws IOException, InterruptedException{
   		ArrayList<Log_File> list = new ArrayList<Log_File>();  		
@@ -61,13 +61,16 @@ public class RegexLogFile {
 			
 			int lineCnt = 1;
 			while(true) {
-				if(lineCnt<=start+cnt) {
+				if(lineCnt<start+cnt) {
 					String line = in.readLine();
 					if (line == null) {
 						break;
-					}else if(tmpCnt<=start+cnt) {
-					list.add(getLogForString(line));
-					tmpCnt++;
+					}else if(line.equals( System.getProperty( "line.separator" )) || line.equals("\r") || line.equals("\n") ){	
+					}else {
+						if(tmpCnt==lineCnt) {
+							list.add(getLogForString(line));
+							tmpCnt++;
+						}
 					}
 					lineCnt++;
 				}else {

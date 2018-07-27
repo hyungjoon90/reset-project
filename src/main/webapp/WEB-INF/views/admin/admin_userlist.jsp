@@ -4,9 +4,9 @@
     <c:forEach items="${result_data }" var="bean" varStatus="">
     			     <div class="row user-row">
 			            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
-			                <img class="img-circle"
+<!-- 			                <img class="img-circle"
 			                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
-			                     alt="User Pic">
+			                     alt="User Pic"> -->
 			            </div>
 			            <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
 			                 	<strong>[${bean.nick }]</strong><small>[${bean.email }]</small><br>
@@ -25,14 +25,14 @@
 			                    <div class="panel-body">
 			                        <div class="row">
 			                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
-			                                <img class="img-circle"
+<!-- 			                                <img class="img-circle"
 			                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
-			                                     alt="User Pic">
+			                                     alt="User Pic"> -->
 			                            </div>
 			                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
-			                                <img class="img-circle"
+<!-- 			                                <img class="img-circle"
 			                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
-			                                     alt="User Pic">
+			                                     alt="User Pic"> -->
 			                            </div>
 			                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
 			    							<strong>[${bean.nick }]</strong><small>[${bean.email }]</small><small>[P:${bean.exp }]</small><br>
