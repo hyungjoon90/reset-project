@@ -185,7 +185,6 @@ input.upload {
      
     <!-- main contents -->
     <div class="page_container">
-        <hr>
             <!-- 내용 입력 시작-->
             <div class="contents_container">
 	       	<div class="row">
@@ -277,7 +276,6 @@ input.upload {
 			  </div>
 			</div>
            	<!-- 내용 입력 끝 -->
-        <hr>
     </div>
     <!-- //main contents -->
     <!--footer-->

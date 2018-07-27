@@ -30,7 +30,11 @@
   	</insert>
   	
   	<update id="updateOne" parameterType="Event_Vo">
-  		UPDATE EVENT SET IMG=#{img},TITLE=#{title},CON=#{con},COM_EMAIL=#{com_email} WHERE EVE_NO=#{eve_no}
+  		UPDATE EVENT SET 
+  		<if test="img!=null">
+  		IMG=#{img},
+  		</if>
+  		TITLE=#{title},CON=#{con},COM_EMAIL=#{com_email} WHERE EVE_NO=#{eve_no}
   	</update>
   	
   	<update id="updatePop" parameterType="Event_Vo">

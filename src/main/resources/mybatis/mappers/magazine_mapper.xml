@@ -37,7 +37,11 @@
   	</insert>
   	
   	<update id="updateOne" parameterType="Magazine_Vo">
-  		UPDATE MAGAZINE SET IMG=#{img},TITLE=#{title},CON=#{con},CATE=#{cate},TAGS=#{tags} WHERE MAG_NO=#{mag_no}
+  		UPDATE MAGAZINE SET 
+  		<if test="img!=null">
+  		IMG=#{img},
+  		</if>
+  		TITLE=#{title},CON=#{con},CATE=#{cate},TAGS=#{tags} WHERE MAG_NO=#{mag_no}
   	</update>
   	
   	<update id="updatePop" parameterType="Magazine_Vo">

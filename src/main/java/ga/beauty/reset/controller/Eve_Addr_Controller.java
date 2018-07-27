@@ -148,7 +148,8 @@ public class Eve_Addr_Controller {
 		int eventNum = Integer.parseInt(req.getParameter("eventNum"));
 
 		int lucky[] = new int[eventNum];
-
+		
+		if(tot>eventNum) {
 		// 중복 숫자 제거
 		for (int i = 0; i < lucky.length; i++) {
 			lucky[i] = (int) (Math.random() * tot) + 1;
@@ -177,7 +178,14 @@ public class Eve_Addr_Controller {
 		for (int i = 0; i < lucky.length; i++) {
 			result.add(allList.get(lucky[i]));
 		}
+		
 		model.addAttribute("detail", result);
+		} else {
+			List<Eve_addr_Vo> allList = service.listPage(eve_no);
+	
+			model.addAttribute("detail", allList);
+			
+		}
 		model.addAttribute("goRoot", goRoot);
 		model.addAttribute("eve_no", eve_no);
 		// 접속대상의 IP를 받아옵니다.
