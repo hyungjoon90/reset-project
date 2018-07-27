@@ -238,21 +238,6 @@ display: hidden;
 		});//이메일전송 버튼 클릭 이벤트
 	}); //document ready end
 	
-	
-/* 		mailSend.click(function() {
-			$.ajax({ // ajax 이메일전송
-				type : "post",
-				url : '/reset/mail/qna/${bean.qa_no }',
-				//TODO [jihyun]reset
-				success : function(data) {
-					if (data == 456) {
-						/* conform 
-						alert('이메일전송완료!');
-					}
-				}
-			}); // ajax 이메일 전송 end
-		});//이메일전송 버튼 클릭 이벤트
-	}); //document ready end */
 </script>
 
 
