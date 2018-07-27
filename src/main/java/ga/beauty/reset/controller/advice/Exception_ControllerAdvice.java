@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ga.beauty.reset.utils.LogEnum;
 
-/*@ControllerAdvice
+@ControllerAdvice
 public class Exception_ControllerAdvice {
 
 	Logger logger = Logger.getLogger(getClass());
@@ -26,4 +26,4 @@ public class Exception_ControllerAdvice {
 		logger.error(LogEnum.ERROR+msg);
 		return "error/error";
 	}
-}*/
+}
