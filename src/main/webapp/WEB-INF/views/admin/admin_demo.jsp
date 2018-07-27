@@ -10,7 +10,7 @@
 	var getLog = function(ele,type,start,cnt){
 		var $target = $(ele);
 		var data;
-		var sendData = "log_start_num="+start+"&nextNum="cnt+"&more_Log=true";
+		var sendData = "log_start_num="+start+"&nextNum="cnt+"&more_Log=true"+"&mode=detail";
 		var test = $.post("${goRoot}admin/log/"+type,sendData);
 		test.done(function(data){
 			$target.html(data);

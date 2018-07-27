@@ -86,6 +86,7 @@ public class Login_Normal implements Login_Service {
 				tmpM.setEmail(email);
 				Members_Vo compare = members_Dao.selectOne(tmpM);
 				userSession.setAttribute("join_route", checkBean.getJoin_route());
+				userSession.setAttribute("login_user_type", checkBean.getUser_type());
 				userSession.setAttribute("login_email", email);
 				userSession.setAttribute("tmp", passwordUtil.getEncryptSHA256(password+compare.getNick()));
 				userSession.setAttribute("login_route","normal");

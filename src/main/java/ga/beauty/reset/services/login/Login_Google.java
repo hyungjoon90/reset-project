@@ -86,6 +86,7 @@ public class Login_Google implements Login_Service{
 				// TODO [kss]Reset 나중에 지워야됨
 				// 연동할건지 물어보기
 				result = "300";
+				userSession.setAttribute("login_user_type", resultUser.getUser_type());
 				userSession.setAttribute("join_route", resultUser.getJoin_route());
 				nextUrl = "/reset/login/adds";
 			}

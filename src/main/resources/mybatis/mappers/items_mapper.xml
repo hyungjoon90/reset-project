@@ -50,4 +50,8 @@
   	<update id="itemDel">
   		UPDATE MYDB.ITEMS SET OPEN=0 WHERE ITEM=#{item}
   	</update>
+  	
+  	<select id="itemCont" resultType="int">
+  		SELECT COUNT(*) FROM ITEMS
+  	</select>
   </mapper>

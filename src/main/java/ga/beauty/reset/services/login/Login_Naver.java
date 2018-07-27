@@ -99,6 +99,7 @@ public class Login_Naver implements Login_Service{
 			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));
 			}else {
 				// 연동할건지 물어보기
+				userSession.setAttribute("login_user_type", resultUser.getUser_type());
 				userSession.setAttribute("join_route", resultUser.getJoin_route());
 				req.setAttribute("login_result", "redirect:/login/adds/");
 			}
