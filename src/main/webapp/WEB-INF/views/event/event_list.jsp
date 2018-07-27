@@ -6,7 +6,6 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <link href="css/btn/btn.css" rel="stylesheet">
-	<title>이벤트</title>
 <style type="text/css">
 .page_container{
 	max-width: 1080px;

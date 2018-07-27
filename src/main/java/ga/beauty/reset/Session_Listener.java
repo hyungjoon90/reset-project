@@ -2,20 +2,14 @@ package ga.beauty.reset;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.runner.Login_Listener;

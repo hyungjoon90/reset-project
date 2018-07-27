@@ -10,7 +10,6 @@
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
 <script src="${goRoot}js/ser.js"></script>
 <script src="${goRoot}js/sign.js"></script>
-<title>Normol LoginView</title>
 <script type="text/javascript">
 	$(function() {
 		addFormEvent();

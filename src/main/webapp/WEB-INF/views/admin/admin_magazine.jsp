@@ -9,7 +9,6 @@
 <link href="${goRoot}css/main.css" rel="stylesheet">
 <link href="${goRoot}css/selectric.css" rel="stylesheet">
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
-	<title>${login_conName }-매거진 관리</title>
 <script type="text/javascript">
 $(function() {
 	  $('select').selectric();

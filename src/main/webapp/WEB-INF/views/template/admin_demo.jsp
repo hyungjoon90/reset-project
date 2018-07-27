@@ -11,7 +11,6 @@
 	<style>
 		사용한것들
 	</style>
-<title>Insert title here</title>
 </head>
 
 <body>

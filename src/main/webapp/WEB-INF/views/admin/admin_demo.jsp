@@ -21,7 +21,6 @@
 		getlog($("#log-target"),"${command}",0,1000); // 페이징 나중에
 	});
 	</script>
-	<title>Insert title here</title>
 </head>
 
 <body>

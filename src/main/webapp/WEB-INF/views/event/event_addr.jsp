@@ -6,7 +6,6 @@
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-	<title>Home</title>
 <script type="text/javascript">
 var element_layer;
 function sample2_execDaumPostcode() {

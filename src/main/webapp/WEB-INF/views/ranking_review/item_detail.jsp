@@ -2,19 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <link rel="stylesheet" href="${goRoot }css/ranking_review/item_detail.css" type="text/css">
-<title>Home</title>
 <script type="text/javascript">
 <!-- TODO:[sch] 1.ajax로 리스트 크롤링 -->
-var page=${fn:length(review_bean) };/* 해당 페이지 리스트 갯수 */
+var page='${fn:length(review_bean) }';/* 해당 페이지 리스트 갯수 */
 var	pageTot=${tot};/* 리스트 총 갯수 */
 $(document).ready(function(){
-	cartCheck(); 
+	var email='${login_email}';
+	if(email!=''){
+		cartCheck(); 
+	}
 	if(page>=pageTot){
 		$("#listAdd>img").hide();
 	}
@@ -22,14 +23,19 @@ $(document).ready(function(){
 	$("#listAdd").click(function(){
 		if(page>=pageTot){
 			$("#listAdd>img").hide();
+		}else{
+			reviewListadd();
 		}
-		reviewListadd();
 	});
 	$("#cartAdd").click(function(){
-		cartAdd();
+		if(email!=''){
+			cartAdd();
+		}
 	});
 	$("#cartDel").click(function(){
-		cartDel();
+		if(email!=''){
+			cartDel();
+		}	
 	});
 	
 	$('#review_write').on('shown.bs.modal', function () {
@@ -67,40 +73,29 @@ $(document).ready(function(){
 
 /* 리스트 추가 버튼 클릭시 실행 */
 function reviewListadd(){
-	page+=5;
+	
 	var item=${item_bean.item};
 	var Data= {"page": page};
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
-			dataType: 'json', // json 타입
-			url: "reviewadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
+			dataType: 'text', // json 타입
+			url: "reviewListadd?item="+item, // 데이터를 불러오는 json-server 주소입니다 .
 			data: Data
 	})
 	.done(function(data){
- 		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
- 			$('.icon').prev().after(
- 					"<a href=./"+data.item+"/review/"+data.rev_no+">"+
-					"<div class='reviewBox'>"+
-					"<img src='${goRoot}"+data.img+"'/>"+
-					"<label>"+data.writer+"&nbsp;</label>"+
-					"<label>"+data.age+"</label>/"+
-					"<label>"+data.skin+"</label>/"+
-					"<label>"+data.gender+"</label>"+
-					"<label>"+data.star+"</label>/"+
-					"<label>"+data.nalja+"</label>"+
-					"<p>"+data.good+"</p>"+
-					"<p>"+data.bad+"</p>"+
-					"<p>"+data.tip+"</p></div></a>");
-		})
+ 		$('#listAdd').prev().after(data);
+ 		page=page-0+5;
+		if(page>=pageTot){
+			$("#listAdd>img").hide();
+		}
 	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 불러오기 실패');
+	.fail(function (data) { // 실패했을때 불러질 함수
+		console.error('데이터 불러오기 실패'+data);
 	})
 } 
 function cartCheck(){
 	var item=${item_bean.item};
 	//var nick=${login_email}; // TODO:[sch] 찜목록저장시 아이디 수정
-	var email=${login_email};
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
@@ -123,7 +118,7 @@ function cartCheck(){
 function cartAdd(){
 	var item=${item_bean.item};
 	//var nick=${login_email};// TODO:[sch] 찜목록저장시 아이디 수정 
- 	var email=${login_email};
+	var email='${login_email}';
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
@@ -141,11 +136,11 @@ function cartAdd(){
 	.fail(function () { // 실패했을때 불러질 함수
 		console.error('실패');
 	})
-}
+} 
 function cartDel(){
 	var item=${item_bean.item}; 
 	//var nick=${login_email}; // TODO:[sch] 찜목록저장시 아이디 수정 
-	var email=${login_email};
+	var email='${login_email}';
 	$.ajax({
 	        type: 'GET', // get 방식으로 요청
 			dataType: 'json', // json 타입
@@ -166,7 +161,7 @@ function cartDel(){
 }
 function expUp(type){
 	<!-- //TODO: [sch] 밑에 세션 이메일로 바꿀것 -->
-	var email = ${login_email};
+	var email ='${login_email}';
 		var type = type;//review,comment,like
 		$.ajax({
 			type : 'POST',

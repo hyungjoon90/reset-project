@@ -266,7 +266,6 @@ style> /* label 글씨속성  */ .page_container label {
 	top: 1px;
 }
 </style>
-<title>계정등록</title>
 </head>
 
 <body>

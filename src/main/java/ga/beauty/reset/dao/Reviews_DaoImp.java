@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.Ranks_Vo;

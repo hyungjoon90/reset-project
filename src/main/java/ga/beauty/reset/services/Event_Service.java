@@ -27,6 +27,10 @@ public class Event_Service {
 		model.addAttribute("alist",commonDao.selectAll());
 	}
 	
+	public void main_listPage(Model model) throws SQLException{
+		model.addAttribute("event_alist",commonDao.selectAll());
+	}
+	
 	public void listPage(Model model, Event_Vo bean) throws SQLException{
 		model.addAttribute("alist",commonDao.selectAll(bean));
 	}

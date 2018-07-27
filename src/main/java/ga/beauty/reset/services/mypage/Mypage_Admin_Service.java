@@ -51,7 +51,7 @@ public class Mypage_Admin_Service {
 	ChartFile chartFile;
 	private String[] colorFile = {
 			"rgba(255,145,48,"
-			,"rgba(254,221,85,"
+			,"rgba(132,176,157,"
 			,"rgba(18,140,135,"
 			,"rgba(59,0,48,"
 	};
@@ -94,10 +94,6 @@ public class Mypage_Admin_Service {
 			data = items_DaoImp.getCount();
 		}
 		return data;
-	}
-	
-	public Map<String, Object> getInfoAsMap(String command, HttpSession session, HttpServletRequest req) {
-		return null;
 	}
 
 	//
@@ -186,12 +182,15 @@ public class Mypage_Admin_Service {
 	
 	
 	public List<Log_File> getLog(String command, HttpSession session, HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
+		// log_start_num="+start+"&nextNum="+cnt+"&more_Log=true"+"&mode=detail
 		String startNum = req.getParameter("log_start_num");
 		String cnt = req.getParameter("nextNum");
+		
 		List<Log_File> list = null;
 		if(command.equals("normal")) {
 			if(startNum!=null && !startNum.equals("") && cnt!=null && !cnt.equals("")) {
 				list = regexLogFile.getListFromLog(logFile,Integer.parseInt(startNum),Integer.parseInt(cnt));
+				req.setAttribute("endPoint", Integer.parseInt(startNum)+list.size());
 			}else {
 				list = regexLogFile.getListFromLog(logFile);
 			}

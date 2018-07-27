@@ -6,7 +6,6 @@
 <%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <script src="${goRoot }ckeditor/ckeditor.js"></script>
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
-	<title>이벤트</title>
 <script type="text/javascript">
  $(function(){
 	 $('#preview').hide();

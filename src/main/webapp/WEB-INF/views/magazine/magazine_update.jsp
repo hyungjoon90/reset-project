@@ -6,7 +6,6 @@
 <%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <script src="${goRoot}ckeditor/ckeditor.js"></script>
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
-	<title>매거진</title>
 <script type="text/javascript">
  $(function(){
 	 $("#listBack").click(function(){
