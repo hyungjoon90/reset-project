@@ -74,13 +74,14 @@
         background-color: #fff;
         border-top: 4px #d00b01 solid;
         padding: 10px;
+        z-index: 1;
     }
     .top-menu:hover .sub-menu{
         display: block;
     }
     .top-menu:hover .space{
         position: absolute;
-        padding-top: 22px;
+        padding-top: 21px;
     }
     .space{
         height: 22px;

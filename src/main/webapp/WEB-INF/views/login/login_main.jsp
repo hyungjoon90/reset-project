@@ -19,10 +19,66 @@
 <script src="${goRoot}js/bootstrap.min.js"></script>
 <script src="${goRoot}js/login.js"></script>
 <script src="${goRoot}js/ser.js"></script>
+<script src="${goRoot}js/jquery.flexslider.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <script type="text/javascript" src="${goRoot }js/jquery.bxslider.js"></script>
 <title>Insert title here</title>
-
+<style type="text/css">
+ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
+.slides img{
+	max-width: 100%; 
+}
+.flexslider {
+	z-index:-1;
+	text-align: center;
+	margin-top: 3%;
+}
+.flex-control-paging {
+	display: inline-block;
+}
+.flex-control-paging:after {
+	display: block;
+	content: '';
+	clear: both;
+}
+.flex-control-paging li {
+	float: left;
+	display: inline-block;
+}
+.flex-control-paging a {
+	display: inline-block;
+	margin: 3px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #42A1F6;
+	font-size: 0;
+	line-height: 0;
+}
+.flex-control-paging a.flex-active{
+	background-color:#335574;
+}
+.flex-direction-nav li a {
+	text-decoration: none;
+	font-size: 43px;
+	font-weight: bold;
+	color: #000;
+}
+.flex-direction-nav li.flex-nav-prev {
+	bottom: 20px;
+	left: 15px;
+	display: none;
+}
+.flex-direction-nav li.flex-nav-next {
+	right: 15px;
+	display: none;
+} 
+@media (max-width: 1199px) {
+	.flexslider {
+		margin-top: 9%;
+	}
+}
+</style>
 <!-- Latest compiled and minified JavaScript -->
 <script>
 	// 전부 login.js 로 넣을거임
@@ -68,8 +124,14 @@
 	// 그외 일반
   $(function(){
 	startGoogleApp();
-	$('.slider').bxSlider();
-  })
+/* 	$('.slider').bxSlider();
+ */	
+	 $('.flexslider').flexslider({
+			useCSS: true,
+			animation: "slide",
+		    controlsContainer: $(".custom-controls-container"),
+		  });
+  });
   </script>
 <script>
 
@@ -210,9 +272,20 @@ $(function(){
 			</form>
 		</div><!-- <div class="col-md-4 login-sec"> end -->
 		<div class="col-md-8 banner-sec">
-           <div class="slider">
+          <%--  <div class="slider">
   			<div><img alt="" src="${goRoot }imgs/login_imgs/1.jpg"> </div>
  			 <div><img alt="" src="${goRoot }imgs/login_imgs/2.jpg"></div>
+			</div> --%>
+			
+			<div class="flexslider">
+			  <ul class="slides">
+			    <li>
+			      <img src="${goRoot }imgs/login_imgs/1.jpg" />
+			    </li>
+			    <li>
+			      <img src="${goRoot }imgs/login_imgs/2.jpg" />
+			    </li>
+			  </ul>
 			</div>
 		</div><!-- banner-sec end -->
 	</div>

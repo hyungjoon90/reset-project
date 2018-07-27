@@ -6,7 +6,6 @@
         width: 85%;
         margin: 0px auto;
         display: flex;
-        border-bottom: 0.5px solid rgb(217, 222, 232);
         padding: 5px 0px;
     }   
     .numbox{
