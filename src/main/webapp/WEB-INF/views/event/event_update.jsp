@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${goRoot }js/jquery-1.12.4.js"></script>
-<script src="${goRoot }js/bootstrap.min.js"></script>
+<%@include file="/WEB-INF/views/template/admin_header.jsp"%>
 <script src="${goRoot }ckeditor/ckeditor.js"></script>
-<link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
-<link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${goRoot }css/main.css" rel="stylesheet">
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
-	<title>Home</title>
 <script type="text/javascript">
  $(function(){
+	 $("#listBack").click(function(){
+		 window.history.go(-2);
+		});
+	 
+	 $("#com_email").val("${detail.com_email}").prop("selected", true);
+	 
 	 $('#preview').hide();
 	 
 	 $('#img').on('change', function() {
@@ -56,10 +56,7 @@
  function eventCheck(){
 	 var img= $("#img");
 	 var title = $("#title");
-	 if(img.val()== ""){
-		 alert("썸네일을 올려 주세요");
-		 return false;
-	 }
+
 	 if(title.val() == ""){
 		 alert("제목을 입력해 주세요");
 		 $("#title").focus();
@@ -74,126 +71,87 @@
  };
 </script>
 <style type="text/css">
-	/* 미리보기 이미지 사이즈 */
-	#control_img { /* div에 주는것도 좋은 방법임. */
-		width: 300px;
-	}
-	#preview{
-		width: 570px;
-		height: 350px;
-	}
-	.delImgBtn{
-		display: block;
-	}
-	.imgDiv label { 
-		display: inline-block; 
-		padding: .5em .75em; 
-		font-size: inherit; 
-		line-height: normal;
-		color:#ffffff; 
-		vertical-align: middle; 
-		background-color: #313131; 
-		cursor: pointer; 
-		border: 1px solid #313131; 
-		border-bottom-color: #313131; 
-		border-radius: .25em; 
-		} 
-	
-	.imgDiv input[type="file"] { /* 파일 필드 숨기기 */ 
-		position: absolute; 
-		width: 1px; 
-		height: 1px; 
-		padding: 0; 
-		margin: -1px; 
-		overflow: hidden; 
-		clip:rect(0,0,0,0); 
-		border: 0; 
-		}
+/* 미리보기 이미지 사이즈 */
+#control_img { /* div에 주는것도 좋은 방법임. */
+	width: 300px;
+}
+
+#preview {
+	width: 570px;
+	height: 350px;
+}
+
+.delImgBtn {
+	display: block;
+}
+
+.imgDiv label {
+	display: inline-block;
+	padding: .5em .75em;
+	font-size: inherit;
+	line-height: normal;
+	color: #ffffff;
+	vertical-align: middle;
+	background-color: #313131;
+	cursor: pointer;
+	border: 1px solid #313131;
+	border-bottom-color: #313131;
+	border-radius: .25em;
+}
+
+.imgDiv input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
 </style>
 </head>
 <body>
-	<!--header-->
-    <div class="header">
-    	<div class="wrap">
-            <nav class="main_menu container">
-                <div class="menu_img">
-                    <img src="imgs/header_logo.png">
-                </div>
-                <div class="menu_login">
-                    <form class="form-inline">
-                        <div class="form-group">
-                            <label class="sr-only" for="search">검색</label>
-                            <input type="text" class="form-control input_box" placeholder="검색">
-                        </div>
-                        <button type="submit" class="btn send_btn"><span class="main_font">검색</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">로그인</span></button>
-                        <button type="submit" class="btn send_btn"><span class="main_font">회원가입</span></button>
-                    </form>
-                </div>
-                <div class="menu_bar">
-                    <ul class="nav">
-                      <li class="current"><a href="index.html">홈</a></li>
-                      <li><a href="about.html">랭킹</a></li>
-                      <li class="top-menu"><a href="javascript:{}">화플</a>
-                          <ul class="sub-menu">
-                              <li><a href="scaffolding.html">Scaffolding</a></li>
-                              <li><a href="typography.html">Typography</a></li>
-                              <li><a href="shortcodes.html">Shortcodes</a></li>
-                              <li><a href="tables.html">Tables</a></li>
-                          </ul>
-                      </li>
-                      <li class="top-menu"><a href="javascript:{}">이벤트</a>
-                           <ul class="sub-menu">
-                              <li><a href="portfolio_2columns.html">2 Columns</a></li>
-                              <li><a href="portfolio_3columns.html">3 Columns</a></li>
-                              <li><a href="portfolio_4columns.html">4 Columns</a></li>
-                          </ul>
-                      </li>                                  
-                      <li class="top-menu"><a href="javascript:{}">리뷰</a>
-                           <ul class="sub-menu">
-                              <li><a href="blog.html">Blog with right sidebar</a></li>
-                              <li><a href="blog_post.html">Blog post</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="contacts.html">문의</a></li>
-                    </ul>
-                </div>
-             </nav>                
-             
-        </div>    
-    </div>
-    <!--//header-->    
-     
-    <!-- main contents -->
-    <div class="page_container">
-        <hr>
-            <!-- 내용 입력 -->
-            <!-- TODO:이벤트 업데이트 페이지 입니다. -->
-            <!-- update-page 입니다. -->
-            <form method="post"  action="/reset/admin/event/${detail.eve_no}/update" enctype="multipart/form-data" id="event_updateForm" onsubmit="return eventCheck()">
-           		<!-- <input type="hidden" name="_method" value="put"/> -->
-	            <div>
-	            	<label for="eve_no"></label>
-	            	<input type="hidden" name="eve_no" id="eve_no" value="${detail.eve_no }" >
-	            </div>
-	            <div class="imgDiv">
-	            	<label for="img">대표이미지 수정</label>
-	            	<div name="Existing_img" id="Existing_img"><img src="${goRoot}${detail.img}"></div>
-	            	<input type="file" name="img" id="img" class="darkBtn">
-            	</div>
-            	<div id="preview">
-            		<img src="#" id="control_img">
-            		<button type="button" class="redBtn delImgBtn">대표이미지 삭제</button>
-            	</div>
-	            <div>
-	            	<label for="title">제목</label>
-	            	<input type="text" name="title" id="title" value="${detail.title }"  class="form-control">
-	            </div>
-	            <div>
-	            	<label for="con">내용</label>
-			        <textarea name="con" id="con" >${detail.con }</textarea>
-			        <!-- ckeditor를 사용하여 서버로 이미지를 올리고 다시 불러오는 설정입니다. -->
-			        <script>
+	<div id="wrapper">
+		<%@include file="/WEB-INF/views/template/admin_side_menu.jsp"%>
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<!-- 컨탠츠 시작 -->
+				<!-- main contents -->
+				<div class="page_container">
+					<hr>
+					<!-- 내용 입력 -->
+					<!-- TODO:이벤트 업데이트 페이지 입니다. -->
+					<!-- update-page 입니다. -->
+					<form method="post"
+						action="/reset/admin/event/${detail.eve_no}/update"
+						enctype="multipart/form-data" id="event_updateForm"
+						onsubmit="return eventCheck()">
+						<!-- <input type="hidden" name="_method" value="put"/> -->
+						<div>
+							<label for="eve_no"></label> <input type="hidden" name="eve_no"
+								id="eve_no" value="${detail.eve_no }">
+						</div>
+						<div class="imgDiv">
+							<label for="img">대표이미지 수정</label>
+							<div name="Existing_img" id="Existing_img">
+								<img src="${goRoot}${detail.img}">
+							</div>
+							<input type="file" name="img" id="img" class="darkBtn">
+						</div>
+						<div id="preview">
+							<img src="#" id="control_img">
+							<button type="button" class="redBtn delImgBtn">대표이미지 삭제</button>
+						</div>
+						<div>
+							<label for="title">제목</label> <input type="text" name="title"
+								id="title" value="${detail.title }" class="form-control">
+						</div>
+						<div>
+							<label for="con">내용</label>
+							<textarea name="con" id="con">${detail.con }</textarea>
+							<!-- ckeditor를 사용하여 서버로 이미지를 올리고 다시 불러오는 설정입니다. -->
+							<script>
 				    $(function(){
 				         
 				        CKEDITOR.replace( 'con', {//해당 이름으로 된 textarea에 에디터를 적용
@@ -218,16 +176,25 @@
 				         
 				    });
 				</script>
-            	</div>
-	            <div>
-            		<label for="com_email">광고주 Email</label>
-	            	<input type="text" name="com_email" id="com_email" class="form-control" value="${detail.com_email }" placeholder="광고주 Email을 적어주세요">
-            	</div>
+						</div>
+						<div>
+							<label for="com_email">광고주 Email</label>
+							<%-- <input type="text" name="com_email" id="com_email" class="form-control" value="${detail.com_email }" placeholder="광고주 Email을 적어주세요"> --%>
+							<div>
+								<select class="form-control" name="com_email" id="com_email">
+									<option value="">광고주 Email을 선택해주세요</option>
+									<c:forEach items="${companyList }" var="companyList">
+										<option value="${companyList.email}">${companyList.company}/${companyList.manager}/${companyList.email}</option>
+									</c:forEach>
+								</select>
+							</div>
 
-			<button type="reset" class="darkBtn">목록</button>
-			<button type="submit" class="redBtn" id="updateBtn">수정</button>
-			</form>
-			<script type="text/javascript">
+						</div>
+
+						<button type="submit" class="redBtn" id="updateBtn">수정</button>
+						<button type="reset" class="darkBtn" id="listBack">목록</button>
+					</form>
+					<script type="text/javascript">
 	       	 $("#updateBtn").on('submit',function(event){
 	       		 event.preventDefault();
 	    		 var eve_no=${detail.eve_no};
@@ -262,42 +229,16 @@
 	    	 });
             
             </script>
-			<!-- 내용 끝 -->
-        <hr>
-    </div>
-    <!-- //main contents -->
-    <!-- 로딩화면 -->
-	<%@include file="../../views/template/ajax_loading.jsp" %>
-    <!--footer-->
-    <div class="footer">
-        <div class="wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="imgs/footer_logo.png" alt="" /></a></div>
-                        <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
-                    </div>
-                    <div class="footer_R">
-                        <div class="fright">
-                            <form action="#" method="post">
-                                <input class="inp_search" name="name" type="text" value="   Search the Site" onfocus="if (this.value == 'Search the Site') this.value = '';" onblur="if (this.value == '') this.value = 'Search the Site';" />
-                            </form>
-                        </div>
-                        <div class="footer_menu">
-                            <ul class="nav">
-                                <li><a href="index.html" class="current">홈</a></li>
-                                <li><a href="about.html">랭킹</a></li>
-                                <li><a href="scaffolding.html">화플</a></li>
-                                <li><a href="portfolio_2columns.html">이벤트</a></li>
-                                <li><a href="blog.html">리뷰</a></li>
-                                <li><a href="contacts.html">문의</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--//footer-->    
+					<!-- 내용 끝 -->
+					<hr>
+				</div>
+				<!-- //main contents -->
+				<!-- 컨탠츠 끝 -->
+			</div>
+			<!-- /.container-fluid -->
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
 </body>
 </html>

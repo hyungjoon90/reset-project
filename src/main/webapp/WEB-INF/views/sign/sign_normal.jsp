@@ -4,17 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${goRoot}js/jquery-1.12.4.js"></script>
-<script src="${goRoot}js/bootstrap.min.js"></script>
-<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
-<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${goRoot}css/main.css" rel="stylesheet">
+	<%@ include file="/WEB-INF/views/template/head.jsp" %>
+
 <link href="${goRoot }css/login/sign_css.css" rel="stylesheet">
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
 <script src="${goRoot}js/ser.js"></script>
 <script src="${goRoot}js/sign.js"></script>
-<title>Normol LoginView</title>
 <script type="text/javascript">
 	$(function() {
 		addFormEvent();
@@ -23,10 +18,15 @@
 			e.preventDefault();
 			var result = submitCheck();
 			if (result) {
-				if ($("#password").legnth > 0) {
+				var form = document.getElementById("form");
+				var password = document.createElement("input");
+				password.setAttribute("type","hidden");
+				password.setAttribute("name","password");
+				
 					var pw = $("#password").val();
-					$("#password").val(SHA256(pw));
-				}
+					//$("#password").val(SHA256(pw));
+					password.setAttribute("value",SHA256(pw));
+					form.appendChild(password);
 				var data = $('#form').serialize();
 				console.log(data);
 				$.post(".", data, function(output) {
@@ -147,6 +147,7 @@ margin-top: 30px;}
 </style>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/template/menu.jsp" %>
     <!-- main contents -->
     <div class="container">
 		<div class="row">
@@ -177,7 +178,7 @@ margin-top: 30px;}
 			<div class="col-md-8 col-sm-6">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-					<input type="password" name="password" id="password" class="form-control" placeholder="영소대문자,숫자 포함. 10자이상"/>
+					<input type="password" id="password" class="form-control" placeholder="영소대문자,숫자 포함. 10자이상"/>
 				</div>
 			</div>
 		</div>
@@ -252,37 +253,9 @@ margin-top: 30px;}
 	</div><!-- end Row -->
 	</div><!--  end container -->
     <!-- //main contents -->
-
+	<%@ include file="/WEB-INF/views/template/footer.jsp" %>
     <!--footer-->
-    <div class="footer">
-        <div class="wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="footer_L">
-                        <div class="foot_logo"><a href="index.html"><img src="imgs/footer_logo.png" alt="" /></a></div>
-                        <div class="copyright">&copy; 2020 Jessica White. Professional Fashion Photography. All Rights Reserved.</div>                        
-                    </div>
-                    <div class="footer_R">
-                        <div class="fright">
-                            <form action="#" method="post">
-                                <input class="inp_search" name="name" type="text" value="   Search the Site" onfocus="if (this.value == 'Search the Site') this.value = '';" onblur="if (this.value == '') this.value = 'Search the Site';" />
-                            </form>
-                        </div>
-                        <div class="footer_menu">
-                            <ul class="nav">
-                                <li><a href="index.html" class="current">홈</a></li>
-                                <li><a href="about.html">랭킹</a></li>
-                                <li><a href="scaffolding.html">화플</a></li>
-                                <li><a href="portfolio_2columns.html">이벤트</a></li>
-                                <li><a href="blog.html">리뷰</a></li>
-                                <li><a href="contacts.html">문의</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!--//footer-->    
 
 </body>

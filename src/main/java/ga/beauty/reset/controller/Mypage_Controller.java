@@ -71,9 +71,9 @@ public class Mypage_Controller {
 			model.addAttribute("goRoot","./");
 			return "errPage";
 		}*/
-		String email=(String) session.getAttribute("eamil");
+		String email=(String) session.getAttribute("login_email");
 //		String email=req.getParameter("email");
-		email="cus1@naver.com";
+//		email="cus1@naver.com";
 		Members_Vo bean=new Members_Vo();
 		bean.setEmail(email);
 		bean=members_Dao.selectOne(bean);

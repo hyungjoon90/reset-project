@@ -36,7 +36,7 @@ public class Like_Listener implements Common_Listener{
 	Logger logger = Logger.getLogger(Like_Listener.class);
 	
 	// like/yyyy/MM/dd.json
-	//{"data":[{"name":String,"num":int}]}
+	//{"data":[{"name":좋아요,"num":int}]}
 	private String defaultFP = "/reset/report/like/";
 	// 좋아요 총량 / 일별 증가량 : DONE
 
@@ -68,8 +68,10 @@ public class Like_Listener implements Common_Listener{
 		if(!file.exists()) {
 			new File(file.getParent()).mkdirs();
 		}else {
+			if(file.length()!=0) {
 			node = objectMapper.readTree(file);
 			list = objectMapper.convertValue(node.findValue("data"), new TypeReference<List<Log_C_Vo>>(){});
+			}
 		}		
 	}// init()
 

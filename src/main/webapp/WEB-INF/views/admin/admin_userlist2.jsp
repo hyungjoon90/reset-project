@@ -37,10 +37,10 @@
 			                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
 			                 				<strong>[${bean.manager }]</strong><small>[${bean.email }]</small><br>
 			                                <dl>
-			                                    <dt>User level:</dt><dd>Administrator</dd>
-			                                    <dt>Registered since:</dt><dd>11/12/2013</dd>
-			                                    <dt>Topics</dt><dd>15</dd>
-			                                    <dt>Warnings</dt><dd>0</dd>
+			                                    <dt>브랜드 : </dt><dd>${bean.company}</dd>
+			                                    <dt>사업자번호 : </dt><dd>${bean.bisnum}</dd>
+			                                    <dt>주소 : </dt><dd>[${bean.postcode }] ${bean.address }</dd>
+			                                    <dt>전화번호 : </dt><dd>${bean.phone}</dd>
 			                                </dl>
 			                            </div>
 			                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
@@ -48,16 +48,16 @@
 			                                <table class="table table-user-information">
 			                                    <tbody>
 			                                    <tr>
-			                                        <td>User level:</td><td>Administrator</td>
+			                                    	<td>브랜드 : </td><td>${bean.company}</td>
 			                                    </tr>
 			                                    <tr>
-			                                        <td>Registered since:</td><td>11/12/2013</td>
+			                                    	<td>사업자번호 : </td><td>${bean.bisnum}</td>
 			                                    </tr>
 			                                    <tr>
-			                                        <td>Topics</td><td>15</td>
+			                                    	<td>주소 : </td><td>[${bean.postcode }] ${bean.address }</td>
 			                                    </tr>
 			                                    <tr>
-			                                        <td>Warnings</td><td>0</td>
+			                                    	<td>전화번호 : </td><td>${bean.phone}</td>
 			                                    </tr>
 			                                    </tbody>
 			                                </table>

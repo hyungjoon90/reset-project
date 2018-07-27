@@ -72,7 +72,6 @@ h1{
 
 </style>
 
-<title>Home</title>
 	<script type="text/javascript">
 	  $(function(){
 		  $('.flexslider').flexslider({

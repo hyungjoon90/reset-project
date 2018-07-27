@@ -4,24 +4,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="${goRoot}js/jquery-1.12.4.js"></script>
-<script src="${goRoot}js/bootstrap.min.js"></script>
-<link href="${goRoot}css/bootstrap.min.css" rel="stylesheet">
-<link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
-<link href="${goRoot}css/main.css" rel="stylesheet">
-<title>Home</title>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <style type="text/css">
 
 .textareadiv{
 margin-top : 15px;
+visibility:hidden;
+}
+
+#answer{
+width:100%;
+display: hidden;
 }
 
 .well {
 	background: white;
 	border-style: none;
+
+}
+.redbtnForanswer {
+	background-color: #d00b01;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #D00B01;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 11px 46px;
+	text-decoration: none;
 }
 
+.redbtnForanswer:active {
+	position: relative;
+	top: 1px;
+}
 
 .redbtn {
 	background-color: #d00b01;
@@ -40,6 +60,27 @@ margin-top : 15px;
 }
 
 .redbtn:active {
+	position: relative;
+	top: 1px;
+}
+
+.redbtnFormail {
+	background-color: #d00b01;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #D00B01;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 11px 46px;
+	text-decoration: none;
+}
+
+.redbtnFormail:active {
 	position: relative;
 	top: 1px;
 }
@@ -93,8 +134,11 @@ margin-top : 15px;
 
 .btn_container {
 	top_margin: 100px;
+	diplay:inline-block;
+	float: right;
 }
 </style>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		var answerSave = $('#answerSave'); // 답변저장
@@ -104,20 +148,37 @@ margin-top : 15px;
 		var mailSend = $('#mailSend');
 		var target = $('#target');
 		var saveCancelBtns = $('.saveCancelBtns');
+		
+		/* answer.hide(); */  // 답변 textarea hide
+		answerWrite.css("diplay","block"); //답변 작성하기 보여줌
+		mailSend.css("diplay","hidden");
+		saveCancelBtns.hide();
 
-		answer.hide(); // 답변 input hide
+			answerWrite.click(function() {
+			answer.css("visibility", "visible");
+ 			answerWrite.hide(); 
+			/* answerWrite.css("diplay","hidden"); */
+			saveCancelBtns.show();
+			answer.show();
+			if (target.val() == "등록된 답변이 없습니다. 답변을 입력해주세요") {
+			mailSend.css("diplay","hidden");
+			}
+		}); //답변쓰기 클릭
+		
+	/* 	answer.hide(); // 답변 textarea hide
 		answerWrite.show(); //답변 작성하기 보여줌
 		mailSend.hide();
 		saveCancelBtns.hide();
 
-		answerWrite.click(function() {
+			answerWrite.click(function() {
 			answerWrite.hide();
+			answerWrite.css("diplay","hidden");
 			saveCancelBtns.show();
-			answer.show();
+			answer.css("visibility", "visible");
 			if (target.val() == "등록된 답변이 없습니다. 답변을 입력해주세요") {
 				mailSend.hide();
 			}
-		}); //답변쓰기 클릭
+		}); //답변쓰기 클릭 */ 
 
 		answerSave.click(function() {
 			if (answer.val().length < 1) {
@@ -145,9 +206,11 @@ margin-top : 15px;
 							alert("등록되었습니다");
 							$("#target").text(data.new_answer);
 							$("#mailSend").css("display", "inline-block");
-							answer.hide();
+							/* answer.css("visibility", "hidden"); */
 							answerSave.css("display", "none");
 							answerCancel.css("display", "none");
+							answer.css("visibility","hidden");
+							
 						}
 					}
 				}); //ajax 답변보여주기 - 답변저장
@@ -161,19 +224,42 @@ margin-top : 15px;
 				//TODO [jihyun]reset
 				success : function(data) {
 					if (data == 456) {
-						conform
+						/* conform */
 						alert('이메일전송완료!');
 					}
 				}
 			}); // ajax 이메일 전송 end
 		});//이메일전송 버튼 클릭 이벤트
 	}); //document ready end
+	
+	
+/* 		mailSend.click(function() {
+			$.ajax({ // ajax 이메일전송
+				type : "post",
+				url : '/reset/mail/qna/${bean.qa_no }',
+				//TODO [jihyun]reset
+				success : function(data) {
+					if (data == 456) {
+						/* conform 
+						alert('이메일전송완료!');
+					}
+				}
+			}); // ajax 이메일 전송 end
+		});//이메일전송 버튼 클릭 이벤트
+	}); //document ready end */
 </script>
 
 
 </head>
 
 <body>
+    <div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+            <!-- 컨탠츠 시작 -->
+
+
 	<div class="container">
 	<div class="well">
 		<h3>글번호 ${bean.qa_no} 상세페이지</h3>
@@ -204,7 +290,7 @@ margin-top : 15px;
 			</div>
 			<div class="form-group row">
 				<label for="answer" class="col-sm-2 control-label">답변</label>
-				<div class="col-sm-8">
+				<div class="col-sm-10">
 					<c:choose>
 						<c:when test="${empty bean.answer}">
 							<span id="target">등록된 답변이 없습니다. 답변을 입력해주세요</span>
@@ -213,27 +299,27 @@ margin-top : 15px;
 							<span id="target">${bean.answer }</span>
 						</c:otherwise>
 					</c:choose>
-				</div>
-								<div class="col-sm-2"></div>
+				</div>				
+				
+				
+				<!-- 답변 answer textarea -->
+				<div class="col-sm-2"></div>
 				<div class="col-sm-10 textareadiv">
-					<textarea name="answer" id="answer" class="answer-input" rows="5"
-						placeholder="답변을 작성하세요"></textarea>
+					<textarea name="answer" id="answer" class="answer-input" rows="5" placeholder="답변을 작성하세요"></textarea>
 				</div>
-				<div class="col-sm-2" id="target">
-					<button type="button" id="mailSend" name="mailSend"
-						style="display: none">메일전송</button>
-				</div>
-
+				<!-- 답변 answer textarea end-->
+				
 			</div>
 			</div><!-- well end -->
-	
-			
 
 			<div class="form-group">
 				<div class="col-sm-9"></div>
 				<div class="btn_container col-sm-3">
-					<button type="button" class="blackbtn">목록</button>
-					<button type="button" id="answerWrite" class="redbtn">답변</button>
+					<button type="button" id="listbtn" class="blackbtn">목록</button>
+					<button type="button" id="answerWrite" class="redbtnForanswer">답변</button>
+					<span id="target">
+					<button type="button" id="mailSend" name="mailSend" class="redbtnFormail"
+						style="display: none">메일전송</button></span>
 					<span class="saveCancelBtns">
 						<button type="button" id="answerSave" class="redbtn">저장</button>
 						<button type="button" id="answerCancel" class="greybtn">취소</button>
@@ -243,5 +329,11 @@ margin-top : 15px;
 
 		</form>
 	</div>
+	
+	            <!-- 컨탠츠 끝 -->
+            </div><!-- /.container-fluid -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
+	
 </body>
 </html>

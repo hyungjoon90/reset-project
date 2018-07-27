@@ -9,7 +9,75 @@
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
 <script src="${goRoot}js/ser.js"></script>
 <script src="${goRoot}js/sign.js"></script>
-<script>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+
+<script type="text/javascript">
+var element_layer;
+function sample2_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            var fullAddr = data.address; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 기본 주소가 도로명 타입일때 조합한다.
+            if(data.addressType === 'R'){
+                //법정동명이 있을 경우 추가한다.
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있을 경우 추가한다.
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('zipNo').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('roadAddrPart1').value = fullAddr;
+            element_layer.style.display = 'none';
+        },
+        width : '100%',
+        height : '100%',
+        maxSuggestItems : 5,
+        onclose: function(state) {
+            if(state === 'FORCE_CLOSE'){
+                //사용자가 브라우저 닫기 버튼을 통해 팝업창을 닫았을 경우, 실행될 코드를 작성하는 부분입니다.
+				$('#address_modal').modal('hide')
+            } else if(state === 'COMPLETE_CLOSE'){
+                //사용자가 검색결과를 선택하여 팝업창이 닫혔을 경우, 실행될 코드를 작성하는 부분입니다.
+                //oncomplete 콜백 함수가 실행 완료된 후에 실행됩니다.
+                $('#address_modal').modal('hide')
+            }
+        }
+    }).embed(element_layer,{autoClose:true});
+
+    // iframe을 넣은 element를 보이게 한다.
+    element_layer.style.display = 'block';
+    initLayerPosition();
+}
+function initLayerPosition(){
+    var width = 500; //우편번호서비스가 들어갈 element의 width
+    var height = 500; //우편번호서비스가 들어갈 element의 height
+    var borderWidth = 1; //샘플에서 사용하는 border의 두께
+
+    // 위에서 선언한 값들을 실제 element에 넣는다.
+    //element_layer.style.width = width + 'px';
+    element_layer.style.height = height + 'px';
+    element_layer.style.border = borderWidth + 'px solid';
+}
+$(function(){
+	$('#address_modal').on('show.bs.modal', function (e) {
+		element_layer = document.getElementById('layer');
+		sample2_execDaumPostcode();
+		});
+	$('#address_modal').on('hide.bs.modal',function(e){
+	    $('#addrDetail').focus();
+	});
+});// end document.onload
+
 	function addFormEve() {
 		//
 		$("#form input").each(function() {
@@ -57,14 +125,37 @@
 			e.preventDefault();
 			var result = submitCheck();
 			if (result) {
-				if ($("#password").legnth > 0) {
+				var form = document.getElementById("form");
+				var password = document.createElement("input");
+				password.setAttribute("type","hidden");
+				password.setAttribute("name","password");
 					var pw = $("#password").val();
-					$("#password").val(SHA256(pw));
-				}
+					alert("패스워드:"+pw);
+					password.setAttribute("value",SHA256(pw));
+				// 주소 병함해야됨.
+				var zipVal =$("#zipNo").val();
+				var addr1= $("#roadAddrPart1").val();
+				var addr2 = $("#addrDetail").val();
+				
+				
+				var postcode = document.createElement("input");
+				postcode.setAttribute("type","hidden");
+				postcode.setAttribute("name","postcode");
+				postcode.setAttribute("value",zipVal);
+				
+				var address = document.createElement("input");
+				address.setAttribute("type","hidden");
+				address.setAttribute("name","address");
+				address.setAttribute("value",addr1+" "+addr2);
+				
+				form.appendChild(postcode);
+				form.appendChild(address);
+				form.appendChild(password);
+
 				var data = $('#form').serialize();
 				console.log(data);
 				// TODO :[KSS] 경로 수정해야됨
-				$.post("/reset/", data, function(output) {
+				$.post("/reset/sign/", data, function(output) {
 					if (output.result == 200) {
 						alert("회원등록 완료");
 						window.location.href = "${goRoot}admin/";
@@ -175,7 +266,6 @@ style> /* label 글씨속성  */ .page_container label {
 	top: 1px;
 }
 </style>
-<title>계정등록</title>
 </head>
 
 <body>
@@ -209,7 +299,7 @@ style> /* label 글씨속성  */ .page_container label {
 									<div class="col-md-8 col-sm-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-											<input type="password" name="password" id="password" class="form-control" placeholder="영소대문자,숫자 포함. 10자이상" />
+											<input type="password" id="password" class="form-control" placeholder="영소대문자,숫자 포함. 10자이상" />
 										</div>
 									</div>
 								</div>
@@ -226,7 +316,7 @@ style> /* label 글씨속성  */ .page_container label {
 									<label for="company" class="control-label col-sm-2">기업이름</label>
 									<div class="col-md-8 col-sm-6">
 										<div class="input-group">
-											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+											<span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
 											<input type="text" name="company" id="company" class="form-control" placeholder="담당자-호칭까지 입력" />
 										</div>
 									</div>
@@ -235,7 +325,7 @@ style> /* label 글씨속성  */ .page_container label {
 									<label for="bisnum" class="control-label col-sm-2">사업자번호</label>
 									<div class="col-md-8 col-sm-6">
 										<div class="input-group">
-											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+											<span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
 											<input type="text" name="bisnum" id="bisnum" class="form-control" placeholder="-제외하고 입력" />
 										</div>
 									</div>
@@ -251,6 +341,23 @@ style> /* label 글씨속성  */ .page_container label {
 									</div>
 								</div>
 								<!-- 기업주소 넣어야됨 -->
+								<div class="form-group">
+									<label for="" class="control-label col-sm-2">주소</label>
+									<div class="col-md-8 col-sm-6">
+										<div class="input-group">
+										<a href="#"  class="redBtn"  data-toggle="modal" data-target=".bs-example-modal-sm">주소검색</a>
+			           					<input type="text" style="width:150px;" class="form-control" id="zipNo" readonly="readonly" placeholder="우편번호"/>
+			            				<input type="text" class="form-control" id="roadAddrPart1"  readonly="readonly"placeholder="기본주소"/>
+			            				<input type="text" class="form-control" id="addrDetail"  placeholder="상세주소를 입력해 주세요."/>
+			          					</div>
+			          				</div>
+		          				</div>
+		          				<div id="address_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+									  <div class="modal-dialog modal-sm" role="document">
+									    <div id="layer" class="modal-content"></div>
+									  </div>
+								</div>
+		          				
 								<div class="form-group">
 									<label for="phone" class="control-label col-sm-2">연락처</label>
 									<div class="col-md-8 col-sm-6">

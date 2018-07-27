@@ -22,7 +22,6 @@
 <script src="${goRoot}js/jquery.flexslider.js"></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <script type="text/javascript" src="${goRoot }js/jquery.bxslider.js"></script>
-<title>Insert title here</title>
 <style type="text/css">
 ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 .slides img{
@@ -173,7 +172,14 @@ $(function(){
 	$("#goLogin").on('click',function(){
 		if(submitCheck(document.getElementById("login_form"))){
 			var tmpPW = $("#password").val();
-			$("#password").val(SHA256(tmpPW));
+			//$("#password").val(SHA256(tmpPW));
+			var form = document.getElementById("login_form");
+			var password = document.createElement("input");
+			password.setAttribute("type","hidden");
+			password.setAttribute("name","password");
+			password.setAttribute("value",SHA256(tmpPW));
+			form.appendChild(password);
+			
 			formData = $("#login_form").serialize();
 			$.post("./normal/",formData)
 				.done(function(data) {
@@ -230,13 +236,13 @@ $(function(){
     session.setAttribute("state", state);
 
     String kakao_clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
-	String kakao_redirectURI = "http://localhost:8081/reset/login/kakao/"; // TODO 나중에 바꿀거
+	String kakao_redirectURI = "http://localhost:8080/reset/login/kakao/"; // TODO 나중에 바꿀거
     String kakao_apiURL = "https://kauth.kakao.com/oauth/authorize?response_type=code";
     kakao_apiURL += "&client_id=" + kakao_clientId;
     kakao_apiURL += "&redirect_uri=" + kakao_redirectURI;
     //kakao_apiURL += "&state=" + state;
 %>
-<body>
+<body style="padding-top: 20px;">
 <!------ Include the above in your HEAD tag ---------->
 
 <section class="login-block">
@@ -252,7 +258,7 @@ $(function(){
 				
 				<div class="form-group">
 				  <label for="exampleInputPassword1" class="text-uppercase">Password</label>
-				  <input type="password" name="password" id="password" class="form-control" placeholder="">
+				  <input type="password" id="password" class="form-control" placeholder="">
 				</div>
     			<div class="loginBtn">
     				<span class="loginA">
@@ -328,6 +334,7 @@ $(function(){
 		</div>
 		<!-- login Modal end -->
 </section>
+<%@ include file="/WEB-INF/views/template/ajax_loading.jsp" %>
 	<!-- footer 들어가야됨 -->
 </body>
 </html>

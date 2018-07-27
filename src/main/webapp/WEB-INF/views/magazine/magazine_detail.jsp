@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import = "java.util.Calendar" %>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +11,6 @@
 <link href="${goRoot}css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot}css/main.css" rel="stylesheet">
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
-	<title>Home</title>
 <script type="text/javascript">
 $(document).ready(function(){
 	//전 페이지로 이동
@@ -167,6 +165,10 @@ $(document).ready(function(){
 .funBtn{/* 목록,삭제,추가 버튼 */
 	float: right;
 }
+.delForm{
+	clear: both;
+	float: right;
+}
 /* 제목표시줄 아래에 있는 줄 */
 #titleHr{
 	width: 85%;
@@ -195,6 +197,9 @@ $(document).ready(function(){
 	margin-left:75%;
 	bottom: 20px;
 	position: fixed;
+}
+.box-title{
+	clear: both;
 }
 .box-footer{/* 댓글 입력버튼 */
 	margin-top: 20px;
@@ -341,17 +346,15 @@ $(document).ready(function(){
 
 			<div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
-			</div>
 			<%-- <c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}"> --%>
-			<div class="funBtn">
 				<button type="submit" class="editBtn redBtn">수정</button>
-			</div>
 			<%-- </c:if> --%>
+			</div>
 			</form>
-			<form method="post" action="/reset/admin/magazine/${detail.mag_no}">
+			<form method="post" action="/reset/admin/magazine/${detail.mag_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
-				<button type="submit" class="deleteBtn funBtn redBtn">삭제</button>
+				<button type="submit" class="deleteBtn redBtn">삭제</button>
 			</form>
 			</div>
 			<!-- 항상 화면 위에 이동버튼 -->

@@ -32,7 +32,6 @@ public class Home_Controller {
         String ip = req.getHeader("X-FORWARDED-FOR");
         if (ip == null) ip = req.getRemoteAddr();		
         logger.info(LogEnum.INTER+"메인페이지에 {ip:"+ip+", locale:"+locale+"} 가 들어왔습니다. ");
-        
         magazine_service.main_listPage(model);
         event_service.main_listPage(model);
 		return "index";

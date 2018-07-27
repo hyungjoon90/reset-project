@@ -4,7 +4,6 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
-	<title>Home</title>
 <style type="text/css">
     /* 컨텐츠 contatiner */
 	.page_container{

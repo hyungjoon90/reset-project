@@ -7,7 +7,6 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <link rel="stylesheet" href="${goRoot }css/ranking_review/item_detail.css" type="text/css">
-<title>Home</title>
 <script type="text/javascript">
 <!-- TODO:[sch] 1.ajax로 리스트 크롤링 -->
 var page='${fn:length(review_bean) }';/* 해당 페이지 리스트 갯수 */

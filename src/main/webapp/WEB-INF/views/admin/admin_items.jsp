@@ -90,7 +90,6 @@
 	
 	
 	</script>
-<title>Insert title here</title>
 </head>
 
 <body>
@@ -98,6 +97,7 @@
 	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
         <div id="page-wrapper">
             <div class="container-fluid">
+            
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">

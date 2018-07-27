@@ -96,7 +96,6 @@
 	}
 	/* reviewBox 위치 */
 </style>
-<title>Home</title>
 <script type="text/javascript">
 	  $(function(){
 		cartList();

@@ -25,20 +25,20 @@ public class Auth_Interceptor extends HandlerInterceptorAdapter{
         String ip = request.getHeader("X-FORWARDED-FOR");
         Locale locale = request.getLocale();
         // TODO [kss] 마무리작업시
-        if (ip == null) ip = request.getRemoteAddr();		
-		if(session.getAttribute("login_on")==null || (Boolean) session.getAttribute("login_on")==false) {
-        	logger.info(LogEnum.EEROR_CON+"{ip:"+ip+", locale:"+locale+"}");
-			response.sendRedirect("/login/");
-			return false;
-		}else if(request.getRequestURI().equals("/admin/")){
-			String type = (String) session.getAttribute("login_user_type");//
-			if(type!=null && (type.equals("CEO")|| type.equals("직원")|| type.equals("광고주"))) {
-			}else {
-				logger.info(LogEnum.EEROR_CON+"{ip:"+ip+", locale:"+locale+"}");
-				response.sendRedirect("/error");
-				return false;
-			}
-		}
+//        if (ip == null) ip = request.getRemoteAddr();		
+//		if(session.getAttribute("login_on")==null || (Boolean) session.getAttribute("login_on")==false) {
+//        	logger.info(LogEnum.EEROR_CON+"{ip:"+ip+", locale:"+locale+"}");
+//			response.sendRedirect("/login/");
+//			return false;
+//		}else if(request.getRequestURI().equals("/admin/")){
+//			String type = (String) session.getAttribute("login_user_type");//
+//			if(type!=null && (type.equals("CEO")|| type.equals("직원")|| type.equals("광고주"))) {
+//			}else {
+//				logger.info(LogEnum.EEROR_CON+"{ip:"+ip+", locale:"+locale+"}");
+//				response.sendRedirect("/error");
+//				return false;
+//			}
+//		}
 		return super.preHandle(request, response, handler);
 	}
 	@Override

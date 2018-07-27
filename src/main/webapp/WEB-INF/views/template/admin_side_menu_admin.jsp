@@ -76,14 +76,14 @@
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">홈페이지관리</a>
 				<ul id="menu2" class="collapse">
 					<!-- TODO:[kss]나중에 추가 <li><a href="${goRoot}admin/page/login/">로그인페이지</a></li> -->
-					<li><a href="${goRoot}admin/qna/">문의사항</a></li>
-					<li><a href="${goRoot}admin/notice/">공지사항</a></li>
+					<li><a href="${goRoot}admin/qna">문의사항</a></li>
+					<li><a href="${goRoot}admin/notice">공지사항</a></li>
 				</ul>
 			</li>
-			<li><a href="${goRoot}admin/reviews/list/">리뷰</a></li>
-			<li><a href="${goRoot}admin/magazines/list/">매거진</a></li>
-			<li><a href="${goRoot}admin/events/list/">이벤트</a></li>
-			<li><a href="${goRoot}admin/items/list/">상품관리</a></li>
+			<li><a href="${goRoot}admin/review">리뷰</a></li>
+			<li><a href="${goRoot}admin/magazine">매거진</a></li>
+			<li><a href="${goRoot}admin/event">이벤트</a></li>
+			<li><a href="${goRoot}admin/item">상품관리</a></li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu3">통계</a>
 				<ul id="menu3" class="collapse">
 					<li><a href="${goRoot}admin/chart/login/">접속자수</a></li>
@@ -95,7 +95,7 @@
 			</li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu4">로그</a>
 				<ul id="menu4" class="collapse">
-					<li><a href="${goRoot}admin/log/">전체로그</a></li>
+					<li><a href="${goRoot}admin/log/normal/">전체로그</a></li>
 					<li><a href="${goRoot}admin/log/error/">에러로그</a></li>
 				</ul>
 			</li>

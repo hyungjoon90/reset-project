@@ -6,7 +6,6 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <link rel="stylesheet" href="${goRoot }css/ranking_review/ranking_list.css" type="text/css">
-	<title>Home</title>
 <script type="text/javascript">
 $(function(){
 	var su=0;
