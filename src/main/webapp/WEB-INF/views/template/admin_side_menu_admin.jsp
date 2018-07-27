@@ -76,8 +76,8 @@
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">홈페이지관리</a>
 				<ul id="menu2" class="collapse">
 					<!-- TODO:[kss]나중에 추가 <li><a href="${goRoot}admin/page/login/">로그인페이지</a></li> -->
-					<li><a href="${goRoot}admin/qna/">문의사항</a></li>
-					<li><a href="${goRoot}admin/notice/">공지사항</a></li>
+					<li><a href="${goRoot}admin/qna">문의사항</a></li>
+					<li><a href="${goRoot}admin/notice">공지사항</a></li>
 				</ul>
 			</li>
 			<li><a href="${goRoot}admin/review">리뷰</a></li>
