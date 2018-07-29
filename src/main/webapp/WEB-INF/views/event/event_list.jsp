@@ -94,6 +94,7 @@
 		<!-- 페이징  -->
 		<c:choose>
 		<c:when test="${paging.numberOfRecords ne NULL and paging.numberOfRecords ne '' and paging.numberOfRecords ne 0}">
+		<div class="container middle">
 		<div class="text-center marg-top">
 			<ul class="pagination">
 				<c:if test="${paging.currentPageNo gt 5}">  											  <!-- 현재 페이지가 5보다 크다면(즉, 6페이지 이상이라면) -->
@@ -123,6 +124,7 @@
 					<li><a href="javascript:goPage(${paging.nextPageNo}, ${paging.maxPost})">다음</a></li>
 				</c:if> 
 			</ul>
+		</div>
 		</div>
 		</c:when>
 		</c:choose>
