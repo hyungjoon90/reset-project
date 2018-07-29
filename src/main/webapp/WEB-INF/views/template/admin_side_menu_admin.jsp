@@ -58,7 +58,7 @@
             <ul class="nav navbar-right top-nav">
                 <li><p class="top-text">방문객&nbsp; &nbsp;<span class="badge" id="nowSession">0</span></p></li>                   
 				<li><p class="top-text">로그인&nbsp; &nbsp;<span class="badge" id="nowLogin">0</span></p></li>
-                <li><a href="#">LOGOUT</a></li>
+                <li><a href="${goRoot}logout/">LOGOUT</a></li>
         	</ul>
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -76,8 +76,8 @@
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">홈페이지관리</a>
 				<ul id="menu2" class="collapse">
 					<!-- TODO:[kss]나중에 추가 <li><a href="${goRoot}admin/page/login/">로그인페이지</a></li> -->
-					<li><a href="${goRoot}admin/qna/">문의사항</a></li>
-					<li><a href="${goRoot}admin/notice/">공지사항</a></li>
+					<li><a href="${goRoot}admin/qna">문의사항</a></li>
+					<li><a href="${goRoot}admin/notice">공지사항</a></li>
 				</ul>
 			</li>
 			<li><a href="${goRoot}admin/review">리뷰</a></li>

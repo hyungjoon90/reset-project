@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ga.beauty.reset.dao.Comment_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
+import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.utils.runner.Common_Listener;
 import ga.beauty.reset.utils.runner.Magzine_Listener;
 
@@ -24,6 +25,9 @@ public class Comment_Service {
 	@Qualifier("magzine_Listener")
 	Common_Listener magzine_Listener;
 
+	@Autowired	@Qualifier("like_Listener")
+	Common_Listener like_Listener;
+	
 	public Comment_Service() {
 	}
 	
@@ -37,7 +41,11 @@ public class Comment_Service {
 		if(bean.getCo_type().equals("매거진")) {
 			Magazine_Vo target = new Magazine_Vo();
 			target.setMag_no(bean.getP_no());
-			magzine_Listener.addLog(target, "num", -1);
+			magzine_Listener.addLog(target, "num", 1);
+		}else if(bean.getCo_type().equals("리뷰")) {
+			Reviews_Vo target = new Reviews_Vo();
+			target.setRev_no(bean.getP_no());
+			like_Listener.addLog(target, "num", 1);
 		}
 	}
 	
@@ -56,6 +64,10 @@ public class Comment_Service {
 			Magazine_Vo target = new Magazine_Vo();
 			target.setMag_no(bean.getP_no());
 			magzine_Listener.addLog(target, "num", -1);
+		}else if(bean.getCo_type().equals("리뷰")) {
+			Reviews_Vo target = new Reviews_Vo();
+			target.setRev_no(bean.getP_no());
+			like_Listener.addLog(target, "num", -1);
 		}
 	}
 	

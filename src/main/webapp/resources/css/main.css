@@ -66,7 +66,7 @@
         float: right;
     }
     .sub-menu{
-        width: 113px;
+        width: 86px;
         zoom: 1;
         display: none;
         position: absolute;
@@ -74,18 +74,19 @@
         background-color: #fff;
         border-top: 4px #d00b01 solid;
         padding: 10px;
+        z-index: 1;
     }
     .top-menu:hover .sub-menu{
         display: block;
     }
     .top-menu:hover .space{
         position: absolute;
-        padding-top: 22px;
+        padding-top: 21px;
     }
     .space{
         height: 22px;
         position: absolute;
-        width: 58px;
+        width: 86px;
     }
     .nav>li{
         margin: 0px 10px;

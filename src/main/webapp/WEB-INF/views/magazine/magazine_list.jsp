@@ -10,7 +10,6 @@
 <link href="css/jquery.bxslider.css" rel="stylesheet" >
 <link href="css/selectric.css" rel="stylesheet">
 <link href="css/btn/btn.css" rel="stylesheet">
-	<title>매거진</title>
 	
 <script type="text/javascript">
 $(function() {

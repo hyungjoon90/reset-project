@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
-	<title>Home</title>
 	<style type="text/css">
 	/* 전체 container */
     .page_container{

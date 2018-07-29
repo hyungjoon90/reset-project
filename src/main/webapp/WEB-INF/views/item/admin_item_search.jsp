@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="/WEB-INF/views/template/head.jsp"%>
-	<title>Home</title>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
+<link href="${goRoot }css/main.css" rel="stylesheet">
+
 <style type="text/css">
     /* 컨텐츠 contatiner */
 	.page_container{
@@ -165,16 +165,11 @@ function searchCheck(){
 </script>
 </head>
 <body>
-	<!--header-->
-    <%@include file="/WEB-INF/views/template/menu.jsp"%>
-    <div class="breadcrumb">
-    	<div>
-   		<a href="/reset/">HOME</a>
-   		<span class="slash">/</span>
-   		검색
-   		</div>
-    </div>
-    <!--//header-->    
+    <div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page Heading -->  
      
     <!-- main contents -->
     <div class="page_container">
@@ -218,7 +213,9 @@ function searchCheck(){
     <!-- //main contents -->
 
     <!--footer-->
-  	<%@include file="/WEB-INF/views/template/footer.jsp"%>
+                </div><!-- /.container-fluid -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
     <!--//footer-->    
 
 </body>

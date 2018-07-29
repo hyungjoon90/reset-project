@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.Ranks_Vo;
@@ -27,6 +26,12 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		return sqlSession.selectOne("items.totAll", item);
 	}
 
+	@Override
+	public List<Reviews_Vo> reviewToTAll() throws SQLException {
+		logger.debug("DaoImp-reviewToTAll-noParam");
+		return sqlSession.selectList("reviews.reviewToTAll");
+	}
+	
 	@Override
 	public List<Reviews_Vo> reviewAll(int item) throws SQLException {
 		logger.debug("DaoImp-reviewAll-param: "+item);

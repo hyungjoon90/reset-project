@@ -29,6 +29,7 @@ import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
+import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_Chart;
 import ga.beauty.reset.dao.entity.stat.Log_File;
 import ga.beauty.reset.dao.entity.stat.Simple_Vo;
@@ -51,7 +52,7 @@ public class Mypage_Admin_Service {
 	ChartFile chartFile;
 	private String[] colorFile = {
 			"rgba(255,145,48,"
-			,"rgba(254,221,85,"
+			,"rgba(132,176,157,"
 			,"rgba(18,140,135,"
 			,"rgba(59,0,48,"
 	};
@@ -94,10 +95,6 @@ public class Mypage_Admin_Service {
 			data = items_DaoImp.getCount();
 		}
 		return data;
-	}
-	
-	public Map<String, Object> getInfoAsMap(String command, HttpSession session, HttpServletRequest req) {
-		return null;
 	}
 
 	//
@@ -179,6 +176,22 @@ public class Mypage_Admin_Service {
 				listitem.add(new Simple_Vo(bean.getMag_no(),bean.getTitle()));
 			}
 			return listitem;
+		}else if(command.equals("review")){
+			String where = (String) req.getParameter("where");
+			List<Reviews_Vo> lists  = null;
+			if(where !=null && !where.equals("") && !where.equals("undefined")) {
+				Magazine_Vo bean = new Magazine_Vo();
+				bean.setCom_email(where);
+				lists = reviews_Dao.reviewToTAll();
+			}
+			else lists = reviews_Dao.reviewToTAll();
+			List<Simple_Vo> listitem = new ArrayList<Simple_Vo>();
+			Iterator<Reviews_Vo> ite = lists.iterator();
+			while(ite.hasNext()) {
+				Reviews_Vo bean = ite.next();
+				listitem.add(new Simple_Vo(bean.getRev_no(),"[item:"+bean.getItem()+"/Writer:"+bean.getWriter()+"]"));
+			}
+			return listitem;
 		}
 		return null;
 	}	
@@ -186,12 +199,15 @@ public class Mypage_Admin_Service {
 	
 	
 	public List<Log_File> getLog(String command, HttpSession session, HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
+		// log_start_num="+start+"&nextNum="+cnt+"&more_Log=true"+"&mode=detail
 		String startNum = req.getParameter("log_start_num");
 		String cnt = req.getParameter("nextNum");
+		
 		List<Log_File> list = null;
 		if(command.equals("normal")) {
 			if(startNum!=null && !startNum.equals("") && cnt!=null && !cnt.equals("")) {
 				list = regexLogFile.getListFromLog(logFile,Integer.parseInt(startNum),Integer.parseInt(cnt));
+				req.setAttribute("endPoint", Integer.parseInt(startNum)+list.size());
 			}else {
 				list = regexLogFile.getListFromLog(logFile);
 			}

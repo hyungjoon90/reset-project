@@ -5,7 +5,6 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
-	<title>이벤트</title>
 <script type="text/javascript">
 $(document).ready(function(){
 	//전 페이지로 이동

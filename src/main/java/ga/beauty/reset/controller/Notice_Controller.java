@@ -22,7 +22,7 @@ public class Notice_Controller {
 	Notice_Service service;
 	
 	String view = "redirect:/admin/notice";
-	
+	String goRoot = "../";
 	public Notice_Controller() {
 	}
 	
@@ -30,8 +30,10 @@ public class Notice_Controller {
 	//notice list / "notice/notice.jsp"  / 이지현	
 	@RequestMapping(value="/notice", method = RequestMethod.GET)
 	public String show(Model model) throws SQLException {
+		String goRoot = "./";
 		service.listPage(model);
 		log.debug("notice - show List");
+		model.addAttribute("goRoot", goRoot);
 		return "notice/notice";
 	}	
 
@@ -42,16 +44,18 @@ public class Notice_Controller {
 	public String showList(Model model) throws SQLException {
 		service.listPage(model);
 		log.debug("Admin notice - show List");
+		model.addAttribute("goRoot", "../");
 		return "admin/admin_notice";
 	}	
 	
 	//관리자 공지사항 입력
 	//TODO admin notice add / "admin/admin_notice.jsp"  / 이지현	
 	@RequestMapping(value="/admin/notice",method=RequestMethod.POST)
-	public String add(@ModelAttribute Notice_Vo bean) throws SQLException {
+	public String add(@ModelAttribute Notice_Vo bean, Model model) throws SQLException {
 		log.debug("Admin notice add - before");
 		service.addPage(bean);
 		log.debug("Admin notice add - after");
+		model.addAttribute("goRoot", "../");
 		return view;
 	}
 	

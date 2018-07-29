@@ -7,7 +7,6 @@
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <link href="${goRoot}css/main.css" rel="stylesheet">
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
-	<title>${login_comName}-Admin-Event</title>
 <style type="text/css">
 .page_container{
 	max-width: 1080px;

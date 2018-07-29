@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<title>reset 관리자페이지</title>
 	<script>
 	var getNums = function() {
 		var $targets = $(".getNum");
@@ -92,7 +91,7 @@
                             <a href="./review">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
-                                    <span class="pull-right"></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -110,10 +109,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="./magzine">
+                            <a href="./magazine">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
-                                    <span class="pull-right"></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -134,7 +133,7 @@
                             <a href="./event">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
-                                    <span class="pull-right"></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>

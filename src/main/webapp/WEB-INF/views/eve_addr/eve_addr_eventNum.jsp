@@ -6,7 +6,6 @@
 <head>
 <%@include file="/WEB-INF/views/template/admin_header.jsp"%>
 <link href="${goRoot }css/btn/btn.css" rel="stylesheet">
-<title>이벤트 참가</title>
 </head>
 <body>
 	<script>

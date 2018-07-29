@@ -4,6 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="reviews">
+  	<select id="reviewToTAll" resultType="reviews_Vo">
+  		SELECT * FROM REVIEW WHERE OPEN=1 ORDER BY REV_NO 
+  	</select>
   	<select id="reviewAll" resultType="reviews_Vo">
   		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT 10
   	</select>

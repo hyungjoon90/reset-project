@@ -150,7 +150,7 @@ public class Like_Listener implements Common_Listener{
 			try(BufferedWriter buffOut = new BufferedWriter(new FileWriter(file))){
 				buffOut.write(sbr.toString());
 				buffOut.flush();
-				logger.warn(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 임시저장 되었습니다.");
+				logger.warn(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 좋아요 로그가 임시저장 되었습니다.");
 			}
 		}
 	}

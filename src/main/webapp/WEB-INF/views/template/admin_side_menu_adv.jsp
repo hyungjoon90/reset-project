@@ -30,29 +30,22 @@
 	</div>
          <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li><a href="${goRoot }logout/">LOGOUT</a></li>
+                <li><a href="${goRoot}logout/">LOGOUT</a></li>
         	</ul>
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav side-nav">
 			<li class="active"><a href="${goRoot}admin/">Dashboard</a></li>
-			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu2">게시판</a>
-				<ul id="menu2" class="collapse">
-					<li><a href="${goRoot}admin/qna/">문의사항</a></li>
-					<li><a href="${goRoot}admin/notice/">공지사항</a></li>
-				</ul>
-			</li>
+			<li><a href="${goRoot}admin/notice">공지사항</a></li>
 			<li><a href="${goRoot}admin/reviews/list/">리뷰</a></li>
 			<li><a href="${goRoot}admin/magazines/list/">매거진</a></li>
 			<li><a href="${goRoot}admin/events/list/">이벤트</a></li>
-			<li><a href="${goRoot}admin/items/list/">상품관리</a></li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu3">통계</a>
 				<ul id="menu3" class="collapse">
 					<li><a href="${goRoot}admin/chart/review/">리뷰</a></li>
 					<li><a href="${goRoot}admin/chart/magzine/">매거진</a></li>
 					<li><a href="${goRoot}admin/chart/event/">이벤트</a></li>
-					<li><a href="${goRoot}admin/chart/like/">좋아요</a></li>
 				</ul>
 			</li>
 		</ul>

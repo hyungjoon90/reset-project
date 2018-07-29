@@ -148,21 +148,20 @@ $(function(){
 				address.setAttribute("name","address");
 				address.setAttribute("value",addr1+" "+addr2);
 				
-				form.appendChild(postcode);
-				form.appendChild(address);
-				form.appendChild(password);
-
+				$(form).append(postcode);
+				$(form).append(address);
+				$(form).append(password);
 				var data = $('#form').serialize();
 				console.log(data);
 				// TODO :[KSS] 경로 수정해야됨
-				$.post("/reset/sign/", data, function(output) {
+ 				$.post("/reset/sign/", data, function(output) {
 					if (output.result == 200) {
 						alert("회원등록 완료");
 						window.location.href = "${goRoot}admin/";
 					} else {
 						alert("알수 없는 이유로 회원등록이 실패하였습니다. 잠시후 다시 이용해주세요");
 					}
-				});// end $.post
+				});// end $.post 
 			}// end if
 		});// end submit event
 	});
@@ -266,7 +265,6 @@ style> /* label 글씨속성  */ .page_container label {
 	top: 1px;
 }
 </style>
-<title>계정등록</title>
 </head>
 
 <body>

@@ -61,12 +61,6 @@ public class Admin_Controller {
 				model.addAttribute("result",200);
 				model.addAttribute("result_data",result);
 			}
-		}else if(req.getParameter("resultType").equals("map")) {
-			Map<String, Object> result = mypage_Admin_Service.getInfoAsMap(command, session, req);
-			if(result!=null) {
-				model.addAttribute("result",200);
-				model.addAttribute("result_data",result);
-			}
 		}else if(req.getParameter("resultType").equals("list")) {
 			List<? super Object> result = mypage_Admin_Service.getInfoAslist(command, session, req);
 			if(result!=null && result.size()>0) {
@@ -89,10 +83,18 @@ public class Admin_Controller {
 	public String logCalling(Model model,@PathVariable("command") String command
 			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
 		List<Log_File> result = mypage_Admin_Service.getLog(command, session, req);
+		int logLine = 0;
 		if(result!=null && result.size()>0) {
+			// log_start_num="+start+"&nextNum="+cnt+"&more_Log=true"+"&mode=detail
 			model.addAttribute("result",200);
 			req.setAttribute("log_list", result);
+			logLine = result.size();
 		}
+		String moreLog = req.getParameter("more_Log");
+		String mode = req.getParameter("mode");
+		if(moreLog!=null)req.setAttribute("more_Log", moreLog);
+		if(mode!=null)req.setAttribute("mode", mode);
+		req.setAttribute("logLine", logLine);
 		return "admin/admin_log_ajax";
 	}
 	

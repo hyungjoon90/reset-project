@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ga.beauty.reset.utils.LogEnum;
 
-/*@ControllerAdvice
+@ControllerAdvice
 public class Exception_ControllerAdvice {
 
 	Logger logger = Logger.getLogger(getClass());
@@ -21,7 +21,9 @@ public class Exception_ControllerAdvice {
 	@RequestMapping(value="/error")
 	public String exception(Exception e) {
 		e.printStackTrace();
-		logger.error(LogEnum.ERROR+(e.getMessage().replace( System.getProperty( "line.separator" ), "")));
+		String msg = e.getMessage();
+		msg=msg.replace("\n", " ").replace("\r", "");
+		logger.error(LogEnum.ERROR+msg);
 		return "error/error";
 	}
-}*/
+}
