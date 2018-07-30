@@ -60,9 +60,11 @@
     <div class="page_container">
         <div>
    			<div class="headtitle">Event</div>
+   			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
    			<div class="">
            		<a href="/reset/admin/event/add" class="redBtn">글쓰기</a>
            	</div>
+           	</c:if>
    		</div>
             <!-- 내용 입력 -->
             <!-- Event list-page 입니다. -->

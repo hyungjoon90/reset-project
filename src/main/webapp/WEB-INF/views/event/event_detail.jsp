@@ -11,6 +11,12 @@ $(document).ready(function(){
 	$("#listBack").click(function(){
 		window.history.back();
 	});
+	
+	//댓글 닫기 버튼 클릭시 모달 감추기
+	$("#closeBtn").click(function(){
+		$("#modDiv").hide();
+	});
+	
 	/* 좋아요 시작 */
 	
 	var email=$("#email").val();
@@ -295,7 +301,7 @@ $(document).ready(function(){
 				<!-- TODO:이벤트 주소입력 끝 -->
 				<!-- 좋아요. -->
 	            <div class="popDiv dis">
-	            	<input id="email" type="hidden" value="cus1@naver.com" />
+	            	<input id="email" type="hidden" value="${login_email }" />
 					<input id="p_no" type="hidden" value="${detail.eve_no }" />
 					<input id="type" type="hidden" value="event" />
 					<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
@@ -306,18 +312,18 @@ $(document).ready(function(){
 	            <!-- 좋아요 끝 -->
 	        <div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
-			<%-- <c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}"> --%>
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 				<button type="submit" class="editBtn redBtn">수정</button>
-			<%-- </c:if> --%>
+			</c:if>
 			</div>
 			</form>
-			<%-- <c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}"> --%>
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 			<form method="post" action="/reset/admin/event/${detail.eve_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="deleteBtn redBtn">삭제</button>
 			</form>
-			<%-- </c:if> --%>
+			</c:if>
 			</div>
 			<!-- 항상 화면 위에 이동버튼 -->
 			<div class="alwaysBtn">

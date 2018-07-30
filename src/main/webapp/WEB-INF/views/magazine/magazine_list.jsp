@@ -95,9 +95,11 @@ $(function() {
     <div class="page_container">
        	<div>
    			<div class="headtitle">Magazine</div>
+   			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
    			<div class="addBtn">
            		<a href="/reset/admin/magazine/add" class="redBtn">글쓰기</a>
            	</div>
+           	</c:if>
    		</div>
         	<!-- 내용 입력 -->
             <!-- Magazine list-page 입니다. -->
