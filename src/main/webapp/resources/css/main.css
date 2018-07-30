@@ -7,17 +7,7 @@
 		color:black;
 		text-decoration: none;
 	}
-    .main_font{
-        font-family: 'Open Sans',sans-serif;
-        color: #313131;
-        line-height: 18px;
-        font-size: 14px;
-        font-weight: 800;
-        text-transform: uppercase;
-        text-shadow: none;
-        text-decoration: none;
-        text-align: left;
-    }
+   
     .header{
         padding: 36px 0 21px 0;
         background: #fff;
@@ -40,11 +30,16 @@
     .login-group{
         width: 100%;
     }
-    .loginAndOut{
-        width:30px;
+    .topicon{
+        width:40px;
         float: right;
+        margin-top: 10px;
         margin-left: 10px;
-        margin-right: 26px;
+        margin-right: 50px;
+        margin-bottom: 10px;
+    }
+    .search{
+        margin-right: 5px;
     }
     .input_box{
     	height: 30px;
@@ -88,14 +83,17 @@
         position: absolute;
         width: 86px;
     }
+    .nav{
+    	width: 500px;
+    }
     .nav>li{
         margin: 0px 10px;
     }
     .nav>li>a{
-        font-family: 'Open Sans',sans-serif;
+        font-family: NanumSquareEB;
         color: #313131;
         line-height: 18px;
-        font-size: 14px;
+        font-size: 24px;
         font-weight: 800;
         text-transform: uppercase;
         text-shadow: none;
@@ -106,16 +104,17 @@
         color: #c5c5c5;
         background: none;
     }
+    
     .breadcrumb{
    	    padding: 3px 0;
 	    margin: 0 0 20px 0;
 	    list-style: none;
 	    background: #d1d1d1;
-	    color: #d00b01;
-	    font-family: 'Open Sans',sans-serif;
-	    font-weight: 400;
+	    color: #cf0902;
 	    font-size: 19px;
+	    font-family: NanumSquareB;
    	}
+
    	.breadcrumb div{
    		margin: 0px 4%;
    	}

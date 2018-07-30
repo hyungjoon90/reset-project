@@ -7,9 +7,29 @@
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <link href="css/btn/btn.css" rel="stylesheet">
 <style type="text/css">
+@font-face {
+  font-family: NanumSquareR;
+  src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareL;
+  src: url(${goRoot}fonts/NanumSquareL.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+}
 .page_container{
 	max-width: 1080px;
 	margin: 0px auto;
+	font-family: NanumSquareR;
 }
 .contents_container{
 	display: inline-block;
@@ -30,6 +50,8 @@
 
 .headtitle{
 	font-size: 3vmax;
+	font-family: NanumSquareB;
+	color: #303030;
 }
 
 .redBtn{
