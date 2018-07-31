@@ -43,9 +43,14 @@ public class Cart_Service {
 		List<Items_Vo> list=new ArrayList<Items_Vo>();
 		Members_Vo member=new Members_Vo();
 		member=Cart_Dao.cartList(email);
-		logger.debug(member.getCart());
-		String[] temp=member.getCart().split(";");
-		if(!temp[0].equals(null)) {
+		logger.debug("확인"+member.getCart());
+		String[] temp=null;
+		temp=member.getCart().split(";");
+		logger.debug(temp);
+		if(!temp.equals(null)) {
+		for(int j=0;j<temp.length;j++) {
+			logger.debug(temp[j]);
+		}
 		for(int i=1;i<temp.length;i++) {
 			list.add(Cart_Dao.selectOne(Integer.parseInt(temp[i])));
 		}
