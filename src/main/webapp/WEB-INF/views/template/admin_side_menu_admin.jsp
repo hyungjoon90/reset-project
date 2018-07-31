@@ -80,7 +80,7 @@
 					<li><a href="${goRoot}admin/notice">공지사항</a></li>
 				</ul>
 			</li>
-			<li><a href="${goRoot}admin/review">리뷰</a></li>
+			<!-- <li><a href="${goRoot}admin/review">리뷰</a></li> -->
 			<li><a href="${goRoot}admin/magazine">매거진</a></li>
 			<li><a href="${goRoot}admin/event">이벤트</a></li>
 			<li><a href="${goRoot}admin/item">상품관리</a></li>

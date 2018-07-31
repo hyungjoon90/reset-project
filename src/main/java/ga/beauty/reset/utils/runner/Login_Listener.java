@@ -56,10 +56,10 @@ public class Login_Listener implements Common_Listener {
 			init();
 			self = this; // TODO 임시용
 			logger.info(LogEnum.INIT + "(" + getClass() + ") 생성완료");
-		} catch (JsonProcessingException e) {
-			logger.error(LogEnum.ERROR + (e.getMessage().replace(System.getProperty("line.separator"), "")));
-		} catch (IOException e) {
-			logger.error(LogEnum.ERROR + (e.getMessage().replace(System.getProperty("line.separator"), "")));
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			msg=msg.replace("\n", " ").replace("\r", "");
+			logger.error(LogEnum.ERROR+msg);
 		}
 	}
 
