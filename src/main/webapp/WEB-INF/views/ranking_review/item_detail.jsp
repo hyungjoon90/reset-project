@@ -12,9 +12,10 @@
 var page='${fn:length(review_bean) }';/* 해당 페이지 리스트 갯수 */
 var	pageTot=${tot};/* 리스트 총 갯수 */
 $(document).ready(function(){
-	var email='${login_email}';
-	if(email!=''){
-		cartCheck(); 
+	var email="";
+	email="${login_email}";
+	if(email!=""){
+		cartCheck(email); 
 	}
 	if(page>=pageTot){
 		$("#listAdd>img").hide();
@@ -43,6 +44,8 @@ $(document).ready(function(){
 	
 	
 	$("#reivewAdd").on("click",function(){
+		var result=reviewCheck();
+		if(result){
 		var item=${item_bean.item};
 		var formData = new FormData($('#review')[0]);
 		    $.ajax({
@@ -65,7 +68,8 @@ $(document).ready(function(){
 		 	})
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 입력 실패');
-			})    
+			})
+		};
 		})
 		
 	
@@ -93,7 +97,7 @@ function reviewListadd(){
 		console.error('데이터 불러오기 실패'+data);
 	})
 } 
-function cartCheck(){
+function cartCheck(email){
 	var item=${item_bean.item};
 	//var nick=${login_email}; // TODO:[sch] 찜목록저장시 아이디 수정
 	$.ajax({
@@ -188,14 +192,6 @@ function reviewCheck(){
 	 var bad = $("#bad");
 	 var tip = $("#tip");
      
-     if(star){
-    	 return true;
-     } else{
-         alert("별점을 선택해주세요.");
-         $(".star").focus();
-         return false;
-     }
-     
 	 if(good.val() == ""){
 		 alert("좋은점을 입력해 주세요.");
 		 $("#good").focus();
@@ -211,6 +207,14 @@ function reviewCheck(){
 		 $("#tip").focus();
 		 return false;
 	 }
+	 
+	 if(star){
+    	 return true;
+     } else{
+         alert("별점을 선택해주세요.");
+         $(".star").focus();
+         return false;
+     }
 	 
 };
 </script>
@@ -417,7 +421,7 @@ function reviewCheck(){
 				</div>
 				<div class="modal-body">
 					<form id="review" action="/reset/item/${item_bean.item}"
-						name="review" method="post" enctype="multipart/form-data"  onsubmit="return reviewCheck()">
+						name="review" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="writer" value="${login_nick }" />
 
 						<div class="form-group">
