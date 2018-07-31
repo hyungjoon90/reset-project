@@ -154,7 +154,7 @@ function checkPW(ele){
      lower:    1,
      upper:    1,
      numeric:  1,
-     special:  1,
+     special:  0,
      badWords: ["password", "steven", "levithan"],
      badSequenceLength: 4
      });

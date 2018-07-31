@@ -5,44 +5,26 @@
 <html>
 <head>
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
-	<style type="text/css">
+	<link rel="stylesheet" href="${goRoot }css/ranking_review/item_detail.css" type="text/css">
+	<script>
+	var getList = function(ele,command,start,cnt){
+		var $target = $(ele);
+		var sendData = "resultType=list";
+		$.post("${goRoot}admin/ajax/"+command,sendData)
+		.done(function(data){
+			var resultHTML= data;
+			$(resultHTML).appendTo($target);
+		});
+	}
 	
-.category-list-card{
-   background-color: #fff;
-    border-radius: 3px;
-    border: 1px solid #eee;
-    cursor: pointer;
-    display: block;
-    margin: 5px 15px;
-    padding: 8px 0;
-}
-.category-image{
-    display: inline-block;
-    text-align: center;
-    height: 160px;
-    vertical-align: top;
-    width: 208px;
-    margin-right:15px;
-}
-.category-name{
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 18px;
-    margin-top: 42px;
-    width: 49%;
-}
-.right-arrow-div{
-    float:right;
-    margin-right:10px;
-    margin-top:70px;
-    font-size:20px;
-}
-.categor-name h3{
-    color: #333;
-    margin-bottom: 10px;
-}
+	// 문서 온로드 시점
+	$(function(){
+		if($("#list_target").length>0){
+			getList($("#list_target"),"review",0,10000); // 페이징 나중에
+		}	
+	});
 	
-	</style>
+	</script>
 </head>
 
 <body>
@@ -58,23 +40,6 @@
                 </div><!-- /.row -->
 				<div class="row">
 					<div class="well col-xs-8 col-xs-offset-2" id="list_target"><!-- list start-->
-						<c:forEach items="${rev_list }" var="bean">
-									<div class="col-md-6">
-									    <div class="category-list-card">
-									        <div class="category-image">
-									            <img src="http://crushlobby.com/bootsnipp_img/vege.png">
-									        </div>
-									        <div class="category-name">
-									            <h3>Fruits & Vegetables</h3>
-									            <p>Fruit & Vegetable Baskets, Fruits, Vegetables, Cut Fresh & Herbs, Mangoes</p>
-									        </div>
-									         <div class="right-arrow-div">
-									           <i class="fa fa-angle-right"></i>
-									       </div>
-									    </div>
-									</div>
-						</c:forEach>
-
 					</div><!-- list end-->					
 				</div><!-- end row -->
             </div><!-- /.container-fluid -->

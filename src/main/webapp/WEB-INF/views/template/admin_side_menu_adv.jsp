@@ -6,6 +6,11 @@
 	line-height: 20px;
 	color: #999;
 }
+.navForAD, .navForAD>li>a{
+
+font-size : 14px;
+width: 225px;
+}
 </style>
 <script>
 	$(function(){
@@ -35,7 +40,7 @@
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
-		<ul class="nav navbar-nav side-nav">
+		<ul class="nav navbar-nav side-nav navForAD">
 			<li class="active"><a href="${goRoot}admin/">Dashboard</a></li>
 			<li><a href="${goRoot}admin/notice">공지사항</a></li>
 			<li><a href="${goRoot}admin/reviews/list/">리뷰</a></li>

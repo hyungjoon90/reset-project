@@ -11,26 +11,37 @@
 <script src="${goRoot}js/ser.js"></script>
 <script src="${goRoot}js/sign.js"></script>
 <script type="text/javascript">
+	
+	
 	$(function() {
+		
+		var $emailHolder= $("#email");
+		if(!($emailHolder.val() =="")){
+			$emailHolder.attr("readonly", true);
+		}
+		
 		addFormEvent();
-
+		
 		$("#form").submit(function(e) {
 			e.preventDefault();
 			var result = submitCheck();
 			if (result) {
 				var form = document.getElementById("form");
+				
+				var test = '${login_route}';
+				if(test=='normal'){
 				var password = document.createElement("input");
 				password.setAttribute("type","hidden");
 				password.setAttribute("name","password");
+				var pw = $("#password").val();
+				password.setAttribute("value",SHA256(pw));
+				$(form).append(password);
+				}
 				
-					var pw = $("#password").val();
-					//$("#password").val(SHA256(pw));
-					password.setAttribute("value",SHA256(pw));
-					$(form).append(password);
 				var data = $('#form').serialize();
-				console.log(data);
 				$.post(".", data, function(output) {
 					if (output.result == 200) {
+						alert("회원가입에 성공했습니다.")
 						window.location.href = output.url;
 					} else {
 						alert("알수 없는 이유로 회원가입이 실패하였습니다. 잠시후 다시 이용해주세요");

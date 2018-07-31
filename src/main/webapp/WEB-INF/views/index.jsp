@@ -7,16 +7,6 @@
 <script src="js/jquery.flexslider.js"></script>
 <style type="text/css">
 
-@font-face {
-  font-family: NanumSquareB;
-  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
-}
-
-@font-face {
-  font-family: NanumSquareEB;
-  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
-}
-
 ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 
 .mainRankTitle{
