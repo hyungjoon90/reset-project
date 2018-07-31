@@ -6,6 +6,27 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <style type="text/css">
+
+	@font-face {
+	  font-family: NanumSquareR;
+	  src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");
+	}
+	
+	@font-face {
+	  font-family: NanumSquareL;
+	  src: url(${goRoot}fonts/NanumSquareL.ttf) format("truetype");
+	}
+	
+	@font-face {
+	  font-family: NanumSquareB;
+	  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+	}
+	
+	@font-face {
+	  font-family: NanumSquareEB;
+	  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+	}
+
 	.table, th, td{
 		text-align: center;
 	}
@@ -95,6 +116,22 @@
 		margin: 0px 0px -3px 0px;
 	}
 	/* reviewBox 위치 */
+	.subicon{
+		width: 40px;
+	}
+	.col-md-6{
+		font-family: NanumSquareB;
+		font-size: 18px;
+		margin: 20px auto;
+	}
+	.subSpan{
+		margin-left: 30px;
+	}
+	.nickSpan{
+		font-family: NanumSquareEB;
+		font-size: 24px;
+	}
+	
 </style>
 <script type="text/javascript">
 	  $(function(){
@@ -128,7 +165,7 @@
 
 		<h1>회원정보</h1>
 		<div id="info">
-			<table class="table">
+			<%-- <table class="table">
 				<tr>
 					<th>이메일</th>
 					<th>닉네임</th>
@@ -147,7 +184,64 @@
 					<td>${bean.phone }</td>
 					<td>${bean.exp }</td>
 				</tr>
-			</table>
+			</table> --%>
+			<div class="row well">
+				<div class="col-md-6">
+					<span>
+						<c:choose>
+							<c:when test="${bean.gender=='남성'}">
+								<img alt="male" src="${goRoot }imgs/icon/male.png" class="subicon">
+							</c:when>
+							<c:otherwise>
+								<img alt="female" src="${goRoot }imgs/icon/female.png" class="subicon">
+							</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="subSpan nickSpan">
+						${bean.nick } &nbsp; &nbsp;
+					</span>
+					<span>
+						${bean.age } &#47; ${bean.skin }
+					</span>
+				</div>
+				<div class="col-md-6">
+					<span>
+						<img alt="email" src="${goRoot }imgs/icon/email.png" class="subicon">
+					</span>
+					<span class="subSpan">
+						${bean.email }
+					</span>
+				</div>
+				<div class="col-md-6">
+					<span>
+						<img alt="phone" src="${goRoot }imgs/icon/smartphone.png" class="subicon">
+					</span>
+					<span class="subSpan">
+						${bean.phone }
+					</span>
+				</div>
+				<div class="col-md-6">
+					<span>
+						<c:choose>
+							<c:when test="${bean.exp <= 100}">
+								<img alt="new" src="${goRoot }imgs/icon/medal_new.png" class="subicon">		
+							</c:when>
+							<c:when test="${bean.exp > 100 && bean.exp <= 300}">
+								<img alt="new" src="${goRoot }imgs/icon/medal_gold.png" class="subicon">	
+							</c:when>
+							<c:when test="${bean.exp >300 && bean.exp <= 600}">
+								<img alt="new" src="${goRoot }imgs/icon/medal_vip.png" class="subicon">	
+							</c:when>
+							<c:otherwise>
+								<img alt="new" src="${goRoot }imgs/icon/medal_vvip.png" class="subicon">
+							</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="subSpan">
+						${bean.exp }
+					</span>
+				</div>
+			</div>
 		</div>
 
 		<h1>찜목록</h1>
