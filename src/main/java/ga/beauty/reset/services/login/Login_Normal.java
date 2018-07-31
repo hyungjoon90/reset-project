@@ -22,7 +22,7 @@ import ga.beauty.reset.utils.PasswordUtil;
 @Service("login_Normal")
 public class Login_Normal implements Login_Service {
 
-	private static Logger logger = Logger.getLogger(Login_Normal.class);
+	private Logger logger = Logger.getLogger(Login_Normal.class);
 
 
 	@Autowired

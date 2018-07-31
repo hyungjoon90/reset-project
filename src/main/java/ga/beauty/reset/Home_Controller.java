@@ -37,11 +37,4 @@ public class Home_Controller {
 		return "index";
 	}
 	
-	@RequestMapping(value="/error")
-	public String test() throws IOException{
-		{
-			throw new IOException("에러 발생 잠시후 다시 이용해 주세요.");
-		}
-	}
-
 }

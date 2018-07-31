@@ -6,6 +6,12 @@
 	line-height: 20px;
 	color: #999;
 }
+.navForAD, .navForAD>li>a{
+
+font-size : 14px;
+width: 225px;
+}
+
 </style>
 <script>
 	var getCountSession = function(){
@@ -63,13 +69,15 @@
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
-		<ul class="nav navbar-nav side-nav">
+		<ul class="nav navbar-nav side-nav navForAD" >
 			<li class="active"><a href="${goRoot}admin/">Dashboard</a></li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu1">회원관리</a>
 				<ul id="menu1" class="collapse">
 					<li><a href="${goRoot}admin/member/normal/">일반회원</a></li>
 					<li><a href="${goRoot}admin/member/company/">기업회원</a></li>
+					<c:if test="${login_user_type eq 'CEO'}">
 					<li><a href="${goRoot}admin/member/emp/">직원관리</a></li>
+					</c:if>
 					<li><a href="${goRoot}admin/sign/add/">회원등록</a></li>
 				</ul>
 			</li>
@@ -84,6 +92,7 @@
 			<li><a href="${goRoot}admin/magazine">매거진</a></li>
 			<li><a href="${goRoot}admin/event">이벤트</a></li>
 			<li><a href="${goRoot}admin/item">상품관리</a></li>
+			<c:if test="${login_user_type eq 'CEO'}">
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu3">통계</a>
 				<ul id="menu3" class="collapse">
 					<li><a href="${goRoot}admin/chart/login/">접속자수</a></li>
@@ -99,6 +108,7 @@
 					<li><a href="${goRoot}admin/log/error/">에러로그</a></li>
 				</ul>
 			</li>
+			</c:if>
 		</ul>
 	</div>
 </nav>

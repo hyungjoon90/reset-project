@@ -99,7 +99,7 @@
 	    font-family: Arial;
 	    font-size: 15px;
 	    font-weight: bold;
-	    padding: 5px 15px;
+	    padding: 5px 14px;
 	    margin: 5px 5px;
 	    text-decoration: none;
 	}
@@ -242,7 +242,9 @@
 	.comBtn{
 		margin-left: 90%;
 	}
-	
+	.box-footer{
+		text-align: right;
+	}
 	</style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -251,6 +253,9 @@ $(document).ready(function(){
 	})	
 	 
 	$("#reivewUpdate").on("click",function(){
+		var result=reviewCheck();
+		if(result){
+		
 		    var item=${review_bean.item};
 		    var rev_no=${review_bean.rev_no };
 		    var preview_img=$('#img_preview img').first().attr("src");
@@ -298,7 +303,8 @@ $(document).ready(function(){
 		 	}) */
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 수정 실패');
-			})    
+			})  
+		};
 		})
 		$("#reivewDelete").on("click",function(){
 			var item=${item_bean.item};
@@ -330,7 +336,7 @@ $(document).ready(function(){
 		
 		/* 좋아요 시작 */
 		
-		var email=$("#email").val();
+		var email="${login_email}";
 	    /* var email=${email}; */
 	    var p_no=$("#p_no").val();
 	    /* var p_no=${p_no}; */
@@ -367,7 +373,7 @@ $(document).ready(function(){
 			console.log("좋아요를 이미 누르셨습니다");
 		}else{
 		$("#Likes").on("click",function(){
-			    var email=$("#email").val();
+			    var email="${login_email}";
 			    /* var email=${email}; */
 			    var p_no=$("#p_no").val();
 			    /* var p_no=${p_no}; */
@@ -409,7 +415,7 @@ $(document).ready(function(){
 	    	console.log("좋아요를 누르지 않았습니다");
 	    }else{
 		$("#unLikes").on("click",function(){
-			    var email=$("#email").val();
+			    var email="${login_email}";
 			    /* var email=${email}; */
 			    var p_no=$("#p_no").val();
 			    /* var p_no=${p_no}; */
@@ -450,7 +456,7 @@ $(document).ready(function(){
 		
 });
 	function expUp(type){
-	/* var email =${login_email}; */
+	 	var email ="${login_email}";
 		var type = type;//review,comment,like
 		$.ajax({
 			type : 'POST',
@@ -471,7 +477,7 @@ $(document).ready(function(){
 		})
 	}
 	function expDown(type){
-	/* 	var email = ${login_email}; */
+	 	var email ="${login_email}";
 		var type = type;//review,comment,like
 		$.ajax({
 			type : 'DELETE',
@@ -605,18 +611,18 @@ $(document).ready(function(){
             </table>
 			
         </div>
-		
-		<c:if test="${login_on=='true' && (login_nick==review_bean.writer)}">
 		<div class="btn-position">
+			<a href="javascript:history.back();" class="btn-lg darkBtn">목록</a>
+		<c:if test="${login_on=='true' && (login_nick==review_bean.writer)}">
 	        <!-- Button trigger modal -->
-			<button type="button" class="btn-lg darkBtn" data-toggle="modal" data-target="#review_update" >
+			<button type="button" class="btn-lg RedBtn" data-toggle="modal" data-target="#review_update" >
 			  수정
 			</button>
 			<button type="button" class="btn-lg RedBtn" data-toggle="modal" data-target="#review_delete" >
 			  삭제
 			</button>
-		</div>
 		</c:if>
+		</div>
 		
        <div class="reviewBox">
       		<c:choose>
@@ -667,7 +673,7 @@ $(document).ready(function(){
 			<p>${review_bean.tip }</p>
 			
 			<!-- 좋아요. -->
-			<c:if test="${login_on=='true'}">
+			<c:if test="${login_on==true}">
             <div class="popDiv dis">
 				<input id="p_no" type="hidden" value="${review_bean.rev_no }" />
 				<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
@@ -700,7 +706,7 @@ $(document).ready(function(){
 					<!-- TODO: event 댓글 입력버튼 -->
 					<c:if test="${login_on=='true'}">
 						<div class="box-footer">
-							<button type="submit" class="redBtn" id="comment_addBtn">댓글입력</button>
+							<button type="submit" class="btn-lg RedBtn" id="comment_addBtn">댓글입력</button>
 						</div>
 					</c:if>
 				</div>
@@ -709,15 +715,15 @@ $(document).ready(function(){
 			<!-- TODO: event 댓글수정 버튼 클릭시 모달 시작 -->
 			<div id="modDiv" style="display: none;">
 				<div class="modal-title">
-					<input type="hidden" id="commentnum"> 댓글 수정
+					<input type="hidden" id="commentnum" > 댓글 수정
 				</div>
 				<div>
 					<textarea rows="5" class="form-control" type="text"
 						id="commenttext"></textarea>
 				</div>
 				<div>
-					<button type="button" id="commentModBtn" class="redBtn">수정</button>
-					<button type="button" id="commentDelBtn" class="redBtn">삭제</button>
+					<button type="button" id="commentModBtn" class="RedBtn">수정</button>
+					<button type="button" id="commentDelBtn" class="RedBtn">삭제</button>
 					<button type="button" id="closeBtn" class="darkBtn">닫기</button>
 				</div>
 			</div>
@@ -901,7 +907,7 @@ $(document).ready(function(){
 						+"<div class='com_writer com_div'><strong>"+this.writer+"</strong></div>"
 						+"<div  class='com_nalja com_div'>"+this.nalja+"</div>"
 						+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
-						+"<div class='com_btn'><button class='comBtn redBtn' email="+this.email+">댓글수정</button></div>"
+						+"<div class='com_btn'><button class='comBtn btn-lg RedBtn' email="+this.email+">댓글수정</button></div>"
 						+"</div>";
 					});
 				$("#comment").html(str);

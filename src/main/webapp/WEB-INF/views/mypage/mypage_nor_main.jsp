@@ -132,14 +132,33 @@
 		font-size: 24px;
 	}
 	
+	/* 댓글 스타일 */
+	.com_div{
+		display: inline-block;
+		margin-bottom: 10px;
+	}
+	
+	.com_nalja{
+		margin-left: 85%;
+	}
+	.com_hr{
+		width: 100%;
+		margin-bottom: 1%;
+	}
+	.comBtn{
+		margin-left: 90%;
+	}
+	.box-footer{
+		text-align: right;
+	}
 </style>
 <script type="text/javascript">
 	  $(function(){
-		cartList();
+		 cartList();
       });
 	 
 	  function cartList(){
-		  	var email="cus1@naver.com";
+		  	var email="${login_email}";
 			var Data= {"email":email};
 			$.ajax({
 			        type: 'POST', // get 방식으로 요청
@@ -153,9 +172,9 @@
 			.fail(function () { // 실패했을때 불러질 함수
 				console.error('데이터 불러오기 실패');
 			})
-		} 
+		};
 	
-	</script>
+</script>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/template/menu.jsp"%>
@@ -249,6 +268,7 @@
 			<img src="${goRoot }imgs/welcome_bg.png">
 		</div>
 		<div id="cart"></div>
+		
 		<h1>리뷰</h1>
 		<div class="welcome_line">
 			<img src="${goRoot }imgs/welcome_bg.png">
@@ -332,7 +352,14 @@
 				<c:when test="${comment_alist == '[]'}">
 				</c:when>
 				<c:when test="${comment_alist != '[]'}">
-					${comment_alist }
+					<c:forEach items="${comment_alist }" var="bean">
+					<div class='commentLi'>
+						<hr class='com_hr'/>
+						<div class='com_writer com_div'><strong>${bean.writer }</strong></div>
+						<div class='com_nalja com_div'>${bean.nalja }</div>
+						<div class='textCo'>${bean.content }</div>
+					</div>
+					</c:forEach>
 				</c:when>
 			</c:choose>
 		</div>
