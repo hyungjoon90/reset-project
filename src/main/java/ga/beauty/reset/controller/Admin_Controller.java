@@ -127,12 +127,12 @@ public class Admin_Controller {
 					return "admin/admin_userlist";
 				}else if(command.equals("member") && req.getAttribute("go").equals("2")){// company 있는 사람들 용
 					return "admin/admin_userlist2";
-				}else if(command.equals("review")) {
-					req.setAttribute("rev_list", result);
-					return "admin/admin_review_ajax";
 				}else if(req.getParameter("itemList")!=null) {
 					req.setAttribute("itemList",result);
 					return "admin/admin_listItem_ajax";
+				}else if(command.equals("review")) {
+					req.setAttribute("rev_list", result);
+					return "admin/admin_review_ajax";
 				}
 			}else {
 				return "admin/admin_empty";
