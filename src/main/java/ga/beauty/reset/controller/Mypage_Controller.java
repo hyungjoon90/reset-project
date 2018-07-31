@@ -72,17 +72,15 @@ public class Mypage_Controller {
 			return "errPage";
 		}*/
 		String email=(String) session.getAttribute("login_email");
-//		String email=req.getParameter("email");
-//		email="cus1@naver.com";
 		Members_Vo bean=new Members_Vo();
 		bean.setEmail(email);
 		bean=members_Dao.selectOne(bean);
 		Comment_Vo bean2=new Comment_Vo();
-		bean2.setWriter("닉넴1");
+		bean2.setWriter(bean.getNick());
 		
 		model.addAttribute("goRoot","../");
 		model.addAttribute("bean", bean);
-		model.addAttribute("review_alist",Reviews_Dao.mypage_review("닉넴1"));
+		model.addAttribute("review_alist",Reviews_Dao.mypage_review(bean.getNick()));
 		model.addAttribute("comment_alist",Comment_Dao.mypage_list(bean2));
 		return "mypage/mypage_nor_main";
 	}// showMain()
