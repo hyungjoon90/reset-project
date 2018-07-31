@@ -13,3 +13,24 @@
     <link href="${goRoot}css/admin/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 	<title>Re:set Beauty-admin</title>
+	<style type="text/css">
+@font-face {
+  font-family: NanumSquareR;
+  src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareL;
+  src: url(${goRoot}fonts/NanumSquareL.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+}
+</style>

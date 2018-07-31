@@ -102,7 +102,7 @@
       });
 	 
 	  function cartList(){
-		  	var email="cus1@naver.com";
+		  	var email="${login_email}";
 			var Data= {"email":email};
 			$.ajax({
 			        type: 'POST', // get 방식으로 요청

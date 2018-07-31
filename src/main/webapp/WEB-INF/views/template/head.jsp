@@ -8,3 +8,24 @@
 <link href="${goRoot }css/main.css" rel="stylesheet">
 <link href="${goRoot }css/font.css" rel="stylesheet">
 <title>Re:set Beauty</title>
+<style type="text/css">
+@font-face {
+  font-family: NanumSquareR;
+  src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareL;
+  src: url(${goRoot}fonts/NanumSquareL.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+}
+</style>

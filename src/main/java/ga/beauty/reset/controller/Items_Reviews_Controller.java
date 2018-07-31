@@ -38,7 +38,7 @@ public class Items_Reviews_Controller {
 	String goRoot="../";
 	
 	@Autowired
-	Items_Reviews_Service Items_Reviews_service;
+	Items_Reviews_Service items_Reviews_service;
 	
 	@Autowired
 	Items_DaoImp items_DaoImp;
@@ -53,7 +53,7 @@ public class Items_Reviews_Controller {
 	@RequestMapping(value="/ranking", method = RequestMethod.GET)
 	public String ranking_list(@RequestParam("id") int cate,Model model) throws SQLException {
 		logger.debug("list-param: "+cate);
-		Items_Reviews_service.ranking_listPage(model, cate);
+		items_Reviews_service.ranking_listPage(model, cate);
 		goRoot="";
 		model.addAttribute("goRoot", goRoot);
 		return "ranking_review/ranking_list";
@@ -71,7 +71,7 @@ public class Items_Reviews_Controller {
 	@RequestMapping(value="/item/{item}",method=RequestMethod.GET)
 	public String ranking_detail(@PathVariable int item,Model model) throws SQLException {
 		logger.debug("detail-param: "+item);
-		Items_Reviews_service.item_detailPage(model,item);
+		items_Reviews_service.item_detailPage(model,item);
 		
 		goRoot="../";
 		model.addAttribute("goRoot", goRoot);
@@ -112,7 +112,7 @@ public class Items_Reviews_Controller {
 		}
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(Items_Reviews_service.review_addPage(resp,bean));
+		resp.getWriter().print(items_Reviews_service.review_addPage(resp,bean));
 	}
 	
 //	// 찜목록에 추가
@@ -136,7 +136,7 @@ public class Items_Reviews_Controller {
 		
 		model.addAttribute("goRoot", goRoot);
 		model.addAttribute("comment",comment_DaoImpl.list(comment));
-		Items_Reviews_service.review_detailPage(model,item,rev_no);
+		items_Reviews_service.review_detailPage(model,item,rev_no);
 		return "ranking_review/review_detail";
 	}
 	
@@ -168,7 +168,7 @@ public class Items_Reviews_Controller {
 			bean.setImg("");
 		}
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(Items_Reviews_service.review_updatePage(option,bean));
+		resp.getWriter().print(items_Reviews_service.review_updatePage(option,bean));
 	}
 	
 	// 리뷰 삭제
@@ -183,12 +183,12 @@ public class Items_Reviews_Controller {
 		bean.setWriter(req.getParameter("writer"));
 		
 		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().print(Items_Reviews_service.review_deletePage(filePath,bean));
+		resp.getWriter().print(items_Reviews_service.review_deletePage(filePath,bean));
 	}
 	
 	@RequestMapping(value="/ranking/ajax",method=RequestMethod.GET)
 	public String listAjax(Model model,@RequestParam("id") int cate) throws SQLException {
-		Items_Reviews_service.ranking_listPage(model, cate);
+		items_Reviews_service.ranking_listPage(model, cate);
 		return "template/rankingList_ajax";
 	}
 	
