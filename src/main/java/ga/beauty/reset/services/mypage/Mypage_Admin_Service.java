@@ -178,7 +178,22 @@ public class Mypage_Admin_Service {
 			return listitem;
 		}else if(command.equals("review")){
 			// 관리자페이지 리뷰
-			return reviews_Dao.reviewToTAll();
+			String where = (String) req.getParameter("where");
+			List<Reviews_Vo> lists  = null;
+			if(req.getParameter("itemList")!=null){
+				//if(where !=null && !where.equals("") && !where.equals("undefined")) {
+				//Magazine_Vo bean = new Magazine_Vo();
+				//bean.setCom_email(where);
+				lists = reviews_Dao.reviewToTAll();
+				//}else
+			}else return reviews_Dao.reviewToTAll();
+			List<Simple_Vo> listitem = new ArrayList<Simple_Vo>();
+			Iterator<Reviews_Vo> ite = lists.iterator();
+			while(ite.hasNext()) {
+				Reviews_Vo bean = ite.next();
+				listitem.add(new Simple_Vo(bean.getRev_no(),"[item:"+bean.getItem()+"/Writer:"+bean.getWriter()+"]"));
+			}
+			return listitem;
 		}
 		return null;
 	}	
