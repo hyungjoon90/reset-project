@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_File;
 import ga.beauty.reset.services.mypage.Mypage_Admin_Service;
 import ga.beauty.reset.utils.LogEnum;
@@ -39,6 +40,15 @@ public class Admin_Controller {
 		logger.info(LogEnum.INTER+"["+email+"/"+nick+"] 유저가 /admin/페이지에 접속함.");
 		return "admin/admin_main";
 	}
+	
+	@RequestMapping(value = "/admin/review", method = RequestMethod.GET)
+	public String showReview(Model model, HttpSession session, HttpServletRequest req) throws SQLException {
+		model.addAttribute("goRoot", "../");
+		List<Reviews_Vo> list = mypage_Admin_Service.getInfoAslist("review", session, req);
+		model.addAttribute("rev_list", list);
+		return "admin/admin_review";
+	}
+	
 	
 	@RequestMapping(value="/admin/{path}/{command}/",method=RequestMethod.GET)
 	public String showPage(Model model, @PathVariable("path") String path, @PathVariable("command") String command) {

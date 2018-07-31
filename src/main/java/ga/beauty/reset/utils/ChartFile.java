@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,8 @@ import ga.beauty.reset.dao.entity.stat.Log_Chart;
 public class ChartFile {
 
 	private String defaultFP = "/reset/report/";
-
+	Logger logger = Logger.getLogger(getClass());
+	
 	public ChartFile() {
 	}
 
@@ -60,6 +62,7 @@ public class ChartFile {
 		} else if (command.equals("like")) {
 			listS = getLikeData(files, command, days);
 		}
+		logger.debug("요청한 차트 데이터 :"+listS);
 		return listS;
 	}
 
@@ -74,6 +77,7 @@ public class ChartFile {
 		} else if (command.equals("review")) {
 			listS = getReviewData(files, command, days,no);
 		}
+		logger.debug("요청한 차트 데이터 :"+listS);
 		return listS;
 	}
 
@@ -162,7 +166,7 @@ public class ChartFile {
 							listlikes.add(new Log_Chart("좋아요", daysName, objNode.get("like").asInt()));
 							listviews.add(new Log_Chart("조회수", daysName, objNode.get("view").asInt()));
 							listcomms.add(new Log_Chart("댓글수", daysName, objNode.get("num").asInt()));
-							checkno = true;
+							checkno = false;
 						}
 					} // nodesForEach
 					if (checkno)
@@ -213,7 +217,7 @@ public class ChartFile {
 						if (objNode.get("no").asInt() == no) {
 							listlikes.add(new Log_Chart("좋아요", daysName, objNode.get("like").asInt()));
 							listcomms.add(new Log_Chart("댓글수", daysName, objNode.get("num").asInt()));
-							checkno = true;
+							checkno = false;
 						}
 					} // nodesForEach
 					if (checkno)
@@ -259,7 +263,7 @@ public class ChartFile {
 						// 여기서도 혹시나 값이 없을땐 초기값 넣음
 						if (objNode.get("name").asText().equals("좋아요")) {
 							listlikes.add(new Log_Chart("좋아요", daysName, objNode.get("num").asInt()));
-							checklike = true;
+							checklike = false;
 						}
 					} // nodesForEach
 					if (checklike)
