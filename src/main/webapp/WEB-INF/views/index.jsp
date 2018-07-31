@@ -6,9 +6,52 @@
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <script src="js/jquery.flexslider.js"></script>
 <style type="text/css">
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+}
+
 ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
-h1{
+
+.mainRankTitle{
 	text-align: center;
+	font-family: NanumSquareB;
+	color: #303030;
+	border: 2px solid #303030;
+	border-radius: 30px;
+	width: 160px;
+	margin: 0px auto;
+	margin-top: 50px;
+}
+
+.mainRankSub{
+	font-size: 20px;
+	font-family: NanumSquareB;
+	width: 400px;
+	margin: 0px auto;
+	text-align: center;
+	margin-top: 20px;
+}
+.strongWord{
+	color: #cf0902;
+	font-size: 25px;
+	font-family: NanumSquareEB;
+}
+.divide_line{
+	background-color: #ebebeb;
+	height: 4px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+.mainTitle{
+	font-family: NanumSquareB;
+	margin-left: 2%;
 }
 .slides img{
 	max-width: 100%; 
@@ -199,18 +242,35 @@ h1{
 		  </ul>
 		</div>
 		
-		<h1>스킨</h1>
+    	<div class="divide_line"></div>
+    	
+		<div class="rankTitleDiv">
+			<h2 class="mainRankTitle">스킨 랭킹</h2>
+		</div>
+		<div class="mainRankSub">유저들이 뽑은 <span class="strongWord">스킨</span> 랭킹</div>
     	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
     	<div id="rankingList1"></div>
-    	<h1>로션</h1>
+    	
+    	<div class="divide_line"></div>
+    	
+    	<div class="rankTitleDiv">
+    		<h2 class="mainRankTitle">로션 랭킹</h2>
+    	</div>
+    	<div class="mainRankSub">유저들이 뽑은 <span class="strongWord">로션</span> 랭킹</div>
     	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
    		<div id="rankingList2"></div>
-    	<h1>에센스</h1>
+   		
+    	<div class="divide_line"></div>
+   		
+   		<div class="rankTitleDiv">
+    		<h2 class="mainRankTitle">에센스 랭킹</h2>
+    	</div>
+    	<div class="mainRankSub">유저들이 뽑은 <span class="strongWord">에센스</span> 랭킹</div>
     	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
     	<div id="rankingList3"></div>
        
-       	<h1>매거진</h1>
-    	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
+       	<h1 class="mainTitle">매거진</h1>
+    	<div class="divide_line"></div>
     	<div class="magazine">
     		<!-- Place somewhere in the <body> of your page -->
 			<div class="flexslider2 carousel">
@@ -225,8 +285,8 @@ h1{
 			  </ul>
 			</div>
     	</div>
-       	<h1>이벤트</h1>
-    	<div class="welcome_line"><img src="${goRoot }imgs/welcome_bg.png"></div>
+       	<h1 class="mainTitle">이벤트</h1>
+    	<div class="divide_line"></div>
     	<div class="event">
     		<!-- Place somewhere in the <body> of your page -->
 			<div class="flexslider3 carousel">

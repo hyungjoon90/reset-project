@@ -7,9 +7,29 @@
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <link href="css/btn/btn.css" rel="stylesheet">
 <style type="text/css">
+@font-face {
+  font-family: NanumSquareR;
+  src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareL;
+  src: url(${goRoot}fonts/NanumSquareL.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareB;
+  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NanumSquareEB;
+  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
+}
 .page_container{
 	max-width: 1080px;
 	margin: 0px auto;
+	font-family: NanumSquareR;
 }
 .contents_container{
 	display: inline-block;
@@ -30,6 +50,8 @@
 
 .headtitle{
 	font-size: 3vmax;
+	font-family: NanumSquareB;
+	color: #303030;
 }
 
 .redBtn{
@@ -60,9 +82,11 @@
     <div class="page_container">
         <div>
    			<div class="headtitle">Event</div>
+   			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
    			<div class="">
            		<a href="/reset/admin/event/add" class="redBtn">글쓰기</a>
            	</div>
+           	</c:if>
    		</div>
             <!-- 내용 입력 -->
             <!-- Event list-page 입니다. -->
@@ -93,6 +117,7 @@
 		<!-- 페이징  -->
 		<c:choose>
 		<c:when test="${paging.numberOfRecords ne NULL and paging.numberOfRecords ne '' and paging.numberOfRecords ne 0}">
+		<div class="container middle">
 		<div class="text-center marg-top">
 			<ul class="pagination">
 				<c:if test="${paging.currentPageNo gt 5}">  											  <!-- 현재 페이지가 5보다 크다면(즉, 6페이지 이상이라면) -->
@@ -122,6 +147,7 @@
 					<li><a href="javascript:goPage(${paging.nextPageNo}, ${paging.maxPost})">다음</a></li>
 				</c:if> 
 			</ul>
+		</div>
 		</div>
 		</c:when>
 		</c:choose>

@@ -6,4 +6,5 @@
 <link href="${goRoot }css/bootstrap.min.css" rel="stylesheet">
 <link href="${goRoot }css/bootstrap-theme.min.css" rel="stylesheet">
 <link href="${goRoot }css/main.css" rel="stylesheet">
+<link href="${goRoot }css/font.css" rel="stylesheet">
 <title>Re:set Beauty</title>

@@ -8,10 +8,17 @@
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
+
 	//전 페이지로 이동
 	$("#listBack").click(function(){
 		window.history.back();
 	});
+	
+	//댓글 닫기 버튼 클릭시 모달 감추기
+	$("#closeBtn").click(function(){
+		$("#modDiv").hide();
+	});
+	
 	/* 좋아요 시작 */
 	
 	var email=$("#email").val();
@@ -288,7 +295,7 @@ $(document).ready(function(){
 		            </div>
 		            <!-- 좋아요. -->
 		            <div class="popDiv dis">
-		            	<input id="email" type="hidden" value="cus1@naver.com" />
+		            	<input id="email" type="hidden" value="${login_email }" />
 						<input id="p_no" type="hidden" value="${detail.mag_no }" />
 						<input id="type" type="hidden" value="magazine" />
 						<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
@@ -300,16 +307,18 @@ $(document).ready(function(){
 
 			<div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
-			<%-- <c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}"> --%>
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 				<button type="submit" class="editBtn redBtn">수정</button>
-			<%-- </c:if> --%>
+			</c:if>
 			</div>
 			</form>
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 			<form method="post" action="/reset/admin/magazine/${detail.mag_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="deleteBtn redBtn">삭제</button>
 			</form>
+			</c:if>
 			</div>
 			<!-- 항상 화면 위에 이동버튼 -->
 			<div class="alwaysBtn">
@@ -390,13 +399,14 @@ $(document).ready(function(){
 				
 			$(data).each(
 				function(){
-				str+=
-					"<div class='commentLi'>"
-					+"<div>"+this.writer+"</div>"
-					+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
-					+"<div>"+this.nalja+"</div>"
-					+"<div><button class='comBtn'>MOD</button></div>"
-					+"</div>";
+					str+=
+						"<div class='commentLi'>"
+						+"<hr class='com_hr'/>"
+						+"<div class='com_writer com_div'><strong>"+this.writer+"</strong></div>"
+						+"<div  class='com_nalja com_div'>"+this.nalja+"</div>"
+						+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
+						+"<div class='com_btn'><button class='comBtn redBtn' email="+this.email+">댓글수정</button></div>"
+						+"</div>";
 			});
 			
 			$("#comment").html(str);

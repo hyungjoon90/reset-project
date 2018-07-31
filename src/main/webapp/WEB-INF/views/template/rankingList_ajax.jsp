@@ -32,13 +32,16 @@
     .conbox>p:first-child,.conbox>p:last-child{
         color: #84868e;
     }
+    .rankingImg{
+    	width: 60px;
+    }
 </style>
 <c:set var="num" value="1" />
 	<c:forEach items="${alist }" var="bean" end="2">
 	<a href="${goRoot }item/${bean.item }">
 		<div class="contentsbox">
 			<div class="numbox box">
-				<label>${num}</label><c:set var="num" value="${num+1}"  /> 
+				<img alt="rankingImg" src="${goRoot }imgs/icon/crown_${num}.png" class="rankingImg"><c:set var="num" value="${num+1}"  /> 
 			</div>
 			<div class="imgbox box">
 				<img src="${bean.img }">
