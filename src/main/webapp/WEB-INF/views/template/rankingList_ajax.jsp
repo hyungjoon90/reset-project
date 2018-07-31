@@ -8,23 +8,26 @@
         padding: 5px 0px;
     }   
     .numbox{
-        width: 20%;
-        margin: auto 0px;
-        font-size: 30pt;
-        text-align: center;
+        width: 30%;
+	    margin: auto 0px;
+	    font-size: 30pt;
+	    text-align: right;
+	    padding-right: 5%;
     }
     .imgbox{
         width: 30%;
         text-align: center;
-        height: 160.5px;
+        margin: auto 0px;
     }
     .imgbox>img{
-    	width: 160px;
-    	height: 160px;
+   	    max-height: 160px;
+  		max-width: 100%;
     }
     .conbox{
-        width: 50%;
-        margin: auto 0px;
+	    width: 40%;
+	    margin: auto 0px;
+	    padding-left: 5%;
+	}
     }
     .conbox>p{
         margin: 6px 0px;
@@ -35,6 +38,31 @@
     .rankingImg{
     	width: 60px;
     }
+@media (max-width: 360px) {
+	.contentsbox {
+	    width: 100%;
+	}
+	.rankingImg {
+	    width: 45px;
+	}
+	.numbox {
+   		width: 20%;
+	}
+	.imgbox {
+	    width: 25%;
+	    height: inherit;
+	    margin: auto 0px;
+	}
+	.imgbox>img {
+	    width: 68px;
+	    height: 68px;
+	}
+	.conbox {
+ 	   width: 55%;
+	}
+}
+
+</style>
 </style>
 <c:set var="num" value="1" />
 	<c:forEach items="${alist }" var="bean" end="2">

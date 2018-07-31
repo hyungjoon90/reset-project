@@ -115,13 +115,6 @@ public class Items_Reviews_Controller {
 		resp.getWriter().print(Items_Reviews_service.review_addPage(resp,bean));
 	}
 	
-//	// 찜목록에 추가
-//	@RequestMapping("/item/cartAdd")
-//	public void cart_Add(@RequestParam("item") int item,@RequestParam("email") String email,HttpServletResponse resp) throws SQLException, IOException {
-//		log.debug("param: "+item+" "+email);
-//		resp.getWriter().print(reviews_DaoImp.cartAdd(item,email));
-//	}
-	
 	// 리뷰 상세
 	@RequestMapping(value="/item/{item}/review/{rev_no}",method=RequestMethod.GET)
 	@Transactional
