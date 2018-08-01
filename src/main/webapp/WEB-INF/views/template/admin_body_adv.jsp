@@ -5,12 +5,44 @@
 	<script>
 	var getNums = function() {
 		var $targets = $(".getNum");
-		var sendData = "resultType=int";
-		$target.each(function(){
-			
-			$.post(); // TODO :[KSS] 지금 하고 있는 부분.
+		$targets.each(function(){
+			var $target = $(this)
+			// rev-cnt/ mag-cnt/ eve-cnt / itm-cnt
+			var cntType= $target.attr('id');
+			var sendData = "resultType=int&where=${login_email}";
+			$.post("${goRoot}admin/ajax/"+cntType,sendData)
+			.done(function(data){
+				if(data.result==200){
+					$target.text(data.result_data);
+				}
+			}); 
 		});
 	};
+	
+	var getList = function(ele,command,start,cnt){
+		var $target = $(ele);
+		var sendData = "resultType=list&itemList=true";
+		if(! ('${login_comName}' == 'reset'))sendData +="&where=${login_email}";
+		
+		$.post("${goRoot}admin/ajax/"+command,sendData)
+		.done(function(data){
+			var resultHTML= data;
+			$(resultHTML).appendTo($target);
+			setEventBtn();
+		});
+	}
+	var setEventBtn = function(){
+		$('.chartBtn').each(function(){
+			var $target = $(this);
+			$target.on("click",function(){
+				var command = $target.attr("data-type");
+				var no = $target.attr("data-id");
+				var canvas = $("#chart-target");
+				getChart(canvas,command,7,no);
+			});
+		});
+	}
+	
 	
 	var getChart = function(ele,type,day,no){
 		var $target = $(ele);
@@ -22,23 +54,23 @@
 			$target.html(data);
 		});
 	}
-	
-	
+
+	// 문서 온로드시점
 	$(function(){
-		var login_chart = $("#chart-target");
-		getChart(login_chart,"login",7,-1);
+		getNums();
+		if($("#chart-itemlist").length>0){
+			getList($("#chart-itemlist"),"event",0,10000); // 페이징 나중에
+		}else{
+			var target = $("#chart-target");
+			var type = 'event';
+			getChart(target,type,7,-1);
+		}
 		
 		// 30초 watch	
 		setInterval(function(){
+		getNums();
 		},30000);
-
-		// 45초 watch
-		setInterval(function(){
-			getChart(login_chart,"event",7,-1);
-		},45000);
-		
 	});
-
 	</script>
 </head>
 <body>
@@ -64,14 +96,14 @@
                                         <div class="huge">리뷰</div>
                                     </div>
                                     <div class="col-xs-3 text-right">
-                                        <div class="huge getNum" id="review_num"></div>
+                                        <div class="huge getNum" id="rev-cnt"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="./reviews/list/">
+                            <a href="./review">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
-                                    <span class="pull-right"></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -85,14 +117,14 @@
                                         <div class="huge">매거진</div>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <div class="huge getNum" id="mag_num"></div>
+                                        <div class="huge getNum" id="mag-cnt"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="./magzines/list/">
+                            <a href="./magazine">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
-                                    <span class="pull-right"></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -106,14 +138,14 @@
                                         <div class="huge">이벤트</div>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <div class="huge getNum" id="eve_num"></div>
+                                        <div class="huge getNum" id="eve-cnt"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="./events/list/">
+                            <a href="./event">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트 보기</span>
-                                    <span class="pull-right"></span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
@@ -127,11 +159,11 @@
                                         <div class="huge">화장품</div>
                                     </div>
                                     <div class="col-xs-4 text-right">
-                                        <div class="huge getNum" id="itm_num">13</div>
+                                        <div class="huge getNum" id="itm-cnt"></div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="./items/list/">
+                            <a href="./item">
                                 <div class="panel-footer">
                                     <span class="pull-left">리스트보기</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -142,22 +174,28 @@
                     </div>
                 </div>
                 <!-- /.row -->
+		        <div class="row">    
+				        <div class="col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+                    	            <h3 class="panel-title">이벤트 리스트</h3>
+                        	    </div>
+                       		<div id="chart-itemlist" class="panel-body"></div>
+                       	</div>
+			        </div>
+				</div><!-- end row -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>로그인현황</h3>
+                                <h3 class="panel-title">이벤트 차트</h3>
                             </div>
-                            <div id="chart-target" class="panel-body">
-                            </div>
+                            <div id="chart-target" class="panel-body"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
+				</div><!-- end row -->
+            </div><!-- /.container-fluid -->
 
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
 </body>

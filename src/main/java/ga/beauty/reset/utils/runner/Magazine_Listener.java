@@ -32,14 +32,14 @@ import ga.beauty.reset.dao.entity.stat.Log_EM_Vo;
 import ga.beauty.reset.utils.LogEnum;
 import ga.beauty.reset.utils.MySDF;
 
-@Component("magzine_Listener")
-public class Magzine_Listener implements Common_Listener{
+@Component("magazine_Listener")
+public class Magazine_Listener implements Common_Listener{
 
-	Logger logger = Logger.getLogger(Magzine_Listener.class);
+	Logger logger = Logger.getLogger(Magazine_Listener.class);
 	
-	// magzine/yyyy/MM/dd.json
-	//{"data":[{"no":magzine_no,"like":,"view":,"num":},....]}
-	private String defaultFP = "/reset/report/magzine/";
+	// magazine/yyyy/MM/dd.json
+	//{"data":[{"no":magazine_no,"like":,"view":,"num":},....]}
+	private String defaultFP = "/reset/report/magazine/";
 	
 	// 어떤 글이냐?
 	// 좋아요 총량 / 일별 증가량 -- DONE
@@ -50,7 +50,7 @@ public class Magzine_Listener implements Common_Listener{
 	private ObjectMapper objectMapper;
 	private JsonNode node;
 	
-	public Magzine_Listener() {
+	public Magazine_Listener() {
 		try {
 			init();
 			logger.info(LogEnum.INIT+"("+getClass()+") 생성완료");
@@ -108,6 +108,7 @@ public class Magzine_Listener implements Common_Listener{
 				logger.info("@매거진@ No."+checkNo+" 번 매거진의 댓글수가 ["+chNum+"] 만큼 변했습니다.");
 				checkVo.setNum(checkVo.getNum()+chNum);
 			}
+			logger.debug("값변화체크:"+checkVo);
 		}		
 	}
 

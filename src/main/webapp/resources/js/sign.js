@@ -276,27 +276,26 @@ $("#phone").on("keyup",function(e){onlyNumber(e)});
 
 }// addFormEvent();
 
-function submitCheck(){
-  var errTest;
-  var nullCheck;
-  var trueCheck = true;
-  $("#form input").each(function(){
-    errTest = $(this).parent().find(".err");
-    if(errTest.length>0){
-      $(this).focus();
-      $(this).css("border","2px soild red");
-      trueCheck = false;
-    }
-    nullCheck = $(this).val();
-    if(nullCheck == null || nullCheck==""){
-    	console.log("널오류");
-      $(this).focus();
-      var $errM = $("<div/>",{"class":"errM"});
-      inputFail($(this),$errM,"값이 비었습니다.");
-      trueCheck = false;
-    }
-  });// err 체크
-  return trueCheck;
-}
-
-
+function submitCheck(ele){
+	  var $target = $(ele);
+	  var errTest;
+	  var nullCheck;
+	  var trueCheck = true;
+	  $target.find("input").each(function(){
+	    errTest = $(this).parent().parent().find(".errM");
+	    if(errTest.length>0){
+	      $(this).focus();
+	      $(this).css("border","2px soild red");
+	      trueCheck = false;
+	    }
+	    nullCheck = $(this).val();
+	    if(nullCheck == null || nullCheck==""){
+	    	console.log("널오류");
+	      $(this).focus();
+	      var $errM = $("<div/>",{"class":"errM"});
+	      inputFail($(this),$errM,"값이 비었습니다.");
+	      trueCheck = false;
+	    }
+	  });// err 체크
+	  return trueCheck;
+	}

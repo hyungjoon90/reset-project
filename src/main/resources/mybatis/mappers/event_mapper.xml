@@ -13,7 +13,10 @@
   	
 <!-- 페이징 및 전체 레코드 갯수 조회 쿼리 -->
 	<select id="listCount" resultType="int">
-		SELECT COUNT(*) FROM EVENT WHERE OPEN=1;  
+		SELECT COUNT(*) FROM EVENT WHERE OPEN=1
+  		<if test="where!=null">
+		AND COM_EMAIL = #{where}
+  		</if>
 	</select>
 	
 <!-- 게시글 목록을 조회하기 위한 쿼리(일반, 공지사항)-->

@@ -53,5 +53,8 @@
   	
   	<select id="itemCont" resultType="int">
   		SELECT COUNT(*) FROM ITEMS
+  		<if test="where != null">
+  		WHERE OPEN=1 AND BRAND = (SELECT COMPANY FROM COMPANYS WHERE EMAIL = #{where})
+  		</if>
   	</select>
   </mapper>

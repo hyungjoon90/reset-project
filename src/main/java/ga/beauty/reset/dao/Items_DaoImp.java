@@ -88,5 +88,9 @@ public class Items_DaoImp implements Items_Dao<Items_Vo> {
 	public int getCount() {
 		return sqlSession.selectOne("items.itemCont");
 	}
+	// XXX:[kss] 추가 전체카운트용
+	public int getCount(String where) {
+		return sqlSession.selectOne("items.itemCont", where);
+	}
 
 }

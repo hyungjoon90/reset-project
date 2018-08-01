@@ -50,6 +50,8 @@ public class Mypage_Admin_Service {
 	RegexLogFile regexLogFile;
 	@Autowired
 	ChartFile chartFile;
+	
+	// chart Coloer
 	private String[] colorFile = {
 			"rgba(255,145,48,"
 			,"rgba(132,176,157,"
@@ -81,22 +83,36 @@ public class Mypage_Admin_Service {
 	// rev-cnt/ mag-cnt/ eve-cnt / itm-cnt
 	public int getInfoAsInt(String command, HttpSession session, HttpServletRequest req) throws SQLException {
 		int data =0;
-		if(command.equals("login-cnt")) {
-			data = Session_Listener.getLoginSessionNumber();
-		}else if(command.equals("session-cnt")) {
-			data = Session_Listener.getActiveSessionNumber();
-		}else if(command.equals("rev-cnt")) {
-			data = reviews_Dao.getCount();
-		}else if(command.equals("mag-cnt")) {
-			data = magazine_Dao.getCount();
-		}else if(command.equals("eve-cnt")) {
-			data = event_Dao.getCount();
-		}else if(command.equals("itm-cnt")) {
-			data = items_DaoImp.getCount();
+		String where = req.getParameter("where");
+		if(where!=null && !where.equals("")) {
+			if(command.equals("rev-cnt")) {
+				data = reviews_Dao.getCount(where);
+			}else if(command.equals("mag-cnt")) {
+				data = magazine_Dao.getCount(where);
+			}else if(command.equals("eve-cnt")) {
+				data = event_Dao.getCount(where);
+			}else if(command.equals("itm-cnt")) {
+				data = items_DaoImp.getCount(where);
+			}
+		}else {
+			if(command.equals("login-cnt")) {
+				data = Session_Listener.getLoginSessionNumber();
+			}else if(command.equals("session-cnt")) {
+				data = Session_Listener.getActiveSessionNumber();
+			}else if(command.equals("rev-cnt")) {
+				data = reviews_Dao.getCount();
+			}else if(command.equals("mag-cnt")) {
+				data = magazine_Dao.getCount();
+			}else if(command.equals("eve-cnt")) {
+				data = event_Dao.getCount();
+			}else if(command.equals("itm-cnt")) {
+				data = items_DaoImp.getCount();
+			}
 		}
 		return data;
 	}
 
+	
 	//
 	public List getInfoAslist(String command, HttpSession session,
 			HttpServletRequest req) throws SQLException {
@@ -112,10 +128,9 @@ public class Mypage_Admin_Service {
 			if(cnt!=null && !cnt.equals("")&& !cnt.equals("undefined"))map.put("cnt", Integer.parseInt(cnt));
 			if(searchType!=null && !searchType.equals("")&& !searchType.equals("undefined"))map.put("searchType", searchType);
 			if(txt!=null && !txt.equals("")&& !txt.equals("undefined"))map.put("txt", txt);
-			if(searchType.equals("pointUp"))map.put("pointUp","pointUp");
-			if(searchType.equals("#pointDown"))map.put("#pointDown","#pointDown");
+			if(searchType.equals("pointUp"))map.put("pointUp","exp");
+			if(searchType.equals("pointDown"))map.put("pointDown","exp");
 			if(type.equals("emp"))map.put("company","reset");
-			
 			
 			if(type.equals("normal")) {
 				int tot = members_Dao.totCount(map);
@@ -145,14 +160,13 @@ public class Mypage_Admin_Service {
 		}else if(command.equals("event")){
 			String where = (String) req.getParameter("where");
 			List<Event_Vo> lists  = null;
-			
-			if(where !=null && !where.equals("") && !where.equals("undefined")){
-				Event_Vo bean = new Event_Vo();
-				bean.setCom_email(where);
-				lists = event_Dao.selectAll(bean );
-			}
-			else lists = event_Dao.selectAll();
-
+			if(req.getParameter("itemList")!=null){
+				if(where !=null && !where.equals("") && !where.equals("undefined")){
+					Event_Vo bean = new Event_Vo();
+					bean.setCom_email(where);
+					lists = event_Dao.selectAll(bean);
+				}else lists = event_Dao.selectAll();
+			}else lists = event_Dao.selectAll();
 			List<Simple_Vo> listitem = new ArrayList<Simple_Vo>();
 			Iterator<Event_Vo> ite = lists.iterator();
 			while(ite.hasNext()) {
@@ -160,15 +174,16 @@ public class Mypage_Admin_Service {
 				listitem.add(new Simple_Vo(bean.getEve_no(),bean.getTitle()));
 			}
 			return listitem;
-		}else if(command.equals("magzine")){
+		}else if(command.equals("magazine")){
 			String where = (String) req.getParameter("where");
 			List<Magazine_Vo> lists  = null;
-			if(where !=null && !where.equals("") && !where.equals("undefined")) {
-				Magazine_Vo bean = new Magazine_Vo();
-				bean.setCom_email(where);
-				lists = magazine_Dao.selectAll(bean );
-			}
-			else lists = magazine_Dao.selectAll();
+			if(req.getParameter("itemList")!=null){
+				if(where !=null && !where.equals("") && !where.equals("undefined")) {
+					Magazine_Vo bean = new Magazine_Vo();
+					bean.setCom_email(where);
+					lists = magazine_Dao.selectAll(bean);
+				}else lists = magazine_Dao.selectAll();
+			}else return magazine_Dao.selectAll();
 			List<Simple_Vo> listitem = new ArrayList<Simple_Vo>();
 			Iterator<Magazine_Vo> ite = lists.iterator();
 			while(ite.hasNext()) {
@@ -181,11 +196,11 @@ public class Mypage_Admin_Service {
 			String where = (String) req.getParameter("where");
 			List<Reviews_Vo> lists  = null;
 			if(req.getParameter("itemList")!=null){
-				//if(where !=null && !where.equals("") && !where.equals("undefined")) {
-				//Magazine_Vo bean = new Magazine_Vo();
-				//bean.setCom_email(where);
-				lists = reviews_Dao.reviewToTAll();
-				//}else
+				if(where !=null && !where.equals("") && !where.equals("undefined")) {
+				Reviews_Vo bean = new Reviews_Vo();
+				bean.setCom_email(where);
+				lists = reviews_Dao.reviewToTAll(bean);
+				}else lists = reviews_Dao.reviewToTAll();
 			}else return reviews_Dao.reviewToTAll();
 			List<Simple_Vo> listitem = new ArrayList<Simple_Vo>();
 			Iterator<Reviews_Vo> ite = lists.iterator();

@@ -123,7 +123,7 @@ $(function(){
 
 		$("#form").submit(function(e) {
 			e.preventDefault();
-			var result = submitCheck();
+			var result = submitCheck(this);
 			if (result) {
 				var form = document.getElementById("form");
 				var password = document.createElement("input");

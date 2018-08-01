@@ -11,7 +11,8 @@
 <script src="${goRoot}js/ser.js"></script>
 <script src="${goRoot}js/sign.js"></script>
 <script type="text/javascript">
-	
+
+
 	
 	$(function() {
 		
@@ -24,7 +25,7 @@
 		
 		$("#form").submit(function(e) {
 			e.preventDefault();
-			var result = submitCheck();
+			var result = submitCheck(this);
 			if (result) {
 				var form = document.getElementById("form");
 				
@@ -48,7 +49,7 @@
 					}
 				});// end $.post
 			}// end if
-		});// end submit event
+ 		});// end submit event
 	});
 </script>
 <style>

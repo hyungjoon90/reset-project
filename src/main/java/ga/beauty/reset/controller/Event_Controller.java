@@ -251,6 +251,20 @@ public class Event_Controller {
 	
 	@RequestMapping(value = "/admin/event", method = RequestMethod.GET)
 	public String adminlist(Model model,HttpServletRequest req) throws SQLException {
+		//접속대상의 IP를 받아옵니다.
+		HttpSession session = req.getSession();
+		String ip = req.getHeader("X-FORWARDED-FOR");
+		if (ip == null) ip = req.getRemoteAddr();
+		
+		String login_user_type = (String)session.getAttribute("login_user_type");
+		if(login_user_type.equals("광고주")) {
+			Event_Vo bean = new Event_Vo();
+			bean.setCom_email((String)session.getAttribute("login_email"));
+			service.listPage(model, bean);
+			logger.info(CrudEnum.LIST + "관리자 페이지에서 {ip:"+ip+"}가 이벤트 목록을 불러옵니다.");
+			return "admin/admin_event";
+		}
+		
 		//페이징관련 입니다.
 		int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
 		int maxPost = 10;	// 페이지당 표시될 게시물  최대 갯수
@@ -266,14 +280,8 @@ public class Event_Controller {
 		model.addAttribute("paging",paging);
 		model.addAttribute("goRoot",goRoot);
 		service.listPage(model, offset, paging.getmaxPost());
-		
-		//접속대상의 IP를 받아옵니다.
-		HttpSession session = req.getSession();
-		String ip = req.getHeader("X-FORWARDED-FOR");
-		if (ip == null) ip = req.getRemoteAddr();
-		
-		logger.info(CrudEnum.LIST + "이벤트에서 {ip:"+ip+"}가 이벤트 목록을 불러옵니다.");
-		
+
+		logger.info(CrudEnum.LIST + "관리자 페이지에서{ip:"+ip+"}가 이벤트 목록을 불러옵니다.");
 		return "admin/admin_event";
 	}
 	
@@ -302,9 +310,9 @@ public class Event_Controller {
         String ip = req.getHeader("X-FORWARDED-FOR");
         if (ip == null) ip = req.getRemoteAddr();
         
-		logger.info(CrudEnum.DETAIL + "이벤트에서 {ip:"+ip+"}가 상세페이지를 불러옵니다.");
+		logger.info(CrudEnum.DETAIL + "관리자 페이지에서 {ip:"+ip+"}가 상세페이지를 불러옵니다.");
 		
-		return "event/event_detail";
+		return "admin/admin_event_detail";
 	}
 	
 	
@@ -330,7 +338,7 @@ public class Event_Controller {
         String ip = req.getHeader("X-FORWARDED-FOR");
         if (ip == null) ip = req.getRemoteAddr();
         
-		logger.info(CrudEnum.ADD + "이벤트에서  {ip:"+ip+"}가 글을 작성하였습니다.");
+		logger.info(CrudEnum.ADD + "관리자 페이지에서 {ip:"+ip+"}가 글을 작성하였습니다.");
 		
 		return "redirect:/admin/event";
 	}
@@ -347,7 +355,7 @@ public class Event_Controller {
         String ip = req.getHeader("X-FORWARDED-FOR");
         if (ip == null) ip = req.getRemoteAddr();
         
-		logger.info(CrudEnum.DELETE + "이벤트에서  {ip:"+ip+"}가 글을 삭제하였습니다.");
+		logger.info(CrudEnum.DELETE + "관리자 페이지에서 {ip:"+ip+"}가 글을 삭제하였습니다.");
 		
 		return "redirect:/admin/event";
 	}
