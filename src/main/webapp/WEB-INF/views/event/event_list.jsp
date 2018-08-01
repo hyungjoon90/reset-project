@@ -6,7 +6,9 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <link href="css/btn/btn.css" rel="stylesheet">
+
 <style type="text/css">
+
 @font-face {
   font-family: NanumSquareR;
   src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");

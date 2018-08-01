@@ -7,13 +7,13 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <style type="text/css">
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+/* @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); */
 
-body {
-	font-family: "Nanum Gothic", sans-serif;
-	font-size: 17px;
+ .container {
+	font-family: NanumSquareR;
+	font-size: 20px;
 }
-
+ 
 
 .submitbtn {
 	background-color: #d00b01;
@@ -26,7 +26,7 @@ body {
 	color: #ffffff;
 	font-family: Arial;
 	font-size: 15px;
-	font-weight: bold;
+	/* font-weight: bold; */
 	padding: 11px 23px;
 	text-decoration: none;
 }
@@ -47,7 +47,7 @@ body {
 	color: #ffffff;
 	font-family: Arial;
 	font-size: 15px;
-	font-weight: bold;
+	/* font-weight: bold; */
 	padding: 11px 23px;
 	text-decoration: none;
 }
@@ -78,7 +78,7 @@ body {
 	padding: 20px 30px;
 	margin: 0;
 	background: rgba(0, 0, 0, 0.4);
-	font-size: 17px;
+	font-size: 16px;
 	font-weight: bold;
 	color: #fff;
 	letter-spacing: 1px;
@@ -89,9 +89,9 @@ body {
 
 #accordion .panel-body {
 	padding: 20px 30px;
-	background: rgba(0, 0, 0, 0.1);
-	font-size: 15px;
-	font-weight: bold;
+	background: rgba(0, 0, 0, 0.08);
+	font-size: 16px;
+	/* font-weight: bold; */
 	color: black;
 	line-height: 28px;
 	letter-spacing: 1px;
@@ -100,8 +100,30 @@ body {
 }
 
 .qnatitle {
-	font-size: 30px;
+	font-size: 3vmax;
+	font-family: NanumSquareB;
+	color: #303030;
 }
+
+
+::placeholder{
+	font-family: NanumSquareR;
+	font-size: 18px;
+	
+}
+
+
+
+#select{
+	font-size: 17px;
+	height: 50px;
+	padding: auto;
+box-sizing: border-box;
+}
+
+#select option{
+height: auto;
+width: auto;}
 
 .well {
 	background: white;
@@ -112,9 +134,12 @@ body {
 	text-decoration: none;
 }
 
+#email{
+height:50px;
+}
+
 .agree p {
 	text-align: center;
-	font-size: 16px;
 }
 
 .agreetxt {
@@ -130,18 +155,26 @@ input.valid, textarea.valid {
 	border: 2px solid green;
 }
 
-
-.form-control input[readonly] {background-color: white;}
+/* .form-control input[readonly] {background-color: white;} */
 
 </style>
 </head>
 <body>
 	   <!--header-->
     <%@include file="/WEB-INF/views/template/menu.jsp" %>
+    	    <div class="breadcrumb">
+    	<div>
+   		<a href="/reset/">HOME</a>
+   		<span class="slash">/</span>
+   		문의
+   		</div>
+    </div>
+    <!--//header
+    	
     	<!--//header-->
 	<!-- collapse start -->
 	<div class="container">
-		<h3>자주 묻는 질문</h3>
+		<h3 class="qnatitle">FAQ</h3>
 
 		<div class="fna well">
 			<div class="panel-group" id="accordion" role="tablist"
@@ -265,7 +298,7 @@ input.valid, textarea.valid {
 		<br /> <br /> <br />
 		<!-- qna container start -->
 		<div>
-			<span class="qnatitle">문의 내용</span><span class="pull-right"><sup
+			<span class="qnatitle">Contact us</span><span class="pull-right"><sup
 				style="color: red">*</sup>는 필수항목입니다</span> <br>
 
 			<div class="well">
@@ -274,7 +307,7 @@ input.valid, textarea.valid {
 					<div class="form-group row">
 						<label for="qa_type" id="qa_type" class="col-sm-2 form-label">문의분류</label>
 						<div class="col-sm-10">
-							<select class="form-control" name="qa_type" id="select">
+							<select class="form-control qa_type" name="qa_type" id="select">
 								<option value="0">분류를 선택하세요</option>
 								<option value="1">1. 쇼핑문의</option>
 								<option value="2">2. 이벤트 문의</option>
@@ -318,7 +351,7 @@ input.valid, textarea.valid {
 						<hr>
 					</div>
 					
-					
+
 					<script type="text/javascript">
 					/* $(document).ready(function(){ */
 					
@@ -356,65 +389,8 @@ input.valid, textarea.valid {
 					
 						
 						/* });	//document ready end */
-						
-						/* if(con.val().length < 1){
-								console.log('내용 미입력 : submit 불가능');
-								alert('내용 미입력 : submit 불가능');
-							}
-								//con.attr("placeholder").text("입력하세요")
-							if(email.val().length < 1){
-								console.log('이메일 미입력 : submit 불가능'); 
-								$('#email').append("<span>오류</span>");
-								alert('이메일 입력 없음 : submit 불가능');
-							}
-						if (checkbox.is(':not(:checked)')){
-								console.log('checkbox : unchecked');
-								alert('동의해주세요 : submit 불가능');
-							};//if end
-						}; //function end
-					});	//document ready end			
-					 */
-			
 					</script>
 					
-
-<!-- 				<script type="text/javascript">
-					$(document).ready(function(){
-					
-					var qnaSave = $('#qnaSave');
-					var con = $('#con');
-					var email = $('#email');
-
-					/* var select = $("#select").attr("selected").val(); */
-					var checkbox = $('input[type="checkbox"]');
-					qnaSave.click(function(event){
-						var select = $("#select option:selected").val();
-						event.preventDefault();
-
-							if(select == 0){
-								console.log('문의 분류 미선택 : submit 불가능');
-								alert('문의 분류 미선택 : submit 불가능');
-							} 
-							if(con.val().length < 1){
-								console.log('내용 미입력 : submit 불가능');
-								alert('내용 미입력 : submit 불가능');
-							}
-								/* con.attr("placeholder").text("입력하세요") */
-							if(email.val().length < 1){
-								console.log('이메일 미입력 : submit 불가능'); 
-								$('#email').append("<span>오류</span>");
-								alert('이메일 입력 없음 : submit 불가능');
-							}
-						if (checkbox.is(':not(:checked)')){
-								console.log('checkbox : unchecked');
-								alert('동의해주세요 : submit 불가능');
-							};//if end
-						}); //qnaSave.click end
-					});	//document ready end			
-					
-			<!-- 		모두다 null일시에는 alert창 여러개 띄워짐
-					모두 조건을 만족해도 event.preventDefault가 풀리지 않는 문제점  
-					</script> -->
 
 					<div class="btns pull-right">
 						<!-- <button class="submitbtn" type="submit" onclick="verifyEmail();">전송</button> -->
