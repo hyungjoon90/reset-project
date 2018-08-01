@@ -318,4 +318,237 @@ a:hover {
 	.rankingImg {
 		width: 45px;
 	}
+    ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
+	
+	.mainRankTitle{
+		text-align: center;
+		font-family: NanumSquareB;
+		color: #303030;
+		border: 2px solid #303030;
+		border-radius: 30px;
+		width: 160px;
+		margin: 0px auto;
+		margin-top: 50px;
+	}
+	
+	.mainRankSub{
+		font-size: 20px;
+		font-family: NanumSquareB;
+		width: 288px;
+		margin: 0px auto;
+		text-align: center;
+		margin-top: 20px;
+	}
+	.strongWord{
+		color: #cf0902;
+		font-size: 25px;
+		font-family: NanumSquareEB;
+	}
+	.divide_line{
+		background-color: #ebebeb;
+		height: 4px;
+		margin-bottom: 30px;
+		margin-top: 30px;
+	}
+	.mainTitle{
+		font-family: NanumSquareB;
+		margin-left: 2%;
+	}
+	.slides img{
+		max-width: 100%; 
+	}
+	.flexslider {
+		z-index:-1;
+		text-align: center;
+	}
+	.flex-control-paging {
+		display: inline-block;
+	}
+	.flex-control-paging:after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+	.flex-control-paging li {
+		float: left;
+		display: inline-block;
+	}
+	.flex-control-paging a {
+		display: inline-block;
+		margin: 3px;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: #42A1F6;
+		font-size: 0;
+		line-height: 0;
+	}
+	.flex-control-paging a.flex-active{
+		background-color:#335574;
+	}
+	.flex-direction-nav li a {
+		text-decoration: none;
+		font-size: 43px;
+		font-weight: bold;
+		color: #000;
+	}
+	.flex-direction-nav li.flex-nav-prev {
+		bottom: 20px;
+		left: 15px;
+		display: none;
+	}
+	.flex-direction-nav li.flex-nav-next {
+		right: 15px;
+		display: none;
+	} 
+	.flexslider2{
+		text-align: center;
+	}
+	.flex-caption {
+	  width: 100%;
+	  padding: 2%;
+	  background: rgba(0,0,0,.4);
+	  color: #fff;
+	  text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+	  font-size: 14px;
+	  line-height: 18px;
+	}
+	.flexslider3{
+		text-align: center;
+	}
+    /* main contents */
+    /* footer */
+    .footer{
+        background-color: #1e1e1e;
+        padding: 23px 0px 26px 0px;
+    }
+    .footer_L{
+        width: 30%;
+        float: left;
+        margin-left: 15px;
+    }
+    .copyright{
+        color: #444;
+        line-height: 16px;
+        font-family: Arial;
+        font-size: 12px;
+    }
+    .footer_R{
+        width: 563px;
+        float: right;
+        margin: 16px 0px 0px 0px;
+    }
+    /* //footer */
+@media (max-width: 991px) {
+    /* header */
+    .login-group {
+	    width: 100px;
+	    margin: 0px auto;
+	}
+	.topicon {
+	   	margin:0px 5px 5px 5px;
+	}
+    .menu_img{
+        width: 100%;
+        text-align: center;
+        margin: 0px 0px 10px 0px;
+    }
+    .menu_login{
+        width: 100%;
+        margin: 0px auto;
+        text-align: center;
+    }
+    .menu_login_bar{
+        width: 100%;
+    }
+    .login-group{
+        width: 100px;
+        margin: 0px auto;
+    }
+    .form-control{
+        width: 85%;        
+    }
+    .menu_bar{
+        clear: both;
+        float: none;
+        margin: 0px auto;
+    }
+    .menu_bar>ul{
+        width: 100%;
+        float: none;
+        margin: 0px auto;
+    }
+   .top-menu:hover .space1,.top-menu:hover .space2{
+        padding-top: 22px;
+    }
+    /* //header */
+    
+   
+    /* footer */
+    .footer_L{
+        width: 100%;
+        text-align: center;
+        margin: 0px;
+    }
+    .footer_R{
+        width: 100%;
+    }
+    .copyright{
+        text-align: center;
+    }
+    /* //footer */
+} 
+@media (max-width: 768px) {
+	.login-group {
+	    width: 100px;
+	    margin: 0px auto;
+	}
+	.topicon {
+	   	margin:0px 5px 5px 5px;
+	}
+    .menu_bar{
+        padding: 0px;
+        width: 361px;
+    }
+    .menu_bar>ul{
+        width: 361px;
+        float: none;
+        margin: 0px auto;
+    }
+    .menu_bar>ul>li{
+         margin: 0px;   
+    }
+    .footer_R{
+        width: 80%;
+        margin: 0px auto;
+        float: none;
+    } 
+ @media (max-width: 360px) {
+	.page_container {
+	    width: 95%;
+	}
+	.login-group {
+	    width: 100px;
+	    margin: 0px auto;
+	}
+	.topicon {
+	   	margin:0px 5px 5px 5px;
+	}
+	.menu_bar {
+    	width: 274px;
+	}
+	.nav>li>a {
+	    padding: 10px 4px;
+	}
+	.mainTitle{
+		margin-left: 0;
+		text-align: center;	
+	}
+	.contentsbox {
+	    width: 100%;
+	}
+	.rankingImg {
+	    width: 45px;
+	}
+}
 }

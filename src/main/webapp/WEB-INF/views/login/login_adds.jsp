@@ -63,9 +63,6 @@
                 -ms-text-size-adjust: 100%;
             }
 	</style>
-		<h1>Not found <span>:(</span></h1>
-            <p>죄송합니다. 입력하신 내용으로 결과를 찾을수 없었습니다.</p>
-            <p>다른 검색어/필터를 이용해주세요</p>
 	<!-- main contents -->
 	<div class="page_container">
 	<div class="addEve">

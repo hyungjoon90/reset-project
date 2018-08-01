@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="/WEB-INF/views/template/head.jsp" %>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -256,16 +256,11 @@ $(document).ready(function(){
 </head>
 <body>
 	<!--header-->
-    <%@include file="/WEB-INF/views/template/menu.jsp" %>
-    <div class="breadcrumb">
-    	<div>
-   		<a href="/reset/">HOME</a>
-   		<span class="slash">/</span>
-   		이벤트
-   		</div>
-    </div>
-    <!--//header--> 
-     
+    <div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+            <!-- 컨탠츠 시작 -->
     <!-- main contents -->
     <div class="page_container">
         <hr>
@@ -292,14 +287,6 @@ $(document).ready(function(){
 	            <div class="com_emailDiv">
 	            	<span>${detail.com_email }</span>
 	            </div>
-	            <!-- TODO:이벤트 주소입력 으로 가는곳입니다. -->
-	            <div>
-					<a href="/reset/event/${detail.eve_no}/addr">
-						<button type="button" class="addrBtn">이벤트 참가 신청하기</button>
-					</a>
-				</div>
-				<!-- TODO:이벤트 주소입력 끝 -->
-				<c:if test="${login_on=='true'}">
 				<!-- 좋아요. -->
 	            <div class="popDiv dis">
 	            	<input id="email" type="hidden" value="${login_email }" />
@@ -310,7 +297,6 @@ $(document).ready(function(){
 					<input id="result" type="hidden" value="" />
 					<span><strong id="su">${detail.pop }</strong></span>
 	            </div>
-	            </c:if>
 	            <!-- 좋아요 끝 -->
 	        <div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
@@ -388,9 +374,10 @@ $(document).ready(function(){
         <hr>
     </div>
     <!-- //main contents -->
-    <!--footer-->
-    <%@include file="/WEB-INF/views/template/footer.jsp" %>
-    <!--//footer-->
+            <!-- 컨탠츠 끝 -->
+            </div><!-- /.container-fluid -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
 <!-- TODO: event 댓글 제이쿼리 -->
 <script type="text/javascript">
 		/* 댓글  */

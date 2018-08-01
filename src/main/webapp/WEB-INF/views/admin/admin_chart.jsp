@@ -48,7 +48,7 @@
 	// 문서 온로드 시점
 	$(function(){
 		if($("#chart-itemlist").length>0){
-			getList($("#chart-itemlist"),"${command}",0,1000); // 페이징 나중에
+			getList($("#chart-itemlist"),"${command}",0,10000); // 페이징 나중에
 		}else{
 			var target = $("#chart-target");
 			var type = '${command}';
@@ -65,7 +65,7 @@
             <div class="container-fluid">
             <!-- 컨탠츠 시작 -->
             	<c:choose>
-					<c:when test="${command eq 'event' || command eq 'magzine' || command eq 'review' }">
+					<c:when test="${command eq 'event' || command eq 'magazine' || command eq 'review' }">
 		           	<div class="row">    
 				        <div class="col-lg-12">
 							<div class="panel panel-default">

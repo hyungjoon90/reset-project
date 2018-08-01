@@ -9,14 +9,8 @@
         border-bottom: 0.5px solid rgb(217, 222, 232);
         padding: 5px 0px;
     }   
-    .numbox{
-        width: 20%;
-        margin: auto 0px;
-        font-size: 30pt;
-        text-align: center;
-    }
     .imgbox{
-        width: 30%;
+        width: 50%;
         text-align: center;
         height: 160.5px;
     }
@@ -38,9 +32,6 @@
 	<c:forEach items="${alist }" var="bean">
 	<a href="../item/${bean.item }">
 		<div class="contentsbox">
-			<div class="numbox box">
-				<label>${num}</label>
-			</div>
 			<div class="imgbox box">
 				<img src="../${bean.img }">
 			</div>

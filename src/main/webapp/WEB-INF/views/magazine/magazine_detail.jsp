@@ -294,6 +294,7 @@ $(document).ready(function(){
 		            	Copyrightⓒ <%= cal.get(Calendar.YEAR) %> <span>${detail.writer }</span> All rights reserved.
 		            </div>
 		            <!-- 좋아요. -->
+		            <c:if test="${login_on=='true'}">
 		            <div class="popDiv dis">
 		            	<input id="email" type="hidden" value="${login_email }" />
 						<input id="p_no" type="hidden" value="${detail.mag_no }" />
@@ -303,6 +304,7 @@ $(document).ready(function(){
 						<input id="result" type="hidden" value="" />
 						<span><strong id="su">${detail.pop }</strong></span>
 		            </div>
+		            </c:if>
 		            <!-- 좋아요 끝 -->
 
 			<div class="funBtn">
@@ -390,7 +392,15 @@ $(document).ready(function(){
 		//아래 두개의 변수만 바꿔주면 됩니다.
 		var p_no=${detail.mag_no};
 		var co_type="magazine";
-		
+		function settingModifyBtn(){
+			var email = "${login_email}";
+			$(".comBtn").each(function(){
+			 	checkEmail=$(this).attr("email");
+				if(email != checkEmail){
+					$(this).css("display","none")
+				};
+			});
+		};
 		<%//TODO [김형준] magazein url 경로(reset) 변경해야함.%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
@@ -410,7 +420,7 @@ $(document).ready(function(){
 			});
 			
 			$("#comment").html(str);
-			
+			settingModifyBtn();
 			});
 		};//getAllList end
 		

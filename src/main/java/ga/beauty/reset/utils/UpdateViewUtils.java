@@ -1,7 +1,6 @@
 package ga.beauty.reset.utils;
 
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +35,8 @@ public class UpdateViewUtils {
 	Common_Listener event_Listener;
 	
 	@Autowired
-	@Qualifier("magzine_Listener")
-	Common_Listener magzine_Listener;
+	@Qualifier("magazine_Listener")
+	Common_Listener magazine_Listener;
 	
 	
 	public UpdateViewUtils() {
@@ -92,7 +91,7 @@ public class UpdateViewUtils {
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setMag_no(no);
 		magazine_Dao.updateView(bean); 
-		magzine_Listener.addLog(bean, "view", 1); // XXX [kss] 뷰증가시 로그 쌓기
+		magazine_Listener.addLog(bean, "view", 1); // XXX [kss] 뷰증가시 로그 쌓기
 	}
 	
 	

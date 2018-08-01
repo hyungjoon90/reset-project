@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ga.beauty.reset.dao.entity.Comment_Vo;
+import ga.beauty.reset.dao.entity.Event_Vo;
+import ga.beauty.reset.dao.entity.Likes_Vo;
+import ga.beauty.reset.dao.entity.Magazine_Vo;
+import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.services.Comment_Service;
+import ga.beauty.reset.utils.runner.Common_Listener;
 
 @RestController
 public class Comment_Controller {
@@ -21,6 +28,12 @@ public class Comment_Controller {
 	
 	@Autowired
 	Comment_Service service;
+	
+	@Autowired	@Qualifier("magazine_Listener")
+	Common_Listener magazine_Listener;
+	
+	@Autowired @Qualifier("review_Listener")
+	Common_Listener review_Listener;
 	
 	String convert_err = "co_type error";
 	
@@ -76,6 +89,7 @@ public class Comment_Controller {
 	
 	//TODO: 댓글의 입력합니다. / / 김형준
 	//댓글을 입력하는 컨트롤러
+	@Transactional
 	@RequestMapping(value="/{co_type}/{p_no}/comment/add", method=RequestMethod.POST)
 	public ResponseEntity<String> register(@PathVariable("co_type") String co_type, @RequestBody Comment_Vo bean){
 		ResponseEntity<String> entity=null;
@@ -85,6 +99,8 @@ public class Comment_Controller {
 			bean.setCo_type(result);
 			service.addComment(bean);
 			entity=new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			addLogToListener(bean, 1); // TODO [kss] 댓글 로그쌓기
+
 		}catch(Exception e){
 			e.printStackTrace();
 			entity=new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -92,6 +108,8 @@ public class Comment_Controller {
 		return entity;
 	}
 	
+
+
 	//TODO: 댓글의 수정합니다. / / 김형준
 	//댓글을 수정하는 컨트롤러
 	@RequestMapping(value="/{co_type}/{p_no}/comment/{co_no}",method= {RequestMethod.PUT, RequestMethod.PATCH})
@@ -107,6 +125,7 @@ public class Comment_Controller {
 			bean.setCo_no(co_no);
 			service.modifyComment(bean);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity =new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -130,12 +149,28 @@ public class Comment_Controller {
 			bean.setCo_no(co_no);
 			service.removeComment(bean);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			addLogToListener(bean, -1); // TODO [kss] 댓글 로그쌓기
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
+	
+	
+	private <T> void addLogToListener(Comment_Vo bean, int chValue) throws Exception {
+		String type = bean.getCo_type();
+		if(type.equals("magazine")){
+			Magazine_Vo target = new Magazine_Vo();
+			target.setMag_no(bean.getP_no());
+			magazine_Listener.addLog(target, "num", chValue);
+		} else if(type.equals("review")){
+			Reviews_Vo target = new Reviews_Vo();
+			target.setRev_no(bean.getP_no());
+			review_Listener.addLog(target, "num", chValue);
+		}
+	};
 	
 	
 }//class-end

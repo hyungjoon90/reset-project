@@ -6,6 +6,11 @@
 	line-height: 20px;
 	color: #999;
 }
+.navForAD, .navForAD>li>a{
+
+font-size : 14px;
+width: 225px;
+}
 </style>
 <script>
 	$(function(){
@@ -35,16 +40,17 @@
 
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
-		<ul class="nav navbar-nav side-nav">
+		<ul class="nav navbar-nav side-nav navForAD">
 			<li class="active"><a href="${goRoot}admin/">Dashboard</a></li>
 			<li><a href="${goRoot}admin/notice">공지사항</a></li>
-			<li><a href="${goRoot}admin/reviews/list/">리뷰</a></li>
-			<li><a href="${goRoot}admin/magazines/list/">매거진</a></li>
-			<li><a href="${goRoot}admin/events/list/">이벤트</a></li>
+			<li><a href="${goRoot}admin/review">리뷰</a></li>
+			<li><a href="${goRoot}admin/magazine">매거진</a></li>
+			<li><a href="${goRoot}admin/event">이벤트</a></li>
+			<li><a href="${goRoot}admin/item">상품관리</a></li>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu3">통계</a>
 				<ul id="menu3" class="collapse">
 					<li><a href="${goRoot}admin/chart/review/">리뷰</a></li>
-					<li><a href="${goRoot}admin/chart/magzine/">매거진</a></li>
+					<li><a href="${goRoot}admin/chart/magazine/">매거진</a></li>
 					<li><a href="${goRoot}admin/chart/event/">이벤트</a></li>
 				</ul>
 			</li>

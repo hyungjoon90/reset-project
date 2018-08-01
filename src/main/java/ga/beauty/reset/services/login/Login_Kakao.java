@@ -19,6 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ga.beauty.reset.dao.User_Dao;
+import ga.beauty.reset.dao.entity.Login_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
 import ga.beauty.reset.utils.ErrorEnum;
@@ -39,12 +41,11 @@ public class Login_Kakao implements Login_Service{
 	private final String clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
 	private String redirectURI ="http://localhost:8080/reset/login/kakao/"; // TODO 나중에 바꿀거
 
-	private String access_token = "";
-	private String refresh_token = "";
+	// private String access_token = "";
+	// private String refresh_token = "";
 
-	private HttpSession userSession;
-	private HttpServletRequest request;
-	private HttpServletResponse response;
+	// private HttpSession userSession;
+	// private HttpServletRequest request;
 	
 	ObjectMapper mapper = new ObjectMapper();
 
@@ -65,24 +66,28 @@ public class Login_Kakao implements Login_Service{
 	public Model login(Model model, HttpServletRequest req) throws Exception {
 		// 요청(코드) >>  토큰얻기(코드) >> ( 앱연결(토큰) ) >> 프로필(토큰) 
 
-		request = req;
-		userSession = req.getSession();
+		HttpServletRequest request = req;
+		HttpSession userSession = req.getSession();
 		String code = req.getParameter("code");
-
+		
+		Login_Vo bean = new Login_Vo();
+		bean.setRequest(request);
+		bean.setUserSession(userSession);
+		
 		int resultCode = 0;
 		
-		if( (resultCode = getToken(code))!=200  ) {
+		if( (resultCode = getToken(code, bean))!=200  ) {
 			model.addAttribute("login_err",ErrorEnum.TOKENERR);
 			return model;
 		} 
 		// 한번만 실행되면 됨
-		this.setkakaoId();
+		this.setkakaoId(bean);
 		
 		// checkEmail : 가능한 에러 > profile / email 
 		// 소셜로 로그인인지, 회원가입인지를 파악하기 위해서 다오에게서 데이터를 받아옴.
 		// 로그인일 경우 리다이렉트, 회원가입일땐 model에 이메일,
 		
-		String result= this.getInfofromProfile(); // 정상적이면 이메일
+		String result= this.getInfofromProfile(bean); // 정상적이면 이메일
 		if(result.equals(ErrorEnum.PROFILEERR)) {
 			req.setAttribute("login_err",ErrorEnum.PROFILEERR);
 			return model;
@@ -100,9 +105,9 @@ public class Login_Kakao implements Login_Service{
 		User_Vo resultUser = user_Dao.selectOne(checkEmailVo);
 		if( resultUser != null) {
 			if(resultUser.getJoin_route().contains("kakao")) {
-				// 로그인 완료
-			userSession.setAttribute("access_token", access_token);
-			userSession.setAttribute("refresh_token", refresh_token);
+			// 로그인 완료
+			userSession.setAttribute("access_token", bean.getAccess_token());
+			userSession.setAttribute("refresh_token", bean.getRefresh_token());
 			userSession.setAttribute("login_user_type", resultUser.getUser_type());
 			userSession.setAttribute("login_on", true);
 			req.setAttribute("login_result", "redirect:"+userSession.getAttribute("old_url"));
@@ -119,7 +124,7 @@ public class Login_Kakao implements Login_Service{
 		return model;
 	}
 	
-	private int getToken(String code) throws ClientProtocolException, IOException {
+	private int getToken(String code, Login_Vo bean) throws ClientProtocolException, IOException {
 		logger.debug(code);
 		// 시작
 		String apiURL = "https://kauth.kakao.com/oauth/token";
@@ -141,13 +146,15 @@ public class Login_Kakao implements Login_Service{
 		responseString = EntityUtils.toString(response.getEntity());
 
 		JsonNode tokenJson = null;
-		logger.debug("Response Code - getToken(kakao) : ("+request.getRemoteHost()+")/"+responseCode);
+		logger.debug("Response Code - getToken(kakao) : ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
 		if(responseCode==200) {
 			tokenJson = mapper.readTree(responseString);
-			access_token= tokenJson.get("access_token").asText();
-			refresh_token= tokenJson.get("refresh_token").asText();
+			bean.setAccess_token(tokenJson.get("access_token").asText());
+			bean.setRefresh_token(tokenJson.get("refresh_token").asText());
+//			access_token= tokenJson.get("access_token").asText();
+//			refresh_token= tokenJson.get("refresh_token").asText();
 		}else {
-			logger.debug("Response Err - getToken(kakao) : ("+request.getRemoteHost()+")/"+responseString);
+			logger.debug("Response Err - getToken(kakao) : ("+bean.getRequest()+")/"+responseString);
 		}
 		return responseCode;
 	}
@@ -155,10 +162,10 @@ public class Login_Kakao implements Login_Service{
 	
 	// 앱연결을 위해서 필요한 ID를 등록합니다. 한번만 등록되며,
 	// 추후에 카카오톡 연결 해제시 해제만 시키면됩니다.
-	private void setkakaoId() throws ClientProtocolException, IOException {
+	private void setkakaoId(Login_Vo bean) throws ClientProtocolException, IOException {
 		
 		String apiURL = "https://kapi.kakao.com/v1/user/signup";
-		final String header1 = "Bearer "+access_token; 
+		final String header1 = "Bearer "+bean.getAccess_token(); 
 		
 		final HttpClient client = HttpClientBuilder.create().build();
 		final HttpPost post = new HttpPost(apiURL);
@@ -174,8 +181,8 @@ public class Login_Kakao implements Login_Service{
 //			logger.debug("app_id : " + app_id);
 //			userSession.setAttribute("app_id", app_id);
 		}
-		logger.debug("Response Code -setkakaoId(kakao): ("+request.getRemoteHost()+")/"+responseCode);
-		logger.debug("Response Body -setkakaoId(kakao) : ("+request.getRemoteHost()+")/"+responseString);
+		logger.debug("Response Code -setkakaoId(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
+		logger.debug("Response Body -setkakaoId(kakao) : ("+bean.getRequest().getRemoteHost()+")/"+responseString);
 	}
 	
 	private String checkEmail(String resultString) throws IOException {
@@ -195,9 +202,9 @@ public class Login_Kakao implements Login_Service{
 	
 	}
 
-	private String getInfofromProfile() throws ClientProtocolException, IOException {
+	private String getInfofromProfile(Login_Vo bean) throws ClientProtocolException, IOException {
 
-		String header1 = "Bearer " + access_token; // Bearer 다음에 공백 추가
+		String header1 = "Bearer " + bean.getAccess_token(); // Bearer 다음에 공백 추가
 		String header2 = "application/x-www-form-urlencoded;charset=utf-8;";//Content-type
 		String apiURL = "https://kapi.kakao.com/v2/user/me";
 
@@ -212,9 +219,9 @@ public class Login_Kakao implements Login_Service{
 		HttpResponse response = client.execute(post);
 		int responseCode = response.getStatusLine().getStatusCode();
 		String responseString = EntityUtils.toString(response.getEntity(), "utf-8");
-		logger.debug("Response Code -getInfo(kakao): ("+request.getRemoteHost()+")/"+responseCode);
+		logger.debug("Response Code -getInfo(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseCode);
 		if(responseCode != 200) {
-			logger.debug("Response Err -getInfo(kakao): ("+request.getRemoteHost()+")/"+responseString);
+			logger.debug("Response Err -getInfo(kakao): ("+bean.getRequest().getRemoteHost()+")/"+responseString);
 			return ErrorEnum.PROFILEERR;
 		}
 		return responseString;

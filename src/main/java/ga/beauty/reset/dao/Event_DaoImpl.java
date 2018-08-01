@@ -62,6 +62,9 @@ public class Event_DaoImpl implements Common_Dao<Event_Vo>{
 	public int getCount() throws SQLException {
 		return sqlSession.selectOne("event.listCount");
 	}
+	public int getCount(String where) throws SQLException {
+		return sqlSession.selectOne("event.listCount",where);
+	}
 
 	@Override
 	public List<Event_Vo> selectAll(int cate, int offset, int noOfRecords) throws SQLException {

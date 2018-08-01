@@ -8,33 +8,72 @@
         padding: 5px 0px;
     }   
     .numbox{
-        width: 20%;
-        margin: auto 0px;
-        font-size: 30pt;
-        text-align: center;
+        width: 30%;
+	    margin: auto 0px;
+	    font-size: 30pt;
+	    text-align: right;
+	    padding-right: 5%;
     }
     .imgbox{
         width: 30%;
         text-align: center;
-        height: 160.5px;
+        margin: auto 0px;
     }
     .imgbox>img{
-    	width: 160px;
-    	height: 160px;
+   	    max-height: 160px;
+  		max-width: 100%;
     }
     .conbox{
-        width: 50%;
-        margin: auto 0px;
+	    width: 40%;
+	    margin: auto 0px;
+	    padding-left: 5%;
+	}
     }
     .conbox>p{
         margin: 6px 0px;
     }
     .conbox>p:first-child,.conbox>p:last-child{
-        color: #84868e;
+        /* color: #84868e; */
     }
     .rankingImg{
     	width: 60px;
     }
+      .rankingBrand{
+    	font-family: NanumSquareEB;
+    	font-size: 23px;
+    	color: #2e2e2e;
+    }
+    .rankingvol,.rankingPrice{
+    	font-family: NanumSquareB;
+    	font-size: 18px;
+    	margin-right: 20px;
+    	color: #2e2e2e;
+    }
+@media (max-width: 360px) {
+	.contentsbox {
+	    width: 100%;
+	}
+	.rankingImg {
+	    width: 45px;
+	}
+	.numbox {
+   		width: 20%;
+	}
+	.imgbox {
+	    width: 25%;
+	    height: inherit;
+	    margin: auto 0px;
+	}
+	.imgbox>img {
+	    width: 68px;
+	    height: 68px;
+	}
+	.conbox {
+ 	   width: 55%;
+	}
+}
+
+
 </style>
 <c:set var="num" value="1" />
 	<c:forEach items="${alist }" var="bean" end="2">
@@ -47,9 +86,9 @@
 				<img src="${bean.img }">
 			</div>
 			<div class="conbox box">
-				<p>${bean.brand }</p>
-				<p>${bean.name }</p>
-				<p>${bean.vol }&nbsp;${bean.price }원</p>
+				<p class="rankingBrand rankingP">${bean.brand }</p>
+				<p class="rankingName rankingP">${bean.name }</p>
+				<p><span class="rankingvol rankingP">${bean.vol }</span>&nbsp;<span class="rankingPrice rankingP">${bean.price }원</span></p>
 			</div>
 		</div>
 	</a>

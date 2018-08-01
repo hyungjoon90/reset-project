@@ -22,6 +22,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import ga.beauty.reset.dao.User_Dao;
+import ga.beauty.reset.dao.entity.Login_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Login_Service;
 import ga.beauty.reset.utils.ErrorEnum;
@@ -30,12 +31,7 @@ import ga.beauty.reset.utils.ErrorEnum;
 @Service("login_Google")
 public class Login_Google implements Login_Service{
 
-	private static final Logger logger = Logger.getLogger(Login_Google.class);
-
-	String access_token;
-	private HttpSession userSession;
-	private HttpServletRequest request;
-	private HttpServletResponse response;
+	private Logger logger = Logger.getLogger(Login_Google.class);
 	
 	@Autowired
 	User_Dao user_Dao;
@@ -52,11 +48,17 @@ public class Login_Google implements Login_Service{
 	// 이메일 체크할때 토큰 오류 / 이메일 오류 있을수 있음
 	@Override
 	public Model login(Model model, HttpServletRequest req) throws Exception {
-		request = req;
-		userSession= req.getSession();
-		access_token = req.getParameter("idtoken");
 		
-		String result = getEmail(access_token);
+		HttpServletRequest request = req;
+		HttpSession userSession = req.getSession();
+
+		Login_Vo bean = new Login_Vo();
+		bean.setRequest(request);
+		bean.setUserSession(userSession);
+		bean.setAccess_token(req.getParameter("idtoken"));
+		
+		
+		String result = getEmail(bean.getAccess_token());
 		if(result.equals(ErrorEnum.TOKENERR)) {
 			userSession.setAttribute("login_err",ErrorEnum.TOKENERR);
 			userSession.setAttribute("nextUrl", "/errPage");
@@ -76,7 +78,7 @@ public class Login_Google implements Login_Service{
 		if(resultUser != null) {
 			if(resultUser.getJoin_route().contains("google")) {
 			// 로그인 완료
-				userSession.setAttribute("access_token", access_token);
+				userSession.setAttribute("access_token", bean.getAccess_token());
 				userSession.setAttribute("login_user_type", resultUser.getUser_type());
 				userSession.setAttribute("login_email", resultUser.getEmail());
 				userSession.setAttribute("login_on", true);
@@ -98,7 +100,7 @@ public class Login_Google implements Login_Service{
 		}
 		req.setAttribute("result", result);
 		req.setAttribute("nextUrl", nextUrl);
-		req.setAttribute("login_result","login/google");
+		req.setAttribute("login_result","login/login_google");
 		return model;
 	}// login()
 
