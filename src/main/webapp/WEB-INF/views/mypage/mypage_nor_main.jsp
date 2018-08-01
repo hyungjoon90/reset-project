@@ -6,8 +6,8 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <style type="text/css">
-	.table, th, td{
-		text-align: center;
+	.page_container{
+		font-family: NanumSquareR;
 	}
 	//리뷰
 	.reviewBox {
@@ -97,6 +97,22 @@
 		margin: 0px 0px -3px 0px;
 	}
 	/* reviewBox 위치 */
+	.subicon{
+		width: 40px;
+	}
+	.col-md-6{
+		font-family: NanumSquareB;
+		font-size: 18px;
+		margin: 20px auto;
+	}
+	.subSpan{
+		margin-left: 30px;
+	}
+	.nickSpan{
+		font-family: NanumSquareEB;
+		font-size: 24px;
+	}
+	
 	/* 댓글 스타일 */
 	.com_div{
 		display: inline-block;
@@ -115,6 +131,10 @@
 	}
 	.box-footer{
 		text-align: right;
+	}
+	.mypage_title_div{
+		font-family: NanumSquareB;
+		font-size: 25px;
 	}
 </style>
 <script type="text/javascript">
@@ -147,41 +167,77 @@
 	<!-- main contents -->
 	<div class="page_container">
 
-		<h1>회원정보</h1>
+		<div class="mypage_title_div">회원정보</div>
 		<div id="info">
-			<table class="table">
-				<tr>
-					<th>이메일</th>
-					<th>닉네임</th>
-					<th>성별</th>
-					<th>나이</th>
-					<th>피부타입</th>
-					<th>핸드폰 번호</th>
-					<th>참여도</th>
-				</tr>
-				<tr>
-					<td>${bean.email }</td>
-					<td>${bean.nick }</td>
-					<td>${bean.gender }</td>
-					<td>${bean.age }</td>
-					<td>${bean.skin }</td>
-					<td>${bean.phone }</td>
-					<td>${bean.exp }</td>
-				</tr>
-			</table>
+			<div class="row well">
+				<div class="col-md-6">
+					<span>
+						<c:choose>
+							<c:when test="${bean.gender=='남성'}">
+								<img alt="male" src="${goRoot }imgs/icon/male.png" class="subicon">
+							</c:when>
+							<c:otherwise>
+								<img alt="female" src="${goRoot }imgs/icon/female.png" class="subicon">
+							</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="subSpan nickSpan">
+						${bean.nick } &nbsp; &nbsp;
+					</span>
+					<span>
+						${bean.age } &#47; ${bean.skin }
+					</span>
+				</div>
+				<div class="col-md-6">
+					<span>
+						<img alt="email" src="${goRoot }imgs/icon/email.png" class="subicon">
+					</span>
+					<span class="subSpan">
+						${bean.email }
+					</span>
+				</div>
+				<div class="col-md-6">
+					<span>
+						<img alt="phone" src="${goRoot }imgs/icon/smartphone.png" class="subicon">
+					</span>
+					<span class="subSpan">
+						${bean.phone }
+					</span>
+				</div>
+				<div class="col-md-6">
+					<span>
+						<c:choose>
+							<c:when test="${bean.exp <= 100}">
+								<img alt="new" src="${goRoot }imgs/icon/medal_new.png" class="subicon">		
+							</c:when>
+							<c:when test="${bean.exp > 100 && bean.exp <= 300}">
+								<img alt="new" src="${goRoot }imgs/icon/medal_gold.png" class="subicon">	
+							</c:when>
+							<c:when test="${bean.exp >300 && bean.exp <= 600}">
+								<img alt="new" src="${goRoot }imgs/icon/medal_vip.png" class="subicon">	
+							</c:when>
+							<c:otherwise>
+								<img alt="new" src="${goRoot }imgs/icon/medal_vvip.png" class="subicon">
+							</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="subSpan">
+						${bean.exp }
+					</span>
+				</div>
+			</div>
 		</div>
 
-		<h1>찜목록</h1>
-		<div class="welcome_line">
-			<img src="${goRoot }imgs/welcome_bg.png">
-		</div>
-		<div id="cart"></div>
+		<div class="mypage_title_div">찜목록</div>
 		
-		<h1>리뷰</h1>
-		<div class="welcome_line">
-			<img src="${goRoot }imgs/welcome_bg.png">
+		<div class="row well">
+			<div id="cart" class="col-md-12"></div>
 		</div>
-		<div id="review">
+		
+		<div class="mypage_title_div">리뷰</div>
+		
+		<div class="row well">
+		<div id="review" class="col-md-12">
 			<c:choose>
 				<c:when test="${review_alist == '[]'}">
 				</c:when>
@@ -250,12 +306,10 @@
 				</c:when>
 			</c:choose>
 		</div>
-		
-		<h1>댓글</h1>
-		<div class="welcome_line">
-			<img src="${goRoot }imgs/welcome_bg.png">
 		</div>
-		<div id="comment">
+		<div class="mypage_title_div">댓글</div>
+		<div class="row well">
+		<div id="comment" class="col-md-12">
 			<c:choose>
 				<c:when test="${comment_alist == '[]'}">
 				</c:when>
@@ -270,6 +324,7 @@
 					</c:forEach>
 				</c:when>
 			</c:choose>
+		</div>
 		</div>
 	</div>
 	<!-- //main contents -->

@@ -32,7 +32,7 @@ public class Qna_Controller {
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
 	public String show(Model model) {
 		log.debug("show form" );
-		model.addAttribute("goRoot", "../");
+		model.addAttribute("goRoot", "./");
 		return "qna/qna";
 	}
 	
@@ -41,7 +41,7 @@ public class Qna_Controller {
 	public String add(Qna_Vo bean,HttpServletRequest req) throws SQLException {
 		service.addPage(bean);
 		log.debug("고객 - qna send : " + bean);
-		return view;	
+		return view;
 	}
 	
 	//TODO admin qna list / "admin/admin_qna_list" / 이지현

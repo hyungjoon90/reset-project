@@ -34,7 +34,7 @@ import ga.beauty.reset.services.Sign_Service;
 @Controller
 public class Login_Controller {
 	
-	private static final Logger logger = Logger.getLogger(Login_Controller.class);
+	private Logger logger = Logger.getLogger(Login_Controller.class);
 
 	// 서비스 분기용
 	
@@ -74,7 +74,7 @@ public class Login_Controller {
 	public String showLoginMain(HttpServletRequest req, Model model, HttpSession session) {
 		model.addAttribute("goRoot", "../");
 		if(session.getAttribute("old_url")==null) session.setAttribute("old_url", req.getHeader("referer"));
-		System.out.println((String)session.getAttribute("old_url"));
+		logger.debug("로그인페이지 접속시 이전경로:"+(String)session.getAttribute("old_url"));
 		return "login/login_main";
 	}
 	
@@ -142,11 +142,13 @@ public class Login_Controller {
 			Members_Vo memGetNick = new Members_Vo();
 			String email = (String)session.getAttribute("login_email");
 			result= sign_Service.updateProfile(command,session);
+			String swap = (String)session.getAttribute("old_url");
+			if(swap==null || swap.equals("") || swap.equals("null") || swap.contains("/login/")) swap="/reset/";
 			if(result==1) {
 				// 로그인처리도 해야됨
 				session.setAttribute("login_on", true);
 				resultMap.put("result", 200);
-				resultMap.put("redirect", (String)session.getAttribute("old_url"));
+				resultMap.put("redirect", swap);
 				logger.debug("로그인성공:"+memGetNick);
 				return resultMap;
 			}else {
@@ -155,6 +157,7 @@ public class Login_Controller {
 			}
 		}else if(command.equals("adds_no")){
 			String swap = (String)session.getAttribute("old_url");
+			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/reset/";
 			session.invalidate(); // TODO [kss]세션초기화
 			session.setAttribute("old_url",swap);
 			resultMap.put("result", 300);
@@ -163,6 +166,7 @@ public class Login_Controller {
 		}else {
 			// adds_back
 			String swap = (String)session.getAttribute("old_url");
+			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/reset/";
 			session.invalidate(); // TODO [kss]세션초기화
 			resultMap.put("result", 300);
 			resultMap.put("redirect", swap);

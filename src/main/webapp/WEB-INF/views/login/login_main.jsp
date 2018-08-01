@@ -96,7 +96,7 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
   };
 	// 구글용
   function attachSignin(element) {
-	$(element).on("click",function(){
+	$(element).on("click",function(e){
 		e.preventDefault();
 	})
 		
@@ -172,22 +172,17 @@ $(function(){
 	$("#goLogin").on('click',function(){
 		if(submitCheck(document.getElementById("login_form"))){
 			var tmpPW = $("#password").val();
-			alert(tmpPW);
-			//$("#password").val(SHA256(tmpPW));
 			var form = document.getElementById("login_form");
 			var password = document.createElement("input");
 			password.setAttribute("type","hidden");
 			password.setAttribute("name","password");
 			password.setAttribute("value",SHA256(tmpPW));
-			console.log(password);
 			$(form).append(password);
 			
 			formData = $("#login_form").serialize();
-			console.log(formData);
 			$.post("./normal/",formData)
 				.done(function(data) {
 					if(data.result>=200 && data.result<400){
-						alert(data.msg);
 						window.location.href=data.redirect;
 					}else{
 						alert(data.msg);
@@ -211,11 +206,7 @@ $(function(){
 			formData = $("#findForm").serialize();
 			$.post("../find/",formData)
 			.done(function(data) {
-				if(data.result>=200 && data.result<400){
-					alert(data.msg);
-				}else{
-					alert(data.msg);
-				}
+				alert(data.msg);
 		  	})
 		  	.fail(function() {
 		    	alert( "알수 없는 오류" );

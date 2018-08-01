@@ -2,6 +2,7 @@
 /* 컨텐츠 contatiner */
 	.page_container{
 		width: 80%;
+		font-family: NanumSquareR;
 	}
     .page_container>a{
         text-decoration: none;

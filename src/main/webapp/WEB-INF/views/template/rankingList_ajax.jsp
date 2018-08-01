@@ -33,10 +33,21 @@
         margin: 6px 0px;
     }
     .conbox>p:first-child,.conbox>p:last-child{
-        color: #84868e;
+        /* color: #84868e; */
     }
     .rankingImg{
     	width: 60px;
+    }
+      .rankingBrand{
+    	font-family: NanumSquareEB;
+    	font-size: 23px;
+    	color: #2e2e2e;
+    }
+    .rankingvol,.rankingPrice{
+    	font-family: NanumSquareB;
+    	font-size: 18px;
+    	margin-right: 20px;
+    	color: #2e2e2e;
     }
 @media (max-width: 360px) {
 	.contentsbox {
@@ -62,7 +73,7 @@
 	}
 }
 
-</style>
+
 </style>
 <c:set var="num" value="1" />
 	<c:forEach items="${alist }" var="bean" end="2">
@@ -75,9 +86,9 @@
 				<img src="${bean.img }">
 			</div>
 			<div class="conbox box">
-				<p>${bean.brand }</p>
-				<p>${bean.name }</p>
-				<p>${bean.vol }&nbsp;${bean.price }원</p>
+				<p class="rankingBrand rankingP">${bean.brand }</p>
+				<p class="rankingName rankingP">${bean.name }</p>
+				<p><span class="rankingvol rankingP">${bean.vol }</span>&nbsp;<span class="rankingPrice rankingP">${bean.price }원</span></p>
 			</div>
 		</div>
 	</a>
