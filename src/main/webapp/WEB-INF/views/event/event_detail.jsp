@@ -299,6 +299,7 @@ $(document).ready(function(){
 					</a>
 				</div>
 				<!-- TODO:이벤트 주소입력 끝 -->
+				<c:if test="${login_on=='true'}">
 				<!-- 좋아요. -->
 	            <div class="popDiv dis">
 	            	<input id="email" type="hidden" value="${login_email }" />
@@ -309,6 +310,7 @@ $(document).ready(function(){
 					<input id="result" type="hidden" value="" />
 					<span><strong id="su">${detail.pop }</strong></span>
 	            </div>
+	            </c:if>
 	            <!-- 좋아요 끝 -->
 	        <div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
