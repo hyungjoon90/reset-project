@@ -227,7 +227,8 @@
 }
 
 .emptyImg {
-	width: 133px;
+	max-width: 133px;
+    width: 100%;
 	margin: 24px 0px;
 }
 
@@ -320,4 +321,22 @@
 }
 .form-group {
     height: 90px;
+}
+@media (max-width: 991px) {
+	.ImgBox {
+	    margin-top: 8%;
+	}
+}
+@media (max-width: 768px) {
+	.ImgBox {
+	    width: 100%;
+	    margin-top:0;
+	}	
+	.InfoBox {
+	    width: 100%;
+	    margin: 3px 0px;
+	}
+	.avgBox{
+		float: left;
+	}
 }

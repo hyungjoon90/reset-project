@@ -6,29 +6,8 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <style type="text/css">
-
-	@font-face {
-	  font-family: NanumSquareR;
-	  src: url(${goRoot}fonts/NanumSquareR.ttf) format("truetype");
-	}
-	
-	@font-face {
-	  font-family: NanumSquareL;
-	  src: url(${goRoot}fonts/NanumSquareL.ttf) format("truetype");
-	}
-	
-	@font-face {
-	  font-family: NanumSquareB;
-	  src: url(${goRoot}fonts/NanumSquareB.ttf) format("truetype");
-	}
-	
-	@font-face {
-	  font-family: NanumSquareEB;
-	  src: url(${goRoot}fonts/NanumSquareEB.ttf) format("truetype");
-	}
-
-	.table, th, td{
-		text-align: center;
+	.page_container{
+		font-family: NanumSquareR;
 	}
 	//리뷰
 	.reviewBox {
@@ -45,7 +24,9 @@
 		text-align: center;
 		margin: 6px 0px;
 	}
-	
+	.left_img_box>img{
+		max-width: 100%;
+	}
 	.right_content_box {
 		width: 75%;
 		float: right;
@@ -139,7 +120,7 @@
 	}
 	
 	.com_nalja{
-		margin-left: 85%;
+		float: right;
 	}
 	.com_hr{
 		width: 100%;
@@ -150,6 +131,10 @@
 	}
 	.box-footer{
 		text-align: right;
+	}
+	.mypage_title_div{
+		font-family: NanumSquareB;
+		font-size: 25px;
 	}
 </style>
 <script type="text/javascript">
@@ -182,28 +167,8 @@
 	<!-- main contents -->
 	<div class="page_container">
 
-		<h1>회원정보</h1>
+		<div class="mypage_title_div">회원정보</div>
 		<div id="info">
-			<%-- <table class="table">
-				<tr>
-					<th>이메일</th>
-					<th>닉네임</th>
-					<th>성별</th>
-					<th>나이</th>
-					<th>피부타입</th>
-					<th>핸드폰 번호</th>
-					<th>참여도</th>
-				</tr>
-				<tr>
-					<td>${bean.email }</td>
-					<td>${bean.nick }</td>
-					<td>${bean.gender }</td>
-					<td>${bean.age }</td>
-					<td>${bean.skin }</td>
-					<td>${bean.phone }</td>
-					<td>${bean.exp }</td>
-				</tr>
-			</table> --%>
 			<div class="row well">
 				<div class="col-md-6">
 					<span>
@@ -263,17 +228,16 @@
 			</div>
 		</div>
 
-		<h1>찜목록</h1>
-		<div class="welcome_line">
-			<img src="${goRoot }imgs/welcome_bg.png">
-		</div>
-		<div id="cart"></div>
+		<div class="mypage_title_div">찜목록</div>
 		
-		<h1>리뷰</h1>
-		<div class="welcome_line">
-			<img src="${goRoot }imgs/welcome_bg.png">
+		<div class="row well">
+			<div id="cart" class="col-md-12"></div>
 		</div>
-		<div id="review">
+		
+		<div class="mypage_title_div">리뷰</div>
+		
+		<div class="row well">
+		<div id="review" class="col-md-12">
 			<c:choose>
 				<c:when test="${review_alist == '[]'}">
 				</c:when>
@@ -342,12 +306,10 @@
 				</c:when>
 			</c:choose>
 		</div>
-		
-		<h1>댓글</h1>
-		<div class="welcome_line">
-			<img src="${goRoot }imgs/welcome_bg.png">
 		</div>
-		<div id="comment">
+		<div class="mypage_title_div">댓글</div>
+		<div class="row well">
+		<div id="comment" class="col-md-12">
 			<c:choose>
 				<c:when test="${comment_alist == '[]'}">
 				</c:when>
@@ -362,6 +324,7 @@
 					</c:forEach>
 				</c:when>
 			</c:choose>
+		</div>
 		</div>
 	</div>
 	<!-- //main contents -->

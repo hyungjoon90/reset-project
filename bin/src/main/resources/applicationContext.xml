@@ -52,7 +52,7 @@
 		</props>
 		</property>
 	</bean>
-	  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
     <property name="velocityProperties">
         <props>
             <prop key="resource.loader">class</prop>
