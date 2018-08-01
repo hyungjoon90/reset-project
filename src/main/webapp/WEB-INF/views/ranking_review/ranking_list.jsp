@@ -39,6 +39,22 @@ function add(){
 }
     	    	
 </script>
+<style>
+    .rankingBrand{
+    	font-family: NanumSquareEB;
+    	font-size: 23px;
+    	color: #2e2e2e;
+    }
+    .rankingvol,.rankingPrice{
+    	font-family: NanumSquareB;
+    	font-size: 18px;
+    	margin-right: 20px;
+    	color: #2e2e2e;
+    }
+    .rankingImg{
+    	width: 60px;
+    }
+</style>
 </head>
 <body>
 	<!--header-->
@@ -59,15 +75,28 @@ function add(){
 	    	<a href="./item/${bean.item }">
 			<div class="contentsbox">
 				<div class="numbox box">
-			         <label>${num}</label><c:set var="num" value="${num+1}"  /> 
+					<c:choose>
+						<c:when test="${num==1}">
+							<img alt="rankingImg" src="${goRoot }imgs/icon/crown_${num}.png" class="rankingImg"><c:set var="num" value="${num+1}"  /> 
+						</c:when>
+						<c:when test="${num==2}">
+							<img alt="rankingImg" src="${goRoot }imgs/icon/crown_${num}.png" class="rankingImg"><c:set var="num" value="${num+1}"  /> 
+						</c:when>
+						<c:when test="${num==3}">
+							<img alt="rankingImg" src="${goRoot }imgs/icon/crown_${num}.png" class="rankingImg"><c:set var="num" value="${num+1}"  /> 
+						</c:when>
+						<c:otherwise>
+					         <label class="labelNum">${num}</label><c:set var="num" value="${num+1}"  /> 
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="imgbox box">
 				     <img src="${bean.img }">
 				</div>
 				<div class="conbox box">
-	                <p>${bean.brand }</p>
-				    <p>${bean.name }</p>
-				    <p>${bean.vol }&nbsp;${bean.price }원</p>
+	                <p class="rankingBrand rankingP">${bean.brand }</p>
+					<p class="rankingName rankingP">${bean.name }</p>
+					<p><span class="rankingvol rankingP">${bean.vol }</span>&nbsp;<span class="rankingPrice rankingP">${bean.price }원</span></p>
 				</div>
 			</div>
        		</a>

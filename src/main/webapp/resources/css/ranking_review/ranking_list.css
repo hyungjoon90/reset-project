@@ -2,6 +2,7 @@
 /* 컨텐츠 contatiner */
 	.page_container{
 		width: 80%;
+		font-family: NanumSquareR;
 	}
     .page_container>a{
         text-decoration: none;
@@ -41,5 +42,5 @@
         margin: 6px 0px;
     }
     .conbox>p:first-child,.conbox>p:last-child{
-        color: #84868e;
+        color: #2e2e2e;
     }

@@ -131,15 +131,15 @@ public class Likes_Service {
 	private <T> void addLogToListener(Likes_Vo bean, int chValue) throws Exception {
 		like_Listener.addLog(bean, "num", chValue);
 		String type = bean.getType();
-		if(type.equals("이벤트")){
+		if(type.equals("event")){
 			Event_Vo target = new Event_Vo();
 			target.setEve_no(bean.getP_no());
 			event_Listener.addLog(target, "like", chValue);
-		} else if(type.equals("매거진")){
+		} else if(type.equals("magazine")){
 			Magazine_Vo target = new Magazine_Vo();
 			target.setMag_no(bean.getP_no());
 			magzine_Listener.addLog(target, "like", chValue);
-		} else if(type.equals("리뷰")){
+		} else if(type.equals("review")){
 			Reviews_Vo target = new Reviews_Vo();
 			target.setRev_no(bean.getP_no());
 			review_Listener.addLog(target, "like", chValue);
