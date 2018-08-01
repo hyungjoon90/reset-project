@@ -20,27 +20,38 @@
         padding: 5px 0px;
     }   
     .numbox{
-        width: 20%;
-        margin: auto 0px;
-        font-size: 30pt;
-        text-align: center;
+        width: 30%;
+	    margin: auto 0px;
+	    font-size: 30pt;
+	    text-align: right;
+	    padding-right: 5%;
     }
     .imgbox{
         width: 30%;
         text-align: center;
-        height: 160.5px;
-    }
-    .imgbox>img{
-    	width: 160px;
-    	height: 160px;
-    }
-    .conbox{
-        width: 50%;
         margin: auto 0px;
     }
+    .imgbox>img{
+   	    max-height: 160px;
+  		max-width: 100%;
+    }
+	.conbox {
+	    width: 40%;
+	    margin: auto 0px;
+	    padding-left: 5%;
+	}
     .conbox>p{
         margin: 6px 0px;
     }
     .conbox>p:first-child,.conbox>p:last-child{
-        color: #2e2e2e;
+        color: #84868e;
     }
+@media (max-width: 360px) {
+	.page_container{
+		width: 100%;
+	}
+	.numbox{
+		width: 20%;
+	    text-align: center;
+    }
+}

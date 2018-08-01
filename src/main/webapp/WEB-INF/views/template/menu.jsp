@@ -21,15 +21,18 @@
                     	<c:if test="${login_on eq null || login_on eq false }">
 	                    	<a href="${goRoot}login/">
                     	</c:if>
-                    	<img class="loginAndOut topicon" src="${goRoot}imgs/icon/grey-19.png" onmouseover="this.src='${goRoot}imgs/icon/red-19.png' "onmouseover="this.src='${goRoot}imgs/icon/red-19.png'" onmouseout="this.src='${goRoot}imgs/icon/grey-19.png'"></a>
+                    	<img class="topicon" src="${goRoot}imgs/icon/grey-19.png" onmouseover="this.src='${goRoot}imgs/icon/red-19.png' "onmouseover="this.src='${goRoot}imgs/icon/red-19.png'" onmouseout="this.src='${goRoot}imgs/icon/grey-19.png'"></a>
                         <!-- <label class="sr-only" for="search">검색</label> -->
                         <a href="${goRoot}item"><img class="search topicon" src="${goRoot}imgs/icon/grey-49.png" onmouseover="this.src='${goRoot}imgs/icon/red-49.png' "onmouseover="this.src='${goRoot}imgs/icon/red-49.png'" onmouseout="this.src='${goRoot}imgs/icon/grey-49.png'"></a>
+                        <c:if test="${login_on eq true}">
+                    	<a href="${goRoot}logout/" class="logout">LOGOUT</a>
+                    	</c:if>
                     </div>
                     <div class="menu_bar">
                         <ul class="nav">
                           <li class="top-menu"><a href="/reset/">랭킹</a>
-                            <div class="space">
-                              <ul class="sub-menu">
+                            <div class="space1">
+                              <ul class="sub-menu1">
                                   <li><a href="${goRoot }ranking?id=1">스킨</a></li>
                                   <li><a href="${goRoot }ranking?id=2">로션</a></li>
                                   <li><a href="${goRoot }ranking?id=3">에센스</a></li>
@@ -40,8 +43,8 @@
                           <li><a href="${goRoot }event">이벤트</a>
                           </li>                                  
                           <li class="top-menu"><a href="/reset/">고객상담</a>
-                            <div class="space">
-                              <ul class="sub-menu">
+                            <div class="space2">
+                              <ul class="sub-menu2">
                                   <li><a href="${goRoot }notice">공지사항</a></li>
                                   <li><a href="${goRoot }qna">문의</a></li>
                               </ul>

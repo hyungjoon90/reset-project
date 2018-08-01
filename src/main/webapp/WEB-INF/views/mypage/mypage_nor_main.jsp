@@ -24,7 +24,9 @@
 		text-align: center;
 		margin: 6px 0px;
 	}
-	
+	.left_img_box>img{
+		max-width: 100%;
+	}
 	.right_content_box {
 		width: 75%;
 		float: right;
@@ -118,7 +120,7 @@
 	}
 	
 	.com_nalja{
-		margin-left: 85%;
+		float: right;
 	}
 	.com_hr{
 		width: 100%;
