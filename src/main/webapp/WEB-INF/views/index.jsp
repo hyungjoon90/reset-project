@@ -267,7 +267,7 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 			  <ul class="slides">
 			    <c:forEach items="${magazine_alist }" var="magazine">
 			      <li>
-				      <img src="/reset/imgs/${magazine.img }" />
+				      <img src="/reset${magazine.img }" />
 				      <p class="flex-caption">${magazine.title }</p>
 			      </li>
 			    </c:forEach>
@@ -283,7 +283,7 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 			  <ul class="slides">
 			    <c:forEach items="${event_alist }" var="event">
 			      <li>
-				      <img src="/reset/imgs/${event.img }" />
+				      <img src="/reset${event.img }" />
 				      <p class="flex-caption">${event.title }</p>
 			      </li>
 			    </c:forEach>
