@@ -27,7 +27,7 @@
                     </div>
                     <div class="menu_bar">
                         <ul class="nav">
-                          <li class="top-menu"><a href="/reset/">랭킹</a>
+                          <li class="top-menu"><a>랭킹</a>
                             <div class="space">
                               <ul class="sub-menu">
                                   <li><a href="${goRoot }ranking?id=1">스킨</a></li>
@@ -39,7 +39,7 @@
                           <li><a href="${goRoot }magazine">화플</a></li>
                           <li><a href="${goRoot }event">이벤트</a>
                           </li>                                  
-                          <li class="top-menu"><a href="/reset/">고객상담</a>
+                          <li class="top-menu"><a>고객상담</a>
                             <div class="space">
                               <ul class="sub-menu">
                                   <li><a href="${goRoot }notice">공지사항</a></li>
