@@ -16,124 +16,6 @@ $(document).ready(function(){
 	$("#closeBtn").click(function(){
 		$("#modDiv").hide();
 	});
-	
-	/* 좋아요 시작 */
-	
-	var email=$("#email").val();
-    /* var email=${email}; */
-    var p_no=$("#p_no").val();
-    /* var p_no=${p_no}; */
-	var type=$("#type").val();	    
-	/* var type=${type}; */		    
-    $.ajax({
-    	type:'post',
-		url: '/reset/like/'+type+'/'+p_no,
-		data : JSON.stringify({
-			email : email,
-			type : type,
-			p_no : p_no
-		}),
-		headers:{
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType: "text"
-	}) 
-	.done(function(data){
-		$("#result").val(data);
-		if($('#result').val()=="unlike"){
-			$('#unLikes').hide();
-		}else if($('#result').val()=="like"){
-			$('#Likes').hide();
-		}
- 	})
-	.fail(function () { // 실패했을때 불러질 함수
-		console.error('데이터 수정 실패');
-	})     
-	
-	
-	if($('#result').val()=="like"){
-		console.log("좋아요를 이미 누르셨습니다");
-	}else{
-	$("#Likes").on("click",function(){
-		    var email=$("#email").val();
-		    /* var email=${email}; */
-		    var p_no=$("#p_no").val();
-		    /* var p_no=${p_no}; */
-			var type=$("#type").val();	    
-			/* var type=${type}; */		    
-		    $.ajax({
-		    	type:'PUT',
-				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
-				data : JSON.stringify({
-					email : email,
-					type : type,
-					p_no : p_no
-				}),
-				headers:{
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "PUT"
-				}
-			}) 
-			.done(function(data){
-				console.log(data);
-			 	if(data.result=="1"){
-					console.log("성공");
-					$("#Likes").hide();
-					$("#unLikes").show();
-					$("#result").val("like");
-					$("#su").text(data.like);
-				} else if(data=="0"){
-					alert("실패하였습니다.");
-				} 
-		 	})
-			.fail(function () { // 실패했을때 불러질 함수
-				console.error('데이터 수정 실패');
-			})     
-		})
-	}
-		
-    if($('#result').val()=="unlike"){
-    	console.log("좋아요를 누르지 않았습니다");
-    }else{
-	$("#unLikes").on("click",function(){
-		    var email=$("#email").val();
-		    /* var email=${email}; */
-		    var p_no=$("#p_no").val();
-		    /* var p_no=${p_no}; */
-			var type=$("#type").val();	    
-			/* var type=${type}; */		    
-		    $.ajax({
-		    	type:'DELETE',
-				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
-				data : JSON.stringify({
-					email : email,
-					type : type,
-					p_no : p_no
-				}),
-				headers:{
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "DELETE"
-				}
-			}) 
-			.done(function(data){
-				console.log(data);
-				if(data.result=="1"){
-					console.log("성공");
-					$("#Likes").show();
-					$("#unLikes").hide();
-					$("#result").val("unlike");
-					$("#su").text(data.like);
-				} else if(data=="0"){
-					alert("실패하였습니다.");
-				} 
-		 	})
-			.fail(function () { // 실패했을때 불러질 함수
-				console.error('데이터 수정 실패');
-			})     
-		})
-    }
-    /* 좋아요 끝 */
     
 });
 	
@@ -289,12 +171,7 @@ $(document).ready(function(){
 	            </div>
 				<!-- 좋아요. -->
 	            <div class="popDiv dis">
-	            	<input id="email" type="hidden" value="${login_email }" />
-					<input id="p_no" type="hidden" value="${detail.eve_no }" />
-					<input id="type" type="hidden" value="event" />
 					<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
-					<img alt="unLikes" src="${goRoot}imgs/icon/red_like.png" id="unLikes" class="likeBtn btimg">
-					<input id="result" type="hidden" value="" />
 					<span><strong id="su">${detail.pop }</strong></span>
 	            </div>
 	            <!-- 좋아요 끝 -->

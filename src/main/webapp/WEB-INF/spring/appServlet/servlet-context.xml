@@ -48,6 +48,7 @@
         <interceptor>
         	<mapping path="/login/**"/>
         	<mapping path="/logout/**"/>
+        	<mapping path="/sign/**"/>
         	<beans:ref bean="login_out_Interceptor"/>
         </interceptor>
     </interceptors>

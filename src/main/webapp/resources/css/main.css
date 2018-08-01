@@ -7,7 +7,6 @@
 		color:black;
 		text-decoration: none;
 	}
-   
     .header{
         padding: 36px 0 21px 0;
         background: #fff;
@@ -370,31 +369,31 @@
         float: none;
     } 
  @media (max-width: 360px) {
-	.page_container {
-	    width: 95%;
-	}
-	.login-group {
-	    width: 100px;
-	    margin: 0px auto;
-	}
-	.topicon {
-	   	margin:0px 5px 5px 5px;
-	}
-	.menu_bar {
-    	width: 274px;
-	}
-	.nav>li>a {
-	    padding: 10px 4px;
-	}
-	.mainTitle{
-		margin-left: 0;
-		text-align: center;	
-	}
-	.contentsbox {
-	    width: 100%;
-	}
-	.rankingImg {
-	    width: 45px;
-	}
-}
+		.page_container {
+		    width: 95%;
+		}
+		.login-group {
+		    width: 100px;
+		    margin: 0px auto;
+		}
+		.topicon {
+		   	margin:0px 5px 5px 5px;
+		}
+		.menu_bar {
+	    	width: 274px;
+		}
+		.nav>li>a {
+		    padding: 10px 4px;
+		}
+		.mainTitle{
+			margin-left: 0;
+			text-align: center;	
+		}
+		.contentsbox {
+		    width: 100%;
+		}
+		.rankingImg {
+		    width: 45px;
+		}
+ 	}
 }
