@@ -31,6 +31,11 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		logger.debug("DaoImp-reviewToTAll-noParam");
 		return sqlSession.selectList("reviews.reviewToTAll");
 	}
+    // TODO:[kss] 임시 테스트용
+ 	public List<Reviews_Vo> reviewToTAll(Reviews_Vo bean) throws SQLException {
+		logger.debug("DaoImp-reviewToTAll-noParam");
+		return sqlSession.selectList("reviews.reviewToTAll", bean);
+	}
 	
 	@Override
 	public List<Reviews_Vo> reviewAll(int item) throws SQLException {
@@ -127,7 +132,10 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 
 	// XXX:[kss] 추가 전체카운트용
 	public int getCount() {
-		return sqlSession.selectOne("reviewTotAll");
+		return sqlSession.selectOne("reviewCountTotAll");
+	}
+	public int getCount(String where) {
+		return sqlSession.selectOne("reviewCountTotAll", where);
 	}
 
 	@Override

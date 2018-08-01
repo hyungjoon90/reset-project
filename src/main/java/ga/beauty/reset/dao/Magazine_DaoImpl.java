@@ -63,6 +63,9 @@ public class Magazine_DaoImpl implements Common_Dao<Magazine_Vo>{
 	public int getCount() throws SQLException {
 		return sqlSession.selectOne("magazine.listCount");
 	}
+	public int getCount(String where) throws SQLException {
+		return sqlSession.selectOne("magazine.listCount",where);
+	}
 
 	@Override
 	public List<Magazine_Vo> selectAll(int cate, int offset, int noOfRecords) throws SQLException {

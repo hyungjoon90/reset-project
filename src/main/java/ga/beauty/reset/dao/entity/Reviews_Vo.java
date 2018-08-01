@@ -18,6 +18,9 @@ public class Reviews_Vo {
 	private Date nalja;
 	private int open;
 	
+	// TODO:[kss]null 허용 및 임시필드
+	private String com_email;
+	//
 	public Reviews_Vo() {
 	}
 
@@ -236,6 +239,16 @@ public class Reviews_Vo {
 
 	public void setOpen(int open) {
 		this.open = open;
+	}
+
+	
+	// TODO : [kss] 임시폴더
+	public String getCom_email() {
+		return com_email;
+	}
+
+	public void setCom_email(String com_email) {
+		this.com_email = com_email;
 	}
 
 	

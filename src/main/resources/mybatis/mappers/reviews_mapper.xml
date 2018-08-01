@@ -5,8 +5,14 @@
   
   <mapper namespace="reviews">
   	<select id="reviewToTAll" resultType="reviews_Vo">
-  		SELECT * FROM REVIEW WHERE OPEN=1 ORDER BY REV_NO
+  		SELECT * FROM REVIEW WHERE OPEN=1 
+  		<if test="com_email != null">
+		AND ITEM IN ( SELECT ITEM FROM ITEMS WHERE BRAND = #{where} ORDER BY ITEM)
+  		</if>
+  		ORDER BY REV_NO
   	</select>
+  	
+  	
   	<select id="reviewAll" resultType="reviews_Vo">
   		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE ITEM=#{item} AND OPEN=1 ORDER BY REV_NO LIMIT 10
   	</select>
@@ -33,9 +39,12 @@
   	<select id="reviewTot" resultType="int">
   		SELECT COUNT(*) FROM REVIEW WHERE ITEM=#{item}
   	</select>
-  	<select id="reviewTotAll" resultType="int">
+  	<select id="reviewCountTotAll" resultType="int">
   		SELECT COUNT(*) FROM REVIEW
-	</select>  	
+  		<if test="where!=null">
+		AND ITEM IN ( SELECT ITEM FROM ITEMS WHERE BRAND = #{where} ORDER BY ITEM)
+		</if>
+	</select>
   	<select id="mypage_review" resultType="reviews_Vo" parameterType="String">
   		SELECT REV_NO,ITEM,IMG,WRITER,AGE,SKIN,GENDER,GOOD,BAD,TIP,POP,STAR,REVIEW.NALJA FROM REVIEW INNER JOIN MEMBERS ON REVIEW.WRITER=MEMBERS.NICK WHERE NICK=#{nick} AND OPEN=1 ORDER BY REV_NO
   	</select>

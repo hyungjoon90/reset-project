@@ -13,7 +13,7 @@ import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.utils.runner.Common_Listener;
-import ga.beauty.reset.utils.runner.Magzine_Listener;
+import ga.beauty.reset.utils.runner.Magazine_Listener;
 
 @Service
 public class Comment_Service {
@@ -22,8 +22,8 @@ public class Comment_Service {
 	Comment_Dao<Comment_Vo> commentDao;
 	
 	@Autowired
-	@Qualifier("magzine_Listener")
-	Common_Listener magzine_Listener;
+	@Qualifier("magazine_Listener")
+	Common_Listener magazine_Listener;
 
 	@Autowired	@Qualifier("like_Listener")
 	Common_Listener like_Listener;
@@ -41,7 +41,7 @@ public class Comment_Service {
 		if(bean.getCo_type().equals("매거진")) {
 			Magazine_Vo target = new Magazine_Vo();
 			target.setMag_no(bean.getP_no());
-			magzine_Listener.addLog(target, "num", 1);
+			magazine_Listener.addLog(target, "num", 1);
 		}else if(bean.getCo_type().equals("리뷰")) {
 			Reviews_Vo target = new Reviews_Vo();
 			target.setRev_no(bean.getP_no());
@@ -63,7 +63,7 @@ public class Comment_Service {
 		if(bean.getCo_type().equals("매거진")) {
 			Magazine_Vo target = new Magazine_Vo();
 			target.setMag_no(bean.getP_no());
-			magzine_Listener.addLog(target, "num", -1);
+			magazine_Listener.addLog(target, "num", -1);
 		}else if(bean.getCo_type().equals("리뷰")) {
 			Reviews_Vo target = new Reviews_Vo();
 			target.setRev_no(bean.getP_no());

@@ -30,6 +30,14 @@ public class Auth_Interceptor extends HandlerInterceptorAdapter{
         	logger.info(LogEnum.EEROR_CON+"{ip:"+ip+", locale:"+locale+"}");
 			response.sendRedirect("/login/");
 			return false;
+		}else if(request.getRequestURI().contains("/mypage/")){
+			String type = (String) session.getAttribute("login_user_type");//
+			if(type!=null && type.equals("일반")) {
+			}else {
+				logger.info(LogEnum.EEROR_CON+"{ip:"+ip+", locale:"+locale+"}");
+				response.sendRedirect("/error");
+				return false;
+			}
 		}else if(request.getRequestURI().contains("/admin/")){
 			String type = (String) session.getAttribute("login_user_type");//
 			if(type!=null && (type.equals("CEO")|| type.equals("직원")|| type.equals("광고주"))) {
@@ -40,15 +48,5 @@ public class Auth_Interceptor extends HandlerInterceptorAdapter{
 			}
 		}
 		return super.preHandle(request, response, handler);
-	}
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		super.afterCompletion(request, response, handler, ex);
-	}
-	@Override
-	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		super.afterConcurrentHandlingStarted(request, response, handler);
 	}
 }
