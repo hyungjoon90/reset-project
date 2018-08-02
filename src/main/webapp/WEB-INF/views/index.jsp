@@ -32,8 +32,8 @@
 		    $('.flexslider2').flexslider({
 		      animation: "slide",
 		      animationLoop: false,
-		      itemWidth: 400,
-		      itemMargin: 5,
+		      itemWidth: 200,
+		      itemMargin: 20,
 		      minItems: getGridSize(), // use function to pull in initial value
 		      maxItems: getGridSize() // use function to pull in initial value
 		    });
@@ -64,8 +64,8 @@
 		    $('.flexslider3').flexslider({
 		      animation: "slide",
 		      animationLoop: false,
-		      itemWidth: 400,
-		      itemMargin: 5,
+		      itemWidth: 200,
+		      itemMargin: 20,
 		      minItems: getGridSize(), // use function to pull in initial value
 		      maxItems: getGridSize() // use function to pull in initial value
 		    });
