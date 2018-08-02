@@ -8,7 +8,7 @@ public class Log_File {
 	private String msg;
 	
 	public Log_File() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Log_File(String nalja, String logCate, String cate, String msg) {
