@@ -4,6 +4,7 @@
 
 	<!-- AJAX -->
 	<%@ include file="./ajax_loading.jsp" %>
+	<%@ include file="./fix_alert.jsp" %>
 	<!--  end loading AJAX -->
     <div class="footer">
         <div class="wrap">
