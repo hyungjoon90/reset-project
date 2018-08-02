@@ -189,7 +189,7 @@ display: hidden;
 				$.ajax({
 					type : 'post',
 					enctype : 'multipart/form-data',
-					url : '/reset/admin/qna/${bean.qa_no }',
+					url : '/admin/qna/${bean.qa_no }',
 					//TODO [jihyun]reset
 
 					dataype : 'text',

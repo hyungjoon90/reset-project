@@ -90,12 +90,12 @@ public class Login_Google implements Login_Service{
 				result = "300";
 				userSession.setAttribute("login_user_type", resultUser.getUser_type());
 				userSession.setAttribute("join_route", resultUser.getJoin_route());
-				nextUrl = "/reset/login/adds";
+				nextUrl = "/login/adds";
 			}
 		}else {
 			// TODO [kss] Reset 나중에 지워야됨
 			result = "201"; // 회원가입
-			nextUrl = "/reset/sign/";// 
+			nextUrl = "/sign/";// 
 			// 회원가입
 		}
 		req.setAttribute("result", result);

@@ -108,7 +108,7 @@ function checkEmail(ele) {
     var $errM = $("<div/>",{"class":"errM"});
      var $target = $(ele);
      if (validateEmail($target.val())) {
-          var $postM = $.post( "/reset/sign/check_mail", "target="+$target.val() ); // TODO:[kss]나중에 reset 지워야됨
+          var $postM = $.post( "/sign/check_mail", "target="+$target.val() ); // TODO:[kss]나중에 reset 지워야됨
           $postM.done(function( data ) {
                if(data.result==0){
                   inputSucces($target);
