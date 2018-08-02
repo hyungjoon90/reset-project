@@ -139,7 +139,7 @@ public class Magazine_Listener implements Common_Listener{
 				new File(file.getParent()).mkdirs();
 			}
 			StringBuilder sbr = createJsonString();
-			try(BufferedWriter buffOut =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))){
+			try(BufferedWriter buffOut =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))){
 				buffOut.write(sbr.toString());
 				buffOut.flush();
 				logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 저장되었습니다.");
@@ -166,7 +166,7 @@ public class Magazine_Listener implements Common_Listener{
 				new File(file.getParent()).mkdirs();
 			}
 			StringBuilder sbr = createJsonString();
-			try(BufferedWriter buffOut =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))){
+			try(BufferedWriter buffOut =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))){
 				buffOut.write(sbr.toString());
 				buffOut.flush();
 				logger.info(LogEnum.SAVA_LOG+" ["+MySDF.SDF_ALL.format(date)+"]일의 매거진 로그가 임시저장 되었습니다.");
