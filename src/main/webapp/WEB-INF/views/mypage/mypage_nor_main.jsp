@@ -9,22 +9,21 @@
 	.page_container{
 		font-family: NanumSquareR;
 	}
-	//리뷰
+	/* reviewBox 위치 */
 	.reviewBox {
 		width: 95%;
 		border: 1px solid #e5e5e5;
 		margin: 0px auto;
 		clear: both;
 	}
-	/* reviewBox 위치 */
 	.left_img_box {
 		width: 25%;
 		display: inline-block;
 		float: left;
 		text-align: center;
-		margin: 6px 0px;
+		margin: 23px 0px;
 	}
-	.left_img_box>img{
+	.left_img_box>img {
 		max-width: 100%;
 	}
 	.right_content_box {
@@ -40,35 +39,29 @@
 	.rightBox>label>img {
 		width: 15px;
 	}
-	
 	.emptyImg {
-		width: 133px;
+		max-width: 133px;
+	    width: 100%;
 		margin: 24px 0px;
 	}
-	
 	.right_content_top {
 		float: right;
 	}
-	
 	.right_content_bottom {
 		margin-top: 5px;
 	}
-	
 	.sub-title {
 		color: #84868e;
 	}
-	
 	.star {
 		width: 80px;
 	}
-	
 	.starRating1 {
 		display: inline-block;
 		overflow: hidden;
 		width: 16px;
 		margin: 0px 0px -3px 0px;
 	}
-	
 	.starRating2 {
 		display: inline-block;
 		overflow: hidden;
@@ -230,13 +223,13 @@
 
 		<div class="mypage_title_div">찜목록</div>
 		
-		<div class="row well">
+		<div class="row">
 			<div id="cart" class="col-md-12"></div>
 		</div>
 		
 		<div class="mypage_title_div">리뷰</div>
 		
-		<div class="row well">
+		<div class="row">
 		<div id="review" class="col-md-12">
 			<c:choose>
 				<c:when test="${review_alist == '[]'}">
@@ -293,7 +286,7 @@
 												</div>
 											</c:when>
 										</c:choose>
-										<br> <br>
+										<br>
 										<p>${review.good }</p>
 										<br>
 										<p>${review.bad }</p>
@@ -301,7 +294,6 @@
 								</div>
 							</div>
 						</a>
-						<img src="${goRoot }imgs/welcome_bg.png">
 					</c:forEach>
 				</c:when>
 			</c:choose>
