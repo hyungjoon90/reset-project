@@ -1,5 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var visi=false;
+		var visi2=false;
+		var width_size =$( window ).width();
+		if (width_size <= 768) {
+			$('#rank').click(function(){
+				if(visi==false){
+					$('.sub-menu1').css('display','block');
+					$('.space1').css('position','absolute');
+					$('.space1').css('padding-top','22px');
+					visi=true;
+				}else if(visi==true){
+					$('.sub-menu1').css('display','none');
+					visi=false;
+				}
+			});
+			$('#cus').click(function(){
+				if(visi2==false){
+					$('.sub-menu2').css('display','block');
+					$('.space2').css('position','absolute');
+					$('.space2').css('padding-top','22px');
+					visi2=true;
+				}else if(visi2==true){
+					$('.sub-menu2').css('display','none');
+					visi2=false;
+				}
+			});
+		  }
+		
+		$(window).resize(function (){
+			width_size =$( window ).width();
+			if (width_size <= 768) {
+				$('#rank').click(function(){
+					if(visi==false){
+						$('.sub-menu1').css('display','block');
+						$('.space1').css('position','absolute');
+						$('.space1').css('padding-top','22px');
+						visi=true;
+					}else if(visi==true){
+						$('.sub-menu1').css('display','none');
+						visi=false;
+					}
+				});
+				$('#cus').click(function(){
+					if(visi2==false){
+						$('.sub-menu2').css('display','block');
+						$('.space2').css('position','absolute');
+						$('.space2').css('padding-top','22px');
+						visi2=true;
+					}else if(visi2==true){
+						$('.sub-menu2').css('display','none');
+						visi2=false;
+					}
+				});
+			  }
+		});
+	});
+	
+</script>
 	<!--header-->
     <div class="header">
     	<div class="wrap">
@@ -30,7 +90,9 @@
                     </div>
                     <div class="menu_bar">
                         <ul class="nav">
-                          <li class="top-menu"><a href="/">랭킹</a>
+
+                          <li class="top-menu" id="rank"><a href="#">랭킹</a>
+
                             <div class="space1">
                               <ul class="sub-menu1">
                                   <li><a href="${goRoot }ranking?id=1">스킨</a></li>
@@ -42,7 +104,9 @@
                           <li><a href="${goRoot }magazine">화플</a></li>
                           <li><a href="${goRoot }event">이벤트</a>
                           </li>                                  
-                          <li class="top-menu"><a href="/">고객상담</a>
+
+                          <li class="top-menu" id="cus"><a href="#">고객상담</a>
+
                             <div class="space2">
                               <ul class="sub-menu2">
                                   <li><a href="${goRoot }notice">공지사항</a></li>
