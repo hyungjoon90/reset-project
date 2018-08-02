@@ -203,7 +203,7 @@ input {
 	<%@include file="/WEB-INF/views/template/menu.jsp"%>
 	    	    <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		공지사항
    		</div>
@@ -254,7 +254,7 @@ input {
 								공지사항</h4>
 						</div>
 						<div class="modal-body">
-							<form action="/reset/admin/notice/${bean.no_no }" method="POST"
+							<form action="/admin/notice/${bean.no_no }" method="POST"
 								class="detailForm" accept-charset="UTF-8">
 								<input type="hidden" name="_method" value="put">
 								<div class="form-group">

@@ -153,8 +153,7 @@ $(function(){
 				$(form).append(password);
 				var data = $('#form').serialize();
 				console.log(data);
-				// TODO :[KSS] 경로 수정해야됨
- 				$.post("/reset/sign/", data, function(output) {
+ 				$.post("/sign/", data, function(output) {
 					if (output.result == 200) {
 						alert("회원등록 완료");
 						window.location.href = "${goRoot}admin/";
