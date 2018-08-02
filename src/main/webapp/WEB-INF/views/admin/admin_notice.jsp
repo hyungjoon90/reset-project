@@ -186,7 +186,6 @@ color : white;
             <div class="container-fluid">
             <!-- 컨탠츠 시작 -->
 
-    	<!-- TODO css end-->
     	
     		<!-- 입력하기 -->
     	

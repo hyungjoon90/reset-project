@@ -43,9 +43,25 @@
     .conbox>p{
         margin: 6px 0px;
     }
-    .conbox>p:first-child,.conbox>p:last-child{
-        color: #84868e;
+    .rankingBrand{
+    	font-family: NanumSquareEB;
+    	font-size: 23px;
+    	color: #2e2e2e;
     }
+    .rankingvol,.rankingPrice{
+    	font-family: NanumSquareB;
+    	font-size: 18px;
+    	margin-right: 20px;
+    	color: #2e2e2e;
+    }
+    .rankingImg{
+    	width: 60px;
+    }
+@media (max-width: 610px) {
+	.rankingvol{
+    	display: block;
+    }
+}
 @media (max-width: 360px) {
 	.page_container{
 		width: 100%;

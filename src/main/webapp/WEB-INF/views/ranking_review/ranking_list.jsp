@@ -29,7 +29,23 @@ function add(){
 	})
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
-  			$('.page_container').append("<a href='./item/"+data.item+"'><div class='contentsbox'><div class='numbox box'><label>"+num+"</label></div><div class='imgbox box'><img src='"+data.img+"'></div><div class='conbox box'><p>"+data.brand+"</p><p>"+data.name+"</p><p>"+data.vol+"&nbsp;"+data.price+"원</p></div></div></a>");
+  			$('.page_container').append(
+  					"<a href='./item/"+data.item+"'>"+
+  					"<div class='contentsbox'>"+
+  					"<div class='numbox box'>"+
+  					"<label>"+num+"</label>"+
+  					"</div>"+
+  					"<div class='imgbox box'>"+
+  					"<img src='"+data.img+"'>"+
+  					"</div>"+
+  					"<div class='conbox box'>"+
+  					"<p class='rankingBrand rankingP'>"+data.brand+"</p>"+
+					"<p class='rankingName rankingP'>"+data.name+"</p>"+
+					"<p><span class='rankingvol rankingP'>"+data.vol+"</span>"+
+					"<span class='rankingPrice rankingP'>"+data.price+"원</span></p>"+
+  					"</div>"+
+  					"</div>"+
+  					"</a>");
   			num=num+1;
 		})
 	})
@@ -39,29 +55,13 @@ function add(){
 }
     	    	
 </script>
-<style>
-    .rankingBrand{
-    	font-family: NanumSquareEB;
-    	font-size: 23px;
-    	color: #2e2e2e;
-    }
-    .rankingvol,.rankingPrice{
-    	font-family: NanumSquareB;
-    	font-size: 18px;
-    	margin-right: 20px;
-    	color: #2e2e2e;
-    }
-    .rankingImg{
-    	width: 60px;
-    }
-</style>
 </head>
 <body>
 	<!--header-->
     <%@include file="/WEB-INF/views/template/menu.jsp"%>
     <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		랭킹
    		</div>
@@ -86,7 +86,7 @@ function add(){
 							<img alt="rankingImg" src="${goRoot }imgs/icon/crown_${num}.png" class="rankingImg"><c:set var="num" value="${num+1}"  /> 
 						</c:when>
 						<c:otherwise>
-					         <label class="labelNum">${num}</label><c:set var="num" value="${num+1}"  /> 
+					         <label class="labelNum">${num}&nbsp;&nbsp;</label><c:set var="num" value="${num+1}"  /> 
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -96,7 +96,7 @@ function add(){
 				<div class="conbox box">
 	                <p class="rankingBrand rankingP">${bean.brand }</p>
 					<p class="rankingName rankingP">${bean.name }</p>
-					<p><span class="rankingvol rankingP">${bean.vol }</span>&nbsp;<span class="rankingPrice rankingP">${bean.price }원</span></p>
+					<p><span class="rankingvol rankingP">${bean.vol }</span><span class="rankingPrice rankingP">${bean.price }원</span></p>
 				</div>
 			</div>
        		</a>

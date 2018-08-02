@@ -32,7 +32,7 @@
 	
 </script> -->
 <style type="text/css">
-/* @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); */
+
 .container {
 	font-family: NanumSquareR;
 	font-size: 18px;
@@ -104,12 +104,6 @@ h1 {
 	padding: 10px;
 	font-size: 20px;
 }
-
-
-
-
-
-
 
 .mytable {
 	border-collapse: collapse;
