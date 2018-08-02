@@ -250,6 +250,14 @@ margin-top: 30px;}
 	 			</div>
 			</div>	
   		</div>
+  		<div class="form-group">
+  			<label for="pwchk"  class="control-label col-sm-2">약관 </label>
+			<div class="col-md-8 col-sm-6">
+		            <small>개인정보 수집·이용에 대한 안내 필수 수집·이용 항목 (문의접수와 처리,회신을 위한 최소한의 개인정보로 동의가 필요합니다.) 수집항목 목적 보유기간 이메일 주소, 휴대폰 번호
+                     고객문의 및 상담요청에 대한 회신, 상담을 위한 서비스 이용기록 조회 관련 법령 또는 회사 내부방침에 의해 보존 필요시 까지 보관, 그외 지체없이 파기합니다. 더 자세한 내용에 대해서는 리셋 개인정보처리방침을 참고하시기 바랍니다.</small>
+					<p><strong><input type="checkbox" id="checkbox">위 내용에 동의합니다</strong></p>
+			</div>
+  		</div>
   		<input type="hidden" name="join_route" value="${login_route}" />
 		<input type="hidden" name="user_type"value="일반" />
 		<input type="hidden" name="cart" value=";"/>

@@ -54,9 +54,9 @@ public class Mypage_Admin_Service {
 	// chart Coloer
 	private String[] colorFile = {
 			"rgba(255,145,48,"
-			,"rgba(132,176,157,"
 			,"rgba(18,140,135,"
 			,"rgba(59,0,48,"
+			,"rgba(254,221,85,"
 	};
 	public Mypage_Admin_Service() {
 	}

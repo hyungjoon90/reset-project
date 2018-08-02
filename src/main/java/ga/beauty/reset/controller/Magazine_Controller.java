@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ga.beauty.reset.dao.Companys_Dao;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Companys_Vo;
+import ga.beauty.reset.dao.entity.Event_Vo;
 import ga.beauty.reset.dao.entity.Magazine_Vo;
 import ga.beauty.reset.dao.entity.Paging_Vo;
 import ga.beauty.reset.services.Magazine_Service;
@@ -184,6 +185,22 @@ public class Magazine_Controller {
 		@RequestMapping(value="/admin/magazine", method=RequestMethod.GET)
 		public String adminlist(Model model,HttpServletRequest req) throws SQLException{
 			
+			//접속대상의 IP를 받아옵니다.
+			HttpSession session = req.getSession();
+			String ip = req.getHeader("X-FORWARDED-FOR");
+			if (ip == null) ip = req.getRemoteAddr();
+			
+			String login_user_type = (String)session.getAttribute("login_user_type");
+			if(login_user_type.equals("광고주")) {
+				Magazine_Vo bean = new Magazine_Vo();
+				bean.setCom_email((String)session.getAttribute("login_email"));
+				model.addAttribute("goRoot","../");
+				service.listPage(model, bean);
+				logger.info(CrudEnum.LIST + "관리자 페이지에서 {ip:"+ip+"}가 매거진 목록을 불러옵니다.");
+				return "admin/admin_magazine";
+			}
+			
+			
 			int currentPageNo = 1; // /(localhost:8080)페이지로 오면 처음에 표시할 페이지 (1 = 첫번째 페이지)
 			int maxPost = 10;	// 페이지당 표시될 게시물  최대 갯수
 			
@@ -201,12 +218,6 @@ public class Magazine_Controller {
 			model.addAttribute("paging",paging);
 			model.addAttribute("goRoot",goRoot);
 			service.listPage(model, offset, paging.getmaxPost());
-			
-			//접속대상의 IP를 받아옵니다.
-			HttpSession session = req.getSession();
-			String ip = req.getHeader("X-FORWARDED-FOR");
-			if (ip == null) ip = req.getRemoteAddr();
-			
 			logger.info(CrudEnum.LIST + "매거진에서 {ip:"+ip+"}가 매거진 목록을 불러옵니다.");
 			
 			return "admin/admin_magazine";

@@ -25,7 +25,6 @@ public class Exp_Controller {
 	
 	@RequestMapping(value="/exp",method=RequestMethod.GET)
 	public String exp() {
-	
 		return "ranking_review/expTest";
 	}
 	

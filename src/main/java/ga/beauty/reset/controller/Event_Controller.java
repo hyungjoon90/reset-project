@@ -260,6 +260,7 @@ public class Event_Controller {
 		if(login_user_type.equals("광고주")) {
 			Event_Vo bean = new Event_Vo();
 			bean.setCom_email((String)session.getAttribute("login_email"));
+			model.addAttribute("goRoot","../");
 			service.listPage(model, bean);
 			logger.info(CrudEnum.LIST + "관리자 페이지에서 {ip:"+ip+"}가 이벤트 목록을 불러옵니다.");
 			return "admin/admin_event";
