@@ -34,4 +34,9 @@ public class Home_Controller {
 		return "index";
 	}
 	
+	@RequestMapping(value="/error")
+	public void sendError() throws Exception{
+		throw new Exception();
+	}
+	
 }
