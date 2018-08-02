@@ -22,7 +22,7 @@
 						<h1>${event_detail.title }당첨자 결과</h1>
 					</div>
 					<!-- 아코디언 시작 -->
-					<form action="/reset/admin/eveaddr/${eve_no}/print" method="post">
+					<form action="/admin/eveaddr/${eve_no}/print" method="post">
 						<div class="panel-group" id="accordion" role="tablist"
 							aria-multiselectable="true">
 							<c:forEach items="${detail }" var="bean" varStatus="status">
@@ -84,7 +84,7 @@
 						$("#extractionBtn").on("click",function(event) {
 								event.preventDefault();
 								$.ajax({
-									url : "/reset/admin/eveaddr/${eve_no}/print",
+									url : "/admin/eveaddr/${eve_no}/print",
 									type : "POST",
 									data : JSON
 											.stringify(jArray),
@@ -97,7 +97,7 @@
 									}
 								}).done(function(data) {
 									console.log(data);
-								var str = "<a href='/reset/admin/eveaddr/download?text="
+								var str = "<a href='/admin/eveaddr/download?text="
 										+ data
 										+ "'><span class='darkBtn'>"
 										+ data
