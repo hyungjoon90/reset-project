@@ -85,13 +85,6 @@
 	background-image: -webkit-linear-gradient(top, #fee0d2 0, #fee0d2 100%);
 }
 
-.reviewBox {
-	width: 95%;
-	border: 1px solid #e5e5e5;
-	margin: 0px auto;
-	clear: both;
-}
-
 .icon {
 	text-align: center;
 	margin: 5px 0px;
@@ -204,6 +197,12 @@
 	color: #fff;
 }
 /* reviewBox 위치 */
+.reviewBox {
+	width: 95%;
+	border: 1px solid #e5e5e5;
+	margin: 0px auto;
+	clear: both;
+}
 .left_img_box {
 	width: 25%;
 	display: inline-block;

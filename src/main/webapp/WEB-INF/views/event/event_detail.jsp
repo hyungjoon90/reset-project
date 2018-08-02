@@ -17,13 +17,13 @@ $(document).ready(function(){
 		$("#modDiv").hide();
 	});
 	
-	/* 좋아요 시작 */
+/* 좋아요 시작 */
 	
-	var email=$("#email").val();
+	var email="${login_email}";
     /* var email=${email}; */
     var p_no=$("#p_no").val();
     /* var p_no=${p_no}; */
-	var type=$("#type").val();	    
+	var type="event";	    
 	/* var type=${type}; */		    
     $.ajax({
     	type:'post',
@@ -56,11 +56,11 @@ $(document).ready(function(){
 		console.log("좋아요를 이미 누르셨습니다");
 	}else{
 	$("#Likes").on("click",function(){
-		    var email=$("#email").val();
+		    var email="${login_email}";
 		    /* var email=${email}; */
 		    var p_no=$("#p_no").val();
 		    /* var p_no=${p_no}; */
-			var type=$("#type").val();	    
+			var type="event";	    
 			/* var type=${type}; */		    
 		    $.ajax({
 		    	type:'PUT',
@@ -76,6 +76,7 @@ $(document).ready(function(){
 				}
 			}) 
 			.done(function(data){
+				expUp("like");
 				console.log(data);
 			 	if(data.result=="1"){
 					console.log("성공");
@@ -97,11 +98,11 @@ $(document).ready(function(){
     	console.log("좋아요를 누르지 않았습니다");
     }else{
 	$("#unLikes").on("click",function(){
-		    var email=$("#email").val();
+		    var email="${login_email}";
 		    /* var email=${email}; */
 		    var p_no=$("#p_no").val();
 		    /* var p_no=${p_no}; */
-			var type=$("#type").val();	    
+			var type="event";   
 			/* var type=${type}; */		    
 		    $.ajax({
 		    	type:'DELETE',
@@ -117,6 +118,7 @@ $(document).ready(function(){
 				}
 			}) 
 			.done(function(data){
+				expDown("like");
 				console.log(data);
 				if(data.result=="1"){
 					console.log("성공");
@@ -136,7 +138,48 @@ $(document).ready(function(){
     /* 좋아요 끝 */
     
 });
-	
+function expUp(type){
+ 	var email ="${login_email}";
+	var type = type;//review,comment,like
+	$.ajax({
+		type : 'POST',
+		url : '/reset/exp',
+		data : JSON.stringify({
+			email : email,
+			type : type
+		}),
+		headers : {
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		dataType : "text"
+	}).done(function(data) {
+		console.log(data);
+	}).fail(function() { // 실패했을때 불러질 함수
+		console.error('데이터 수정 실패');
+	})
+}
+function expDown(type){
+ 	var email ="${login_email}";
+	var type = type;//review,comment,like
+	$.ajax({
+		type : 'DELETE',
+		url : '/reset/exp',
+		data : JSON.stringify({
+			email : email,
+			type : type
+		}),
+		headers : {
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "DELETE"
+		},
+		dataType : "text"
+	}).done(function(data) {
+		console.log(data);
+	}).fail(function() { // 실패했을때 불러질 함수
+		console.error('데이터 수정 실패');
+	})
+}
 </script>
 <style type="text/css">
 .page_container{
@@ -455,6 +498,7 @@ $(document).ready(function(){
 				success : function(result){
 					if(result == 'SUCCESS'){
 						alert("등록 되었습니다.");
+						expUp("comment");
 						$("#content").val("");
 						getAllList();
 					}
@@ -512,6 +556,7 @@ $(document).ready(function(){
 					console.log("result:"+result);
 					if(result=='SUCCESS'){
 						alert("삭제되었습니다");
+						expDown("comment");
 						$("#modDiv").hide("slow");
 						getAllList();
 					}
