@@ -104,7 +104,7 @@ public class AsyncScheduleConfig {
             };
         }		
         private void handle(Exception ex) throws FileNotFoundException {
-            logger.error(LogEnum.ERROR_ASYNC+ex.getMessage().replace( System.getProperty( "line.separator" ), ""),ex);
+            logger.error(LogEnum.ERROR_ASYNC+ex.getMessage().replace("\n", " ").replace("\r", ""));
             Date date = new Date();
             String fileDate = MySDF.SDF_ALL.format(date);
             File file = new File(crashPath+"/"+fileDate+"-crash.log");

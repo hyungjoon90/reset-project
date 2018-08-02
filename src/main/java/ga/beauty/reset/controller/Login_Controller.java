@@ -83,6 +83,7 @@ public class Login_Controller {
 	public String selectLoginService(@PathVariable String loginPath, Model model
 			, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException, SQLException {
 		// 서비스 분기용
+		model.addAttribute("goRoot", "../../");
 		Login_Service login_Service = null;
 		if("naver".equals(loginPath)) {
 			login_Service = login_Naver;
@@ -137,6 +138,7 @@ public class Login_Controller {
 	public Map<String, Object> showAdds(Model model, String command, HttpSession session) throws NoSuchAlgorithmException, SQLException {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
+		model.addAttribute("goRoot", "../../");
 		if(command.equals("adds_yes")) {
 			User_Vo target = new User_Vo();
 			Members_Vo memGetNick = new Members_Vo();
@@ -179,6 +181,7 @@ public class Login_Controller {
 	public Map<String, Object> showFind(HttpServletRequest req, Model model) throws SQLException, NoSuchAlgorithmException, MessagingException {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
+		model.addAttribute("goRoot", "../../");
 		result = sign_Service.findPw(req);
 		if(result==1) {
 			// TODO 이메일보내기 서비스 해야됨

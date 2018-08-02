@@ -32,8 +32,6 @@ public class Admin_Controller {
 
 	Logger logger = Logger.getLogger(Admin_Controller.class);
 	
-	
-	
 	@Autowired
 	Mypage_Admin_Service mypage_Admin_Service;
 	
@@ -141,6 +139,8 @@ public class Admin_Controller {
 	public String logCalling(Model model,@PathVariable("command") String command
 			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
 		List<Log_File> result = mypage_Admin_Service.getLog(command, session, req);
+		
+		model.addAttribute("goRoot", "../../");
 		int logLine = 0;
 		if(result!=null && result.size()>0) {
 			// log_start_num="+start+"&nextNum="+cnt+"&more_Log=true"+"&mode=detail
@@ -159,7 +159,7 @@ public class Admin_Controller {
 	@RequestMapping(value="/admin/chart/{command}", method=RequestMethod.POST) // ajax
 	public String chartCalling(Model model,@PathVariable("command") String command
 			,HttpSession session ,HttpServletRequest req) throws NumberFormatException, IOException, InterruptedException {
-
+		model.addAttribute("goRoot", "../../");
 		Map<String,Object> result = mypage_Admin_Service.getChart(command, session, req);
 		if(result!=null && result.size()>0) {
 			req.setAttribute("chartSort", command);

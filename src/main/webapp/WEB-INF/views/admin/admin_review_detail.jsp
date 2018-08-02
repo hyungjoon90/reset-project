@@ -280,7 +280,7 @@
 				type : "delete",
 				enctype : 'multipart/form-data',
 				data : formData,
-				url : "/reset/admin/" + item + "/review/" + rev_no,
+				url : "/admin/" + item + "/review/" + rev_no,
 				contentType : false,
 				processData : false,
 				dataType : "text"

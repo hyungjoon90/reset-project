@@ -48,13 +48,13 @@
                         <div class="page_container">
             <!-- 내용 입력 -->
             <!-- Event list-page 입니다. -->
-				<a href="/reset/admin/event/add" class="redBtn">글쓰기</a>
+				<a href="/admin/event/add" class="redBtn">글쓰기</a>
     	<div class="contents_container">
             <c:forEach items="${alist }" var="bean">
             <div class="contentsBox" class="span6 element category01" data-category="category01">
                 <div class="hover_img">
                 	<!-- //TODO : [김형준] img 주소 변경 필요 -->
-                    <a href="event/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+                    <a href="event/${bean.eve_no}"><img src="/${bean.img}" alt="main_img"></a>
                 </div> 
                 <div class="item_description">
                     <h6><a href="event/${bean.eve_no}"><strong>${bean.title}</strong></a></h6>
