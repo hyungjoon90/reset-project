@@ -38,10 +38,10 @@
 							<div class="row">
 								<div class="col-sm-6 col-md-12">
 									<div class="thumbnail">
-										<a href="/reset/admin/eveaddr/${bean.eve_no}"><img
-											src="/reset/${bean.img}" alt="main_img"></a>
+										<a href="/admin/eveaddr/${bean.eve_no}"><img
+											src="/${bean.img}" alt="main_img"></a>
 										<div class="caption">
-											<a href="/reset/admin/eveaddr/${bean.eve_no}"><h3>${bean.title}</h3></a>
+											<a href="/admin/eveaddr/${bean.eve_no}"><h3>${bean.title}</h3></a>
 											<p>${bean.nalja}</p>
 											<p>
 												<img src="#" alt="좋아요" class="pop" />${bean.pop }<img

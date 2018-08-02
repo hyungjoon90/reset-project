@@ -32,7 +32,7 @@
 	
 </script> -->
 <style type="text/css">
-/* @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); */
+
 .container {
 	font-family: NanumSquareR;
 	font-size: 18px;
@@ -104,12 +104,6 @@ h1 {
 	padding: 10px;
 	font-size: 20px;
 }
-
-
-
-
-
-
 
 .mytable {
 	border-collapse: collapse;
@@ -202,6 +196,21 @@ h1 {
 input {
 	color: white;
 }
+
+
+.newbtn {
+	background-color:#d00b01;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size: 2px;
+	padding:3px 6px;
+	text-decoration:none;
+}
 </style>
 </head>
 <body>
@@ -209,7 +218,7 @@ input {
 	<%@include file="/WEB-INF/views/template/menu.jsp"%>
 	    	    <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		공지사항
    		</div>
@@ -240,7 +249,7 @@ input {
 				<div class="titlediv mytable">${bean.title }</div>
 				<div class="naljadiv mytable">${bean.nalja }
 					<c:if test="${nalja == nowdate}">
-						<font color="red">new</font>
+						&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
 					</c:if>
 				</div>
 			</div>
@@ -260,7 +269,7 @@ input {
 								공지사항</h4>
 						</div>
 						<div class="modal-body">
-							<form action="/reset/admin/notice/${bean.no_no }" method="POST"
+							<form action="/admin/notice/${bean.no_no }" method="POST"
 								class="detailForm" accept-charset="UTF-8">
 								<input type="hidden" name="_method" value="put">
 								<div class="form-group">

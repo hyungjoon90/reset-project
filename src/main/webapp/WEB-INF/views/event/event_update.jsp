@@ -119,7 +119,7 @@
 					<!-- TODO:이벤트 업데이트 페이지 입니다. -->
 					<!-- update-page 입니다. -->
 					<form method="post"
-						action="/reset/admin/event/${detail.eve_no}/update"
+						action="/admin/event/${detail.eve_no}/update"
 						enctype="multipart/form-data" id="event_updateForm"
 						onsubmit="return eventCheck()">
 						<!-- <input type="hidden" name="_method" value="put"/> -->
@@ -152,7 +152,7 @@
 				        CKEDITOR.replace( 'con', {//해당 이름으로 된 textarea에 에디터를 적용
 				            width:'100%',
 				            height:'400px',
-				            filebrowserImageUploadUrl: '/reset/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
+				            filebrowserImageUploadUrl: '/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
 				        });
 				         
 				         
@@ -201,7 +201,7 @@
 	    	       type:'post',
 	    	       enctype: 'multipart/form-data',
 	    	       data : formData,
-	    	       url: '/reset/admin/event/'+eve_no+'/update',
+	    	       url: '/admin/event/'+eve_no+'/update',
 	    	       contentType: false,
 	    	       processData: false,
 	    	       dataType: "Text"

@@ -189,7 +189,7 @@ display: hidden;
 				$.ajax({
 					type : 'post',
 					enctype : 'multipart/form-data',
-					url : '/reset/admin/qna/${bean.qa_no }',
+					url : '/admin/qna/${bean.qa_no }',
 					//TODO [jihyun]reset
 
 					dataype : 'text',
@@ -220,7 +220,7 @@ display: hidden;
 		mailSend.click(function() {
 			$.ajax({ // ajax 이메일전송
 				type : "post",
-				url : '/reset/mail/qna/${bean.qa_no }',
+				url : '/mail/qna/${bean.qa_no }',
 				//TODO [jihyun]reset
 				success : function(data) {
 					if (data == 456) {

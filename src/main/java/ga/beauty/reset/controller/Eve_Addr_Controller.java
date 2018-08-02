@@ -235,7 +235,7 @@ public class Eve_Addr_Controller {
 			 HttpServletResponse resp) throws IOException {
 
 		// TODO : 이벤트 참가 파일 저장 장소 변경필요
-		String filePath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/lucky/";
+		String filePath = "/Tomcat/webapps/ROOT/resources/lucky/";
 		String now = new SimpleDateFormat("yyyyMMddHmsS").format(new Date()); // 현재시간
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -276,7 +276,7 @@ public class Eve_Addr_Controller {
 	//TODO: admin 이벤트 랜덤 추출 후 txt 다운로드 / / 김형준
 	@RequestMapping(value = "/admin/eveaddr/download", method = RequestMethod.GET)
 	public void download(String text, HttpServletResponse resp) throws IOException {
-		String filePath = "/Users/hb/Desktop/3차 프로젝트/코딩/reset_new/src/main/webapp/resources/lucky/";
+		String filePath = "/Tomcat/webapps/ROOT/resources/lucky/";
 		File source = new File(filePath+text);
 		
 		byte[] buff=new byte[2048];

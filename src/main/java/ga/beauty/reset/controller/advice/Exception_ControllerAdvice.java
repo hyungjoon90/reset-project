@@ -1,6 +1,7 @@
 package ga.beauty.reset.controller.advice;
 
 import org.apache.log4j.Logger;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,8 @@ public class Exception_ControllerAdvice {
 	
 	@ExceptionHandler(Exception.class)
 	@RequestMapping(value="/error")
-	public String exception(Exception e) {
+	public String exception(Model model,Exception e) {
+		model.addAttribute("goRoot", "./");
 		e.printStackTrace();
 		String msg = e.getMessage();
 		msg=msg.replace("\n", " ").replace("\r", "");

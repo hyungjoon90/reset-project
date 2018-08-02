@@ -6,6 +6,7 @@
     left: 0;
     width: 100%;
 }
+
 .alert{
 	padding: 0px;
 }
@@ -30,4 +31,5 @@
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
   	<span aria-hidden="true">&times;</span>
 	</button><span class="danger-text">본사이트는 교육용으로 제작되었습니다.</span></div>
+
 </div>

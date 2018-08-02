@@ -7,8 +7,6 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <style type="text/css">
-/* @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); */
-
  .container {
 	font-family: NanumSquareR;
 	font-size: 20px;
@@ -164,7 +162,7 @@ input.valid, textarea.valid {
     <%@include file="/WEB-INF/views/template/menu.jsp" %>
     	    <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		문의
    		</div>
@@ -302,7 +300,7 @@ input.valid, textarea.valid {
 				style="color: red">*</sup>는 필수항목입니다</span> <br>
 
 			<div class="well">
-				<form action="/reset/qna" method="post" id="form" onsubmit="return eventCheck()">
+				<form action="/qna" method="post" id="form" onsubmit="return eventCheck()">
 					<!-- TODO reset -->
 					<div class="form-group row">
 						<label for="qa_type" id="qa_type" class="col-sm-2 form-label">문의분류</label>

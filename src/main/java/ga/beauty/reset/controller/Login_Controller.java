@@ -83,6 +83,7 @@ public class Login_Controller {
 	public String selectLoginService(@PathVariable String loginPath, Model model
 			, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException, SQLException {
 		// 서비스 분기용
+		model.addAttribute("goRoot", "../../");
 		Login_Service login_Service = null;
 		if("naver".equals(loginPath)) {
 			login_Service = login_Naver;
@@ -137,13 +138,14 @@ public class Login_Controller {
 	public Map<String, Object> showAdds(Model model, String command, HttpSession session) throws NoSuchAlgorithmException, SQLException {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
+		model.addAttribute("goRoot", "../../");
 		if(command.equals("adds_yes")) {
 			User_Vo target = new User_Vo();
 			Members_Vo memGetNick = new Members_Vo();
 			String email = (String)session.getAttribute("login_email");
 			result= sign_Service.updateProfile(command,session);
 			String swap = (String)session.getAttribute("old_url");
-			if(swap==null || swap.equals("") || swap.equals("null") || swap.contains("/login/")) swap="/reset/";
+			if(swap==null || swap.equals("") || swap.equals("null") || swap.contains("/login/")) swap="/";
 			if(result==1) {
 				// 로그인처리도 해야됨
 				session.setAttribute("login_on", true);
@@ -157,16 +159,16 @@ public class Login_Controller {
 			}
 		}else if(command.equals("adds_no")){
 			String swap = (String)session.getAttribute("old_url");
-			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/reset/";
+			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/";
 			session.invalidate(); // TODO [kss]세션초기화
 			session.setAttribute("old_url",swap);
 			resultMap.put("result", 300);
-			resultMap.put("redirect", "/reset/login/"); // TODO [kss]reset 지워야됨.
+			resultMap.put("redirect", "/login/"); // TODO [kss]reset 지워야됨.
 			return resultMap;
 		}else {
 			// adds_back
 			String swap = (String)session.getAttribute("old_url");
-			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/reset/";
+			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/";
 			session.invalidate(); // TODO [kss]세션초기화
 			resultMap.put("result", 300);
 			resultMap.put("redirect", swap);
@@ -179,6 +181,7 @@ public class Login_Controller {
 	public Map<String, Object> showFind(HttpServletRequest req, Model model) throws SQLException, NoSuchAlgorithmException, MessagingException {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
+		model.addAttribute("goRoot", "../../");
 		result = sign_Service.findPw(req);
 		if(result==1) {
 			// TODO 이메일보내기 서비스 해야됨

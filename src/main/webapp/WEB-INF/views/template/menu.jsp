@@ -65,7 +65,7 @@
     	<div class="wrap">
             <nav class="main_menu container">
                 <div class="menu_img">
-                <a href="/reset/">
+                <a href="/">
                     <img src="${goRoot}imgs/header_logo.png">
                     </a>
                 </div>
@@ -90,7 +90,9 @@
                     </div>
                     <div class="menu_bar">
                         <ul class="nav">
+
                           <li class="top-menu" id="rank"><a href="#">랭킹</a>
+
                             <div class="space1">
                               <ul class="sub-menu1">
                                   <li><a href="${goRoot }ranking?id=1">스킨</a></li>
@@ -102,7 +104,9 @@
                           <li><a href="${goRoot }magazine">화플</a></li>
                           <li><a href="${goRoot }event">이벤트</a>
                           </li>                                  
+
                           <li class="top-menu" id="cus"><a href="#">고객상담</a>
+
                             <div class="space2">
                               <ul class="sub-menu2">
                                   <li><a href="${goRoot }notice">공지사항</a></li>
