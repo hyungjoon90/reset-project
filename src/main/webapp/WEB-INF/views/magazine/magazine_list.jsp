@@ -110,7 +110,7 @@ $(function() {
     <%@include file="/WEB-INF/views/template/menu.jsp" %>
     <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		매거진
    		</div>
@@ -123,7 +123,7 @@ $(function() {
    			<div class="headtitle">Magazine</div>
    			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
    			<div class="addBtn">
-           		<a href="/reset/admin/magazine/add" class="redBtn">글쓰기</a>
+           		<a href="/admin/magazine/add" class="redBtn">글쓰기</a>
            	</div>
            	</c:if>
    		</div>
@@ -144,7 +144,7 @@ $(function() {
             	var cate=$("#select option:selected").val();
             	$.ajax({
     				type: 'get',
-    				url:'/reset/magazine/ajax',
+    				url:'/magazine/ajax',
     				data:"cate="+cate,
     				dataType:'text',
     				success:function(result){
@@ -158,7 +158,7 @@ $(function() {
             <c:forEach items="${alist }" var="bean">
             <div class="contentsBox" class="span6 element category01" data-category="category01">
                 <div class="hover_img">
-                    <a href="magazine/${bean.mag_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+                    <a href="magazine/${bean.mag_no}"><img src="/${bean.img}" alt="main_img"></a>
                 </div> 
                 <div class="item_description">
                     <h3><a href="magazine/${bean.mag_no}"><strong>${bean.title}</strong></a></h3>

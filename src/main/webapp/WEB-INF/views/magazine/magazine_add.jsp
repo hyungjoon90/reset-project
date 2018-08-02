@@ -122,7 +122,7 @@
 					<!-- 내용 입력 -->
 					<!-- TODO: 김형준 magazine 내용입력 -->
 					<!-- magazine add-page 입니다. -->
-					<form action="/reset/admin/magazine" method="post"
+					<form action="/admin/magazine" method="post"
 						enctype="multipart/form-data" id="magazine_addForm"
 						onsubmit="return magazineCheck()">
 						<div class="imgDiv">
@@ -151,7 +151,7 @@
 													{//해당 이름으로 된 textarea에 에디터를 적용
 														width : '100%',
 														height : '400px',
-														filebrowserImageUploadUrl : '/reset/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
+														filebrowserImageUploadUrl : '/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
 													});
 
 									CKEDITOR
@@ -215,7 +215,7 @@
 										type : "post",
 										enctype : 'multipart/form-data',
 										data : formData,
-										url : "/reset/admin/magazine",
+										url : "/admin/magazine",
 										contentType : false,
 										processData : false,
 										dataType : "Text"
