@@ -186,7 +186,6 @@ color : white;
             <div class="container-fluid">
             <!-- 컨탠츠 시작 -->
 
-    	<!-- TODO css end-->
     	
     		<!-- 입력하기 -->
     	
@@ -197,7 +196,7 @@ color : white;
 		      	<h4>입력페이지</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<form action="/reset/admin/notice/${bean.no_no }" method="post">
+		      	<form action="/admin/notice/${bean.no_no }" method="post">
 		      	<!-- TODO [jihyun] reset -->
 		      		<div class="form-group">
 		      			<label for="name">제목</label>

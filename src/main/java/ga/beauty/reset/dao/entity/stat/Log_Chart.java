@@ -7,7 +7,7 @@ public class Log_Chart {
 	private int valueY ;
 	
 	public Log_Chart() {
-		// TODO Auto-generated constructor stub
+	
 	}
 	
 	public Log_Chart(String label, String valueX, int valueY) {
