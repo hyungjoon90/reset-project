@@ -96,8 +96,7 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 .flex-caption {
   width: 100%;
   padding: 2%;
-  background: rgba(0,0,0,.4);
-  color: #fff;
+  color: #2e2e2e;
   text-shadow: 0 -1px 0 rgba(0,0,0,.3);
   font-size: 14px;
   line-height: 18px;
@@ -132,8 +131,8 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 		    $('.flexslider2').flexslider({
 		      animation: "slide",
 		      animationLoop: false,
-		      itemWidth: 400,
-		      itemMargin: 5,
+		      itemWidth: 200,
+		      itemMargin: 20,
 		      minItems: getGridSize(), // use function to pull in initial value
 		      maxItems: getGridSize() // use function to pull in initial value
 		    });
@@ -164,8 +163,8 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 		    $('.flexslider3').flexslider({
 		      animation: "slide",
 		      animationLoop: false,
-		      itemWidth: 400,
-		      itemMargin: 5,
+		      itemWidth: 200,
+		      itemMargin: 20,
 		      minItems: getGridSize(), // use function to pull in initial value
 		      maxItems: getGridSize() // use function to pull in initial value
 		    });
