@@ -35,8 +35,8 @@ public class Home_Controller {
 	}
 	
 	@RequestMapping(value="/error")
-	public void sendError() throws Exception{
-		throw new Exception();
+	public String sendError() throws Exception{
+		return "error/error";
 	}
 	
 }
