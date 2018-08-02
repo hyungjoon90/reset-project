@@ -96,6 +96,7 @@ public class Like_Listener implements Common_Listener{
 			if(type.equals("num")) { // 사실 안써도 됨.
 				checkVo.setNum(checkVo.getNum()+chNum);
 			}
+			logger.debug("값변화체크:"+checkVo);
 		}
 	}
 

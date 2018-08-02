@@ -5,105 +5,6 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp"%>
 <script src="js/jquery.flexslider.js"></script>
-<style type="text/css">
-
-ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
-
-.mainRankTitle{
-	text-align: center;
-	font-family: NanumSquareB;
-	color: #303030;
-	border: 2px solid #303030;
-	border-radius: 30px;
-	width: 160px;
-	margin: 0px auto;
-	margin-top: 50px;
-}
-
-.mainRankSub{
-	font-size: 20px;
-	font-family: NanumSquareB;
-	width: 400px;
-	margin: 0px auto;
-	text-align: center;
-	margin-top: 20px;
-}
-.strongWord{
-	color: #cf0902;
-	font-size: 25px;
-	font-family: NanumSquareEB;
-}
-.divide_line{
-	background-color: #ebebeb;
-	height: 4px;
-	margin-bottom: 30px;
-	margin-top: 30px;
-}
-.mainTitle{
-	font-family: NanumSquareB;
-	margin-left: 2%;
-}
-.slides img{
-	max-width: 100%; 
-}
-.flexslider {
-	z-index:-1;
-	text-align: center;
-}
-.flex-control-paging {
-	display: inline-block;
-}
-.flex-control-paging:after {
-	display: block;
-	content: '';
-	clear: both;
-}
-.flex-control-paging li {
-	float: left;
-	display: inline-block;
-}
-.flex-control-paging a {
-	display: inline-block;
-	margin: 3px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background-color: #42A1F6;
-	font-size: 0;
-	line-height: 0;
-}
-.flex-control-paging a.flex-active{
-	background-color:#335574;
-}
-.flex-direction-nav li a {
-	text-decoration: none;
-	font-size: 43px;
-	font-weight: bold;
-	color: #000;
-}
-.flex-direction-nav li.flex-nav-prev {
-	bottom: 20px;
-	left: 15px;
-	display: none;
-}
-.flex-direction-nav li.flex-nav-next {
-	right: 15px;
-	display: none;
-} 
-.flexslider2{
-	text-align: center;
-}
-.flex-caption {
-  width: 100%;
-  padding: 2%;
-  color: #2e2e2e;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-  font-size: 14px;
-  line-height: 18px;
-}
-
-</style>
-
 	<script type="text/javascript">
 	  $(function(){
 		  $('.flexslider').flexslider({
@@ -217,16 +118,16 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 		<div class="flexslider">
 		  <ul class="slides">
 		    <li>
-		      <img src="imgs/main_imgs/13.jpg" />
+		      <img src="imgs/main_imgs/1.jpg" />
 		    </li>
 		    <li>
-		      <img src="imgs/main_imgs/14.jpg" />
+		      <img src="imgs/main_imgs/2.jpg" />
 		    </li>
 		    <li>
-		      <img src="imgs/main_imgs/15.jpg" />
+		      <img src="imgs/main_imgs/3.jpg" />
 		    </li>
 		    <li>
-		      <img src="imgs/main_imgs/16.jpg" />
+		      <img src="imgs/main_imgs/4.jpg" />
 		    </li>
 		  </ul>
 		</div>

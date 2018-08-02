@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import = "java.util.Calendar" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
-<link href="${goRoot}css/main.css" rel="stylesheet">
 <link href="${goRoot}css/btn/btn.css" rel="stylesheet">
 <script type="text/javascript">
 $(document).ready(function(){
@@ -13,6 +11,12 @@ $(document).ready(function(){
 	$("#listBack").click(function(){
 		window.history.back();
 	});
+	
+	//댓글 닫기 버튼 클릭시 모달 감추기
+	$("#closeBtn").click(function(){
+		$("#modDiv").hide();
+	});
+    
 });
 	
 </script>
@@ -37,16 +41,41 @@ $(document).ready(function(){
 	margin: 10px;
 	color: #b2b0b0;
 }
-#popNum{
+#su{
 	font-size: 1vmax;
 }
-.funBtn{/* 목록,삭제,추가 버튼 */
+.funBtn{/* 목록,추가 버튼 */
+	display: inline-block;
 	float: right;
 }
 .delForm{
 	clear: both;
 	float: right;
 }
+.addrBtn{
+	background-color:#d00b01;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #d00b01;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	margin: 20px auto;
+}
+.addrBtn:hover {
+	background-color:#d00b01;
+}
+.addrBtn:active {
+	position:relative;
+	top:1px;
+}
+
 /* 제목표시줄 아래에 있는 줄 */
 #titleHr{
 	width: 85%;
@@ -101,12 +130,9 @@ $(document).ready(function(){
 	margin-left: 90%;
 }
 
-/* tags 안보이게 */
+/* com_email 안보이게 */
 .com_emailDiv{
 	visibility: hidden;
-}
-.copy{
-	margin-left: 60%;
 }
 </style>
 </head>
@@ -120,69 +146,49 @@ $(document).ready(function(){
     <!-- main contents -->
     <div class="page_container">
         <hr>
+            <!-- detail-page 입니다. -->
             <!-- 내용 입력 -->
-            <!-- magazine detail-page 입니다. -->
             <div class="contents_container">
-            <form method="post" action="/reset/admin/magazine/${detail.mag_no}">
-		            <div>
-		            	<span><img src="${goRoot}${detail.img }"></span>
-		            </div>
-		            <div class="nalja">
-	            		<span><strong>${detail.nalja }</strong></span>
-	            	</div>
-	            	<div class="view">
-	            		<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}<strong></span>
-	            	</div>
-	            	<div>
-		           		<span class="cate">${detail.cate }</span>
-		            </div>
-		            <!-- 카테고리 바꾸기 -->
-		            <script type="text/javascript">
-					$(function() {
-					  var target = $(".cate").text();
-					  $(".cate").each(function(){
-					  		if(target==1){
-					  			$(this).text("신상&트렌드");
-					  		} else if(target==2){
-					  			$(this).text("화장품 펙트체크");
-					  		}else if(target==3){
-					  			$(this).text("인기템 리뷰");
-					  		}else if(target==4){
-					  			$(this).text("다이어트&운동");
-					  		}
-					  });  
-					});
-					</script>
-		            <div>
+            <form method="post" action="/reset/admin/event/${detail.eve_no}">
+	            <div>
+	            	<span><img src="${goRoot}${detail.img }"></span>
+	            </div>
+	            <div class="nalja">
+	            	<span><strong>${detail.nalja }</strong></span>
+	            </div>
+	            <div class="view">
+	            	<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}<strong></span>
+	            </div>
+	            <div>
 	            	<span class="title"><strong>${detail.title }</strong></span>
-	            		<hr id="titleHr"/>
-	            	</div>
-		            <div>
-	            		<span>${detail.con }</span>
-	            	</div>
-		            <div class="copy">
-		            	<%Calendar cal = Calendar.getInstance();%>
-		            	Copyrightⓒ <%= cal.get(Calendar.YEAR) %> <span>${detail.writer }</span> All rights reserved.
-		            </div>
-		            <!-- 좋아요. -->
-		            <div class="popDiv dis">
-						<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
-						<span><strong id="popNum">${detail.pop }</strong></span>
-		            </div>
-		            <!-- 좋아요 끝 -->
-
-			<div class="funBtn">
+	            	<hr id="titleHr"/>
+	            </div>
+	            <div>
+	            	<span>${detail.con }</span>
+	            </div>
+	            <div class="com_emailDiv">
+	            	<span>${detail.com_email }</span>
+	            </div>
+				<!-- 좋아요. -->
+	            <div class="popDiv dis">
+					<img alt="Likes" src="${goRoot}imgs/icon/grey_like.png" id="Likes" class="likeBtn btimg">
+					<span><strong id="su">${detail.pop }</strong></span>
+	            </div>
+	            <!-- 좋아요 끝 -->
+	        <div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
-			<%-- <c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}"> --%>
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
 				<button type="submit" class="editBtn redBtn">수정</button>
-			<%-- </c:if> --%>
+			</c:if>
 			</div>
 			</form>
-			<form method="post" action="/reset/admin/magazine/${detail.mag_no}" class="delForm">
+			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
+			<form method="post" action="/reset/admin/event/${detail.eve_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="deleteBtn redBtn">삭제</button>
 			</form>
+			</c:if>
 			</div>
 			<!-- 항상 화면 위에 이동버튼 -->
 			<div class="alwaysBtn">
@@ -249,32 +255,40 @@ $(document).ready(function(){
             </div><!-- /.container-fluid -->
         </div><!-- /#page-wrapper -->
     </div><!-- /#wrapper -->
+<!-- TODO: event 댓글 제이쿼리 -->
 <script type="text/javascript">
-	/* 댓글  */
-		//아래 두개의 변수만 바꿔주면 됩니다.
-		var p_no=${detail.mag_no};
-		var co_type="magazine";
-		
-		<%//TODO [김형준] magazein url 경로(reset) 변경해야함.%>
+		/* 댓글  */
+		var p_no=${detail.eve_no};
+		var co_type="event";
+		function settingModifyBtn(){
+			var email = "${login_email}";
+			$(".comBtn").each(function(){
+			 	checkEmail=$(this).attr("email");
+				if(email != checkEmail){
+					$(this).css("display","none")
+				};
+			});
+		};
+		<%//TODO 댓글 리스트%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
-			$.getJSON("/reset/"+co_type+"/"+p_no+"/comment",function(data){
+			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){
 				var str="";
-				
-			$(data).each(
-				function(){
-				str+=
-					"<div class='commentLi'>"
-					+"<div>"+this.writer+"</div>"
-					+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
-					+"<div>"+this.nalja+"</div>"
-					+"<div><button class='comBtn'>MOD</button></div>"
-					+"</div>";
-			});
-			
-			$("#comment").html(str);
-			
-			});
+				/*//TODO: 댓글 수정 버튼을 세션에 맞게 보여야함.  */
+				$(data).each(
+					function(){
+					str+=
+						"<div class='commentLi'>"
+						+"<hr class='com_hr'/>"
+						+"<div class='com_writer com_div'><strong>"+this.writer+"</strong></div>"
+						+"<div  class='com_nalja com_div'>"+this.nalja+"</div>"
+						+"<div data-co_no='"+this.co_no+"' class='textCo'>"+this.content+"</div>"
+						+"<div class='com_btn'><button class='comBtn redBtn' email="+this.email+">댓글수정</button></div>"
+						+"</div>";
+					});
+				$("#comment").html(str);
+				settingModifyBtn();
+			});// AJAX
 		};//getAllList end
 		
 		$(function(){
@@ -284,7 +298,7 @@ $(document).ready(function(){
 		//댓글 추가 버튼
 		$("#comment_addBtn").on("click",function(){
 			var writer =$("#writer").val();
-			var content =$("#content").val();
+			var content =$("#content").val().replace(/(?:\r\n|\r|\n)/g,"<br/>");
 			var email =$("#email").val();
 			<%//TODO url 경로 변경해야함.%>
 			$.ajax({
@@ -305,13 +319,14 @@ $(document).ready(function(){
 				success : function(result){
 					if(result == 'SUCCESS'){
 						alert("등록 되었습니다.");
+						$("#content").val("");
 						getAllList();
 					}
 				}
 			});
 		}); //comment add end
 	
-		//MOD버튼 클릭시 모달이 나옴.
+		//댓글수정 버튼 클릭시 모달이 나옴.
 		$("#comment").on("click",".commentLi button",function(){
 			var comment=$(this).parent().parent().find(".textCo");
 			var co_no = comment.attr("data-co_no");
@@ -325,7 +340,8 @@ $(document).ready(function(){
 		//댓글 수정 버튼 클릭시
 		$("#commentModBtn").on("click",function(){
 			var co_no=$("#commentnum").val();
-			var content=$("#commenttext").val();
+			//var content=$("#commenttext").val();
+			var content =$("#commenttext").val().replace(/(?:\r\n|\r|\n)/g,"<br/>");
 			$.ajax({
 				type: 'put',
 				url:'/reset/'+co_type+'/'+p_no+'/comment/'+co_no,

@@ -17,17 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import ga.beauty.reset.dao.Comment_DaoImpl;
 import ga.beauty.reset.dao.entity.Comment_Vo;
 import ga.beauty.reset.dao.entity.Reviews_Vo;
 import ga.beauty.reset.dao.entity.stat.Log_File;
 import ga.beauty.reset.services.Items_Reviews_Service;
 import ga.beauty.reset.services.mypage.Mypage_Admin_Service;
 import ga.beauty.reset.utils.LogEnum;
-import ga.beauty.reset.utils.UploadFileUtils;
 
 @Controller
 public class Admin_Controller {
@@ -170,4 +166,4 @@ public class Admin_Controller {
 		}
 		return "admin/admin_chart_ajax";
 	}
-}
+}// Admin_Controller end

@@ -41,7 +41,7 @@ public class ChartFile {
 
 	private Map<String, File> getFileList(String command, int days) {
 		Map<String, File> files = new HashMap<String, File>();
-		for (int i = 0; i < days; i++) {
+		for (int i = 1; i <= days; i++) {
 			Calendar todayC = new GregorianCalendar();
 			todayC.add(Calendar.DATE, -i); // 오늘날짜로부터 -1
 			String filename = getFileName(todayC.getTime(), command);
@@ -70,7 +70,7 @@ public class ChartFile {
 			throws JsonProcessingException, IOException {
 		Map<String, File> files = getFileList(command, days);
 		Map<String, Object> listS = null;
-		if (command.equals("magzine")) {
+		if (command.equals("magazine")) {
 			listS = getMagData(files, command, days, no);
 		} else if (command.equals("event")) {
 			listS = getEveData(files, command, days, no);
@@ -89,7 +89,7 @@ public class ChartFile {
 		List<Log_Chart> listviews = new ArrayList<Log_Chart>();
 		List<Log_Chart> listaddrs = new ArrayList<Log_Chart>();
 
-		for (int i = 0; i < days; i++) {
+		for (int i = 1; i <= days; i++) {
 			Calendar todayC = new GregorianCalendar();
 			todayC.add(Calendar.DATE, -i); // 오늘날짜로부터 -1
 			// 라벨 추가
@@ -145,7 +145,7 @@ public class ChartFile {
 		List<Log_Chart> listviews = new ArrayList<Log_Chart>();
 		List<Log_Chart> listcomms = new ArrayList<Log_Chart>();
 
-		for (int i = 0; i < days; i++) {
+		for (int i = 1; i <= days; i++) {
 			Calendar todayC = new GregorianCalendar();
 			todayC.add(Calendar.DATE, -i); // 오늘날짜로부터 -1
 			// 라벨 추가
@@ -197,7 +197,7 @@ public class ChartFile {
 		List<Log_Chart> listlikes = new ArrayList<Log_Chart>();
 		List<Log_Chart> listcomms = new ArrayList<Log_Chart>();
 
-		for (int i = 0; i < days; i++) {
+		for (int i = 1; i <= days; i++) {
 			Calendar todayC = new GregorianCalendar();
 			todayC.add(Calendar.DATE, -i); // 오늘날짜로부터 -1
 			// 라벨 추가
@@ -244,7 +244,7 @@ public class ChartFile {
 		List<String> listLabels = new ArrayList<String>();
 		List<Log_Chart> listlikes = new ArrayList<Log_Chart>();
 
-		for (int i = 0; i < days; i++) {
+		for (int i = 1; i <= days; i++) {
 			Calendar todayC = new GregorianCalendar();
 			todayC.add(Calendar.DATE, -i); // 오늘날짜로부터 -1
 			// 라벨 추가
@@ -287,12 +287,13 @@ public class ChartFile {
 		List<String> listLabels = new ArrayList<String>();
 		List<Log_Chart> listSession = new ArrayList<Log_Chart>();
 		List<Log_Chart> listLogin = new ArrayList<Log_Chart>();
-		for (int i = 0; i < days; i++) {
+		for (int i = 1; i <= days; i++) {
 			Calendar todayC = new GregorianCalendar();
 			todayC.add(Calendar.DATE, -i); // 오늘날짜로부터 -1
 			// 라벨 추가
 			String day = MySDF.SDF_ALL.format(todayC.getTime());
 			listLabels.add(day);
+			
 			// 파일 있는지 없는지 검사후 값 넣음
 			File file = files.get(day);
 			if (file != null) {

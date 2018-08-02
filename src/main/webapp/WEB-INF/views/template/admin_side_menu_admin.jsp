@@ -91,24 +91,25 @@ width: 225px;
 			<li><a href="${goRoot}admin/review">리뷰</a></li>
 			<li><a href="${goRoot}admin/magazine">매거진</a></li>
 			<li><a href="${goRoot}admin/event">이벤트</a></li>
+			<li><a href="${goRoot}admin/eveaddr">이벤트추첨</a></li>
 			<li><a href="${goRoot}admin/item">상품관리</a></li>
 			<c:if test="${login_user_type eq 'CEO'}">
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu3">통계</a>
 				<ul id="menu3" class="collapse">
 					<li><a href="${goRoot}admin/chart/login/">접속자수</a></li>
 					<li><a href="${goRoot}admin/chart/review/">리뷰</a></li>
-					<li><a href="${goRoot}admin/chart/magzine/">매거진</a></li>
+					<li><a href="${goRoot}admin/chart/magazine/">매거진</a></li>
 					<li><a href="${goRoot}admin/chart/event/">이벤트</a></li>
 					<li><a href="${goRoot}admin/chart/like/">좋아요</a></li>
 				</ul>
 			</li>
+			</c:if>
 			<li><a href="javascript:;" data-toggle="collapse" data-target="#menu4">로그</a>
 				<ul id="menu4" class="collapse">
 					<li><a href="${goRoot}admin/log/normal/">전체로그</a></li>
 					<li><a href="${goRoot}admin/log/error/">에러로그</a></li>
 				</ul>
 			</li>
-			</c:if>
 		</ul>
 	</div>
 </nav>

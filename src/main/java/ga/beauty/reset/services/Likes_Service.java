@@ -32,8 +32,8 @@ public class Likes_Service {
 	@Autowired	@Qualifier("like_Listener")
 	Common_Listener like_Listener;
 
-	@Autowired	@Qualifier("magzine_Listener")
-	Common_Listener magzine_Listener;
+	@Autowired	@Qualifier("magazine_Listener")
+	Common_Listener magazine_Listener;
 	
 	@Autowired @Qualifier("event_Listener")
 	Common_Listener event_Listener;
@@ -138,7 +138,7 @@ public class Likes_Service {
 		} else if(type.equals("magazine")){
 			Magazine_Vo target = new Magazine_Vo();
 			target.setMag_no(bean.getP_no());
-			magzine_Listener.addLog(target, "like", chValue);
+			magazine_Listener.addLog(target, "like", chValue);
 		} else if(type.equals("review")){
 			Reviews_Vo target = new Reviews_Vo();
 			target.setRev_no(bean.getP_no());

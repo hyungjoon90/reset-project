@@ -35,11 +35,19 @@
         float: right;
         margin-top: 10px;
         margin-left: 10px;
-        margin-right: 50px;
+        margin-right: 25px;
         margin-bottom: 10px;
     }
     .search{
         margin-right: 5px;
+    }
+    .logout{
+    	float: right;
+	    font-family: NanumSquareB;
+	    font-size: 17px;
+	    font-weight: 800;
+	    margin: 18px 17px;
+	    text-decoration: none;
     }
     .input_box{
     	height: 30px;
@@ -50,7 +58,7 @@
         padding: 4px 12px;
     }
     .menu_bar{
-        width: 354px;
+        width: 441px;
         float: right;
     }
     .menu_bar>ul{
@@ -60,8 +68,21 @@
         width: 40%;
         float: right;
     }
-    .sub-menu{
-        width: 86px;
+    .sub-menu1{
+        width: 84px;
+        zoom: 1;
+        display: none;
+        position: absolute;
+        list-style: none;
+        background-color: #fff;
+        border-top: 4px #d00b01 solid;
+        padding: 9px;
+	    z-index: 1;
+	    font-size: 20px;
+	    font-weight: 800;
+    }
+    .sub-menu2{
+        width: 117px;
         zoom: 1;
         display: none;
         position: absolute;
@@ -70,21 +91,28 @@
         border-top: 4px #d00b01 solid;
         padding: 10px;
         z-index: 1;
+        font-size: 20px;
+    	font-weight: 800;
     }
-    .top-menu:hover .sub-menu{
+    .top-menu:hover .sub-menu1,.top-menu:hover .sub-menu2{
         display: block;
     }
-    .top-menu:hover .space{
+    .top-menu:hover .space1,.top-menu:hover .space2{
         position: absolute;
-        padding-top: 21px;
+        padding-top: 33px;
     }
-    .space{
+    .space1{
         height: 22px;
         position: absolute;
-        width: 86px;
+        width: 84px;
+    }
+    .space2{
+        height: 22px;
+        position: absolute;
+        width: 117px;
     }
     .nav{
-    	width: 500px;
+   	    width: 441px;
     }
     .nav>li{
         margin: 0px 10px;
@@ -116,7 +144,7 @@
    	}
 
    	.breadcrumb div{
-   		margin: 0px 4%;
+   		margin: 0px 16%;
    	}
    	.breadcrumb>div>a,.slash{
    		color: black;
@@ -136,8 +164,105 @@
 	.welcome_line>img {
 		width: 100%;
 	}
-    /* main contents  */
-
+    ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
+	
+	.mainRankTitle{
+		text-align: center;
+		font-family: NanumSquareB;
+		color: #303030;
+		border: 2px solid #303030;
+		border-radius: 30px;
+		width: 160px;
+		margin: 0px auto;
+		margin-top: 50px;
+	}
+	
+	.mainRankSub{
+		font-size: 20px;
+		font-family: NanumSquareB;
+		width: 288px;
+		margin: 0px auto;
+		text-align: center;
+		margin-top: 20px;
+	}
+	.strongWord{
+		color: #cf0902;
+		font-size: 25px;
+		font-family: NanumSquareEB;
+	}
+	.divide_line{
+		background-color: #ebebeb;
+		height: 4px;
+		margin-bottom: 30px;
+		margin-top: 30px;
+	}
+	.mainTitle{
+		font-family: NanumSquareB;
+		margin-left: 2%;
+	}
+	.slides img{
+		max-width: 100%; 
+	}
+	.flexslider {
+		z-index:-1;
+		text-align: center;
+	}
+	.flex-control-paging {
+		display: inline-block;
+	}
+	.flex-control-paging:after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+	.flex-control-paging li {
+		float: left;
+		display: inline-block;
+	}
+	.flex-control-paging a {
+		display: inline-block;
+		margin: 3px;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: #42A1F6;
+		font-size: 0;
+		line-height: 0;
+	}
+	.flex-control-paging a.flex-active{
+		background-color:#335574;
+	}
+	.flex-direction-nav li a {
+		text-decoration: none;
+		font-size: 43px;
+		font-weight: bold;
+		color: #000;
+	}
+	.flex-direction-nav li.flex-nav-prev {
+		bottom: 20px;
+		left: 15px;
+		display: none;
+	}
+	.flex-direction-nav li.flex-nav-next {
+		right: 15px;
+		display: none;
+	} 
+	.flexslider2{
+		text-align: center;
+	}
+	.flex-caption {
+	  width: 100%;
+	  padding: 2%;
+	  background: rgba(0,0,0,.4);
+	  color: #fff;
+	  text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+	  font-size: 14px;
+	  line-height: 18px;
+	}
+	.flexslider3{
+		text-align: center;
+	}
+    /* main contents */
     /* footer */
     .footer{
         background-color: #1e1e1e;
@@ -159,9 +284,19 @@
         float: right;
         margin: 16px 0px 0px 0px;
     }
+    .footer_C {
+		display: none;
+	}
     /* //footer */
 @media (max-width: 991px) {
     /* header */
+    .login-group {
+	    width: 100px;
+	    margin: 0px auto;
+	}
+	.topicon {
+	   	margin:0px 5px 5px 5px;
+	}
     .menu_img{
         width: 100%;
         text-align: center;
@@ -175,11 +310,8 @@
     .menu_login_bar{
         width: 100%;
     }
-    .loginAndOut{
-        margin-right: 0px;
-    }
     .login-group{
-        width: 280px;
+        width: 100px;
         margin: 0px auto;
     }
     .form-control{
@@ -195,7 +327,12 @@
         float: none;
         margin: 0px auto;
     }
+   .top-menu:hover .space1,.top-menu:hover .space2{
+        padding-top: 22px;
+    }
     /* //header */
+    
+   
     /* footer */
     .footer_L{
         width: 100%;
@@ -208,15 +345,25 @@
     .copyright{
         text-align: center;
     }
+    .footer_C {
+		display: none;
+	}
     /* //footer */
 } 
 @media (max-width: 768px) {
+	.login-group {
+	    width: 100px;
+	    margin: 0px auto;
+	}
+	.topicon {
+	   	margin:0px 5px 5px 5px;
+	}
     .menu_bar{
         padding: 0px;
-        width: 274px;
+        width: 361px;
     }
     .menu_bar>ul{
-        width: 274px;
+        width: 361px;
         float: none;
         margin: 0px auto;
     }
@@ -227,5 +374,51 @@
         width: 80%;
         margin: 0px auto;
         float: none;
-    }
+    } 
+    .footer_L {
+		display: none;
+	}
+	.copyright {
+		text-align: left;
+		display: none;
+	}
+	
+	.footer_C {
+ 		display: block;
+		width: 100%;
+		text-align: center;
+		margin: 0px auto;
+		/*float: center;
+		width: 100%;
+		text-align: center; */
+		padding: 0px auto;
+	}
+ @media (max-width: 360px) {
+	.page_container {
+	    width: 95%;
+	}
+	.login-group {
+	    width: 100px;
+	    margin: 0px auto;
+	}
+	.topicon {
+	   	margin:0px 5px 5px 5px;
+	}
+	.menu_bar {
+    	width: 274px;
+	}
+	.nav>li>a {
+	    padding: 10px 4px;
+	}
+	.mainTitle{
+		margin-left: 0;
+		text-align: center;	
+	}
+	.contentsbox {
+	    width: 100%;
+	}
+	.rankingImg {
+	    width: 45px;
+	}
+}
 }

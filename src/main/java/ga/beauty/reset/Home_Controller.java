@@ -1,10 +1,8 @@
 package ga.beauty.reset;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,6 @@ public class Home_Controller {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest req) throws Exception {
-		HttpSession session = req.getSession();
         String ip = req.getHeader("X-FORWARDED-FOR");
         if (ip == null) ip = req.getRemoteAddr();		
         logger.info(LogEnum.INTER+"메인페이지에 {ip:"+ip+", locale:"+locale+"} 가 들어왔습니다. ");

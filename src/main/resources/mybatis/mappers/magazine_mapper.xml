@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="magazine">
-  	<select id="selectAll" resultType="Magazine_Vo">
+  	<select id="selectAll"  resultType="Magazine_Vo" parameterType="Magazine_Vo" >
   		SELECT * FROM MAGAZINE WHERE OPEN=1
 		<if test="com_email!=null">
 		 AND COM_EMAIL=#{com_email}
@@ -16,6 +16,9 @@
 		SELECT COUNT(*) FROM MAGAZINE WHERE OPEN=1
 		<if test="cate!=null">
 		 AND CATE=#{cate}
+		</if>
+		<if test="where!=null">
+		AND COM_EMAIL = #{where}
 		</if>
 	</select>
 

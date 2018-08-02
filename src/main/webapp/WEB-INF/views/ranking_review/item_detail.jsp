@@ -15,7 +15,7 @@ $(document).ready(function(){
 	var email="";
 	email="${login_email}";
 	if(email!=""){
-		cartCheck(email); 
+		cartCheck(email);
 	}
 	if(page>=pageTot){
 		$("#listAdd>img").hide();

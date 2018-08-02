@@ -41,13 +41,14 @@
     <!-- Interceptor 설정 -->
     <interceptors>
         <interceptor>
-            <mapping path="/admin/"/>
-            <mapping path="/mypage/"/>
+            <mapping path="/admin/**"/>
+            <mapping path="/mypage/**"/>
             <beans:ref bean="auth_Interceptor"/>
         </interceptor>
         <interceptor>
-        	<mapping path="/login/"/>
-        	<mapping path="/logout/"/>
+        	<mapping path="/login/**"/>
+        	<mapping path="/logout/**"/>
+        	<mapping path="/sign/**"/>
         	<beans:ref bean="login_out_Interceptor"/>
         </interceptor>
     </interceptors>
