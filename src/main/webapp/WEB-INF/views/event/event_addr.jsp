@@ -175,7 +175,7 @@ input.upload {
     <%@include file="/WEB-INF/views/template/menu.jsp" %>
     <div class="breadcrumb">
     	<div>
-   		<a href="/reset/">HOME</a>
+   		<a href="/">HOME</a>
    		<span class="slash">/</span>
    		이벤트 참가
    		</div>
@@ -190,7 +190,7 @@ input.upload {
    			<div class="col-md-12">
    			<h1 class="entry-title"><span>이벤트 참가 주소입력</span></h1>
    			<hr>
-			<form method="post" action="/reset/event/${event}/addr" onsubmit="return event_addrCheck()">
+			<form method="post" action="/event/${event}/addr" onsubmit="return event_addrCheck()">
 				<div>
 					<input type="hidden" name="eve_no" id="eve_no" value="${event}">
 				</div>

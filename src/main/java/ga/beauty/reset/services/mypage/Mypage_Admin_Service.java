@@ -39,8 +39,8 @@ import ga.beauty.reset.utils.RegexLogFile;
 @Service
 public class Mypage_Admin_Service {
 	
-	String logFile = "C:/reset/applogs/weblog.log";
-	String errFile = "C:/reset/applogs/errlog.log";
+	String logFile = "/reset/applogs/weblog.log";
+	String errFile = "/reset/applogs/errlog.log";
 	
 	Logger logger = Logger.getLogger(getClass());
 	

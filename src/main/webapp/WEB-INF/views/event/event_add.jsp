@@ -115,7 +115,7 @@
             <!-- 내용 입력 -->
             <!-- TODO: 내용입력 -->
             <!-- add-page 입니다. -->
-            <form action="/reset/admin/event" method="post" enctype="multipart/form-data" id="event_addForm" onsubmit="return eventCheck()">
+            <form action="/admin/event" method="post" enctype="multipart/form-data" id="event_addForm" onsubmit="return eventCheck()">
             	<div class="imgDiv">
 	            	<label for="img">대표이미지</label>
 	            	<input type="file" name="img" id="img" class="darkBtn">
@@ -138,7 +138,7 @@
 				        CKEDITOR.replace( 'con', {//해당 이름으로 된 textarea에 에디터를 적용
 				            width:'100%',
 				            height:'400px',
-				            filebrowserImageUploadUrl: '/reset/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
+				            filebrowserImageUploadUrl: '/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
 				        });
 				         
 				         
@@ -183,7 +183,7 @@
 	    	       type:"post",
 	    	       enctype: 'multipart/form-data',
 	    	       data : formData,
-	    	       url: "/reset/admin/event",
+	    	       url: "/admin/event",
 	    	       contentType: false,
 	    	       processData: false,
 	    	       dataType: "Text"
