@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<c:forEach items="${rev_list }" var="bean">
-		<a href="/reset/admin/${bean.item }/review/${bean.rev_no}">
+		<a href="/admin/${bean.item }/review/${bean.rev_no}">
 			<div class="reviewBox">
 					<div class="left_img_box">
 						<c:choose>
