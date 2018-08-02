@@ -22,6 +22,7 @@ import ga.beauty.reset.dao.entity.Companys_Vo;
 import ga.beauty.reset.dao.entity.Members_Vo;
 import ga.beauty.reset.dao.entity.User_Vo;
 import ga.beauty.reset.services.Sign_Service;
+import ga.beauty.reset.utils.LogEnum;
 
 @Controller
 public class Sign_Controller {
@@ -54,10 +55,11 @@ public class Sign_Controller {
 		int result = 0;
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (userBean.getUser_type().equals("일반")) {
-			logger.debug("일반유저 일반들어옴");
+			logger.info(LogEnum.SIGNUP+"회원가입요청 : "+userBean);
 			map.put("url", session.getAttribute("old_url"));
 			result = sign_Service.signUp(userBean, memberBean);
 		} else {
+			logger.info(LogEnum.SIGNUP+"회원가입요청 : "+userBean);
 			result = sign_Service.signUp(userBean, componyBean);
 		}
 		map.put("result", result);

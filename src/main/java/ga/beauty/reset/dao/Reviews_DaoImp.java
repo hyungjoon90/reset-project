@@ -31,8 +31,8 @@ public class Reviews_DaoImp implements Reviews_Dao<Reviews_Vo> {
 		logger.debug("DaoImp-reviewToTAll-noParam");
 		return sqlSession.selectList("reviews.reviewToTAll");
 	}
-    // TODO:[kss] 임시 테스트용
- 	public List<Reviews_Vo> reviewToTAll(Reviews_Vo bean) throws SQLException {
+
+	public List<Reviews_Vo> reviewToTAll(Reviews_Vo bean) throws SQLException {
 		logger.debug("DaoImp-reviewToTAll-noParam");
 		return sqlSession.selectList("reviews.reviewToTAll", bean);
 	}

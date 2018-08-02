@@ -129,9 +129,8 @@ $(function(){
 				var password = document.createElement("input");
 				password.setAttribute("type","hidden");
 				password.setAttribute("name","password");
-					var pw = $("#password").val();
-					alert("패스워드:"+pw);
-					password.setAttribute("value",SHA256(pw));
+				var pw = $("#password").val();
+				password.setAttribute("value",SHA256(pw));
 				// 주소 병함해야됨.
 				var zipVal =$("#zipNo").val();
 				var addr1= $("#roadAddrPart1").val();
@@ -152,7 +151,6 @@ $(function(){
 				$(form).append(address);
 				$(form).append(password);
 				var data = $('#form').serialize();
-				console.log(data);
  				$.post("/sign/", data, function(output) {
 					if (output.result == 200) {
 						alert("회원등록 완료");
