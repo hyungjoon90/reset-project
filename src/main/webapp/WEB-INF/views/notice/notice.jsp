@@ -196,6 +196,21 @@ h1 {
 input {
 	color: white;
 }
+
+
+.newbtn {
+	background-color:#d00b01;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size: 2px;
+	padding:3px 6px;
+	text-decoration:none;
+}
 </style>
 </head>
 <body>
@@ -234,7 +249,7 @@ input {
 				<div class="titlediv mytable">${bean.title }</div>
 				<div class="naljadiv mytable">${bean.nalja }
 					<c:if test="${nalja == nowdate}">
-						<font color="red">new</font>
+						&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
 					</c:if>
 				</div>
 			</div>

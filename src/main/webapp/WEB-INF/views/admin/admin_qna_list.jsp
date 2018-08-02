@@ -9,35 +9,37 @@
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 </head>
 <style type="text/css">
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-h1{
-margin-botton : 50px;
-color : #D00B01;
-font-weight: bold;
+.container {
+	font-family: NanumSquareR;
+	font-size: 20px;
 }
 
-h1:after {
-    content: " ";
-    width: 130px;
-    height: 5px;
-    background: #DDDDDD;
-    display: block;
-    margin-top: 20px;
-    border-radius: 3px;
+.newbtn {
+	background-color:#d00b01;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size: 2px;
+	padding:3px 6px;
+	text-decoration:none;
 }
-
+ 
+h1 {
+	font-size: 3vmax;
+	font-family: NanumSquareB;
+	margin-botton: 50px;
+	color: #303030;
+}
 
 a{
 color: black;
 text-decoration: none;
 }
-
-.container{
-    font-family: "Nanum Gothic", sans-serif;
-    font-size: 18px;
-}
-
 
 </style>
 <body>
@@ -88,10 +90,9 @@ text-decoration: none;
 <c:set var="nalja" scope="request"><fmt:formatDate value="${bean.nalja}"/></c:set>
 		</a></td>
 		<td><a href="./qna/${bean.qa_no }">${bean.con }</a>
-		
-		<c:if test="${nalja == nowdate}">
-    	 <font color="red">new</font>
-			</c:if>
+							<c:if test="${nalja == nowdate}">
+										&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
+								</c:if>
 </td> 
 		<td><a href="./qna/${bean.qa_no }">
 			<c:choose> 
