@@ -178,7 +178,7 @@ $(document).ready(function(){
 			<%-- </c:if> --%>
 			</div>
 			</form>
-			<form method="post" action="/reset/admin/magazine/${detail.mag_no}" class="delForm">
+			<form method="post" action="/admin/magazine/${detail.mag_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="deleteBtn redBtn">삭제</button>

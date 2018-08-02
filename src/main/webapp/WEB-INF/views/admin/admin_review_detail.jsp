@@ -289,7 +289,7 @@
 				console.log(data);
 				if (data == "1") {
 					console.log("성공");
-					window.location.href = "/reset/item/" + item;
+					window.location.href = "/item/" + item;
 				} else if (data == "0") {
 					alert("글삭제에 실패하였습니다.");
 				}

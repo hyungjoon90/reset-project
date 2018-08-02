@@ -93,7 +93,7 @@ public class Login_Normal implements Login_Service {
 				userSession.setAttribute("login_route","normal");
 				req.setAttribute("result", 300);
 				req.setAttribute("msg", "다른 경로로 연결되어 있습니다.");
-				req.setAttribute("redirect", "/reset/login/adds/");//TODO 나중에 reset 지워야됨.
+				req.setAttribute("redirect", "/login/adds/");//TODO 나중에 reset 지워야됨.
 				req.setAttribute("login_result", "login/login_normal");
 				return model;
 			}	
