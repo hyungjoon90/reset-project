@@ -197,7 +197,7 @@ color : white;
 		      	<h4>입력페이지</h4>
 		      </div>
 		      <div class="modal-body">
-		      	<form action="/reset/admin/notice/${bean.no_no }" method="post">
+		      	<form action="/admin/notice/${bean.no_no }" method="post">
 		      	<!-- TODO [jihyun] reset -->
 		      		<div class="form-group">
 		      			<label for="name">제목</label>
@@ -258,7 +258,7 @@ color : white;
 		        <h4 class="modal-title" id="myModalLabel-${bean.no_no }">${bean.no_no }번 공지사항</h4>
 		      </div>
 		      <div class="modal-body">
-		        <form action="/reset/admin/notice/${bean.no_no }" method="POST" class="detailForm"  accept-charset="UTF-8">
+		        <form action="/notice/${bean.no_no }" method="POST" class="detailForm"  accept-charset="UTF-8">
 		        	<input type="hidden" name="_method" value="put">
 		      		<div class="form-group">
 		      			<label for="no_no">글번호</label>
@@ -315,7 +315,7 @@ color : white;
 		        <button type="button" class="greybtn showlistbtn" data-dismiss="modal">목록보기</button>
 		        <button type="button" class="blackbtn edit">수정</button>
 		       
-			 	<form action="/reset/admin/notice/${bean.no_no }" method="POST" class="deleteForm">
+			 	<form action="/admin/notice/${bean.no_no }" method="POST" class="deleteForm">
 		        <input type="hidden" name="_method" value="delete"/> 
 		        <button type="submit" class="redbtn delete">삭제</button>
 		        </form>

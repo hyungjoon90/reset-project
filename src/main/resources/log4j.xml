@@ -11,7 +11,18 @@
 				value="[%-5p] %d{ABSOLUTE} (%c)- %m%n" />
 		</layout>
 	</appender>
-
+	<!-- crash 로그 파일 생성 -->
+	<appender name="crashFile" class="org.apache.log4j.RollingFileAppender">
+		<!-- The active file to log to -->
+		<param name="file" value="/reset/crash/crash.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<param name="Threshold" value="ERROR" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d][%p]-%m%n" />
+		</layout>
+	</appender>
 	<!-- 날짜별 로그 파일 생성 -->
 	<appender name="dayFile" class="org.apache.log4j.RollingFileAppender">
 		<!-- The active file to log to -->
@@ -47,22 +58,27 @@
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
+		<appender-ref ref="dayFile" />
 	</logger>
 	<logger name="org.springframework.beans">
 		<level value="info" />
+		<appender-ref ref="dayFile" />
 	</logger>
 	<logger name="org.springframework.context">
 		<level value="info" />
+		<appender-ref ref="dayFile" />
 	</logger>
 
 	<logger name="org.springframework.web">
 		<level value="info" />
+		<appender-ref ref="dayFile" />
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref="crashFile"/>
 	</root>
 
 </log4j:configuration>
