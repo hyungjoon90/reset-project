@@ -370,6 +370,10 @@
     .menu_bar>ul>li{
          margin: 0px;   
     }
+    .nav>li>a:hover {
+	    color: black;
+	    background: none;
+	}
     .footer_R{
         width: 80%;
         margin: 0px auto;
