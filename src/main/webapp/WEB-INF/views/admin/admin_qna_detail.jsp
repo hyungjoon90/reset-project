@@ -163,23 +163,7 @@ display: hidden;
 			if (target.val() == "등록된 답변이 없습니다. 답변을 입력해주세요") {
 			mailSend.css("diplay","hidden");
 			}
-		}); //답변쓰기 클릭
-		
-	/* 	answer.hide(); // 답변 textarea hide
-		answerWrite.show(); //답변 작성하기 보여줌
-		mailSend.hide();
-		saveCancelBtns.hide();
-
-			answerWrite.click(function() {
-			answerWrite.hide();
-			answerWrite.css("diplay","hidden");
-			saveCancelBtns.show();
-			answer.css("visibility", "visible");
-			if (target.val() == "등록된 답변이 없습니다. 답변을 입력해주세요") {
-				mailSend.hide();
-			}
-		}); //답변쓰기 클릭 */ 
-
+		});
 		answerSave.click(function() {
 			if (answer.val().length < 1) {
 				alert("내용을 입력하세요"); //답변 null값이 들어가지 않도록 막음
@@ -190,7 +174,7 @@ display: hidden;
 					type : 'post',
 					enctype : 'multipart/form-data',
 					url : '/admin/qna/${bean.qa_no }',
-					//TODO [jihyun]reset
+				
 
 					dataype : 'text',
 					headers : {
@@ -220,7 +204,7 @@ display: hidden;
 		mailSend.click(function() {
 			$.ajax({ // ajax 이메일전송
 				type : "post",
-				url : '/mail/qna/${bean.qa_no }',
+				url : '/reset/mail/qna/${bean.qa_no }',
 				//TODO [jihyun]reset
 				success : function(data) {
 					if (data == 456) {
