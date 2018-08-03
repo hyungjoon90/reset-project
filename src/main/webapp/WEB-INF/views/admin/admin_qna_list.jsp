@@ -92,8 +92,7 @@ text-decoration: none;
 		<td><a href="./qna/${bean.qa_no }">${bean.con }</a>
 							<c:if test="${nalja == nowdate}">
 										&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
-								</c:if>
-</td> 
+								</c:if></td>
 		<td><a href="./qna/${bean.qa_no }">
 			<c:choose> 
 				<c:when test="${empty bean.answer}">미답변</c:when>  

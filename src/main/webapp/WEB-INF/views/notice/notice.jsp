@@ -246,12 +246,11 @@ input {
 				<!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
 				<!-- <div class="badge pull-right">New</div> -->
 				<div class="nodiv mytable">${bean.no_no }</div>
-				<div class="titlediv mytable">${bean.title }</div>
-				<div class="naljadiv mytable">${bean.nalja }
+				<div class="titlediv mytable">${bean.title }
 					<c:if test="${nalja == nowdate}">
 						&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
-					</c:if>
-				</div>
+					</c:if></div>
+				<div class="naljadiv mytable">${bean.nalja }</div>
 			</div>
 
 			<!-- Modal -->
@@ -269,7 +268,8 @@ input {
 								공지사항</h4>
 						</div>
 						<div class="modal-body">
-							<form action="/admin/notice/${bean.no_no }" method="POST"
+						<!-- TODO reset 경로수정 / 이지현  -->
+							<form action="/reset/admin/notice/${bean.no_no }" method="POST"
 								class="detailForm" accept-charset="UTF-8">
 								<input type="hidden" name="_method" value="put">
 								<div class="form-group">
