@@ -212,7 +212,7 @@ input {
 								<h4>입력페이지</h4>
 							</div>
 							<div class="modal-body">
-								<form action="/reset/admin/notice/${bean.no_no }" method="post">
+								<form action="/admin/notice/${bean.no_no }" method="post">
 									<!-- TODO [jihyun] reset -->
 									<div class="form-group">
 										<label for="name">제목</label> <input type="text"
@@ -285,7 +285,7 @@ input {
 											공지사항</h4>
 									</div>
 									<div class="modal-body">
-										<form action="/reset/admin/notice/${bean.no_no }"
+										<form action="/admin/notice/${bean.no_no }"
 											method="POST" class="detailForm" accept-charset="UTF-8">
 											<input type="hidden" name="_method" value="put">
 											<div class="form-group">
@@ -356,7 +356,7 @@ input {
 											data-dismiss="modal">목록보기</button>
 										<button type="button" class="blackbtn edit">수정</button>
 
-										<form action="/reset/admin/notice/${bean.no_no }"
+										<form action="/admin/notice/${bean.no_no }"
 											method="POST" class="deleteForm">
 											<input type="hidden" name="_method" value="delete" />
 											<button type="submit" class="redbtn delete">삭제</button>
