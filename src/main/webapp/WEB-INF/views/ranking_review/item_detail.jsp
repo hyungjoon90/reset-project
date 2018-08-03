@@ -217,7 +217,24 @@ function reviewCheck(){
      }
 	 
 };
+
+function mobileCheck(){
+	var filter = "win16|win32|win64|mac";
+	
+	if(navigator.platform){
+		if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+			$("#naverShop").attr("href","https://msearch.shopping.naver.com/search/all.nhn?origQuery=${item_bean.name}&pagingIndex=1&viewType=lst&sort=rel&showFilter=true&frm=NVSHSRC&selectedFilterTab=series&query=${item_bean.name}");
+		}else{
+			$("#naverShop").attr("href","https://search.shopping.naver.com/search/all.nhn?query=${item_bean.name}");
+		}
+	}
+};
 </script>
+<style type="text/css">
+.naverImg{
+	width: 100px;
+}
+</style>
 </head>
 <body>
 	<!--header-->
@@ -262,7 +279,7 @@ function reviewCheck(){
 					<tr>
 						<td>네이버 가격정보</td>
 						<td><a
-							href="https://search.shopping.naver.com/search/all.nhn?query=${item_bean.name}">바로가기</a></td>
+							href="#" id="naverShop"><img class="naverImg" alt="naver" src="${goRoot}imgs/icon/naver_shopping.png" onclick="mobileCheck();"></a></td>
 					</tr>
 				</table>
 			</div>

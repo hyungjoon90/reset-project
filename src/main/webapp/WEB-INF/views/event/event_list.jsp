@@ -28,7 +28,7 @@
 	margin-top: 5%;
 }
 .icon{
-	width:3%;
+	width:18px;
 }
 
 .headtitle{
