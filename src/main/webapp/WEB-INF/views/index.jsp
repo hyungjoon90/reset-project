@@ -167,7 +167,7 @@
 			  <ul class="slides">
 			    <c:forEach items="${magazine_alist }" var="magazine">
 			      <li>
-				      <img src="/${magazine.img }" />
+				      <img src="${magazine.img }" />
 				      <p class="flex-caption">${magazine.title }</p>
 			      </li>
 			    </c:forEach>
@@ -183,7 +183,7 @@
 			  <ul class="slides">
 			    <c:forEach items="${event_alist }" var="event">
 			      <li>
-				      <img src="/${event.img }" />
+				      <img src="${event.img }" />
 				      <p class="flex-caption">${event.title }</p>
 			      </li>
 			    </c:forEach>
