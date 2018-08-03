@@ -61,7 +61,7 @@ $(function() {
 }
 
 .icon{
-	width:3%;
+	width:18px;
 }
 .headtitle{
 	font-size: 3vmax;
