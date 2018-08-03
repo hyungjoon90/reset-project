@@ -276,7 +276,8 @@ function expDown(type){
 	visibility: hidden;
 }
 .copy{
-	float: right;
+	text-align: right;
+	font-family: NanumSquareB;
 }
 .endHr{
 	clear: both;
@@ -297,11 +298,7 @@ function expDown(type){
 		font-size: 20px;
 	}
 	.copy{
-		display:inline-block;
 		text-align: center;
-	}
-	.changeDiv{
-		display: block;
 	}
 	.viewimg{/* 조회수 아이콘 */
 		width: 13px;
@@ -394,7 +391,6 @@ function expDown(type){
 		            </div>
 		            </c:if>
 		            <!-- 좋아요 끝 -->
-
 			<div class="funBtn">
 				<button type="reset" id="listBack" class="listBtn darkBtn">목록</button>
 			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
