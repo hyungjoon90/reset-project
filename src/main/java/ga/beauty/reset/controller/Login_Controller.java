@@ -73,8 +73,12 @@ public class Login_Controller {
 	@RequestMapping(value ="/login/", method=RequestMethod.GET)
 	public String showLoginMain(HttpServletRequest req, Model model, HttpSession session) {
 		model.addAttribute("goRoot", "../");
-		if(session.getAttribute("old_url")==null) session.setAttribute("old_url", req.getHeader("referer"));
+		String swap = req.getHeader("referer");
+		if(swap==null || swap.equals("") || swap.contains("login")) swap = "/";
+		session.setAttribute("old_url", swap);
+		
 		logger.debug("로그인페이지 접속시 이전경로:"+(String)session.getAttribute("old_url"));
+		
 		return "login/login_main";
 	}
 	
@@ -123,7 +127,7 @@ public class Login_Controller {
 				}
 		}
 		if(req.getAttribute("login_err")==null) return (String) req.getAttribute("login_result");
-		else return "errPage";
+		else return "error/error";
 	}//selectLoginService()
 	
 	

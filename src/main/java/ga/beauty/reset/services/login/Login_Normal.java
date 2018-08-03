@@ -89,7 +89,7 @@ public class Login_Normal implements Login_Service {
 				userSession.setAttribute("join_route", checkBean.getJoin_route());
 				userSession.setAttribute("login_user_type", checkBean.getUser_type());
 				userSession.setAttribute("login_email", email);
-				userSession.setAttribute("tmp", passwordUtil.getEncryptSHA256(password+compare.getNick()));
+				userSession.setAttribute("tmp", password);
 				userSession.setAttribute("login_route","normal");
 				req.setAttribute("result", 300);
 				req.setAttribute("msg", "다른 경로로 연결되어 있습니다.");
@@ -119,7 +119,9 @@ public class Login_Normal implements Login_Service {
 				userSession.setAttribute("login_on", true);
 				req.setAttribute("result", 200);
 				req.setAttribute("msg", "로그인 성공");
-				req.setAttribute("redirect", userSession.getAttribute("old_url"));//이전로그
+                String swap = (String)userSession.getAttribute("old_url");
+                if(swap==null || swap.equals("") || swap.equals("null") || swap.contains("login")) swap="/";
+                req.setAttribute("redirect", swap);//이전로그
 				req.setAttribute("login_result", "login/login_normal");
 				return model;
 			}else {
