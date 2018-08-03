@@ -191,27 +191,108 @@ function expDown(type){
 }
 .btimg{/* 좋아요 아이콘 */
 	margin: 2% 1%;
-	width: 4.7%;
+	width: 50px;
 }
 .viewimg{/* 조회수 아이콘 */
-	width: 1.7%;
-	margin-left: 76%;
-	margin-right: 0.5%;
+	width: 20px;
+	margin-right: 10px;
 }
 .view{
 	margin: 10px;
 	color: #b2b0b0;
+	text-align: right;
 }
-#su{
+#popNum{
 	font-size: 1vmax;
 }
-.funBtn{/* 목록,추가 버튼 */
-	display: inline-block;
+.funBtn{/* 목록,삭제,추가 버튼 */
 	float: right;
 }
 .delForm{
 	clear: both;
 	float: right;
+}
+/* 제목표시줄 아래에 있는 줄 */
+#titleHr{
+	width: 85%;
+	height:1px;
+	margin-top: 5px;
+	background-color:#313131;
+}
+
+#comment{
+	margin-top: 20px;
+	clear: both;
+}
+.title{
+	font-size: 30px;
+}
+.nalja{
+	font-size: 16px;
+	text-align:right;
+	color: #b2b0b0;
+}
+/* 항상위에 오는 버튼 */
+.topbtn{
+	width: 60px;
+}
+
+.alwaysBtn{
+	margin-left:70%;
+	bottom: 20px;
+	position: fixed;
+}
+.box-title{
+	clear: both;
+}
+.box-footer{/* 댓글 입력버튼 */
+	margin-top: 20px;
+	float: right;
+}
+.box-body{
+	clear: both;
+}
+/* 댓글 스타일 */
+.com_div{
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.com_nalja{
+	float: right;
+}
+.com_hr{
+	width: 100%;
+	margin-bottom: 1%;
+}
+.comBtn{
+	float: right;
+}
+
+/* tags 안보이게 */
+.com_emailDiv{
+	visibility: hidden;
+}
+.copy{
+	float: right;
+}
+.endHr{
+	clear: both;
+}
+.cate{
+	font-family: NanumSquareR;
+	font-size: 15px;
+}
+.popDiv{
+	clear: both;
+}
+.nalview{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+/* com_email 안보이게 */
+.com_emailDiv{
+	visibility: hidden;
 }
 .addrBtn{
 	background-color:#d00b01;
@@ -237,63 +318,29 @@ function expDown(type){
 	top:1px;
 }
 
-/* 제목표시줄 아래에 있는 줄 */
-#titleHr{
-	width: 85%;
-	height:1px;
-	margin-top: 5px;
-	background-color:#313131;
-}
-
-#comment{
-	margin-top: 20px;
-}
-.title{
-	font-size: 1.9vmax;
-}
-.nalja{
-	font-size: 0.9vmax;
-	margin-left: 75%;
-	color: #b2b0b0;
-}
-/* 항상위에 오는 버튼 */
-.topbtn{
-	width: 40%;
-}
-
-.alwaysBtn{
-	margin-left:75%;
-	bottom: 20px;
-	position: fixed;
-}
-.box-title{
-	clear: both;
-}
-.box-footer{/* 댓글 입력버튼 */
-	margin-top: 20px;
-	margin-left: 90%;
-}
-
-/* 댓글 스타일 */
-.com_div{
-	display: inline-block;
-	margin-bottom: 10px;
-}
-
-.com_nalja{
-	margin-left: 85%;
-}
-.com_hr{
-	width: 100%;
-	margin-bottom: 1%;
-}
-.comBtn{
-	margin-left: 90%;
-}
-
-/* com_email 안보이게 */
-.com_emailDiv{
-	visibility: hidden;
+@media (max-width: 991px) {
+ 	.title{
+		font-size: 20px;
+	}
+	.copy{
+		display:inline-block;
+		text-align: center;
+	}
+	.changeDiv{
+		display: block;
+	}
+	.viewimg{/* 조회수 아이콘 */
+		width: 13px;
+		margin-right: 10px;
+	}
+	.nalja{
+		font-size: 13px;
+		text-align:right;
+		color: #b2b0b0;
+	}
+	.topbtn{
+		width: 40px;
+	}
 }
 </style>
 </head>
@@ -319,12 +366,16 @@ function expDown(type){
 	            <div>
 	            	<span><img src="${goRoot}${detail.img }"></span>
 	            </div>
-	            <div class="nalja">
-	            	<span><strong>${detail.nalja }</strong></span>
-	            </div>
-	            <div class="view">
-	            	<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}<strong></span>
-	            </div>
+	            <div style="padding: 0 7.5%" class="nalview">
+		            <div class="nalja">
+		            	<span><strong>${detail.nalja }</strong></span>
+		            </div>
+		            <div style="clear:both"></div>
+		            <div class="view">
+		            	<span><img alt="view" src="${goRoot}imgs/icon/view_g.png" class="viewimg"><strong>조회수 ${detail.view}</strong></span>
+		            </div>
+		        </div>
+		        <div style="clear:both"></div>
 	            <div>
 	            	<span class="title"><strong>${detail.title }</strong></span>
 	            	<hr id="titleHr"/>
@@ -409,7 +460,6 @@ function expDown(type){
 			<div id="modDiv" style="display : none;">
 				<div class="modal-title">
 					<input type="hidden" id="commentnum" >
-					댓글 수정
 				</div>
 				<div>
 					<textarea rows="5" class="form-control" type="text" id="commenttext"></textarea>
@@ -428,7 +478,7 @@ function expDown(type){
 				</div>
 			</div>
 			<!-- TODO: event 댓글 리스트 끝 -->
-        <hr>
+         <hr class="endHr">
     </div>
     <!-- //main contents -->
     <!--footer-->

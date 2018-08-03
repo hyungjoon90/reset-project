@@ -8,9 +8,15 @@
 
 <style type="text/css">
     /* 컨텐츠 contatiner */
+    h1{
+		font-family: NanumSquareEB;
+	    font-size: 32px;
+	    color: #2e2e2e;
+	}
 	.page_container{
 		width: 80%;
-        border: 0.5px solid rgb(217, 222, 232);
+		font-family: NanumSquareR;
+		margin-bottom: 15px;
 	}
     .page_container>a{
         text-decoration: none;
@@ -20,39 +26,57 @@
     	text-decoration: none;
     	color: black;
     }
+    .search{
+    	text-align: center;
+    }
     .contentsbox{
         width: 85%;
         margin: 0px auto;
         display: flex;
         border-bottom: 0.5px solid rgb(217, 222, 232);
+        padding: 5px 0px;
     }   
     .numbox{
-        width: 20%;
-        margin: auto 0px;
-        font-size: 30pt;
-        text-align: center;
+        width: 0%;
+	    margin: auto 0px;
+	    font-size: 30pt;
+	    text-align: right;
+	    padding-right: 5%;
+    }
+    .labelNum{
+    	padding-right: 19px;
+    	color: #2e2e2e;
     }
     .imgbox{
-        width: 30%;
+        width: 40%;
         text-align: center;
-        height: 160.5px;
-    }
-    .imgbox>img{
-    	width: 160px;
-    	height: 160px;
-    }
-    .conbox{
-        width: 50%;
         margin: auto 0px;
     }
+    .imgbox>img{
+   	    max-height: 160px;
+  		max-width: 100%;
+    }
+	.conbox {
+	    width: 60%;
+	    margin: auto 0px;
+	    padding-left: 5%;
+	}
     .conbox>p{
         margin: 6px 0px;
     }
-    .conbox>p:first-child,.conbox>p:last-child{
-        color: #84868e;
+    .rankingBrand{
+    	font-family: NanumSquareEB;
+    	font-size: 23px;
+    	color: #2e2e2e;
     }
-    .searchBox{
-    	display: inline-block;
+    .rankingvol,.rankingPrice{
+    	font-family: NanumSquareB;
+    	font-size: 18px;
+    	margin-right: 20px;
+    	color: #2e2e2e;
+    }
+    .rankingImg{
+    	width: 60px;
     }
     .RedBtn {
 		background-color: #dd2d25;
@@ -82,6 +106,47 @@
 		position: relative;
 		top: 1px;
 	}
+	.searchBox{
+    	display: inline-block;
+    }
+@media (max-width: 768px) {
+	.input_box {
+	    float:none
+	}
+	.input_box{
+		display: inline-block;
+	}
+}
+@media (max-width: 610px) {
+	.rankingvol{
+    	display: block;
+    }
+}
+@media (max-width: 360px) {
+	.page_container{
+		width: 100%;
+	}
+	
+	.numbox{
+		width: 0%;
+	    text-align: center;
+	    padding-right: 0;
+	    font-size: 20pt;
+    }
+    .imgbox{
+    	width: 30%;
+    }
+    .conbox {
+	    width: 50%;
+	    padding-left: 0;
+	}
+    .labelNum{
+    	padding-right: 0px;
+    }
+    .form-control {
+	    width: 79%;
+	}
+}
 </style>
 <script type="text/javascript">
 
@@ -106,18 +171,22 @@ function search_brand(){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
  			console.log(data.img);
   			$('.brand').append(
-  					"<a href='./item/"+data.item+"'>"+
+  					"<a href='item/"+data.item+"'>"+
   					"<div class='contentsbox'>"+
   					"<div class='numbox box'>"+
-  					"<label>○</label></div>"+
+  					"<label></label>"+
+  					"</div>"+
   					"<div class='imgbox box'>"+
-  					"<img src='${goRoot }"+data.img+"'>"+
+  					"<img src='${goRoot}"+data.img+"'>"+
   					"</div>"+
   					"<div class='conbox box'>"+
-  					"<p>"+data.brand+"</p>"+
-  					"<p>"+data.name+"</p>"+
-  					"<p>"+data.vol+"&nbsp;"+data.price+"원</p>"+
-					"</div></div></a>");
+  					"<p class='rankingBrand rankingP'>"+data.brand+"</p>"+
+					"<p class='rankingName rankingP'>"+data.name+"</p>"+
+					"<p><span class='rankingvol rankingP'>"+data.vol+"</span>"+
+					"<span class='rankingPrice rankingP'>"+data.price+"원</span></p>"+
+  					"</div>"+
+  					"</div>"+
+  					"</a>");
 		})
 	})
 	.fail(function () { // 실패했을때 불러질 함수
@@ -135,18 +204,22 @@ function search_name(){
 	.done(function(data){
  		data.forEach(function (data) { // 데이터의 갯수에 따라서 div를 추가해줬습니다
   			$('.name').append(
-  					"<a href='./item/"+data.item+"'>"+
+  					"<a href='item/"+data.item+"'>"+
   					"<div class='contentsbox'>"+
   					"<div class='numbox box'>"+
-  					"<label>○</label></div>"+
+  					"<label></label>"+
+  					"</div>"+
   					"<div class='imgbox box'>"+
-  					"<img src='${goRoot }"+data.img+"'>"+
+  					"<img src='${goRoot}"+data.img+"'>"+
   					"</div>"+
   					"<div class='conbox box'>"+
-  					"<p>"+data.brand+"</p>"+
-  					"<p>"+data.name+"</p>"+
-  					"<p>"+data.vol+"&nbsp;"+data.price+"원</p>"+
-					"</div></div></a>");
+  					"<p class='rankingBrand rankingP'>"+data.brand+"</p>"+
+					"<p class='rankingName rankingP'>"+data.name+"</p>"+
+					"<p><span class='rankingvol rankingP'>"+data.vol+"</span>"+
+					"<span class='rankingPrice rankingP'>"+data.price+"원</span></p>"+
+  					"</div>"+
+  					"</div>"+
+  					"</a>");
 		})
 	})
 	.fail(function () { // 실패했을때 불러질 함수
@@ -195,16 +268,16 @@ function searchCheck(){
 	    	<a href="./item/${bean.item }">
 				<div class="contentsbox">
 					<div class="numbox box">
-				         <label>○</label>
+				         <label></label>
 					</div>
 					<div class="imgbox box">
 					     <img src="${goRoot}${bean.img }">
 					</div>
 					<div class="conbox box">
-		                <p>${bean.brand }</p>
-					    <p>${bean.name }</p>
-					    <p>${bean.vol }&nbsp;${bean.price }원</p>
-					</div>
+	                <p class="rankingBrand rankingP">${bean.brand }</p>
+					<p class="rankingName rankingP">${bean.name }</p>
+					<p><span class="rankingvol rankingP">${bean.vol }</span><span class="rankingPrice rankingP">${bean.price }원</span></p>
+				</div>
 				</div>
        		</a>
      	</c:forEach>

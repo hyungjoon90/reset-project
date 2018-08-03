@@ -26,6 +26,10 @@
 	    text-align: right;
 	    padding-right: 5%;
     }
+    .labelNum{
+    	padding-right: 19px;
+    	color: #2e2e2e;
+    }
     .imgbox{
         width: 30%;
         text-align: center;
@@ -66,8 +70,21 @@
 	.page_container{
 		width: 100%;
 	}
+	
 	.numbox{
 		width: 20%;
 	    text-align: center;
+	    padding-right: 0;
+	    font-size: 20pt;
+    }
+    .imgbox{
+    	width: 30%;
+    }
+    .conbox {
+	    width: 50%;
+	    padding-left: 0;
+	}
+    .labelNum{
+    	padding-right: 0px;
     }
 }
