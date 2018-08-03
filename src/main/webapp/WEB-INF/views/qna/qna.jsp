@@ -7,11 +7,11 @@
 <head>
 <%@include file="/WEB-INF/views/template/head.jsp" %>
 <style type="text/css">
- .container {
+
+.container {
 	font-family: NanumSquareR;
 	font-size: 20px;
 }
- 
 
 .submitbtn {
 	background-color: #d00b01;
@@ -103,25 +103,22 @@
 	color: #303030;
 }
 
-
-::placeholder{
+::placeholder {
 	font-family: NanumSquareR;
 	font-size: 18px;
-	
 }
 
-
-
-#select{
+#select {
 	font-size: 17px;
 	height: 50px;
 	padding: auto;
-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-#select option{
-height: auto;
-width: auto;}
+#select option {
+	height: auto;
+	width: auto;
+}
 
 .well {
 	background: white;
@@ -132,8 +129,8 @@ width: auto;}
 	text-decoration: none;
 }
 
-#email{
-height:50px;
+#email {
+	height: 50px;
 }
 
 .agree p {
@@ -153,8 +150,14 @@ input.valid, textarea.valid {
 	border: 2px solid green;
 }
 
-/* .form-control input[readonly] {background-color: white;} */
+	@media ( max-width : 768px) {
+		 ::placeholder,#select, .agreetxt {
+	
+			font-size: 14px;
+	}
+}
 
+/* .form-control input[readonly] {background-color: white;} */
 </style>
 </head>
 <body>
@@ -363,7 +366,7 @@ input.valid, textarea.valid {
 						var select = $("#select option:selected").val();
 								console.log(select);
 							if(select == 0){
-								console.log('문의 분류 미선택 : submit 불가능');
+								console.log('문의 분류를 선택해주세요');
 								alert('문의 분류 미선택 : submit 불가능');
 								return false;
 							}
@@ -373,14 +376,14 @@ input.valid, textarea.valid {
 									return false;
 								}
 								if(email.val().length < 1){
-									console.log('이메일 미입력 : submit 불가능'); 
+									console.log('이메일을 입력해주세요'); 
 									$('#email').append("<span>오류</span>");
 									alert('이메일 입력 없음 : submit 불가능');
 									return false;
 								}
 							if (checkbox.is(':not(:checked)')){
 									console.log('checkbox : unchecked');
-									alert('동의해주세요 : submit 불가능');
+									alert('약관에 동의해주세요');
 									return false;
 								};//if end
 						}; //function end
