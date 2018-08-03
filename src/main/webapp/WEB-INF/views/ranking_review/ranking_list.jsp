@@ -86,7 +86,7 @@ function add(){
 							<img alt="rankingImg" src="${goRoot }imgs/icon/crown_${num}.png" class="rankingImg"><c:set var="num" value="${num+1}"  /> 
 						</c:when>
 						<c:otherwise>
-					         <label class="labelNum">${num}&nbsp;&nbsp;</label><c:set var="num" value="${num+1}"  /> 
+					         <label class="labelNum">${num}</label><c:set var="num" value="${num+1}"  /> 
 						</c:otherwise>
 					</c:choose>
 				</div>

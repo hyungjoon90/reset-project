@@ -1,5 +1,4 @@
-@charset "utf-8";
-/* 전체 container */
+	/* 전체 container */
     .page_container{
     	width: 80%;
         border: 1px solid rgb(217, 222, 232);
@@ -93,7 +92,7 @@
 	    font-family: Arial;
 	    font-size: 15px;
 	    font-weight: bold;
-	    padding: 5px 15px;
+	    padding: 5px 14px;
 	    margin: 5px 5px;
 	    text-decoration: none;
 	}
@@ -180,7 +179,7 @@
 	}
 	.btimg{/* 좋아요 아이콘 */
 		margin: 2% 1%;
-		width: 4.7%;
+		width: 50px;
 	}
 	.popDiv{
 	    text-align: center;
@@ -234,6 +233,11 @@
 		margin-bottom: 1%;
 	}
 	.comBtn{
-		margin-left: 90%;
+		float: right;
 	}
-		
+	.endHr{
+		clear: both;
+	}	
+	.box-footer{
+		text-align: right;
+	}

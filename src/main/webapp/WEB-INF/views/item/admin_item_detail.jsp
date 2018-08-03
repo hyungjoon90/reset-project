@@ -17,6 +17,7 @@
     .ImgBox{
         width: 50%;
         float: left;
+        margin-top: 105px;
     }
     .ImgBox>img{
     	max-width: 100%;
@@ -93,6 +94,59 @@
 	}
 	#img_preview img{
 		width: 100%;
+	}
+	.RedBtn {
+		background-color: #dd2d25;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		border: 1px solid #dd2d25;
+	    display: inline-block;
+	    cursor: pointer;
+	    color: #ffffff;
+	    font-family: Arial;
+	    font-size: 15px;
+	    font-weight: bold;
+	    padding: 5px 14px;
+	    margin: 0px 5px;
+	    text-decoration: none;
+	}
+	
+	.RedBtn:hover {
+		color: #fff;
+		background-color: #d00b01;
+	}
+	
+	.RedBtn:active {
+		position: relative;
+		top: 1px;
+	}
+	.darkBtn {
+		background-color: #313131;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		border: 1px solid #313131;
+	    display: inline-block;
+	    cursor: pointer;
+	    color: #ffffff;
+	    font-family: Arial;
+	    font-size: 15px;
+	    font-weight: bold;
+	    padding: 5px 15px;
+	    margin: 5px 5px;
+	    text-decoration: none;
+	}
+	
+	.darkBtn:hover {
+		color: #fff;
+		background-color: #313131;
+	}
+	
+	.darkBtn:active {
+		position: relative;
+		top: 1px;
+		color: white;
 	}
 </style>
 <script type="text/javascript">
@@ -273,10 +327,10 @@ $(document).ready(function(){
         
         <div class="btn-position">
 	        <!-- Button trigger modal -->
-			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#item_edit">
+			<button type="button" class="btn btn-lg RedBtn" data-toggle="modal" data-target="#item_edit">
 			  수정
 			</button>
-			<button type="button" class="btn btn-lg btn-color" data-toggle="modal" data-target="#item_delete">
+			<button type="button" class="btn btn-lg RedBtn" data-toggle="modal" data-target="#item_delete">
 			  삭제
 			</button>
 		</div>
@@ -355,8 +409,8 @@ $(document).ready(function(){
 			  
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" id="close" class="btn btn-default" data-dismiss="modal">닫기</button>
-		        <button type="button" id="itemUpdate" class="btn btn-primary">수정</button>
+		        <button type="button" id="close" class="btn darkBtn" data-dismiss="modal">닫기</button>
+		        <button type="button" id="itemUpdate" class="btn RedBtn">수정</button>
 		      </div>
 		    </div>
 		  </div>
@@ -373,8 +427,8 @@ $(document).ready(function(){
 	        <p>제품을 삭제하시겠습니까?&hellip;</p>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-	        <button type="button" class="btn btn-danger" id="itemDelete">제품 삭제</button>
+	        <button type="button" class="btn darkBtn" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn RedBtn" id="itemDelete">제품 삭제</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@include file="/WEB-INF/views/template/head.jsp"%>
+	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
 <style type="text/css">
     /* 전체 container */
     .page_container{
@@ -118,6 +118,32 @@
 		clip: rect(0, 0, 0, 0);
 		border: 0;
 	}
+	.RedBtn {
+		background-color: #dd2d25;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
+		border: 1px solid #dd2d25;
+	    display: inline-block;
+	    cursor: pointer;
+	    color: #ffffff;
+	    font-family: Arial;
+	    font-size: 15px;
+	    font-weight: bold;
+	    padding: 5px 14px;
+	    margin: 5px 5px;
+	    text-decoration: none;
+	}
+	
+	.RedBtn:hover {
+		color: #fff;
+		background-color: #d00b01;
+	}
+	
+	.RedBtn:active {
+		position: relative;
+		top: 1px;
+	}
 </style>
 <script type="text/javascript">
 
@@ -155,15 +181,11 @@ $(document).ready(function(){
 </head>
 <body>
 	<!--header-->
-    <%@include file="/WEB-INF/views/template/menu.jsp"%>
-    <div class="breadcrumb">
-    	<div>
-   		<a href="/">HOME</a>
-   		<span class="slash">/</span>
-   		ADMIN
-   		</div>
-    </div>
-    <!--//header--> 
+    <div id="wrapper">
+	<%@include file="/WEB-INF/views/template/admin_side_menu.jsp" %>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+            <!-- 컨탠츠 시작 -->
      
     <!-- main contents -->
    <div class="page_container">
@@ -233,7 +255,7 @@ $(document).ready(function(){
         </form>
         <div class="btn-position">
 	        <!-- Button trigger modal -->
-			<button id="item_write" type="button" class="btn btn-lg btn-color">
+			<button id="item_write" type="button" class="btn btn-lg RedBtn">
 			  제품 추가
 			</button>
 		</div>
@@ -241,9 +263,11 @@ $(document).ready(function(){
     <!-- //main contents -->
    
     <!--footer-->
-    <%@include file="/WEB-INF/views/template/footer.jsp"%>
+            <!-- 컨탠츠 끝 -->
+            </div><!-- /.container-fluid -->
+        </div><!-- /#page-wrapper -->
+    </div><!-- /#wrapper -->
     <!--//footer-->   
-    
     <script type="text/javascript">
 
     $('#img').on('change', function() {
