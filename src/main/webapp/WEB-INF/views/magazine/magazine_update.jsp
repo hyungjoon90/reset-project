@@ -118,7 +118,7 @@
 					<!-- 내용 입력 시작-->
 					<!-- Magazine update-page 입니다. -->
 					<form method="post"
-						action="/admin/magazine/${detail.mag_no}/update"
+						action="/reset/admin/magazine/${detail.mag_no}/update"
 						enctype="multipart/form-data" id="magazine_updateForm"
 						onsubmit="return magazineCheck()">
 						<!-- <input type="hidden" name="_method" value="put"/> -->
@@ -151,7 +151,7 @@
 				        CKEDITOR.replace( 'con', {//해당 이름으로 된 textarea에 에디터를 적용
 				            width:'100%',
 				            height:'400px',
-				            filebrowserImageUploadUrl: '/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
+				            filebrowserImageUploadUrl: '/reset/add/img' //여기 경로로 파일을 전달하여 업로드 시킨다.
 				        });
 				         
 				         
@@ -208,7 +208,7 @@
 	    	       type:'post',
 	    	       enctype: 'multipart/form-data',
 	    	       data : formData,
-	    	       url: '/admin/magazine/'+mag_no+'/update',
+	    	       url: '/reset/admin/magazine/'+mag_no+'/update',
 	    	       contentType: false,
 	    	       processData: false,
 	    	       dataType: "Text"

@@ -93,7 +93,7 @@ public class Login_Normal implements Login_Service {
 				userSession.setAttribute("login_route","normal");
 				req.setAttribute("result", 300);
 				req.setAttribute("msg", "다른 경로로 연결되어 있습니다.");
-				req.setAttribute("redirect", "/login/adds/");//TODO 나중에 reset 지워야됨.
+				req.setAttribute("redirect", "/reset/login/adds/");//TODO 나중에 reset 지워야됨.
 				req.setAttribute("login_result", "login/login_normal");
 				return model;
 			}	
@@ -119,7 +119,9 @@ public class Login_Normal implements Login_Service {
 				userSession.setAttribute("login_on", true);
 				req.setAttribute("result", 200);
 				req.setAttribute("msg", "로그인 성공");
-				req.setAttribute("redirect", userSession.getAttribute("old_url"));//이전로그
+				String swap = (String)userSession.getAttribute("old_url");
+				if(swap==null || swap.equals("") || swap.equals("null") || swap.contains("login")) swap="/reset/";
+				req.setAttribute("redirect", swap);//이전로그
 				req.setAttribute("login_result", "login/login_normal");
 				return model;
 			}else {

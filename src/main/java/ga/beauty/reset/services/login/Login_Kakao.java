@@ -39,7 +39,7 @@ public class Login_Kakao implements Login_Service{
 	private static final Logger logger = Logger.getLogger(Login_Kakao.class);
 	
 	private final String clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
-	private String redirectURI ="http://reset-beauty.ga/login/kakao/"; // TODO [kss] 주소바꿀거
+	private String redirectURI ="http://localhost:8080/reset/login/kakao/"; // TODO [kss] 주소바꿀거
 	// private String access_token = "";
 	// private String refresh_token = "";
 
@@ -114,11 +114,11 @@ public class Login_Kakao implements Login_Service{
 				// 연동할건지 물어보기
 				userSession.setAttribute("login_user_type", resultUser.getUser_type());
 				userSession.setAttribute("join_route", resultUser.getJoin_route());
-				req.setAttribute("login_result", "redirect:/login/adds/");
+				req.setAttribute("login_result", "redirect:/reset/login/adds/");
 			}
 		}else {
 			// 회원가입
-			req.setAttribute("login_result", "redirect:/sign/");
+			req.setAttribute("login_result", "redirect:/reset/sign/");
 		}
 		return model;
 	}

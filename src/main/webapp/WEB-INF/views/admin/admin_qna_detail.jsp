@@ -173,9 +173,8 @@ display: hidden;
 				$.ajax({
 					type : 'post',
 					enctype : 'multipart/form-data',
-					url : '/admin/qna/${bean.qa_no }',
-				
-
+					url : '/reset/admin/qna/${bean.qa_no }',
+					//TODO [jihyun]reset
 					dataype : 'text',
 					headers : {
 						//"Context-Type" : "application/json",

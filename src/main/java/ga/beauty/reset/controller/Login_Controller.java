@@ -145,7 +145,7 @@ public class Login_Controller {
 			String email = (String)session.getAttribute("login_email");
 			result= sign_Service.updateProfile(command,session);
 			String swap = (String)session.getAttribute("old_url");
-			if(swap==null || swap.equals("") || swap.equals("null") || swap.contains("/login/")) swap="/";
+			if(swap==null || swap.equals("") || swap.equals("null") || swap.contains("login")) swap="/reset/";
 			if(result==1) {
 				// 로그인처리도 해야됨
 				session.setAttribute("login_on", true);
@@ -159,16 +159,16 @@ public class Login_Controller {
 			}
 		}else if(command.equals("adds_no")){
 			String swap = (String)session.getAttribute("old_url");
-			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/";
+			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/reset/";
 			session.invalidate(); // TODO [kss]세션초기화
 			session.setAttribute("old_url",swap);
 			resultMap.put("result", 300);
-			resultMap.put("redirect", "/login/"); // TODO [kss]reset 지워야됨.
+			resultMap.put("redirect", "/reset/login/"); // TODO [kss]reset 지워야됨.
 			return resultMap;
 		}else {
 			// adds_back
 			String swap = (String)session.getAttribute("old_url");
-			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/";
+			if(swap==null || swap.equals("") || swap.equals("null") ) swap="/reset/";
 			session.invalidate(); // TODO [kss]세션초기화
 			resultMap.put("result", 300);
 			resultMap.put("redirect", swap);

@@ -77,7 +77,7 @@
 					</div>
 					<!-- 아코디언 끝 -->
 					<div>
-						<form action="/admin/eveaddr/${eve_no }" method="post">
+						<form action="/reset/admin/eveaddr/${eve_no }" method="post">
 							<span><input type="text" name="eventNum" id="eventNum"
 								class="form-control" placeholder="당첨인원수를 적어주세요."></span> <span><button
 									type="submit" class="darkBtn">당첨자 조회</button></span>
