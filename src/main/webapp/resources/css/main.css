@@ -58,7 +58,7 @@
         padding: 4px 12px;
     }
     .menu_bar{
-        width: 441px;
+        width: 463px;
         float: right;
     }
     .menu_bar>ul{
@@ -112,7 +112,7 @@
         width: 117px;
     }
     .nav{
-   	    width: 441px;
+   	    width: 463px;
     }
     .nav>li{
         margin: 0px 10px;
@@ -357,10 +357,10 @@
 	}
     .menu_bar{
         padding: 0px;
-        width: 361px;
+        width: 383px;
     }
     .menu_bar>ul{
-        width: 361px;
+        width: 383px;
         float: none;
         margin: 0px auto;
     }
@@ -407,7 +407,10 @@
 	   	margin:0px 5px 5px 5px;
 	}
 	.menu_bar {
-    	width: 274px;
+    	width: 295px;
+	}
+	.menu_bar>ul {
+    	width: 295px;
 	}
 	.nav>li>a {
 	    padding: 10px 4px;

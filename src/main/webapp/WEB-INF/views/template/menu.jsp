@@ -101,7 +101,7 @@
                               </ul>
                             </div>
                           </li>
-                          <li><a href="${goRoot }magazine">화플</a></li>
+                          <li><a href="${goRoot }magazine">매거진</a></li>
                           <li><a href="${goRoot }event">이벤트</a>
                           </li>                                  
 
