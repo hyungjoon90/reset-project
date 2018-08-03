@@ -210,7 +210,7 @@ top-margin: 100px;}
 								<h4>입력페이지</h4>
 							</div>
 							<div class="modal-body">
-								<form action="/admin/notice/${bean.no_no }" method="post">
+								<form action="${goRoot }admin/notice/${bean.no_no }" method="post">
 									<!-- TODO [jihyun] reset -->
 									<div class="form-group">
 										<label for="name">제목</label> <input type="text"

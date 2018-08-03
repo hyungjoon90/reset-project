@@ -38,7 +38,7 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 		if(request.getRequestURI().contains("/sign/")){
 			if(session.getAttribute("login_on")!=null && !(login_user_type.equals("CEO") || login_user_type.equals("직원"))) { 
 	        	logger.info(LogEnum.EEROR_CON+"로그인한 접속자인 {ip:"+ip+", locale:"+locale+"} 회원가입 경로 접속시도");
-				response.sendRedirect("/error");
+				response.sendRedirect("/reset/error");
 	        	return false;
 			}
 		}
