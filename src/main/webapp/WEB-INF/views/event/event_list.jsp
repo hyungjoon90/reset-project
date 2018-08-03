@@ -17,6 +17,7 @@
 .contents_container{
 	display: inline-block;
     text-align: center;
+    width:100%;
 }
 .pagenum_container{
 	width: 100%;
