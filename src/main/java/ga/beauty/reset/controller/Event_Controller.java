@@ -142,7 +142,7 @@ public class Event_Controller {
             String fileName = now+upload.getOriginalFilename();
             byte[] bytes = upload.getBytes();
             //TODO: CKeditor 이미지 저장 장소
-            String uploadPath = "/Tomcat/webapps/ROOT/resources/imgs/ckeditor_imgs/" + fileName;
+            String uploadPath = "/Users/hb/Desktop/3차 프로젝트/코딩/master/src/main/webapp/resources/imgs/ckeditor_imgs/" + fileName;
             out = new FileOutputStream(new File(uploadPath));
             out.write(bytes);
             out.flush();
@@ -152,7 +152,7 @@ public class Event_Controller {
             
             //url경로
             //TODO: ckeditor 이미지 가져오는 주소(uploadPath의 resources의 뒤부터 추가해주세요 )
-            String fileUrl = "http://reset-beauty.ga/imgs/ckeditor_imgs/"+ fileName;
+            String fileUrl = "http://localhost:8080/reset/imgs/ckeditor_imgs/"+ fileName;
             
             printWriter.println("<script type='text/javascript'>"
             		+"setTimeout(function(){"
@@ -213,7 +213,7 @@ public class Event_Controller {
 	@RequestMapping(value="/admin/event/{eve_no}/update", method = RequestMethod.POST)
 	public String update(@PathVariable("eve_no") int eve_no , @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
-		String filePath="/Tomcat/webapps/ROOT/resources/imgs/event_imgs";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/master/src/main/webapp/resources/imgs/event_imgs";
 		Event_Vo bean= new Event_Vo();
 		bean.setEve_no(eve_no);
 		//TODO : 썸네일 사진을 불러오는 곳입니다.
@@ -321,7 +321,7 @@ public class Event_Controller {
 	@RequestMapping(value = "/admin/event", method = RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception {
 		//TODO : 썸네일 주소
-		String filePath="/Tomcat/webapps/ROOT/resources/imgs/event_imgs";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/master/src/main/webapp/resources/imgs/event_imgs";
 		Event_Vo bean= new Event_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));

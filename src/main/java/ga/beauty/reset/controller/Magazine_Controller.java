@@ -279,7 +279,7 @@ public class Magazine_Controller {
 	@RequestMapping(value="/admin/magazine/{mag_no}/update",method=RequestMethod.POST)
 	public String update(@PathVariable("mag_no") int mag_no, @RequestParam("img") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		//TODO : 썸네일 사진 저장 장소 입니다.
-		String filePath="/Tomcat/webapps/ROOT/resources/imgs/mag_imgs";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/master/src/main/webapp/resources/imgs/mag_imgs";
 		Magazine_Vo bean=new Magazine_Vo();
 		bean.setMag_no(mag_no);
 		bean.setTitle(req.getParameter("title"));
@@ -321,7 +321,7 @@ public class Magazine_Controller {
 	@RequestMapping(value="/admin/magazine", method=RequestMethod.POST)
 	public String add(@RequestParam("img") MultipartFile file,HttpServletRequest req) throws IOException, Exception{
 		//TODO : 썸네일 사진 저장 장소 입니다.
-		String filePath="/Tomcat/webapps/ROOT/resources/imgs/mag_imgs";
+		String filePath="/Users/hb/Desktop/3차 프로젝트/코딩/master/src/main/webapp/resources/imgs/mag_imgs";
 		Magazine_Vo bean =new Magazine_Vo();
 		bean.setTitle(req.getParameter("title"));
 		bean.setCon(req.getParameter("con"));

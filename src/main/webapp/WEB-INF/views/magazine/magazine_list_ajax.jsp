@@ -21,23 +21,23 @@ $(function() {
 
 </script>
 <div class="contentsBox" class="span6 element category01" data-category="category01">
-    <div class="hover_img">
-        <a href="magazine/${bean.mag_no}"><img src="/${bean.img}" alt="main_img"></a>
-    </div> 
-    <div class="item_description">
-        <h6><a href="magazine/${bean.mag_no}">${bean.title}</a></h6>
-        <div><strong class="strong">${bean.cate}</strong></div>
-        <div>
-        	<span class="pop">
-        		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
-        	</span>
-        	&emsp;&emsp;&emsp;&emsp;
-        	<span class="view">
-         	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
-        	</span>
-        </div>
-    </div>                                   
-</div>
+                <div class="hover_img">
+                    <a href="magazine/${bean.mag_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
+                </div> 
+                <div class="item_description">
+                    <h3><a href="magazine/${bean.mag_no}"><strong>${bean.title}</strong></a></h3>
+                    <div><strong class="strong">${bean.cate}</strong></div>
+                    <div>
+                    	<span class="pop">
+                    		<img src="imgs/icon/like.png" alt="좋아요" class="icon"/>&emsp;${bean.pop }
+                    	</span>
+                    	&emsp;&emsp;&emsp;&emsp;
+                    	<span class="view">
+	                    	<img src="imgs/icon/view.png" alt="조회수" class="icon"/>&emsp;${bean.view }
+                    	</span>
+                    </div>
+                </div>                                  
+            </div>
 </c:forEach>
 <div class="pagenum_container">
 <!-- 페이징 시작 -->

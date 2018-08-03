@@ -27,7 +27,7 @@ $(document).ready(function(){
 	/* var type=${type}; */		    
     $.ajax({
     	type:'post',
-		url: '/like/'+type+'/'+p_no,
+		url: '/reset/like/'+type+'/'+p_no,
 		data : JSON.stringify({
 			email : email,
 			type : type,
@@ -64,7 +64,7 @@ $(document).ready(function(){
 			/* var type=${type}; */		    
 		    $.ajax({
 		    	type:'PUT',
-				url: '/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
 				data : JSON.stringify({
 					email : email,
 					type : type,
@@ -106,7 +106,7 @@ $(document).ready(function(){
 			/* var type=${type}; */		    
 		    $.ajax({
 		    	type:'DELETE',
-				url: '/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
+				url: '/reset/likes/'+encodeURI(type)+'/'+encodeURI(p_no),
 				data : JSON.stringify({
 					email : email,
 					type : type,
@@ -143,7 +143,7 @@ function expUp(type){
 	var type = type;//review,comment,like
 	$.ajax({
 		type : 'POST',
-		url : '/exp',
+		url : '/reset/exp',
 		data : JSON.stringify({
 			email : email,
 			type : type
@@ -164,7 +164,7 @@ function expDown(type){
 	var type = type;//review,comment,like
 	$.ajax({
 		type : 'DELETE',
-		url : '/exp',
+		url : '/reset/exp',
 		data : JSON.stringify({
 			email : email,
 			type : type
@@ -315,7 +315,7 @@ function expDown(type){
             <!-- detail-page 입니다. -->
             <!-- 내용 입력 -->
             <div class="contents_container">
-            <form method="post" action="/admin/event/${detail.eve_no}">
+            <form method="post" action="/reset/admin/event/${detail.eve_no}">
 	            <div>
 	            	<span><img src="${goRoot}${detail.img }"></span>
 	            </div>
@@ -337,7 +337,7 @@ function expDown(type){
 	            </div>
 	            <!-- TODO:이벤트 주소입력 으로 가는곳입니다. -->
 	            <div>
-					<a href="/event/${detail.eve_no}/addr">
+					<a href="/reset/event/${detail.eve_no}/addr">
 						<button type="button" class="addrBtn">이벤트 참가 신청하기</button>
 					</a>
 				</div>
@@ -363,7 +363,7 @@ function expDown(type){
 			</div>
 			</form>
 			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
-			<form method="post" action="/admin/event/${detail.eve_no}" class="delForm">
+			<form method="post" action="/reset/admin/event/${detail.eve_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="deleteBtn redBtn">삭제</button>
@@ -451,7 +451,7 @@ function expDown(type){
 		<%//TODO 댓글 리스트%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
-			$.getJSON('/'+co_type+"/"+p_no+"/comment",function(data){
+			$.getJSON('/reset/'+co_type+"/"+p_no+"/comment",function(data){
 				var str="";
 				/*//TODO: 댓글 수정 버튼을 세션에 맞게 보여야함.  */
 				$(data).each(
@@ -482,7 +482,7 @@ function expDown(type){
 			<%//TODO url 경로 변경해야함.%>
 			$.ajax({
 				type:'post',
-				url: '/'+co_type+'/'+p_no+'/'+'comment/add',
+				url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method_Override" : "POST"		
@@ -524,7 +524,7 @@ function expDown(type){
 			var content =$("#commenttext").val().replace(/(?:\r\n|\r|\n)/g,"<br/>");
 			$.ajax({
 				type: 'put',
-				url:'/'+co_type+'/'+p_no+'/comment/'+co_no,
+				url:'/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "PUT"
@@ -546,7 +546,7 @@ function expDown(type){
 			var co_no=$("#commentnum").val();
 			$.ajax({
 				type: 'delete',
-				url: '/'+co_type+'/'+p_no+'/comment/'+co_no,
+				url: '/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "DELETE"
