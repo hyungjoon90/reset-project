@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="/resources/css/btn/btn.css" rel="stylesheet">
+<link href="/css/btn/btn.css" rel="stylesheet">
 </head>
 <style>
 .page_container{
