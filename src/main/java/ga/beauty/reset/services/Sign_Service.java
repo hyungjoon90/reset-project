@@ -58,16 +58,16 @@ public class Sign_Service {
 		}else if(otherBean instanceof Companys_Vo) {
 			Companys_Vo companyBean = (Companys_Vo) otherBean;
 			String newPw = null;
-			if(userBean.getUser_type().equals("일반")) {
+			if(!userBean.getUser_type().equals("일반")) {
 			// salt 값으로 사업자번호
 			// 뒤에 붙임.
-				logger.debug("들어온 비밀번호:"+userBean.getPassword());
+			logger.debug("들어온 비밀번호:"+userBean.getPassword());
 				newPw = passwordUtil.getEncryptSHA256(userBean.getPassword()+companyBean.getBisnum());
 				userBean.setPassword(newPw);
 			}
 			resultUser = user_Dao.insertOne(userBean);
-			logger.debug(userBean);
-			logger.debug(companyBean);
+			logger.info(userBean);
+			logger.info(companyBean);
 			resultOther = companys_Dao.insertOne( (Companys_Vo) companyBean);
 		}
 		if(resultUser==1 && resultOther ==1) {

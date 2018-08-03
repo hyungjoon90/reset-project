@@ -31,10 +31,12 @@ public class Login_out_Interceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
         String ip = request.getHeader("X-FORWARDED-FOR");
         Locale locale = request.getLocale();
+        String login_user_type =(String ) session.getAttribute("login_user_type");
+        
         // TODO [kss] 마무리작업시
         if (ip == null) ip = request.getRemoteAddr();		
 		if(request.getRequestURI().contains("/sign/")){
-			if(session.getAttribute("login_on")!=null) { 
+			if(session.getAttribute("login_on")!=null && !(login_user_type.equals("CEO") || login_user_type.equals("직원"))) { 
 	        	logger.info(LogEnum.EEROR_CON+"로그인한 접속자인 {ip:"+ip+", locale:"+locale+"} 회원가입 경로 접속시도");
 				response.sendRedirect("/error");
 	        	return false;

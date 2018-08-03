@@ -54,7 +54,7 @@
     <%@include file="/WEB-INF/views/template/menu.jsp" %>
     <div class="breadcrumb">
     	<div>
-   		<a href="/">HOME</a>
+   		<a href="/reset/">HOME</a>
    		<span class="slash">/</span>
    		이벤트
    		</div>
@@ -67,7 +67,7 @@
    			<div class="headtitle">Event</div>
    			<c:if test="${login_on=='true' && (login_user_type=='CEO' || login_user_type=='직원')}">
    			<div class="">
-           		<a href="/admin/event/add" class="redBtn">글쓰기</a>
+           		<a href="/reset/admin/event/add" class="redBtn">글쓰기</a>
            	</div>
            	</c:if>
    		</div>
@@ -78,7 +78,7 @@
             <div class="contentsBox" class="span6 element category01" data-category="category01">
                 <div class="hover_img">
                 	<!-- //TODO : [김형준] img 주소 변경 필요 -->
-                    <a href="event/${bean.eve_no}"><img src="/${bean.img}" alt="main_img"></a>
+                    <a href="event/${bean.eve_no}"><img src="/reset/${bean.img}" alt="main_img"></a>
                 </div> 
                 <div class="item_description">
                     <h3><a href="event/${bean.eve_no}"><strong>${bean.title}</strong></a></h3>

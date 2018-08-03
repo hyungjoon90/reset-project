@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<c:forEach items="${rev_list }" var="bean">
-		<a href="/admin/${bean.item }/review/${bean.rev_no}">
+	<c:forEach items="${rev_list }" var="review">
+		<a href="/admin/${review.item }/review/${review.rev_no}">
 			<div class="reviewBox">
 					<div class="left_img_box">
 						<c:choose>
