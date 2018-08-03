@@ -4,6 +4,7 @@
 <html>
 <head>
 	<%@include file="/WEB-INF/views/template/admin_header.jsp" %>
+
 <style type="text/css">
     /* 전체 container */
     .page_container{
