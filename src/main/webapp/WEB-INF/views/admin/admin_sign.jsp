@@ -151,7 +151,7 @@ $(function(){
 				$(form).append(address);
 				$(form).append(password);
 				var data = $('#form').serialize();
- 				$.post("/sign/", data, function(output) {
+ 				$.post("/reset/sign/", data, function(output) {
 					if (output.result == 200) {
 						alert("회원등록 완료");
 						window.location.href = "${goRoot}admin/";

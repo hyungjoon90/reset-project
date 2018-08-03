@@ -178,7 +178,7 @@ $(document).ready(function(){
 			<%-- </c:if> --%>
 			</div>
 			</form>
-			<form method="post" action="/admin/magazine/${detail.mag_no}" class="delForm">
+			<form method="post" action="${goRoot }admin/magazine/${detail.mag_no}" class="delForm">
 				<input type="hidden" name="_method" value="delete">
 				<input type="hidden" name="img" id="img" value="${detail.img }">
 				<button type="submit" class="deleteBtn redBtn">삭제</button>
@@ -258,7 +258,7 @@ $(document).ready(function(){
 		<%//TODO [김형준] magazein url 경로(reset) 변경해야함.%>
 		//댓글 리스트 받아오기.
 		function getAllList(){
-			$.getJSON("/"+co_type+"/"+p_no+"/comment",function(data){
+			$.getJSON("/reset/"+co_type+"/"+p_no+"/comment",function(data){
 				var str="";
 				
 			$(data).each(
@@ -289,7 +289,7 @@ $(document).ready(function(){
 			<%//TODO url 경로 변경해야함.%>
 			$.ajax({
 				type:'post',
-				url: '/'+co_type+'/'+p_no+'/'+'comment/add',
+				url: '/reset/'+co_type+'/'+p_no+'/'+'comment/add',
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method_Override" : "POST"		
@@ -328,7 +328,7 @@ $(document).ready(function(){
 			var content=$("#commenttext").val();
 			$.ajax({
 				type: 'put',
-				url:'/'+co_type+'/'+p_no+'/comment/'+co_no,
+				url:'/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
 				headers:{
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "PUT"
@@ -350,7 +350,7 @@ $(document).ready(function(){
 			var co_no=$("#commentnum").val();
 			$.ajax({
 				type: 'delete',
-				url: '/'+co_type+'/'+p_no+'/comment/'+co_no,
+				url: '/reset/'+co_type+'/'+p_no+'/comment/'+co_no,
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "DELETE"

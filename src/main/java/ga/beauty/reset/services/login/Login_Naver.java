@@ -51,7 +51,7 @@ public class Login_Naver implements Login_Service{
 	
 	//
 	public Login_Naver() throws UnsupportedEncodingException {
-		redirectURI =  URLEncoder.encode("http://reset-beauty.ga/login/naver", "UTF-8"); // TODO 나중에 바꿀거
+		redirectURI =  URLEncoder.encode("http://localhost:8080/reset/login/naver", "UTF-8"); // TODO 나중에 바꿀거
 	}
 
 	@Override
@@ -102,11 +102,11 @@ public class Login_Naver implements Login_Service{
 				// 연동할건지 물어보기
 				userSession.setAttribute("login_user_type", resultUser.getUser_type());
 				userSession.setAttribute("join_route", resultUser.getJoin_route());
-				req.setAttribute("login_result", "redirect:/login/adds/");
+				req.setAttribute("login_result", "redirect:/reset/login/adds/");
 			}
 		}else {
 			// 회원가입
-			req.setAttribute("login_result", "redirect:/sign/");
+			req.setAttribute("login_result", "redirect:/reset/sign/");
 		}
 		return model;
 	}

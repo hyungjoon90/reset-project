@@ -37,7 +37,9 @@ public class Session_Listener implements HttpSessionListener{
         	try {
 				login_Lsn.addLog(null, "num", 1);
 			} catch (Exception e) {
-				logger.error(LogEnum.ERROR+e);
+				String msg = e.getMessage();
+				msg=msg.replace("\n", " ").replace("\r", "");
+				logger.error(LogEnum.ERROR+msg);
 				e.printStackTrace();
 			}
         	SESSIONS.put(session.getId(),session);

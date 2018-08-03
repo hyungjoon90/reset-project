@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="/resources/css/btn/btn.css" rel="stylesheet">
+<link href="/reset/css/btn/btn.css" rel="stylesheet">
 </head>
 <style>
 .page_container{
@@ -18,7 +18,7 @@
 		<hr>
 		<br>
 		<!-- TODO: reset url 주소 수정 필요 -->
-	<img alt="error" src="/imgs/icon/error.png">
+	<img alt="error" src="/reset/imgs/icon/error.png">
 	<h1>페이지 오류 안내</h1>
 	<p>홈페이지 이용에 불편을 드려 죄송합니다.</p>
 	<p>잠시후 다시 이용해주십시요.</p>
