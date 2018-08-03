@@ -103,6 +103,7 @@ public class Login_Normal implements Login_Service {
 			Companys_Vo tmpC = new Companys_Vo();
 			Members_Vo tmpM = new Members_Vo();
 			if(!checkBean.getUser_type().equals("일반")) {
+				tmpC.setEmail(email);
 				Companys_Vo compare = companys_Dao.selectOne(tmpC);
 				comparePw = passwordUtil.getEncryptSHA256(password+compare.getBisnum());
 			}else {

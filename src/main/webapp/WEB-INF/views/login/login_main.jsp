@@ -77,6 +77,12 @@ ul,ol,li{margin: 0px; padding: 0px; list-style: none;}
 		margin-top: 9%;
 	}
 }
+@media (max-width: 768px) {
+	#google {
+		display: none;
+	}
+}
+
 </style>
 <!-- Latest compiled and minified JavaScript -->
 <script>
