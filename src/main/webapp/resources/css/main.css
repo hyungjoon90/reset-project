@@ -52,7 +52,7 @@
     .input_box{
     	height: 30px;
 	    width: 50%;
-	    float: right;
+	    float: left;
     }
     .btn{
         padding: 4px 12px;
@@ -314,9 +314,6 @@
         width: 100px;
         margin: 0px auto;
     }
-    .form-control{
-        width: 85%;        
-    }
     .menu_bar{
         clear: both;
         float: none;
@@ -401,6 +398,7 @@
 	.page_container {
 	    width: 95%;
 	}
+	
 	.login-group {
 	    width: 100px;
 	    margin: 0px auto;
@@ -413,6 +411,9 @@
 	}
 	.nav>li>a {
 	    padding: 10px 4px;
+	}
+	.breadcrumb div {
+	    margin: 0px 4%;
 	}
 	.mainTitle{
 		margin-left: 0;
