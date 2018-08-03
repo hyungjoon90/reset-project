@@ -303,7 +303,7 @@ input.valid, textarea.valid {
 				style="color: red">*</sup>는 필수항목입니다</span> <br>
 
 			<div class="well">
-				<form action="/reset/qna" method="post" id="form" onsubmit="return eventCheck()">
+				<form action="/qna" method="post" id="form" onsubmit="return eventCheck()">
 					<!-- TODO reset /이지현 -->
 					<div class="form-group row">
 						<label for="qa_type" id="qa_type" class="col-sm-2 form-label">문의분류</label>

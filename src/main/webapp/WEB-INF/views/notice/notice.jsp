@@ -330,8 +330,9 @@
 								공지사항</h4>
 						</div>
 						<div class="modal-body">
-							<form action="/reset/admin/notice/${bean.no_no }" method="POST"
-								class="detailForm" accept-charset="UTF-8">
+							<form action="/admin/notice/${bean.no_no }" method="POST"
+								<!-- TODO 이지현 경로수정 -->
+								</form>class="detailForm" accept-charset="UTF-8">
 								<input type="hidden" name="_method" value="put">
 								<div class="form-group">
 									<label for="no_no">글번호</label>
