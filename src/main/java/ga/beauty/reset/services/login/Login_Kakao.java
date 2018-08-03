@@ -39,7 +39,7 @@ public class Login_Kakao implements Login_Service{
 	private static final Logger logger = Logger.getLogger(Login_Kakao.class);
 	
 	private final String clientId = "f709273524fdad8902b81660b68a0735";//애플리케이션 클라이언트 아이디값";
-	private String redirectURI ="http://reset-beauty.ga/login/kakao/"; // TODO [kss] 주소바꿀거
+	private String redirectURI ="http://localhost:8080/login/kakao/"; // TODO [kss] 주소바꿀거
 	// private String access_token = "";
 	// private String refresh_token = "";
 
