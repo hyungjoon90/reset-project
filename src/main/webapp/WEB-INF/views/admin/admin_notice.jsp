@@ -44,8 +44,8 @@ h1 {
 	color: #303030;
 }
 
-
-.nohead ,.nodiv, .naljahead, .naljadiv, .newhead, .newdiv,.titlehead, .titlediv{
+.nohead, .nodiv, .naljahead, .naljadiv, .newhead, .newdiv, .titlehead,
+	.titlediv {
 	text-align: center;
 	border-bottom: 1px solid #DDDDDD;
 	display: inline-block;
@@ -57,27 +57,28 @@ h1 {
 	font-size: 20px;
 }
 
-.newhead, .newdiv{
-	width: 10%;
+.nohead, .nodiv {
+	width: 20%;
 }
 
-.nohead, .nodiv{
-width: 10%;
-
-}
 .naljadiv, .naljahead {
-	width: 30%;
+	width: 15%;
 }
 
 .titlehead, .titlediv {
-	width: 50%;
+	width: 65%;
 }
 
+.titlediv {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
 
 .mytable {
 	border-collapse: collapse;
 	height: 5%;
-	text-align : center;
+	text-align: center;
 }
 
 /* .newImg > img{
@@ -85,19 +86,18 @@ width: 10%;
 	height: 25px;
 
 } */
-
 .newbtn {
-	background-color:#d00b01;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:8px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
+	background-color: #d00b01;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 8px;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
 	font-size: 2px;
-	padding:3px 6px;
-	text-decoration:none;
+	padding: 3px 6px;
+	text-decoration: none;
 }
 
 .modal-footer button {
@@ -186,8 +186,13 @@ input {
 	color: white;
 }
 
-.button{
-top-margin: 100px;}
+.button {
+	top-margin: 100px;
+}
+
+.notice_boder {
+	border-bottom: 1px solid #DDDDDD;
+}
 </style>
 
 </head>
@@ -198,10 +203,7 @@ top-margin: 100px;}
 			<div class="container-fluid">
 				<!-- 컨탠츠 시작 -->
 
-				<!-- TODO css end-->
-
 				<!-- 입력하기 -->
-
 				<div class="modal fade bs-example-modal-lg" tabindex="-1"
 					role="dialog" aria-labelledby="myLargeModalLabel">
 					<div class="modal-dialog modal-lg" role="document">
@@ -243,7 +245,6 @@ top-margin: 100px;}
 					<br> <br>
 					<div class="nohead mytable">글번호</div>
 					<div class="titlehead mytable">제목</div>
-					<div class="newhead mytable"></div>
 					<div class="naljahead mytable">날짜</div>
 
 					<c:forEach items="${alist }" var="bean">
@@ -257,20 +258,18 @@ top-margin: 100px;}
 
 
 						<div data-toggle="modal" data-target="#myModal-${bean.no_no }">
-							<!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
-							<!-- <div class="badge pull-right">New</div> -->
-							<div class="nodiv mytable">${bean.no_no }</div>
-							<div class="titlediv mytable">${bean.title }
-							<c:if test="${nalja == nowdate}">
-										&nbsp;&nbsp;<a href="#" class="newbtn">new</a>
-								</c:if></div>
-							<div class="newdiv mytable">
+							<div class="notice_border">
+								<!-- 	<!-- 배너 새 글 작성시에만 뜨도록 choose문 작성할 것-->
+								<!-- <div class="badge pull-right">New</div> -->
+								<div class="nodiv mytable">${bean.no_no }</div>
+								<div class="titlediv mytable">
+									<c:if test="${nalja == nowdate}">
+									<a href="#" class="newbtn">new</a>
+									</c:if>&nbsp;&nbsp;${bean.title }
+								</div>
+								<div class="naljadiv mytable">${bean.nalja }</div>
 							</div>
-							<div class="naljadiv mytable">${bean.nalja }</div>
 						</div>
-
-
-
 						<!-- Modal -->
 						<div class="modal fade yourModal" id="myModal-${bean.no_no }"
 							tabindex="-1" role="dialog"
@@ -286,7 +285,7 @@ top-margin: 100px;}
 											공지사항</h4>
 									</div>
 									<div class="modal-body">
-										<form action="/reset/admin/notice/${bean.no_no }"
+										<form action="/admin/notice/${bean.no_no }"
 											method="POST" class="detailForm" accept-charset="UTF-8">
 											<input type="hidden" name="_method" value="put">
 											<div class="form-group">
@@ -357,7 +356,7 @@ top-margin: 100px;}
 											data-dismiss="modal">목록보기</button>
 										<button type="button" class="blackbtn edit">수정</button>
 
-										<form action="/reset/admin/notice/${bean.no_no }"
+										<form action="/admin/notice/${bean.no_no }"
 											method="POST" class="deleteForm">
 											<input type="hidden" name="_method" value="delete" />
 											<button type="submit" class="redbtn delete">삭제</button>
@@ -369,7 +368,6 @@ top-margin: 100px;}
 								</div>
 							</div>
 						</div>
-
 					</c:forEach>
 
 					<!-- TODO [jihyun]notice - 관리자 로그인시 보이게 되는 입력버튼 -->
@@ -378,7 +376,8 @@ top-margin: 100px;}
 						data-toggle="modal" data-target=".bs-example-modal-lg">입력하기</button>
 					<%-- </c:if> --%>
 				</div>
-<br><br>
+				<br>
+				<br>
 				<!-- 컨탠츠 끝 -->
 			</div>
 			<!-- /.container-fluid -->
