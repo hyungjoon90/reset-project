@@ -70,10 +70,11 @@ $(function() {
 }
 
 .addBtn{
-	display: block;
-	margin-left: 90%;
-	vertical-align: middle;
-	height: 30px;
+    display: block;
+    text-align: right;
+    vertical-align: middle;
+    height: 30px;
+    margin-bottom: 30px;
 }
 
 .icon{
